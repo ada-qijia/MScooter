@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "32B1FF8519C974AC00D9FFF5"
-               BuildableName = "mScooterNow.app"
+               BuildableName = "&#x5fae;&#x8f6f;&#x5c0f;&#x9a6c;.app"
                BlueprintName = "mScooterNow"
                ReferencedContainer = "container:mScooterNow.xcodeproj">
             </BuildableReference>
@@ -43,7 +43,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B1FF8519C974AC00D9FFF5"
-            BuildableName = "mScooterNow.app"
+            BuildableName = "&#x5fae;&#x8f6f;&#x5c0f;&#x9a6c;.app"
             BlueprintName = "mScooterNow"
             ReferencedContainer = "container:mScooterNow.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B1FF8519C974AC00D9FFF5"
-            BuildableName = "mScooterNow.app"
+            BuildableName = "&#x5fae;&#x8f6f;&#x5c0f;&#x9a6c;.app"
             BlueprintName = "mScooterNow"
             ReferencedContainer = "container:mScooterNow.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B1FF8519C974AC00D9FFF5"
-            BuildableName = "mScooterNow.app"
+            BuildableName = "&#x5fae;&#x8f6f;&#x5c0f;&#x9a6c;.app"
             BlueprintName = "mScooterNow"
             ReferencedContainer = "container:mScooterNow.xcodeproj">
          </BuildableReference>

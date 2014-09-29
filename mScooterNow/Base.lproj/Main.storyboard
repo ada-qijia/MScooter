@@ -1,27 +1,420 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="5023" systemVersion="13A603" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
+        <!--Spg Scan View Controller-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="spgViewController" sceneMemberID="viewController">
+                <viewController id="vXZ-lx-hvc" customClass="spgScanViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="jyV-Pf-zRb"/>
                         <viewControllerLayoutGuide type="bottom" id="2fi-mo-0CV"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" contentMode="scaleToFill" id="bE6-UT-Z1d">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circles.png" translatesAutoresizingMaskIntoConstraints="NO" id="OOy-vw-RcS">
+                                <rect key="frame" x="-23" y="-13" width="370" height="590"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="radar.png" translatesAutoresizingMaskIntoConstraints="NO" id="Re7-aB-7tw">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="nbl-JI-NOy">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterEntity.png" translatesAutoresizingMaskIntoConstraints="NO" id="sBy-Ef-wEA">
+                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                            </imageView>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lockHalo.png" translatesAutoresizingMaskIntoConstraints="NO" id="dJY-M4-g46">
+                                <rect key="frame" x="60" y="195" width="200" height="200"/>
+                            </imageView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jF6-4q-19f">
+                                <rect key="frame" x="60" y="195" width="200" height="200"/>
+                                <state key="normal" image="lockCenter.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="scooterClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nlX-8G-cSg"/>
+                                </connections>
+                            </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zhk-87-eSr">
+                                <rect key="frame" x="249" y="32" width="71" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Retry">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="retryClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="f9f-Jf-F30"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="circlesBg" destination="OOy-vw-RcS" id="emv-Ua-q2t"/>
+                        <outlet property="radarImage" destination="Re7-aB-7tw" id="eYS-79-R7V"/>
+                        <outlet property="retryButton" destination="Zhk-87-eSr" id="jqW-Zk-bFG"/>
+                        <outlet property="scooterEntity" destination="sBy-Ef-wEA" id="cpv-RB-kR4"/>
+                        <outlet property="scooterOutline" destination="nbl-JI-NOy" id="XVn-QL-vtO"/>
+                        <outlet property="unlockButton" destination="jF6-4q-19f" id="Rtw-GO-LzM"/>
+                        <outlet property="unlockHalo" destination="dJY-M4-g46" id="HCM-0Z-o3u"/>
+                        <segue destination="qNt-DY-caT" kind="modal" identifier="ConnectPeripheral" id="lAo-Hy-ewb"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="48" y="10"/>
+        </scene>
+        <!--Spg Dashboard View Controller-->
+        <scene sceneID="GgK-Mw-vYF">
+            <objects>
+                <viewController id="qNt-DY-caT" customClass="spgDashboardViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="g0Q-oU-Txl"/>
+                        <viewControllerLayoutGuide type="bottom" id="lZn-Sa-GVN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="se9-37-Rfa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VXl-aE-Dqk">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="23R-lI-sAc" kind="embed" id="LiM-P9-qwS"/>
+                                </connections>
+                            </containerView>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjU-u3-QoN" userLabel="ControllerView">
+                                <rect key="frame" x="0.0" y="25" width="320" height="44"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NV2-Pa-G6X">
+                                        <rect key="frame" x="10" y="2" width="40" height="40"/>
+                                        <state key="normal" title="powerOff" image="powerOff.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="powerOff:" destination="qNt-DY-caT" eventType="touchUpInside" id="KHf-SS-XXX"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ozk-4a-c1M">
+                                        <rect key="frame" x="55" y="2" width="40" height="40"/>
+                                        <state key="normal" title="lightSwitch" image="lightOff.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="lightOn.png"/>
+                                        <connections>
+                                            <action selector="lightClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="lRm-LW-FXm"/>
+                                        </connections>
+                                    </button>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="acs-Iu-NHv" userLabel="CamButtonsView">
+                                        <rect key="frame" x="200" y="0.0" width="120" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8h-4g-JjS">
+                                                <rect key="frame" x="27" y="2" width="40" height="40"/>
+                                                <state key="normal" title="camSwitch" image="video.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <state key="selected" image="camera.png"/>
+                                                <connections>
+                                                    <action selector="switchMode:" destination="qNt-DY-caT" eventType="touchUpInside" id="EFq-DG-sYC"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vy8-b1-eWA">
+                                                <rect key="frame" x="72" y="2" width="40" height="40"/>
+                                                <state key="normal" title="modeSwitch" image="switchCam.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="switchCam:" destination="qNt-DY-caT" eventType="touchUpInside" id="D1b-fa-Wku"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bCU-sn-3vM" userLabel="WarningView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Connection Failed!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ixZ-xp-pzm">
+                                                <rect key="frame" x="70" y="10" width="187" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BbM-qa-z1t">
+                                                <rect key="frame" x="200" y="2" width="40" height="40"/>
+                                                <state key="normal" image="scan.png">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="RetryClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="2s7-fb-Vd6"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="cSL-jz-0bf"/>
+                    <connections>
+                        <outlet property="camButtonsView" destination="acs-Iu-NHv" id="Fvf-rG-X3s"/>
+                        <outlet property="camSwitchButton" destination="n8h-4g-JjS" id="CBY-ty-Oti"/>
+                        <outlet property="warningView" destination="bCU-sn-3vM" id="4sm-m3-KTb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jz5-FB-VnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="476" y="10"/>
+        </scene>
+        <!--Spg Gauges View Controller-->
+        <scene sceneID="DOf-2i-2AF">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="23R-lI-sAc" customClass="spgGaugesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="tfY-DT-ecq"/>
+                        <viewControllerLayoutGuide type="bottom" id="ZAO-Oj-sI8"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hQ3-ch-2Bm">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AHH-hu-Ujp" userLabel="DashboardView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="speedBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="sNi-er-7dL">
+                                        <rect key="frame" x="18" y="62" width="285" height="285"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="speedCircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="9gf-Zc-Ked">
+                                        <rect key="frame" x="43" y="86" width="236" height="236"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="batteryBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="H56-zT-AI4">
+                                        <rect key="frame" x="23" y="336" width="280" height="128"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="batteryCircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="oAd-lx-Ipg">
+                                        <rect key="frame" x="34" y="348" width="104" height="104"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="batteryCircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="gQL-Vf-Gzn">
+                                        <rect key="frame" x="188" y="348" width="104" height="104"/>
+                                    </imageView>
+                                    <view tag="34" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPj-ae-r5j" customClass="WMGaugeView">
+                                        <rect key="frame" x="46" y="89" width="230" height="230"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="115"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view tag="35" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hBZ-eU-Imn" customClass="WMGaugeView">
+                                        <rect key="frame" x="36" y="350" width="100" height="100"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="50"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view tag="36" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9a-Gi-05f" customClass="WMGaugeView">
+                                        <rect key="frame" x="190" y="350" width="100" height="100"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="50"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gL5-XU-UxJ">
+                                        <rect key="frame" x="0.0" y="480" width="320" height="60"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="infoTitle.png" translatesAutoresizingMaskIntoConstraints="NO" id="06A-H4-xXL">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="15"/>
+                                            </imageView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="info.png" translatesAutoresizingMaskIntoConstraints="NO" id="UHz-Ot-F6d">
+                                                <rect key="frame" x="0.0" y="15" width="320" height="22"/>
+                                            </imageView>
+                                        </subviews>
+                                    </view>
+                                </subviews>
+                            </view>
+                            <view hidden="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cF-wl-mDw" userLabel="ARView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQS-qe-Dfe">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                        <connections>
+                                            <segue destination="8Od-gK-dJg" kind="embed" id="5iM-Y9-vLe"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TyZ-9n-t7K">
+                                        <rect key="frame" x="183" y="80" width="130" height="130"/>
+                                        <connections>
+                                            <segue destination="rpL-yg-vHJ" kind="embed" id="Xyr-8V-h9F"/>
+                                        </connections>
+                                    </containerView>
+                                    <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rjY-jK-Gvj">
+                                        <rect key="frame" x="0.0" y="323" width="320" height="203"/>
+                                        <connections>
+                                            <segue destination="NxP-si-EGj" kind="embed" id="cGG-2u-mjY"/>
+                                        </connections>
+                                    </containerView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="zCV-dY-imV">
+                                        <rect key="frame" x="10" y="80" width="120" height="38"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rpk-Mr-vC7">
+                                        <rect key="frame" x="105" y="35" width="66" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="300" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6BB-81-Bvr">
+                                        <rect key="frame" x="213" y="35" width="57" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </view>
+                        </subviews>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="batteryGaugeView" destination="hBZ-eU-Imn" id="yZo-Jl-LVS"/>
+                        <outlet property="distanceGaugeView" destination="R9a-Gi-05f" id="OAy-ho-Wfk"/>
+                        <outlet property="speedGaugeView" destination="xPj-ae-r5j" id="5Rl-QC-Bnr"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sWl-9D-8TQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="894" y="10"/>
+        </scene>
+        <!--Spg Video Capture View Controller-->
+        <scene sceneID="vLH-HW-PLv">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="8Od-gK-dJg" customClass="spgVideoCaptureViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zM6-he-ovi"/>
+                        <viewControllerLayoutGuide type="bottom" id="Gcb-ME-zBr"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="MN3-gI-77y">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="587-Pu-Dsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1416" y="-371"/>
+        </scene>
+        <!--SpgAR Gauges View Controller-->
+        <scene sceneID="Zkv-Xs-M0y">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="NxP-si-EGj" customClass="spgARGaugesViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="feM-hq-pJr"/>
+                        <viewControllerLayoutGuide type="bottom" id="tMZ-fS-f3G"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Hvo-XI-CVB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="203"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dashboardBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="UKM-gY-Udb">
+                                <rect key="frame" x="20" y="6" width="285" height="192"/>
+                            </imageView>
+                            <view tag="41" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfR-0P-Hxl" customClass="WMGaugeView">
+                                <rect key="frame" x="26" y="12" width="180" height="180"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="90"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view tag="42" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTy-qe-xke" customClass="WMGaugeView">
+                                <rect key="frame" x="177" y="42" width="120" height="120"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="70"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="batteryGaugeView" destination="PTy-qe-xke" id="Jtf-Tc-Zrl"/>
+                        <outlet property="speedGaugeView" destination="IfR-0P-Hxl" id="s6Z-0a-5Gn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pyW-xU-Mhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1416" y="288"/>
+        </scene>
+        <!--Spg Map View Controller-->
+        <scene sceneID="rtR-BI-ev6">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="rpL-yg-vHJ" customClass="spgMapViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="K8P-Uq-MM9"/>
+                        <viewControllerLayoutGuide type="bottom" id="6gy-Yv-wcO"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="cpj-Hu-VAy">
+                        <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999998807907104" contentMode="scaleToFill" fixedFrame="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="k2q-Qq-LOL">
+                                <rect key="frame" x="0.0" y="0.0" width="130" height="130"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="65"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </mapView>
+                        </subviews>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="mapView" destination="k2q-Qq-LOL" id="bKT-8o-QZ5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cLP-Gx-a9Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1448" y="588"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="batteryBg.png" width="557" height="256"/>
+        <image name="batteryCircle.png" width="203" height="203"/>
+        <image name="camera.png" width="65" height="65"/>
+        <image name="circles.png" width="640" height="1136"/>
+        <image name="dashboardBg.png" width="475" height="318"/>
+        <image name="info.png" width="640" height="43"/>
+        <image name="infoTitle.png" width="640" height="30"/>
+        <image name="lightOff.png" width="65" height="65"/>
+        <image name="lightOn.png" width="65" height="65"/>
+        <image name="lockCenter.png" width="415" height="415"/>
+        <image name="lockHalo.png" width="415" height="415"/>
+        <image name="powerOff.png" width="65" height="65"/>
+        <image name="profile.png" width="262" height="81"/>
+        <image name="radar.png" width="956" height="956"/>
+        <image name="scan.png" width="65" height="65"/>
+        <image name="scooterEntity.png" width="640" height="1136"/>
+        <image name="scooterOutline.png" width="640" height="1136"/>
+        <image name="speedBg.png" width="524" height="524"/>
+        <image name="speedCircle.png" width="436" height="436"/>
+        <image name="switchCam.png" width="65" height="65"/>
+        <image name="video.png" width="65" height="65"/>
+    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

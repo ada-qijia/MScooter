@@ -7,6 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		32ABC2C619CBC9AE00F3254E /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BC19CBC9AE00F3254E /* camera.png */; };
+		32ABC2C719CBC9AE00F3254E /* circles.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BD19CBC9AE00F3254E /* circles.png */; };
+		32ABC2C819CBC9AE00F3254E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BE19CBC9AE00F3254E /* info.png */; };
+		32ABC2C919CBC9AE00F3254E /* infoTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BF19CBC9AE00F3254E /* infoTitle.png */; };
+		32ABC2CA19CBC9AE00F3254E /* lightOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C019CBC9AE00F3254E /* lightOff.png */; };
+		32ABC2CB19CBC9AE00F3254E /* lightOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C119CBC9AE00F3254E /* lightOn.png */; };
+		32ABC2CC19CBC9AE00F3254E /* powerOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C219CBC9AE00F3254E /* powerOff.png */; };
+		32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C319CBC9AE00F3254E /* scan.png */; };
+		32ABC2CE19CBC9AE00F3254E /* switchCam.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C419CBC9AE00F3254E /* switchCam.png */; };
+		32ABC2CF19CBC9AE00F3254E /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C519CBC9AE00F3254E /* video.png */; };
+		32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFF019C97B1800D9FFF5 /* THPinViewController.strings */; };
+		32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF719C97B1800D9FFF5 /* THPinInputCirclesView.m */; };
+		32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF919C97B1800D9FFF5 /* THPinInputCircleView.m */; };
+		32B1000C19C97B1800D9FFF5 /* THPinNumButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFFB19C97B1800D9FFF5 /* THPinNumButton.m */; };
+		32B1000D19C97B1800D9FFF5 /* THPinNumPadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFFD19C97B1800D9FFF5 /* THPinNumPadView.m */; };
+		32B1000E19C97B1800D9FFF5 /* THPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFFF19C97B1800D9FFF5 /* THPinView.m */; };
+		32B1000F19C97B1800D9FFF5 /* THPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1000119C97B1800D9FFF5 /* THPinViewController.m */; };
+		32B1001019C97B1800D9FFF5 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1000419C97B1800D9FFF5 /* UIImage+ImageEffects.m */; };
+		32B1001119C97B1800D9FFF5 /* WMGaugeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1000819C97B1800D9FFF5 /* WMGaugeView.m */; };
+		32B1001519C97B2D00D9FFF5 /* spgBLEService.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1001419C97B2D00D9FFF5 /* spgBLEService.m */; };
+		32B1001819C97B7900D9FFF5 /* spgPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1001719C97B7900D9FFF5 /* spgPinViewController.m */; };
+		32B1001F19C97D7B00D9FFF5 /* spgDashboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1001E19C97D7B00D9FFF5 /* spgDashboardViewController.m */; };
+		32B1002519C97DF300D9FFF5 /* spgGaugesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1002419C97DF300D9FFF5 /* spgGaugesViewController.m */; };
+		32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1002619C981A400D9FFF5 /* batteryBg.png */; };
+		32B1002D19C981A400D9FFF5 /* batteryCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1002719C981A400D9FFF5 /* batteryCircle.png */; };
+		32B1002E19C981A400D9FFF5 /* DIST icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1002819C981A400D9FFF5 /* DIST icon.png */; };
+		32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1002919C981A400D9FFF5 /* speedBg.png */; };
+		32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1002A19C981A400D9FFF5 /* speedCircle.png */; };
+		32B1003319C982D300D9FFF5 /* timeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1003219C982D300D9FFF5 /* timeIcon.png */; };
+		32B1003519C98A8800D9FFF5 /* bg2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B1003419C98A8800D9FFF5 /* bg2.jpg */; };
+		32B1003F19CADB8E00D9FFF5 /* spgMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */; };
+		32B1004019CADB8E00D9FFF5 /* spgVideoCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1003E19CADB8E00D9FFF5 /* spgVideoCaptureViewController.m */; };
+		32B1004319CADBB000D9FFF5 /* spgARGaugesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */; };
 		32B1FF8A19C974AC00D9FFF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FF8919C974AC00D9FFF5 /* Foundation.framework */; };
 		32B1FF8C19C974AC00D9FFF5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FF8B19C974AC00D9FFF5 /* CoreGraphics.framework */; };
 		32B1FF8E19C974AC00D9FFF5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FF8D19C974AC00D9FFF5 /* UIKit.framework */; };
@@ -16,25 +49,68 @@
 		32B1FF9D19C974AD00D9FFF5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FF9B19C974AD00D9FFF5 /* Main.storyboard */; };
 		32B1FFA019C974AD00D9FFF5 /* spgViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FF9F19C974AD00D9FFF5 /* spgViewController.m */; };
 		32B1FFA219C974AD00D9FFF5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFA119C974AD00D9FFF5 /* Images.xcassets */; };
-		32B1FFA919C974AD00D9FFF5 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FFA819C974AD00D9FFF5 /* XCTest.framework */; };
-		32B1FFAA19C974AD00D9FFF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FF8919C974AC00D9FFF5 /* Foundation.framework */; };
-		32B1FFAB19C974AD00D9FFF5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FF8D19C974AC00D9FFF5 /* UIKit.framework */; };
-		32B1FFB319C974AD00D9FFF5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFB119C974AD00D9FFF5 /* InfoPlist.strings */; };
-		32B1FFB519C974AD00D9FFF5 /* mScooterNowTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFB419C974AD00D9FFF5 /* mScooterNowTests.m */; };
+		32B1FFC119C975C100D9FFF5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FFC019C975C100D9FFF5 /* CoreBluetooth.framework */; };
+		32B1FFDB19C978C800D9FFF5 /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCB19C978C800D9FFF5 /* apple.png */; };
+		32B1FFDC19C978C800D9FFF5 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCC19C978C800D9FFF5 /* bg.jpg */; };
+		32B1FFDD19C978C800D9FFF5 /* capture1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCD19C978C800D9FFF5 /* capture1@2x.png */; };
+		32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCE19C978C800D9FFF5 /* capture@2x.png */; };
+		32B1FFDF19C978C800D9FFF5 /* capture@2x.png.zip in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCF19C978C800D9FFF5 /* capture@2x.png.zip */; };
+		32B1FFE019C978C800D9FFF5 /* dashboardBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD019C978C800D9FFF5 /* dashboardBg.png */; };
+		32B1FFE119C978C800D9FFF5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD119C978C800D9FFF5 /* Default.png */; };
+		32B1FFE219C978C800D9FFF5 /* lockCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD219C978C800D9FFF5 /* lockCenter.png */; };
+		32B1FFE319C978C800D9FFF5 /* lockHalo.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD319C978C800D9FFF5 /* lockHalo.png */; };
+		32B1FFE419C978C800D9FFF5 /* me@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD419C978C800D9FFF5 /* me@2x.png */; };
+		32B1FFE519C978C800D9FFF5 /* moments@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD519C978C800D9FFF5 /* moments@2x.png */; };
+		32B1FFE619C978C800D9FFF5 /* profile.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD619C978C800D9FFF5 /* profile.png */; };
+		32B1FFE719C978C800D9FFF5 /* radar.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD719C978C800D9FFF5 /* radar.png */; };
+		32B1FFE819C978C800D9FFF5 /* scooterEntity.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD819C978C800D9FFF5 /* scooterEntity.png */; };
+		32B1FFE919C978C800D9FFF5 /* scooterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD919C978C800D9FFF5 /* scooterIcon.png */; };
+		32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFDA19C978C800D9FFF5 /* scooterOutline.png */; };
+		32B1FFEE19C97AC100D9FFF5 /* spgScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFED19C97AC100D9FFF5 /* spgScanViewController.m */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		32B1FFAC19C974AD00D9FFF5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 32B1FF7E19C974AC00D9FFF5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 32B1FF8519C974AC00D9FFF5;
-			remoteInfo = mScooterNow;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
-		32B1FF8619C974AC00D9FFF5 /* mScooterNow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mScooterNow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		32ABC2BC19CBC9AE00F3254E /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		32ABC2BD19CBC9AE00F3254E /* circles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circles.png; sourceTree = "<group>"; };
+		32ABC2BE19CBC9AE00F3254E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
+		32ABC2BF19CBC9AE00F3254E /* infoTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoTitle.png; sourceTree = "<group>"; };
+		32ABC2C019CBC9AE00F3254E /* lightOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightOff.png; sourceTree = "<group>"; };
+		32ABC2C119CBC9AE00F3254E /* lightOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightOn.png; sourceTree = "<group>"; };
+		32ABC2C219CBC9AE00F3254E /* powerOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerOff.png; sourceTree = "<group>"; };
+		32ABC2C319CBC9AE00F3254E /* scan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scan.png; sourceTree = "<group>"; };
+		32ABC2C419CBC9AE00F3254E /* switchCam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCam.png; sourceTree = "<group>"; };
+		32ABC2C519CBC9AE00F3254E /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
+		32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgMScooterDefinitions.h; sourceTree = "<group>"; };
+		32B1000019C97B1800D9FFF5 /* THPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewController.h; sourceTree = "<group>"; };
+		32B1000119C97B1800D9FFF5 /* THPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinViewController.m; sourceTree = "<group>"; };
+		32B1000219C97B1800D9FFF5 /* THPinViewControllerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewControllerMacros.h; sourceTree = "<group>"; };
+		32B1000319C97B1800D9FFF5 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		32B1000419C97B1800D9FFF5 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		32B1000519C97B1800D9FFF5 /* zh-Hans-CN */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans-CN"; path = "zh-Hans-CN.lproj/THPinViewController.strings"; sourceTree = "<group>"; };
+		32B1000719C97B1800D9FFF5 /* WMGaugeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMGaugeView.h; sourceTree = "<group>"; };
+		32B1000819C97B1800D9FFF5 /* WMGaugeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WMGaugeView.m; sourceTree = "<group>"; };
+		32B1001319C97B2D00D9FFF5 /* spgBLEService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgBLEService.h; sourceTree = "<group>"; };
+		32B1001419C97B2D00D9FFF5 /* spgBLEService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgBLEService.m; sourceTree = "<group>"; };
+		32B1001619C97B7900D9FFF5 /* spgPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgPinViewController.h; sourceTree = "<group>"; };
+		32B1001719C97B7900D9FFF5 /* spgPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgPinViewController.m; sourceTree = "<group>"; };
+		32B1001D19C97D7B00D9FFF5 /* spgDashboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgDashboardViewController.h; sourceTree = "<group>"; };
+		32B1001E19C97D7B00D9FFF5 /* spgDashboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgDashboardViewController.m; sourceTree = "<group>"; };
+		32B1002319C97DF300D9FFF5 /* spgGaugesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgGaugesViewController.h; sourceTree = "<group>"; };
+		32B1002419C97DF300D9FFF5 /* spgGaugesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgGaugesViewController.m; sourceTree = "<group>"; };
+		32B1002619C981A400D9FFF5 /* batteryBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = batteryBg.png; sourceTree = "<group>"; };
+		32B1002719C981A400D9FFF5 /* batteryCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = batteryCircle.png; sourceTree = "<group>"; };
+		32B1002819C981A400D9FFF5 /* DIST icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "DIST icon.png"; sourceTree = "<group>"; };
+		32B1002919C981A400D9FFF5 /* speedBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedBg.png; sourceTree = "<group>"; };
+		32B1002A19C981A400D9FFF5 /* speedCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedCircle.png; sourceTree = "<group>"; };
+		32B1003219C982D300D9FFF5 /* timeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeIcon.png; sourceTree = "<group>"; };
+		32B1003419C98A8800D9FFF5 /* bg2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg2.jpg; sourceTree = "<group>"; };
+		32B1003B19CADB8E00D9FFF5 /* spgMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgMapViewController.h; sourceTree = "<group>"; };
+		32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgMapViewController.m; sourceTree = "<group>"; };
+		32B1003D19CADB8E00D9FFF5 /* spgVideoCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgVideoCaptureViewController.h; sourceTree = "<group>"; };
+		32B1003E19CADB8E00D9FFF5 /* spgVideoCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgVideoCaptureViewController.m; sourceTree = "<group>"; };
+		32B1004119CADBB000D9FFF5 /* spgARGaugesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgARGaugesViewController.h; sourceTree = "<group>"; };
+		32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgARGaugesViewController.m; sourceTree = "<group>"; };
+		32B1FF8619C974AC00D9FFF5 /* 微软小马.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "微软小马.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		32B1FF8919C974AC00D9FFF5 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		32B1FF8B19C974AC00D9FFF5 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		32B1FF8D19C974AC00D9FFF5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -48,11 +124,43 @@
 		32B1FF9E19C974AD00D9FFF5 /* spgViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgViewController.h; sourceTree = "<group>"; };
 		32B1FF9F19C974AD00D9FFF5 /* spgViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = spgViewController.m; sourceTree = "<group>"; };
 		32B1FFA119C974AD00D9FFF5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		32B1FFA719C974AD00D9FFF5 /* mScooterNowTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mScooterNowTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		32B1FFA819C974AD00D9FFF5 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		32B1FFB019C974AD00D9FFF5 /* mScooterNowTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "mScooterNowTests-Info.plist"; sourceTree = "<group>"; };
 		32B1FFB219C974AD00D9FFF5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		32B1FFB419C974AD00D9FFF5 /* mScooterNowTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mScooterNowTests.m; sourceTree = "<group>"; };
+		32B1FFC019C975C100D9FFF5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		32B1FFCB19C978C800D9FFF5 /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
+		32B1FFCC19C978C800D9FFF5 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
+		32B1FFCD19C978C800D9FFF5 /* capture1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture1@2x.png"; sourceTree = "<group>"; };
+		32B1FFCE19C978C800D9FFF5 /* capture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture@2x.png"; sourceTree = "<group>"; };
+		32B1FFCF19C978C800D9FFF5 /* capture@2x.png.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "capture@2x.png.zip"; sourceTree = "<group>"; };
+		32B1FFD019C978C800D9FFF5 /* dashboardBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboardBg.png; sourceTree = "<group>"; };
+		32B1FFD119C978C800D9FFF5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		32B1FFD219C978C800D9FFF5 /* lockCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lockCenter.png; sourceTree = "<group>"; };
+		32B1FFD319C978C800D9FFF5 /* lockHalo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lockHalo.png; sourceTree = "<group>"; };
+		32B1FFD419C978C800D9FFF5 /* me@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "me@2x.png"; sourceTree = "<group>"; };
+		32B1FFD519C978C800D9FFF5 /* moments@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "moments@2x.png"; sourceTree = "<group>"; };
+		32B1FFD619C978C800D9FFF5 /* profile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile.png; sourceTree = "<group>"; };
+		32B1FFD719C978C800D9FFF5 /* radar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = radar.png; sourceTree = "<group>"; };
+		32B1FFD819C978C800D9FFF5 /* scooterEntity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterEntity.png; sourceTree = "<group>"; };
+		32B1FFD919C978C800D9FFF5 /* scooterIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterIcon.png; sourceTree = "<group>"; };
+		32B1FFDA19C978C800D9FFF5 /* scooterOutline.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterOutline.png; sourceTree = "<group>"; };
+		32B1FFEC19C97AC100D9FFF5 /* spgScanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgScanViewController.h; sourceTree = "<group>"; };
+		32B1FFED19C97AC100D9FFF5 /* spgScanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgScanViewController.m; sourceTree = "<group>"; };
+		32B1FFF119C97B1800D9FFF5 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/THPinViewController.strings; sourceTree = "<group>"; };
+		32B1FFF219C97B1800D9FFF5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/THPinViewController.strings; sourceTree = "<group>"; };
+		32B1FFF319C97B1800D9FFF5 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/THPinViewController.strings; sourceTree = "<group>"; };
+		32B1FFF419C97B1800D9FFF5 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/THPinViewController.strings; sourceTree = "<group>"; };
+		32B1FFF519C97B1800D9FFF5 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/THPinViewController.strings; sourceTree = "<group>"; };
+		32B1FFF619C97B1800D9FFF5 /* THPinInputCirclesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinInputCirclesView.h; sourceTree = "<group>"; };
+		32B1FFF719C97B1800D9FFF5 /* THPinInputCirclesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinInputCirclesView.m; sourceTree = "<group>"; };
+		32B1FFF819C97B1800D9FFF5 /* THPinInputCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinInputCircleView.h; sourceTree = "<group>"; };
+		32B1FFF919C97B1800D9FFF5 /* THPinInputCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinInputCircleView.m; sourceTree = "<group>"; };
+		32B1FFFA19C97B1800D9FFF5 /* THPinNumButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinNumButton.h; sourceTree = "<group>"; };
+		32B1FFFB19C97B1800D9FFF5 /* THPinNumButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinNumButton.m; sourceTree = "<group>"; };
+		32B1FFFC19C97B1800D9FFF5 /* THPinNumPadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinNumPadView.h; sourceTree = "<group>"; };
+		32B1FFFD19C97B1800D9FFF5 /* THPinNumPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinNumPadView.m; sourceTree = "<group>"; };
+		32B1FFFE19C97B1800D9FFF5 /* THPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinView.h; sourceTree = "<group>"; };
+		32B1FFFF19C97B1800D9FFF5 /* THPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,25 +168,51 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B1FFC119C975C100D9FFF5 /* CoreBluetooth.framework in Frameworks */,
 				32B1FF8C19C974AC00D9FFF5 /* CoreGraphics.framework in Frameworks */,
 				32B1FF8E19C974AC00D9FFF5 /* UIKit.framework in Frameworks */,
 				32B1FF8A19C974AC00D9FFF5 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		32B1FFA419C974AD00D9FFF5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				32B1FFA919C974AD00D9FFF5 /* XCTest.framework in Frameworks */,
-				32B1FFAB19C974AD00D9FFF5 /* UIKit.framework in Frameworks */,
-				32B1FFAA19C974AD00D9FFF5 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32B1000619C97B1800D9FFF5 /* WMGaugeView */ = {
+			isa = PBXGroup;
+			children = (
+				32B1000719C97B1800D9FFF5 /* WMGaugeView.h */,
+				32B1000819C97B1800D9FFF5 /* WMGaugeView.m */,
+			);
+			path = WMGaugeView;
+			sourceTree = "<group>";
+		};
+		32B1001219C97B2D00D9FFF5 /* BLE */ = {
+			isa = PBXGroup;
+			children = (
+				32B1001319C97B2D00D9FFF5 /* spgBLEService.h */,
+				32B1001419C97B2D00D9FFF5 /* spgBLEService.m */,
+			);
+			path = BLE;
+			sourceTree = "<group>";
+		};
+		32B1001C19C97D6100D9FFF5 /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				32B1003B19CADB8E00D9FFF5 /* spgMapViewController.h */,
+				32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */,
+				32B1003D19CADB8E00D9FFF5 /* spgVideoCaptureViewController.h */,
+				32B1003E19CADB8E00D9FFF5 /* spgVideoCaptureViewController.m */,
+				32B1002319C97DF300D9FFF5 /* spgGaugesViewController.h */,
+				32B1002419C97DF300D9FFF5 /* spgGaugesViewController.m */,
+				32B1001D19C97D7B00D9FFF5 /* spgDashboardViewController.h */,
+				32B1001E19C97D7B00D9FFF5 /* spgDashboardViewController.m */,
+				32B1004119CADBB000D9FFF5 /* spgARGaugesViewController.h */,
+				32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
 		32B1FF7D19C974AC00D9FFF5 = {
 			isa = PBXGroup;
 			children = (
@@ -92,8 +226,7 @@
 		32B1FF8719C974AC00D9FFF5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				32B1FF8619C974AC00D9FFF5 /* mScooterNow.app */,
-				32B1FFA719C974AD00D9FFF5 /* mScooterNowTests.xctest */,
+				32B1FF8619C974AC00D9FFF5 /* 微软小马.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -101,10 +234,10 @@
 		32B1FF8819C974AC00D9FFF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				32B1FFC019C975C100D9FFF5 /* CoreBluetooth.framework */,
 				32B1FF8919C974AC00D9FFF5 /* Foundation.framework */,
 				32B1FF8B19C974AC00D9FFF5 /* CoreGraphics.framework */,
 				32B1FF8D19C974AC00D9FFF5 /* UIKit.framework */,
-				32B1FFA819C974AD00D9FFF5 /* XCTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -112,6 +245,12 @@
 		32B1FF8F19C974AC00D9FFF5 /* mScooterNow */ = {
 			isa = PBXGroup;
 			children = (
+				32B1001C19C97D6100D9FFF5 /* Dashboard */,
+				32B1001219C97B2D00D9FFF5 /* BLE */,
+				32B1FFEF19C97B1800D9FFF5 /* THPinViewController */,
+				32B1000619C97B1800D9FFF5 /* WMGaugeView */,
+				32B1FFEB19C97AC100D9FFF5 /* Scan */,
+				32B1FFCA19C978C800D9FFF5 /* Images */,
 				32B1FF9819C974AD00D9FFF5 /* spgAppDelegate.h */,
 				32B1FF9919C974AD00D9FFF5 /* spgAppDelegate.m */,
 				32B1FF9B19C974AD00D9FFF5 /* Main.storyboard */,
@@ -119,6 +258,7 @@
 				32B1FF9F19C974AD00D9FFF5 /* spgViewController.m */,
 				32B1FFA119C974AD00D9FFF5 /* Images.xcassets */,
 				32B1FF9019C974AC00D9FFF5 /* Supporting Files */,
+				32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */,
 			);
 			path = mScooterNow;
 			sourceTree = "<group>";
@@ -152,6 +292,80 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		32B1FFCA19C978C800D9FFF5 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				32ABC2BC19CBC9AE00F3254E /* camera.png */,
+				32ABC2BD19CBC9AE00F3254E /* circles.png */,
+				32ABC2BE19CBC9AE00F3254E /* info.png */,
+				32ABC2BF19CBC9AE00F3254E /* infoTitle.png */,
+				32ABC2C019CBC9AE00F3254E /* lightOff.png */,
+				32ABC2C119CBC9AE00F3254E /* lightOn.png */,
+				32ABC2C219CBC9AE00F3254E /* powerOff.png */,
+				32ABC2C319CBC9AE00F3254E /* scan.png */,
+				32ABC2C419CBC9AE00F3254E /* switchCam.png */,
+				32ABC2C519CBC9AE00F3254E /* video.png */,
+				32B1002619C981A400D9FFF5 /* batteryBg.png */,
+				32B1003219C982D300D9FFF5 /* timeIcon.png */,
+				32B1003419C98A8800D9FFF5 /* bg2.jpg */,
+				32B1002719C981A400D9FFF5 /* batteryCircle.png */,
+				32B1002819C981A400D9FFF5 /* DIST icon.png */,
+				32B1002919C981A400D9FFF5 /* speedBg.png */,
+				32B1002A19C981A400D9FFF5 /* speedCircle.png */,
+				32B1FFCB19C978C800D9FFF5 /* apple.png */,
+				32B1FFCC19C978C800D9FFF5 /* bg.jpg */,
+				32B1FFCD19C978C800D9FFF5 /* capture1@2x.png */,
+				32B1FFCE19C978C800D9FFF5 /* capture@2x.png */,
+				32B1FFCF19C978C800D9FFF5 /* capture@2x.png.zip */,
+				32B1FFD019C978C800D9FFF5 /* dashboardBg.png */,
+				32B1FFD119C978C800D9FFF5 /* Default.png */,
+				32B1FFD219C978C800D9FFF5 /* lockCenter.png */,
+				32B1FFD319C978C800D9FFF5 /* lockHalo.png */,
+				32B1FFD419C978C800D9FFF5 /* me@2x.png */,
+				32B1FFD519C978C800D9FFF5 /* moments@2x.png */,
+				32B1FFD619C978C800D9FFF5 /* profile.png */,
+				32B1FFD719C978C800D9FFF5 /* radar.png */,
+				32B1FFD819C978C800D9FFF5 /* scooterEntity.png */,
+				32B1FFD919C978C800D9FFF5 /* scooterIcon.png */,
+				32B1FFDA19C978C800D9FFF5 /* scooterOutline.png */,
+			);
+			path = Images;
+			sourceTree = "<group>";
+		};
+		32B1FFEB19C97AC100D9FFF5 /* Scan */ = {
+			isa = PBXGroup;
+			children = (
+				32B1001619C97B7900D9FFF5 /* spgPinViewController.h */,
+				32B1001719C97B7900D9FFF5 /* spgPinViewController.m */,
+				32B1FFEC19C97AC100D9FFF5 /* spgScanViewController.h */,
+				32B1FFED19C97AC100D9FFF5 /* spgScanViewController.m */,
+			);
+			path = Scan;
+			sourceTree = "<group>";
+		};
+		32B1FFEF19C97B1800D9FFF5 /* THPinViewController */ = {
+			isa = PBXGroup;
+			children = (
+				32B1FFF019C97B1800D9FFF5 /* THPinViewController.strings */,
+				32B1FFF619C97B1800D9FFF5 /* THPinInputCirclesView.h */,
+				32B1FFF719C97B1800D9FFF5 /* THPinInputCirclesView.m */,
+				32B1FFF819C97B1800D9FFF5 /* THPinInputCircleView.h */,
+				32B1FFF919C97B1800D9FFF5 /* THPinInputCircleView.m */,
+				32B1FFFA19C97B1800D9FFF5 /* THPinNumButton.h */,
+				32B1FFFB19C97B1800D9FFF5 /* THPinNumButton.m */,
+				32B1FFFC19C97B1800D9FFF5 /* THPinNumPadView.h */,
+				32B1FFFD19C97B1800D9FFF5 /* THPinNumPadView.m */,
+				32B1FFFE19C97B1800D9FFF5 /* THPinView.h */,
+				32B1FFFF19C97B1800D9FFF5 /* THPinView.m */,
+				32B1000019C97B1800D9FFF5 /* THPinViewController.h */,
+				32B1000119C97B1800D9FFF5 /* THPinViewController.m */,
+				32B1000219C97B1800D9FFF5 /* THPinViewControllerMacros.h */,
+				32B1000319C97B1800D9FFF5 /* UIImage+ImageEffects.h */,
+				32B1000419C97B1800D9FFF5 /* UIImage+ImageEffects.m */,
+			);
+			path = THPinViewController;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -169,26 +383,8 @@
 			);
 			name = mScooterNow;
 			productName = mScooterNow;
-			productReference = 32B1FF8619C974AC00D9FFF5 /* mScooterNow.app */;
+			productReference = 32B1FF8619C974AC00D9FFF5 /* 微软小马.app */;
 			productType = "com.apple.product-type.application";
-		};
-		32B1FFA619C974AD00D9FFF5 /* mScooterNowTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 32B1FFBB19C974AD00D9FFF5 /* Build configuration list for PBXNativeTarget "mScooterNowTests" */;
-			buildPhases = (
-				32B1FFA319C974AD00D9FFF5 /* Sources */,
-				32B1FFA419C974AD00D9FFF5 /* Frameworks */,
-				32B1FFA519C974AD00D9FFF5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				32B1FFAD19C974AD00D9FFF5 /* PBXTargetDependency */,
-			);
-			name = mScooterNowTests;
-			productName = mScooterNowTests;
-			productReference = 32B1FFA719C974AD00D9FFF5 /* mScooterNowTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -199,11 +395,6 @@
 				CLASSPREFIX = spg;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "v-qijia";
-				TargetAttributes = {
-					32B1FFA619C974AD00D9FFF5 = {
-						TestTargetID = 32B1FF8519C974AC00D9FFF5;
-					};
-				};
 			};
 			buildConfigurationList = 32B1FF8119C974AC00D9FFF5 /* Build configuration list for PBXProject "mScooterNow" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -212,6 +403,11 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
+				es,
+				fr,
+				it,
+				"zh-Hans-CN",
 			);
 			mainGroup = 32B1FF7D19C974AC00D9FFF5;
 			productRefGroup = 32B1FF8719C974AC00D9FFF5 /* Products */;
@@ -219,7 +415,6 @@
 			projectRoot = "";
 			targets = (
 				32B1FF8519C974AC00D9FFF5 /* mScooterNow */,
-				32B1FFA619C974AD00D9FFF5 /* mScooterNowTests */,
 			);
 		};
 /* End PBXProject section */
@@ -229,17 +424,43 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B1003519C98A8800D9FFF5 /* bg2.jpg in Resources */,
+				32ABC2C719CBC9AE00F3254E /* circles.png in Resources */,
+				32B1FFE019C978C800D9FFF5 /* dashboardBg.png in Resources */,
+				32B1003319C982D300D9FFF5 /* timeIcon.png in Resources */,
 				32B1FFA219C974AD00D9FFF5 /* Images.xcassets in Resources */,
+				32B1FFDC19C978C800D9FFF5 /* bg.jpg in Resources */,
+				32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */,
+				32B1FFE419C978C800D9FFF5 /* me@2x.png in Resources */,
+				32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */,
+				32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */,
+				32ABC2C919CBC9AE00F3254E /* infoTitle.png in Resources */,
+				32B1FFDF19C978C800D9FFF5 /* capture@2x.png.zip in Resources */,
+				32ABC2CF19CBC9AE00F3254E /* video.png in Resources */,
+				32ABC2C819CBC9AE00F3254E /* info.png in Resources */,
+				32B1FFE819C978C800D9FFF5 /* scooterEntity.png in Resources */,
+				32B1FFE519C978C800D9FFF5 /* moments@2x.png in Resources */,
+				32ABC2CE19CBC9AE00F3254E /* switchCam.png in Resources */,
+				32B1FFE719C978C800D9FFF5 /* radar.png in Resources */,
+				32B1FFE619C978C800D9FFF5 /* profile.png in Resources */,
+				32B1002D19C981A400D9FFF5 /* batteryCircle.png in Resources */,
+				32ABC2CA19CBC9AE00F3254E /* lightOff.png in Resources */,
 				32B1FF9419C974AC00D9FFF5 /* InfoPlist.strings in Resources */,
+				32B1FFDB19C978C800D9FFF5 /* apple.png in Resources */,
+				32ABC2CC19CBC9AE00F3254E /* powerOff.png in Resources */,
+				32B1FFE119C978C800D9FFF5 /* Default.png in Resources */,
+				32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */,
+				32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */,
+				32B1FFE319C978C800D9FFF5 /* lockHalo.png in Resources */,
+				32B1FFE919C978C800D9FFF5 /* scooterIcon.png in Resources */,
+				32ABC2C619CBC9AE00F3254E /* camera.png in Resources */,
+				32B1002E19C981A400D9FFF5 /* DIST icon.png in Resources */,
+				32B1FFE219C978C800D9FFF5 /* lockCenter.png in Resources */,
+				32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */,
+				32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */,
+				32ABC2CB19CBC9AE00F3254E /* lightOn.png in Resources */,
 				32B1FF9D19C974AD00D9FFF5 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		32B1FFA519C974AD00D9FFF5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				32B1FFB319C974AD00D9FFF5 /* InfoPlist.strings in Resources */,
+				32B1FFDD19C978C800D9FFF5 /* capture1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -250,29 +471,29 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32B1000C19C97B1800D9FFF5 /* THPinNumButton.m in Sources */,
+				32B1FFEE19C97AC100D9FFF5 /* spgScanViewController.m in Sources */,
+				32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */,
 				32B1FF9619C974AC00D9FFF5 /* main.m in Sources */,
+				32B1001019C97B1800D9FFF5 /* UIImage+ImageEffects.m in Sources */,
+				32B1004019CADB8E00D9FFF5 /* spgVideoCaptureViewController.m in Sources */,
+				32B1001F19C97D7B00D9FFF5 /* spgDashboardViewController.m in Sources */,
 				32B1FFA019C974AD00D9FFF5 /* spgViewController.m in Sources */,
 				32B1FF9A19C974AD00D9FFF5 /* spgAppDelegate.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		32B1FFA319C974AD00D9FFF5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				32B1FFB519C974AD00D9FFF5 /* mScooterNowTests.m in Sources */,
+				32B1000F19C97B1800D9FFF5 /* THPinViewController.m in Sources */,
+				32B1002519C97DF300D9FFF5 /* spgGaugesViewController.m in Sources */,
+				32B1001119C97B1800D9FFF5 /* WMGaugeView.m in Sources */,
+				32B1001819C97B7900D9FFF5 /* spgPinViewController.m in Sources */,
+				32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */,
+				32B1001519C97B2D00D9FFF5 /* spgBLEService.m in Sources */,
+				32B1003F19CADB8E00D9FFF5 /* spgMapViewController.m in Sources */,
+				32B1000D19C97B1800D9FFF5 /* THPinNumPadView.m in Sources */,
+				32B1004319CADBB000D9FFF5 /* spgARGaugesViewController.m in Sources */,
+				32B1000E19C97B1800D9FFF5 /* THPinView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		32B1FFAD19C974AD00D9FFF5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 32B1FF8519C974AC00D9FFF5 /* mScooterNow */;
-			targetProxy = 32B1FFAC19C974AD00D9FFF5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		32B1FF9219C974AC00D9FFF5 /* InfoPlist.strings */ = {
@@ -297,6 +518,19 @@
 				32B1FFB219C974AD00D9FFF5 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		32B1FFF019C97B1800D9FFF5 /* THPinViewController.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32B1FFF119C97B1800D9FFF5 /* de */,
+				32B1FFF219C97B1800D9FFF5 /* en */,
+				32B1FFF319C97B1800D9FFF5 /* es */,
+				32B1FFF419C97B1800D9FFF5 /* fr */,
+				32B1FFF519C97B1800D9FFF5 /* it */,
+				32B1000519C97B1800D9FFF5 /* zh-Hans-CN */,
+			);
+			name = THPinViewController.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -380,7 +614,8 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mScooterNow/mScooterNow-Prefix.pch";
 				INFOPLIST_FILE = "mScooterNow/mScooterNow-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "微软小马";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -393,48 +628,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "mScooterNow/mScooterNow-Prefix.pch";
 				INFOPLIST_FILE = "mScooterNow/mScooterNow-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				PRODUCT_NAME = "微软小马";
 				WRAPPER_EXTENSION = app;
-			};
-			name = Release;
-		};
-		32B1FFBC19C974AD00D9FFF5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mScooterNow.app/mScooterNow";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "mScooterNow/mScooterNow-Prefix.pch";
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "mScooterNowTests/mScooterNowTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
-			};
-			name = Debug;
-		};
-		32B1FFBD19C974AD00D9FFF5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/mScooterNow.app/mScooterNow";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(inherited)",
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "mScooterNow/mScooterNow-Prefix.pch";
-				INFOPLIST_FILE = "mScooterNowTests/mScooterNowTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
@@ -457,14 +653,7 @@
 				32B1FFBA19C974AD00D9FFF5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-		};
-		32B1FFBB19C974AD00D9FFF5 /* Build configuration list for PBXNativeTarget "mScooterNowTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				32B1FFBC19C974AD00D9FFF5 /* Debug */,
-				32B1FFBD19C974AD00D9FFF5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

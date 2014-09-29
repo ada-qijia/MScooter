@@ -7,12 +7,16 @@
 //
 
 #import "spgAppDelegate.h"
+#import "spgMScooterDefinitions.h"
 
 @implementation spgAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
+    [self.window setTintColor:ThemeColor];
+    
     return YES;
 }
 							
