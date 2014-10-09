@@ -114,7 +114,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8h-4g-JjS">
                                                 <rect key="frame" x="27" y="2" width="40" height="40"/>
-                                                <state key="normal" title="camSwitch" image="video.png">
+                                                <state key="normal" title="modeSwitch" image="video.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="camera.png"/>
@@ -124,7 +124,7 @@
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vy8-b1-eWA">
                                                 <rect key="frame" x="72" y="2" width="40" height="40"/>
-                                                <state key="normal" title="modeSwitch" image="switchCam.png">
+                                                <state key="normal" title="camSwitch" image="switchCam.png">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -156,13 +156,22 @@
                                     </view>
                                 </subviews>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SLq-gG-aZp">
+                                <rect key="frame" x="150" y="513" width="22" height="22"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="captureMedia:" destination="qNt-DY-caT" eventType="touchUpInside" id="4Ol-XJ-5fU"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="cSL-jz-0bf"/>
                     <connections>
                         <outlet property="camButtonsView" destination="acs-Iu-NHv" id="Fvf-rG-X3s"/>
-                        <outlet property="camSwitchButton" destination="n8h-4g-JjS" id="CBY-ty-Oti"/>
+                        <outlet property="modeSwitchButton" destination="n8h-4g-JjS" id="ESb-ye-Qfl"/>
                         <outlet property="warningView" destination="bCU-sn-3vM" id="4sm-m3-KTb"/>
                     </connections>
                 </viewController>
@@ -249,7 +258,7 @@
                                     <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQS-qe-Dfe">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                         <connections>
-                                            <segue destination="8Od-gK-dJg" kind="embed" id="5iM-Y9-vLe"/>
+                                            <segue destination="U2D-sJ-lHO" kind="embed" id="frM-mh-PWf"/>
                                         </connections>
                                     </containerView>
                                     <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TyZ-9n-t7K">
@@ -294,6 +303,24 @@
             </objects>
             <point key="canvasLocation" x="894" y="10"/>
         </scene>
+        <!--Spg Cam View Controller-->
+        <scene sceneID="S63-eU-evD">
+            <objects>
+                <viewController id="U2D-sJ-lHO" customClass="spgCamViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="8j6-c6-9C8"/>
+                        <viewControllerLayoutGuide type="bottom" id="gvK-Ls-7Dw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="DE7-vE-ljE" customClass="spgCamPreviewView">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A0h-wF-Gfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1369" y="-225"/>
+        </scene>
         <!--Spg Video Capture View Controller-->
         <scene sceneID="vLH-HW-PLv">
             <objects>
@@ -310,7 +337,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="587-Pu-Dsf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1416" y="-371"/>
+            <point key="canvasLocation" x="1743" y="-225"/>
         </scene>
         <!--SpgAR Gauges View Controller-->
         <scene sceneID="Zkv-Xs-M0y">

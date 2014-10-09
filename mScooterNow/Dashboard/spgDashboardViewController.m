@@ -9,7 +9,8 @@
 #import "spgDashboardViewController.h"
 #import "WMGaugeView.h"
 #import "spgScanViewController.h"
-#import "spgVideoCaptureViewController.h"
+//#import "spgVideoCaptureViewController.h"
+#import "spgCamViewController.h"
 
 #define dashboardView [self.view viewWithTag:1]
 #define ARView [self.view viewWithTag:2]
@@ -20,7 +21,7 @@
 
 @implementation spgDashboardViewController
 {
-    spgVideoCaptureViewController *videoCaptureVC;
+    spgCamViewController *videoCaptureVC;
 }
 
 
@@ -77,10 +78,11 @@
     UIView *currentView=dashboardView.hidden?ARView:dashboardView;
     UIView *nextView=dashboardView.hidden?dashboardView:ARView;
     
-    [UIView transitionWithView:self.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{currentView.hidden=YES;nextView.hidden=NO;} completion:nil];
+    [UIView transitionWithView:self.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{currentView.hidden=YES;nextView.hidden=NO;self.camButtonsView.hidden=ARView.hidden;} completion:nil];
     
     //[UIView transitionFromView:currentView toView:nextView duration:1 options:UIViewAnimationOptionShowHideTransitionViews|UIViewAnimationOptionCurveEaseIn completion:nil];
     
+    /*
     if(ARView.hidden)
     {
        [videoCaptureVC stopVideoCapture];
@@ -89,6 +91,7 @@
     {
        [videoCaptureVC startVideoCapture];
     }
+     */
 }
 
 #pragma mark - custom methods
@@ -97,9 +100,9 @@
 {
     UIViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
     for (UIViewController *vc in gaugesVC.childViewControllers) {
-        if ([vc isKindOfClass:spgVideoCaptureViewController.class])
+        if ([vc isKindOfClass:spgCamViewController.class])
         {
-            videoCaptureVC=(spgVideoCaptureViewController *)vc;
+            videoCaptureVC=(spgCamViewController *)vc;
             break;
         }
     }
@@ -234,17 +237,22 @@
 
 -(void)cameraTriggered
 {
+    /*
     CABasicAnimation* expand = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
     expand.fromValue = [NSNumber numberWithFloat:0.3];
     expand.toValue = [NSNumber numberWithFloat:1.0];
     expand.duration = 1;
     
-    [self.camSwitchButton.layer addAnimation:expand forKey:@"expand"];
+    [self.modeSwitchButton.layer addAnimation:expand forKey:@"expand"];
+    */
+    
+    [self captureMedia:nil];
 }
 
 -(void)modeChanged
 {
-    self.camSwitchButton.selected=!self.camSwitchButton.selected;
+    //self.modeSwitchButton.selected=!self.modeSwitchButton.selected;
+    [self switchMode:nil];
 }
 
 -(void)powerCharacteristicFound
@@ -266,17 +274,6 @@
     
     NSLog(@"%@: %@ \n",type, mutableString);
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark - UI interaction
 
@@ -306,10 +303,24 @@
 }
 
 - (IBAction)switchCam:(UIButton *)sender {
+    //switch between front cam and back cam
+    [videoCaptureVC changeCamera];
 }
 
 - (IBAction)switchMode:(UIButton *)sender {
      sender.selected=!sender.selected;
+}
+
+- (IBAction)captureMedia:(id)sender {
+    //image
+    if(self.modeSwitchButton.selected)
+    {
+        [videoCaptureVC snapStillImage];
+    }
+    else//video
+    {
+        [videoCaptureVC toggleMovieRecording];
+    }
 }
 
 -(NSData *)getData:(Byte)value
