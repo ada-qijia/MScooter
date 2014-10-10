@@ -17,15 +17,10 @@
 @property (weak,nonatomic) CBPeripheral *peripheral;
 @property (strong,nonatomic) spgBLEService *bleService;
 
-@property (weak, nonatomic) IBOutlet UIView *camButtonsView;
 @property (weak, nonatomic) IBOutlet UIView *warningView;
-@property (weak, nonatomic) IBOutlet UIButton *modeSwitchButton;
 
 - (IBAction)RetryClicked:(id)sender;
 - (IBAction)lightClicked:(UIButton *)sender;
 - (IBAction)powerOff:(UIButton *)sender;
-- (IBAction)switchCam:(UIButton *)sender;
-- (IBAction)switchMode:(UIButton *)sender;
-- (IBAction)captureMedia:(id)sender;
 
 @end

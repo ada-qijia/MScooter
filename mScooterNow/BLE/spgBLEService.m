@@ -10,6 +10,8 @@
 #import "spgMScooterDefinitions.h"
 
 #define CBUUID(s) [CBUUID UUIDWithString:s];
+//#define kMyPeripheralIDKey @"myPeripheralID";
+static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 
 @implementation spgBLEService
 {
@@ -32,7 +34,6 @@
         CBUUID *cameraServiceUUID=CBUUID(kCameraServiceUUID);
         CBUUID *powerServiceUUID=CBUUID(kPowerServiceUUID);
         CBUUID *modeServiceUUID=CBUUID(kModeServiceUUID);
-        
         interestedServices=@[speedServiceUUID,batteryServiceUUID,cameraServiceUUID,modeServiceUUID,powerServiceUUID];
     }
     return self;
@@ -42,7 +43,30 @@
 
 -(void)startScan
 {
-    [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    //find known peripheral
+    NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
+    NSString *idString= [userDefaults stringForKey:kMyPeripheralIDKey];
+    if(idString)
+    {
+        NSUUID *knownId=[[NSUUID alloc] initWithUUIDString:idString];
+        NSArray *savedIdentifier=[NSArray arrayWithObjects:knownId, nil];
+        NSArray *knownPeripherals= [self.centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
+        if(knownPeripherals.count>0)
+        {
+            if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
+            {
+                [self.discoverPeripheralsDelegate centralManager:self.centralManager didDiscoverPeripheral:[knownPeripherals firstObject] advertisementData:nil RSSI:nil];
+            }
+        }
+        else//scan
+        {
+            [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+        }
+    }
+    else//scan
+    {
+        [self.centralManager scanForPeripheralsWithServices:nil options:nil];
+    }
 }
 
 -(void)stopScan
@@ -88,6 +112,11 @@
     NSRange range= [peripheral.name rangeOfString:kScooterDeviceName options:NSCaseInsensitiveSearch];
     if(range.location!=NSNotFound)
     {
+        //save to user defaults
+        NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
+        [userDefaults setObject:[peripheral.identifier UUIDString] forKey:kMyPeripheralIDKey];
+        [userDefaults synchronize];
+        
         if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
         {
             [self.discoverPeripheralsDelegate centralManager:self.centralManager didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];

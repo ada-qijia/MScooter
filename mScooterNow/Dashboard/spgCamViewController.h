@@ -10,6 +10,13 @@
 
 @interface spgCamViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIButton *modeSwitchButton;
+@property (weak, nonatomic) IBOutlet UIButton *recordButton;
+
+- (IBAction)switchMode:(UIButton *)sender;
+- (IBAction)switchCam:(id)sender;
+- (IBAction)captureMedia:(UIButton *)sender;
+
 -(void)toggleMovieRecording;
 -(void)startVideoCapture;
 -(void)stopVideoCapture;

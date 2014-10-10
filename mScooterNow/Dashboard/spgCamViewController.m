@@ -85,7 +85,7 @@ static void * RecordingContext = &RecordingContext;
             [session addOutput:movieFileOutput];
             AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
             if ([connection isVideoStabilizationSupported])
-                [connection setEnablesVideoStabilizationWhenAvailable:YES];
+                [connection setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
             [self setMovieFileOutput:movieFileOutput];
         }
         
@@ -363,6 +363,39 @@ static void * RecordingContext = &RecordingContext;
 }
 
 #pragma - UI
+
+- (IBAction)switchMode:(UIButton *)sender {
+    sender.selected=!sender.selected;
+    //photo
+    if(sender.selected)
+    {
+        [self.recordButton setImage:[UIImage imageNamed:@"shoot.png"] forState:UIControlStateNormal];
+        [self.recordButton setImage:nil forState:UIControlStateSelected];
+    }
+    else//video
+    {
+        [self.recordButton setImage:[UIImage imageNamed:@"startVideo.png"] forState:UIControlStateNormal];
+        [self.recordButton setImage:[UIImage imageNamed:@"stopVideo.png"] forState:UIControlStateSelected];
+    }
+}
+
+- (IBAction)switchCam:(id)sender {
+   [self changeCamera];
+}
+
+- (IBAction)captureMedia:(UIButton *)sender
+{
+    //image
+    if(self.modeSwitchButton.selected)
+    {
+        [self snapStillImage];
+    }
+    else//video
+    {
+        sender.selected=!sender.selected;
+        [self toggleMovieRecording];
+    }
+}
 
 -(void)runStillImageCaptureAnimation
 {

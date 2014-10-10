@@ -78,7 +78,7 @@
     UIView *currentView=dashboardView.hidden?ARView:dashboardView;
     UIView *nextView=dashboardView.hidden?dashboardView:ARView;
     
-    [UIView transitionWithView:self.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{currentView.hidden=YES;nextView.hidden=NO;self.camButtonsView.hidden=ARView.hidden;} completion:nil];
+    [UIView transitionWithView:self.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{currentView.hidden=YES;nextView.hidden=NO;} completion:nil];
     
     //[UIView transitionFromView:currentView toView:nextView duration:1 options:UIViewAnimationOptionShowHideTransitionViews|UIViewAnimationOptionCurveEaseIn completion:nil];
     
@@ -195,10 +195,6 @@
     
     WMGaugeView *speedView = (WMGaugeView *)[self.view viewWithTag:speedViewTag];
     [speedView setValue:realSpeed animated:YES duration:0.3];
-    
-    //for test
-    UILabel *infoLabel=(UILabel *)[self.view viewWithTag:200];
-    infoLabel.text=[NSString stringWithFormat:@"%d", i];
 }
 
 -(void)batteryValueUpdated:(NSData *)batteryData
@@ -229,30 +225,22 @@
     
     WMGaugeView *distanceView = (WMGaugeView *)[self.view viewWithTag:36];
     distanceView.value=batteryView.value;
-    
-    //for test
-    UILabel *infoLabel=(UILabel *)[self.view viewWithTag:300];
-    infoLabel.text=[NSString stringWithFormat:@"%d", i];
 }
 
 -(void)cameraTriggered
 {
-    /*
-    CABasicAnimation* expand = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    expand.fromValue = [NSNumber numberWithFloat:0.3];
-    expand.toValue = [NSNumber numberWithFloat:1.0];
-    expand.duration = 1;
-    
-    [self.modeSwitchButton.layer addAnimation:expand forKey:@"expand"];
-    */
-    
-    [self captureMedia:nil];
+    if(!ARView.hidden)
+    {
+        [videoCaptureVC captureMedia:nil];
+    };
 }
 
 -(void)modeChanged
 {
-    //self.modeSwitchButton.selected=!self.modeSwitchButton.selected;
-    [self switchMode:nil];
+    if(!ARView.hidden)
+    {
+        [videoCaptureVC switchMode:nil];
+    };
 }
 
 -(void)powerCharacteristicFound
@@ -302,26 +290,7 @@
     [self performSelector:@selector(RetryClicked:) withObject:nil afterDelay:1];
 }
 
-- (IBAction)switchCam:(UIButton *)sender {
-    //switch between front cam and back cam
-    [videoCaptureVC changeCamera];
-}
-
-- (IBAction)switchMode:(UIButton *)sender {
-     sender.selected=!sender.selected;
-}
-
-- (IBAction)captureMedia:(id)sender {
-    //image
-    if(self.modeSwitchButton.selected)
-    {
-        [videoCaptureVC snapStillImage];
-    }
-    else//video
-    {
-        [videoCaptureVC toggleMovieRecording];
-    }
-}
+#pragma mark - utilities
 
 -(NSData *)getData:(Byte)value
 {
