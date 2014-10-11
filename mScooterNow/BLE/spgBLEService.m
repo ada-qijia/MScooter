@@ -57,6 +57,8 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
             {
                 [self.discoverPeripheralsDelegate centralManager:self.centralManager didDiscoverPeripheral:[knownPeripherals firstObject] advertisementData:nil RSSI:nil];
             }
+            //clean the saved ID temporarily for demo
+            [userDefaults setObject:nil forKey:kMyPeripheralIDKey];
         }
         else//scan
         {
