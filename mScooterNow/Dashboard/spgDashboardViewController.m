@@ -40,15 +40,25 @@
     
     [self initVideoCaptureVC];
     
-    UISwipeGestureRecognizer *horizontalSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalSwipe:)];
-    horizontalSwipe.direction=UISwipeGestureRecognizerDirectionLeft|UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:horizontalSwipe];
+    UISwipeGestureRecognizer *horizontalLeftSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalLeftSwipe:)];
+    horizontalLeftSwipe.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:horizontalLeftSwipe];
+    
+    UISwipeGestureRecognizer *horizontalRightSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalRightSwipe:)];
+    horizontalRightSwipe.direction=UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:horizontalRightSwipe];
     
     if(self.bleService && self.peripheral)
     {
         self.bleService.peripheralDelegate=self;
         [self.bleService connectPeripheral:self.peripheral];
     }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [UIApplication sharedApplication].statusBarHidden=YES;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -61,37 +71,44 @@
     }
     
     [videoCaptureVC stopVideoCapture];
+    
+    [UIApplication sharedApplication].statusBarHidden=NO;
 }
 
 
 #pragma mark - gesture methods
 
--(void)reportHorizontalSwipe:(UIGestureRecognizer *)recognizer
+-(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
 {
-    //UIView *dashboardView=[self.view viewWithTag:1];
-    //UIView *ARView=[self.view viewWithTag:2];
-    /*
-    dashboardView.hidden=!dashboardView.hidden;
-    ARView.hidden=!dashboardView.hidden;
-    self.camButtonsView.hidden=ARView.hidden;
-     */
+    [self switchMainView:YES];
+}
+
+-(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
+{
+    [self switchMainView:NO];
+}
+
+-(void)switchMainView:(BOOL)left
+{
     UIView *currentView=dashboardView.hidden?ARView:dashboardView;
     UIView *nextView=dashboardView.hidden?dashboardView:ARView;
     
-    [UIView transitionWithView:self.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromRight animations:^{currentView.hidden=YES;nextView.hidden=NO;} completion:nil];
-    
+    //[UIView transitionWithView:self.view duration:0.5 options:UIViewAnimationOptionTransitionNone animations:^{currentView.hidden=YES;nextView.hidden=NO;} completion:nil];
     //[UIView transitionFromView:currentView toView:nextView duration:1 options:UIViewAnimationOptionShowHideTransitionViews|UIViewAnimationOptionCurveEaseIn completion:nil];
     
-    /*
-    if(ARView.hidden)
-    {
-       [videoCaptureVC stopVideoCapture];
-    }
-    else
-    {
-       [videoCaptureVC startVideoCapture];
-    }
-     */
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.type = kCATransitionPush;
+    transition.subtype =left? kCATransitionFromRight:kCATransitionFromLeft;
+    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    [nextView.layer addAnimation:transition forKey:nil];
+    [currentView.layer addAnimation:transition forKey:nil];
+    
+    currentView.hidden=YES;
+    nextView.hidden=NO;
+
+    self.modeButton.hidden=nextView==ARView?NO:YES;
+    self.camButton.hidden=self.modeButton.hidden;
 }
 
 #pragma mark - custom methods
@@ -239,8 +256,15 @@
 {
     if(!ARView.hidden)
     {
-        [videoCaptureVC switchMode:nil];
+        [self switchMode:nil];
     };
+}
+
+-(void)autoPoweredOff
+{
+    self.powerButton.selected=!self.powerButton.selected;
+    //power on
+    [self.bleService writePower:self.peripheral value:[self getData:247]];
 }
 
 -(void)powerCharacteristicFound
@@ -288,6 +312,15 @@
     [self.bleService writePower:self.peripheral value:[self getData:249]];
     //give ble receiver some time to handle the signal before disconnect.
     [self performSelector:@selector(RetryClicked:) withObject:nil afterDelay:1];
+}
+
+- (IBAction)switchMode:(UIButton *)sender {
+    self.modeButton.selected=!self.modeButton.selected;
+    [videoCaptureVC switchMode:self.modeButton.selected];
+}
+
+- (IBAction)switchCam:(id)sender {
+    [videoCaptureVC changeCamera];
 }
 
 #pragma mark - utilities

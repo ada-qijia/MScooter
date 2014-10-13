@@ -18,9 +18,14 @@
 @property (strong,nonatomic) spgBLEService *bleService;
 
 @property (weak, nonatomic) IBOutlet UIView *warningView;
+@property (weak, nonatomic) IBOutlet UIButton *powerButton;
+@property (weak, nonatomic) IBOutlet UIButton *modeButton;
+@property (weak, nonatomic) IBOutlet UIButton *camButton;
 
 - (IBAction)RetryClicked:(id)sender;
 - (IBAction)lightClicked:(UIButton *)sender;
 - (IBAction)powerOff:(UIButton *)sender;
+- (IBAction)switchMode:(UIButton *)sender;
+- (IBAction)switchCam:(id)sender;
 
 @end

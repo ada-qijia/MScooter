@@ -17,6 +17,7 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 {
     NSArray *interestedServices;
     CBCharacteristic *powerCharacteristic;
+    NSMutableString *modeChangeSignals;
 }
 
 - (id)initWithDelegates:(id<spgBLEServiceDiscoverPeripheralsDelegate>)delegate peripheralDelegate:(id<spgBLEServicePeripheralDelegate>) peripheralDelegate
@@ -35,6 +36,8 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
         CBUUID *powerServiceUUID=CBUUID(kPowerServiceUUID);
         CBUUID *modeServiceUUID=CBUUID(kModeServiceUUID);
         interestedServices=@[speedServiceUUID,batteryServiceUUID,cameraServiceUUID,modeServiceUUID,powerServiceUUID];
+        
+        modeChangeSignals=[[NSMutableString alloc] init];
     }
     return self;
 }
@@ -280,10 +283,27 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
                 [mutableString appendString:hex];
             }
             
-            if(![mutableString isEqualToString:@"55AA"])
+            BOOL modeValue=[mutableString isEqualToString:@"CCBB"];//false when "55AA"
+            //true
+            if(modeValue)
             {
             if ([self.peripheralDelegate respondsToSelector:@selector(modeChanged)]) {
                 [self.peripheralDelegate modeChanged];
+                }
+            }
+            
+            //if the sequence is "TFFT", scooter has been auto powered off
+            NSString *modeSymbol=modeValue?@"T":@"F";
+            [modeChangeSignals appendString:modeSymbol];
+            if(modeChangeSignals.length>4)
+            {
+                [modeChangeSignals deleteCharactersInRange:NSMakeRange(0, 1)];
+            }
+            
+            if(modeChangeSignals.length==4&&[modeChangeSignals isEqualToString:@"TFFT"])
+            {
+                if ([self.peripheralDelegate respondsToSelector:@selector(autoPoweredOff)]) {
+                    [self.peripheralDelegate autoPoweredOff];
                 }
             }
         }

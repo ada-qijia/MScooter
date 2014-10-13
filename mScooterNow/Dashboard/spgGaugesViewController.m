@@ -19,6 +19,9 @@
 @end
 
 @implementation spgGaugesViewController
+{
+    NSTimer *timer;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -67,6 +70,18 @@
     self.distanceGaugeView.unitOfMeasurement=@"km";
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateDateTime];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [timer invalidate];
+}
+
 -(void)setBatteryStyle:(WMGaugeView *)gaugeView
 {
     gaugeView.unitOfMeasurementFont=[UIFont boldSystemFontOfSize:0.09];
@@ -102,6 +117,33 @@
     // Dispose of any resources that can be recreated.
 }
 
+
+#pragma - date time utilities
+-(void)updateDateTime
+{
+   timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerTicked:) userInfo:nil repeats:YES];
+   [timer fire];
+}
+
+-(void)timerTicked:(NSTimer *)timer
+{
+    NSDate *date=[NSDate date];
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    //week day
+    [dateFormatter setDateFormat:@"EEE"];
+    NSString *formattedWeekDay=[dateFormatter stringFromDate:date];
+    [dateFormatter setDateFormat:@"MMM d"];
+    NSString *formattedDate=[dateFormatter stringFromDate:date];
+    [dateFormatter setDateFormat:@"HH:mm:ss"];
+    NSString *formattedTime=[dateFormatter stringFromDate:date];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.weekDayLabel.text=[formattedWeekDay uppercaseString];
+        self.dateLabel.text=[formattedDate uppercaseString];
+        self.timeLabel.text=formattedTime;
+    });
+}
 /*
 #pragma mark - Navigation
 

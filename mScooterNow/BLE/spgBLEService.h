@@ -33,6 +33,7 @@
 -(void)batteryValueUpdated:(NSData *)batteryData;
 -(void)cameraTriggered;
 -(void)modeChanged;
+-(void)autoPoweredOff;
 -(void)powerCharacteristicFound;
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
 -(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral;

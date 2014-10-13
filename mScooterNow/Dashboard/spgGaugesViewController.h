@@ -10,4 +10,8 @@
 
 @interface spgGaugesViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *weekDayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
 @end
