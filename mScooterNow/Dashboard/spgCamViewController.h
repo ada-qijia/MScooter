@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 
-
 - (IBAction)captureMedia:(UIButton *)sender;
 
 -(void)toggleMovieRecording;

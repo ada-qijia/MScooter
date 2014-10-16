@@ -74,6 +74,12 @@
 {
     [super viewWillAppear:animated];
     [self updateDateTime];
+    
+    UILabel *tempLabel=self.temperatureLabel[0];
+    if([tempLabel.text isEqual:@"-"])
+        {
+            [self updateTemperature];
+        }
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -119,6 +125,7 @@
 
 
 #pragma - date time utilities
+
 -(void)updateDateTime
 {
    timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerTicked:) userInfo:nil repeats:YES];
@@ -133,16 +140,61 @@
     //week day
     [dateFormatter setDateFormat:@"EEE"];
     NSString *formattedWeekDay=[dateFormatter stringFromDate:date];
-    [dateFormatter setDateFormat:@"MMM d"];
+    [dateFormatter setDateFormat:@"MMMd"];
     NSString *formattedDate=[dateFormatter stringFromDate:date];
     [dateFormatter setDateFormat:@"HH:mm:ss"];
     NSString *formattedTime=[dateFormatter stringFromDate:date];
+    [dateFormatter setDateFormat:@"yyyy-MM-dd EEEE"];
+    NSString *formattedLongDate=[dateFormatter stringFromDate:date];
     
     dispatch_async(dispatch_get_main_queue(), ^{
         self.weekDayLabel.text=[formattedWeekDay uppercaseString];
         self.dateLabel.text=[formattedDate uppercaseString];
-        self.timeLabel.text=formattedTime;
+        self.longDateLabel.text=[formattedLongDate uppercaseString];
+        
+        for(UILabel* label in self.timeLabel)
+        {
+            label.text=formattedTime;
+        }
     });
+}
+
+#pragma - weather
+
+-(void)updateTemperature
+{
+    NSString *path=[NSString stringWithFormat:@"http://www.weather.com.cn/data/sk/%@.html",kBeijingCityID];
+    NSURL *url=[NSURL URLWithString:path];
+    
+    [NSURLConnection sendAsynchronousRequest:[[NSURLRequest alloc] initWithURL:url] queue:[[NSOperationQueue alloc] init] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if(connectionError)
+        {
+            NSLog(@"Get temperature error:%@",connectionError.description);
+        }
+        else
+        {
+            NSString *temp=[self parseTemperatureResult:data];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                for(UILabel* tempLabel in self.temperatureLabel)
+                {
+                    tempLabel.text=temp;
+                }
+            });
+        }
+    }];
+}
+     
+-(NSString *)parseTemperatureResult:(NSData *)data
+{
+    NSError *error=nil;
+    NSDictionary *parsedObject=[NSJSONSerialization JSONObjectWithData:data options:0 error:&error];
+    if(error==nil)
+    {
+        NSDictionary *detail=[parsedObject valueForKey:@"weatherinfo"];
+        NSString *temp=[detail valueForKey:@"temp"];
+        return [NSString stringWithFormat:@"%@°C",temp];
+    }
+    return @"-";
 }
 /*
 #pragma mark - Navigation

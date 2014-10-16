@@ -8,6 +8,7 @@
 
 #import "spgDashboardViewController.h"
 #import "WMGaugeView.h"
+#import "spgGaugesViewController.h"
 #import "spgScanViewController.h"
 //#import "spgVideoCaptureViewController.h"
 #import "spgCamViewController.h"
@@ -22,6 +23,7 @@
 @implementation spgDashboardViewController
 {
     spgCamViewController *videoCaptureVC;
+    ARMode currentMode;
 }
 
 
@@ -109,6 +111,12 @@
 
     self.modeButton.hidden=nextView==ARView?NO:YES;
     self.camButton.hidden=self.modeButton.hidden;
+  
+    self.tabBarController.tabBar.hidden=nextView==ARView;
+    self.powerButton.hidden=nextView==ARView;
+    self.modeButton.hidden=!self.powerButton.hidden;
+    self.modesSwitchButton.hidden=self.modeButton.hidden;
+    self.currentModeLabel.hidden=self.modesSwitchButton.hidden;
 }
 
 #pragma mark - custom methods
@@ -212,6 +220,9 @@
     
     WMGaugeView *speedView = (WMGaugeView *)[self.view viewWithTag:speedViewTag];
     [speedView setValue:realSpeed animated:YES duration:0.3];
+    
+    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
+    gaugesVC.speedLabel.text=[NSString stringWithFormat:@"%02.f",realSpeed];
 }
 
 -(void)batteryValueUpdated:(NSData *)batteryData
@@ -244,11 +255,23 @@
     distanceView.value=batteryView.value;
 }
 
--(void)cameraTriggered
+-(void)cameraTriggered:(SBSCameraCommand) commandType
 {
     if(!ARView.hidden)
     {
-        [videoCaptureVC captureMedia:nil];
+        switch (commandType) {
+            case SBSCameraCommandTakePhoto:
+                [videoCaptureVC snapStillImage];
+                break;
+            case SBSCameraCommandStartRecordVideo:
+                [videoCaptureVC startVideoCapture];
+                break;
+            case SBSCameraCommandStopRecordVideo:
+                [videoCaptureVC stopVideoCapture];
+                break;
+            default:
+                break;
+        }
     };
 }
 
@@ -256,7 +279,18 @@
 {
     if(!ARView.hidden)
     {
-        [self switchMode:nil];
+        ARMode toMode=ARModeCool;
+        if(currentMode==ARModeCool)
+        {
+            toMode=ARModeList;
+        }
+        else if(currentMode==ARModeList)
+        {
+            toMode=ARModeNormal;
+        }
+        
+        [self gotoARMode:toMode];
+        //[self switchMode:nil];
     };
 }
 
@@ -314,6 +348,7 @@
     [self performSelector:@selector(RetryClicked:) withObject:nil afterDelay:1];
 }
 
+//between video and photo
 - (IBAction)switchMode:(UIButton *)sender {
     self.modeButton.selected=!self.modeButton.selected;
     [videoCaptureVC switchMode:self.modeButton.selected];
@@ -321,6 +356,57 @@
 
 - (IBAction)switchCam:(id)sender {
     [videoCaptureVC changeCamera];
+}
+
+- (IBAction)switchARMode:(UIButton *)sender {
+    self.ARModesView.hidden=YES;
+    self.currentModeLabel.hidden=NO;
+    
+     if([sender.titleLabel.text isEqual:@"AR Cool"])
+    {
+        [self gotoARMode:ARModeCool];
+    }
+    else if([sender.titleLabel.text isEqual:@"AR List"])
+    {
+        [self gotoARMode:ARModeList];
+    }
+    else
+    {
+        [self gotoARMode:ARModeNormal];
+    }
+}
+
+- (IBAction)showARModes:(id)sender {
+    self.currentModeLabel.hidden=YES;
+    self.ARModesView.hidden=NO;
+}
+
+-(void)gotoARMode:(ARMode)toMode
+{
+    if(currentMode!=toMode)
+    {
+        currentMode=toMode;
+        
+        spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
+        if(toMode==ARModeCool)
+        {
+            self.currentModeLabel.text=@"AR Cool";
+            gaugesVC.ARInfoView.hidden=NO;
+            gaugesVC.ARListView.hidden=YES;
+        }
+        else if(toMode==ARModeList)
+        {
+            self.currentModeLabel.text=@"AR List";
+            gaugesVC.ARInfoView.hidden=YES;
+            gaugesVC.ARListView.hidden=NO;
+        }
+        else
+        {
+            self.currentModeLabel.text=@"Normal";
+            gaugesVC.ARInfoView.hidden=YES;
+            gaugesVC.ARListView.hidden=YES;
+        }
+    }
 }
 
 #pragma mark - utilities

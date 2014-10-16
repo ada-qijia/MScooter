@@ -22,6 +22,13 @@
 		32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C319CBC9AE00F3254E /* scan.png */; };
 		32ABC2CE19CBC9AE00F3254E /* switchCam.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C419CBC9AE00F3254E /* switchCam.png */; };
 		32ABC2CF19CBC9AE00F3254E /* video.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C519CBC9AE00F3254E /* video.png */; };
+		32ADA25319EF66A80081BD51 /* ARMode.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25219EF66A80081BD51 /* ARMode.png */; };
+		32ADA25719EF66CA0081BD51 /* preview.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25619EF66CA0081BD51 /* preview.png */; };
+		32ADA25919EF66D60081BD51 /* time.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25819EF66D60081BD51 /* time.png */; };
+		32ADA25B19EF66DD0081BD51 /* userInfo.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25A19EF66DD0081BD51 /* userInfo.png */; };
+		32ADA25D19EF6A3C0081BD51 /* speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25C19EF6A3C0081BD51 /* speed.png */; };
+		32ADA25F19EF70FF0081BD51 /* dashboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25E19EF70FF0081BD51 /* dashboard@2x.png */; };
+		32ADA26119EF71C00081BD51 /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA26019EF71C00081BD51 /* weather.png */; };
 		32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFF019C97B1800D9FFF5 /* THPinViewController.strings */; };
 		32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF719C97B1800D9FFF5 /* THPinInputCirclesView.m */; };
 		32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF919C97B1800D9FFF5 /* THPinInputCircleView.m */; };
@@ -93,6 +100,13 @@
 		32ABC2C419CBC9AE00F3254E /* switchCam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCam.png; sourceTree = "<group>"; };
 		32ABC2C519CBC9AE00F3254E /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
 		32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgMScooterDefinitions.h; sourceTree = "<group>"; };
+		32ADA25219EF66A80081BD51 /* ARMode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ARMode.png; sourceTree = "<group>"; };
+		32ADA25619EF66CA0081BD51 /* preview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = preview.png; sourceTree = "<group>"; };
+		32ADA25819EF66D60081BD51 /* time.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = time.png; sourceTree = "<group>"; };
+		32ADA25A19EF66DD0081BD51 /* userInfo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = userInfo.png; sourceTree = "<group>"; };
+		32ADA25C19EF6A3C0081BD51 /* speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speed.png; sourceTree = "<group>"; };
+		32ADA25E19EF70FF0081BD51 /* dashboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard@2x.png"; sourceTree = "<group>"; };
+		32ADA26019EF71C00081BD51 /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather.png; sourceTree = "<group>"; };
 		32B1000019C97B1800D9FFF5 /* THPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewController.h; sourceTree = "<group>"; };
 		32B1000119C97B1800D9FFF5 /* THPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinViewController.m; sourceTree = "<group>"; };
 		32B1000219C97B1800D9FFF5 /* THPinViewControllerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewControllerMacros.h; sourceTree = "<group>"; };
@@ -311,6 +325,13 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				32ADA26019EF71C00081BD51 /* weather.png */,
+				32ADA25E19EF70FF0081BD51 /* dashboard@2x.png */,
+				32ADA25C19EF6A3C0081BD51 /* speed.png */,
+				32ADA25A19EF66DD0081BD51 /* userInfo.png */,
+				32ADA25819EF66D60081BD51 /* time.png */,
+				32ADA25619EF66CA0081BD51 /* preview.png */,
+				32ADA25219EF66A80081BD51 /* ARMode.png */,
 				32A01B3319E7D0C50031AC60 /* shoot.png */,
 				32A01B3419E7D0C50031AC60 /* startVideo.png */,
 				32A01B3519E7D0C50031AC60 /* stopVideo.png */,
@@ -450,8 +471,10 @@
 				32B1FFA219C974AD00D9FFF5 /* Images.xcassets in Resources */,
 				32B1FFDC19C978C800D9FFF5 /* bg.jpg in Resources */,
 				32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */,
+				32ADA25F19EF70FF0081BD51 /* dashboard@2x.png in Resources */,
 				32B1FFE419C978C800D9FFF5 /* me@2x.png in Resources */,
 				32A01B3719E7D0C50031AC60 /* startVideo.png in Resources */,
+				32ADA25719EF66CA0081BD51 /* preview.png in Resources */,
 				32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */,
 				32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */,
 				32ABC2C919CBC9AE00F3254E /* infoTitle.png in Resources */,
@@ -460,16 +483,20 @@
 				32ABC2C819CBC9AE00F3254E /* info.png in Resources */,
 				32B1FFE819C978C800D9FFF5 /* scooterEntity.png in Resources */,
 				32B1FFE519C978C800D9FFF5 /* moments@2x.png in Resources */,
+				32ADA25319EF66A80081BD51 /* ARMode.png in Resources */,
 				32ABC2CE19CBC9AE00F3254E /* switchCam.png in Resources */,
 				32B1FFE719C978C800D9FFF5 /* radar.png in Resources */,
 				32B1FFE619C978C800D9FFF5 /* profile.png in Resources */,
 				32B1002D19C981A400D9FFF5 /* batteryCircle.png in Resources */,
 				32ABC2CA19CBC9AE00F3254E /* lightOff.png in Resources */,
+				32ADA25B19EF66DD0081BD51 /* userInfo.png in Resources */,
 				32B1FF9419C974AC00D9FFF5 /* InfoPlist.strings in Resources */,
 				32B1FFDB19C978C800D9FFF5 /* apple.png in Resources */,
 				32ABC2CC19CBC9AE00F3254E /* powerOff.png in Resources */,
 				32B1FFE119C978C800D9FFF5 /* Default.png in Resources */,
+				32ADA26119EF71C00081BD51 /* weather.png in Resources */,
 				32A01B3619E7D0C50031AC60 /* shoot.png in Resources */,
+				32ADA25D19EF6A3C0081BD51 /* speed.png in Resources */,
 				32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */,
 				32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */,
 				32B1FFE319C978C800D9FFF5 /* lockHalo.png in Resources */,
@@ -482,6 +509,7 @@
 				32ABC2CB19CBC9AE00F3254E /* lightOn.png in Resources */,
 				32A01B3819E7D0C50031AC60 /* stopVideo.png in Resources */,
 				32B1FF9D19C974AD00D9FFF5 /* Main.storyboard in Resources */,
+				32ADA25919EF66D60081BD51 /* time.png in Resources */,
 				32B1FFDD19C978C800D9FFF5 /* capture1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

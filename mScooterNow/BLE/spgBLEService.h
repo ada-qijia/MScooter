@@ -9,6 +9,13 @@
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
 
+typedef NS_ENUM(NSUInteger, SBSCameraCommand){
+    SBSCameraCommandTakePhoto,
+    SBSCameraCommandStartRecordVideo,
+    SBSCameraCommandStopRecordVideo,
+    SBSCameraCommandNotValid
+};
+
 #pragma mark - discoverPeripherals delegate
 
 @protocol spgBLEServiceDiscoverPeripheralsDelegate <NSObject>
@@ -31,7 +38,7 @@
 
 -(void)speedValueUpdated:(NSData *)speedData;
 -(void)batteryValueUpdated:(NSData *)batteryData;
--(void)cameraTriggered;
+-(void)cameraTriggered:(SBSCameraCommand)commandType;
 -(void)modeChanged;
 -(void)autoPoweredOff;
 -(void)powerCharacteristicFound;

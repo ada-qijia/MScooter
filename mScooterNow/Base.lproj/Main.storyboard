@@ -62,14 +62,62 @@
                         <outlet property="scooterOutline" destination="nbl-JI-NOy" id="XVn-QL-vtO"/>
                         <outlet property="unlockButton" destination="jF6-4q-19f" id="Rtw-GO-LzM"/>
                         <outlet property="unlockHalo" destination="dJY-M4-g46" id="HCM-0Z-o3u"/>
-                        <segue destination="qNt-DY-caT" kind="modal" identifier="ConnectPeripheral" id="lAo-Hy-ewb"/>
+                        <segue destination="4cp-gC-zrv" kind="modal" identifier="ConnectPeripheral" id="BJ6-De-8RC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="48" y="10"/>
+            <point key="canvasLocation" x="-682" y="56"/>
         </scene>
-        <!--Spg Dashboard View Controller-->
+        <!--Account-->
+        <scene sceneID="yY2-qk-6rZ">
+            <objects>
+                <viewController id="Xoj-0t-sl9" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="QZt-7h-dVt"/>
+                        <viewControllerLayoutGuide type="bottom" id="Bg3-Fn-hfw"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Qso-e0-bWp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Y0f-DJ-R0p">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="userInfo.png" translatesAutoresizingMaskIntoConstraints="NO" id="WCi-Qu-74f">
+                                <rect key="frame" x="0.0" y="40" width="320" height="430"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Account" image="me.png" id="Yti-bY-Q77">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-2"/>
+                    </tabBarItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0tX-Ns-lAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="125" y="-496"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="dRA-u7-st0">
+            <objects>
+                <tabBarController id="4cp-gC-zrv" sceneMemberID="viewController">
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="8PZ-c2-Tah">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="qNt-DY-caT" kind="relationship" relationship="viewControllers" id="tFb-Hx-hko"/>
+                        <segue destination="Xoj-0t-sl9" kind="relationship" relationship="viewControllers" id="qBM-YO-dOa"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iQg-7C-Kbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-265" y="56"/>
+        </scene>
+        <!--Dashboard-->
         <scene sceneID="GgK-Mw-vYF">
             <objects>
                 <viewController id="qNt-DY-caT" customClass="spgDashboardViewController" sceneMemberID="viewController">
@@ -92,7 +140,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NV2-Pa-G6X">
-                                        <rect key="frame" x="8" y="5" width="34" height="34"/>
+                                        <rect key="frame" x="8" y="7" width="34" height="30"/>
                                         <state key="normal" title="powerOff" image="powerOff.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -100,7 +148,7 @@
                                             <action selector="powerOff:" destination="qNt-DY-caT" eventType="touchUpInside" id="KHf-SS-XXX"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ozk-4a-c1M">
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ozk-4a-c1M">
                                         <rect key="frame" x="45" y="5" width="34" height="34"/>
                                         <state key="normal" title="lightSwitch" image="lightOff.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -110,8 +158,63 @@
                                             <action selector="lightClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="lRm-LW-FXm"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wBS-vl-eaA" userLabel="modesSwitch">
+                                        <rect key="frame" x="110" y="7" width="32" height="30"/>
+                                        <state key="normal" image="ARMode.png">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="showARModes:" destination="qNt-DY-caT" eventType="touchUpInside" id="hGo-sq-R29"/>
+                                        </connections>
+                                    </button>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AR Cool" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KOg-fQ-y4Q">
+                                        <rect key="frame" x="145" y="12" width="50" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RC7-ud-qUE">
+                                        <rect key="frame" x="145" y="0.0" width="130" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M3G-VE-dSR">
+                                                <rect key="frame" x="0.0" y="9" width="46" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <state key="normal" title="AR Cool">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="switchARMode:" destination="qNt-DY-caT" eventType="touchUpInside" id="8wV-mB-j4M"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y41-nq-GOl">
+                                                <rect key="frame" x="45" y="9" width="46" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <state key="normal" title="AR List">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="switchARMode:" destination="qNt-DY-caT" eventType="touchUpInside" id="5vm-og-R1X"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tkB-sh-M94">
+                                                <rect key="frame" x="85" y="9" width="46" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <state key="normal" title="Normal">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="switchARMode:" destination="qNt-DY-caT" eventType="touchUpInside" id="7ZG-kE-jDu"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="obh-II-W4t">
-                                        <rect key="frame" x="240" y="5" width="34" height="34"/>
+                                        <rect key="frame" x="10" y="7" width="33" height="30"/>
                                         <state key="normal" title="modeSwitch" image="video.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -121,7 +224,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vmu-U7-tOO">
-                                        <rect key="frame" x="279" y="5" width="34" height="34"/>
+                                        <rect key="frame" x="279" y="6" width="32" height="30"/>
                                         <state key="normal" title="camSwitch" image="switchCam.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -156,17 +259,23 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Dashboard" image="dashboard.png" id="j1W-Ra-V1e">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
+                    </tabBarItem>
                     <navigationItem key="navigationItem" id="cSL-jz-0bf"/>
                     <connections>
+                        <outlet property="ARModesView" destination="RC7-ud-qUE" id="l78-5M-2cg"/>
                         <outlet property="camButton" destination="Vmu-U7-tOO" id="rah-ou-30n"/>
+                        <outlet property="currentModeLabel" destination="KOg-fQ-y4Q" id="g1l-na-9ec"/>
                         <outlet property="modeButton" destination="obh-II-W4t" id="arf-zM-r8D"/>
+                        <outlet property="modesSwitchButton" destination="wBS-vl-eaA" id="Lno-Yy-3kD"/>
                         <outlet property="powerButton" destination="NV2-Pa-G6X" id="MyI-Ue-CZZ"/>
                         <outlet property="warningView" destination="bCU-sn-3vM" id="4sm-m3-KTb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jz5-FB-VnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="476" y="10"/>
+            <point key="canvasLocation" x="472" y="56"/>
         </scene>
         <!--Spg Gauges View Controller-->
         <scene sceneID="DOf-2i-2AF">
@@ -190,13 +299,13 @@
                                         <rect key="frame" x="43" y="86" width="236" height="236"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="batteryBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="H56-zT-AI4">
-                                        <rect key="frame" x="23" y="336" width="280" height="128"/>
+                                        <rect key="frame" x="23" y="330" width="280" height="128"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="batteryCircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="oAd-lx-Ipg">
-                                        <rect key="frame" x="34" y="348" width="104" height="104"/>
+                                        <rect key="frame" x="34" y="342" width="104" height="104"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="batteryCircle.png" translatesAutoresizingMaskIntoConstraints="NO" id="gQL-Vf-Gzn">
-                                        <rect key="frame" x="188" y="348" width="104" height="104"/>
+                                        <rect key="frame" x="188" y="342" width="104" height="104"/>
                                     </imageView>
                                     <view tag="34" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xPj-ae-r5j" customClass="WMGaugeView">
                                         <rect key="frame" x="46" y="89" width="230" height="230"/>
@@ -209,7 +318,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view tag="35" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hBZ-eU-Imn" customClass="WMGaugeView">
-                                        <rect key="frame" x="36" y="350" width="100" height="100"/>
+                                        <rect key="frame" x="36" y="344" width="100" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -219,7 +328,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view tag="36" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="R9a-Gi-05f" customClass="WMGaugeView">
-                                        <rect key="frame" x="190" y="350" width="100" height="100"/>
+                                        <rect key="frame" x="190" y="344" width="100" height="100"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -229,7 +338,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gL5-XU-UxJ">
-                                        <rect key="frame" x="0.0" y="480" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="460" width="320" height="45"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="infoTitle.png" translatesAutoresizingMaskIntoConstraints="NO" id="06A-H4-xXL">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="15"/>
@@ -241,7 +350,7 @@
                                     </view>
                                 </subviews>
                             </view>
-                            <view hidden="YES" tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cF-wl-mDw" userLabel="ARView">
+                            <view hidden="YES" tag="2" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2cF-wl-mDw" userLabel="ARView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <subviews>
                                     <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kQS-qe-Dfe">
@@ -250,62 +359,142 @@
                                             <segue destination="U2D-sJ-lHO" kind="embed" id="frM-mh-PWf"/>
                                         </connections>
                                     </containerView>
-                                    <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TyZ-9n-t7K">
-                                        <rect key="frame" x="200" y="70" width="110" height="110"/>
-                                        <connections>
-                                            <segue destination="rpL-yg-vHJ" kind="embed" id="Xyr-8V-h9F"/>
-                                        </connections>
-                                    </containerView>
-                                    <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rjY-jK-Gvj">
-                                        <rect key="frame" x="0.0" y="323" width="320" height="203"/>
-                                        <connections>
-                                            <segue destination="NxP-si-EGj" kind="embed" id="cGG-2u-mjY"/>
-                                        </connections>
-                                    </containerView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="zCV-dY-imV">
-                                        <rect key="frame" x="10" y="80" width="120" height="38"/>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WED" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="KrW-ie-lBe">
-                                        <rect key="frame" x="47" y="95" width="35" height="20"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <size key="shadowOffset" width="1" height="-1"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AUG 20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wDC-Ug-WbZ">
-                                        <rect key="frame" x="47" y="103" width="34" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="8"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <size key="shadowOffset" width="1" height="-1"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="09:31:12" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mUv-rL-BM7">
-                                        <rect key="frame" x="75" y="98" width="70" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                                        <size key="shadowOffset" width="1" height="-1"/>
-                                    </label>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7o9-mw-eYZ" userLabel="InfoView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="510"/>
+                                        <subviews>
+                                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TyZ-9n-t7K">
+                                                <rect key="frame" x="200" y="70" width="110" height="110"/>
+                                                <connections>
+                                                    <segue destination="rpL-yg-vHJ" kind="embed" id="Xyr-8V-h9F"/>
+                                                </connections>
+                                            </containerView>
+                                            <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rjY-jK-Gvj">
+                                                <rect key="frame" x="0.0" y="320" width="320" height="192"/>
+                                                <connections>
+                                                    <segue destination="NxP-si-EGj" kind="embed" id="cGG-2u-mjY"/>
+                                                </connections>
+                                            </containerView>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="profile.png" translatesAutoresizingMaskIntoConstraints="NO" id="zCV-dY-imV">
+                                                <rect key="frame" x="10" y="78" width="62" height="38"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="uPg-kZ-hrf">
+                                                <rect key="frame" x="75" y="83" width="35" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="WED" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="KrW-ie-lBe">
+                                                <rect key="frame" x="47" y="95" width="35" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="AUG 20" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="5" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wDC-Ug-WbZ">
+                                                <rect key="frame" x="47" y="103" width="34" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="8"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="09:31:12" lineBreakMode="characterWrap" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mUv-rL-BM7">
+                                                <rect key="frame" x="75" y="100" width="70" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8kb-UZ-K2q" userLabel="ListView">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="510"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="weather.png" translatesAutoresizingMaskIntoConstraints="NO" id="47C-Je-WLT">
+                                                <rect key="frame" x="210" y="55" width="35" height="35"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="5" translatesAutoresizingMaskIntoConstraints="NO" id="2p7-Fl-mey">
+                                                <rect key="frame" x="248" y="50" width="50" height="50"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="speed.png" translatesAutoresizingMaskIntoConstraints="NO" id="BAN-hG-RMq">
+                                                <rect key="frame" x="30" y="456" width="30" height="35"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="28" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jiv-rO-zdL">
+                                                <rect key="frame" x="62" y="458" width="150" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="KM/H" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sAW-CR-cWp">
+                                                <rect key="frame" x="92" y="466" width="50" height="20"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="time.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ju6-cQ-32H">
+                                                <rect key="frame" x="30" y="412" width="30" height="35"/>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="09:31:12" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7ku-pA-OD7">
+                                                <rect key="frame" x="62" y="412" width="150" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="2014-08-18 monday" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I12-Aq-DoD">
+                                                <rect key="frame" x="62" y="434" width="200" height="24"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" white="0.80086678832116787" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                                <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                <size key="shadowOffset" width="1" height="-1"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
                             </view>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="height" secondItem="2cF-wl-mDw" secondAttribute="height" id="Tne-cL-JHt"/>
+                            <constraint firstAttribute="width" secondItem="2cF-wl-mDw" secondAttribute="width" id="sdv-5F-y3a"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="ARInfoView" destination="7o9-mw-eYZ" id="O0M-EC-Z2e"/>
+                        <outlet property="ARListView" destination="8kb-UZ-K2q" id="U0d-D9-nTj"/>
                         <outlet property="batteryGaugeView" destination="hBZ-eU-Imn" id="yZo-Jl-LVS"/>
                         <outlet property="dateLabel" destination="wDC-Ug-WbZ" id="eDS-aw-bEl"/>
                         <outlet property="distanceGaugeView" destination="R9a-Gi-05f" id="OAy-ho-Wfk"/>
+                        <outlet property="longDateLabel" destination="I12-Aq-DoD" id="h3i-Ns-3wz"/>
                         <outlet property="speedGaugeView" destination="xPj-ae-r5j" id="5Rl-QC-Bnr"/>
-                        <outlet property="timeLabel" destination="mUv-rL-BM7" id="qzM-ag-1v9"/>
+                        <outlet property="speedLabel" destination="Jiv-rO-zdL" id="nc2-g4-cwj"/>
                         <outlet property="weekDayLabel" destination="KrW-ie-lBe" id="EiU-R2-RsW"/>
+                        <outletCollection property="temperatureLabel" destination="2p7-Fl-mey" id="AGv-i8-7JC"/>
+                        <outletCollection property="temperatureLabel" destination="uPg-kZ-hrf" id="ofX-Vb-hfq"/>
+                        <outletCollection property="timeLabel" destination="mUv-rL-BM7" id="xlH-ox-Uqh"/>
+                        <outletCollection property="timeLabel" destination="7ku-pA-OD7" id="YGA-qa-tto"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sWl-9D-8TQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="894" y="10"/>
+            <point key="canvasLocation" x="899" y="56"/>
         </scene>
         <!--Spg Cam View Controller-->
         <scene sceneID="S63-eU-evD">
@@ -319,18 +508,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueu-oM-SZf" userLabel="record">
-                                <rect key="frame" x="140" y="510" width="50" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.51000000000000001" colorSpace="calibratedWhite"/>
-                                <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                                <state key="normal" image="startVideo.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="selected" image="stopVideo.png"/>
-                                <connections>
-                                    <action selector="captureMedia:" destination="U2D-sJ-lHO" eventType="touchUpInside" id="Wk1-Bd-W9b"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PUy-O9-cxB">
+                                <rect key="frame" x="0.0" y="519" width="320" height="50"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="preview.png" translatesAutoresizingMaskIntoConstraints="NO" id="s1e-Da-Noa">
+                                        <rect key="frame" x="15" y="5" width="40" height="40"/>
+                                    </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ueu-oM-SZf" userLabel="record">
+                                        <rect key="frame" x="137" y="2" width="45" height="45"/>
+                                        <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
+                                        <state key="normal" image="startVideo.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="stopVideo.png"/>
+                                        <connections>
+                                            <action selector="captureMedia:" destination="U2D-sJ-lHO" eventType="touchUpInside" id="Wk1-Bd-W9b"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -369,14 +566,14 @@
                         <viewControllerLayoutGuide type="bottom" id="tMZ-fS-f3G"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Hvo-XI-CVB">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="203"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dashboardBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="UKM-gY-Udb">
-                                <rect key="frame" x="20" y="6" width="285" height="192"/>
+                                <rect key="frame" x="20" y="0.0" width="285" height="192"/>
                             </imageView>
                             <view tag="41" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="IfR-0P-Hxl" customClass="WMGaugeView">
-                                <rect key="frame" x="26" y="12" width="180" height="180"/>
+                                <rect key="frame" x="26" y="6" width="180" height="180"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -386,7 +583,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view tag="42" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PTy-qe-xke" customClass="WMGaugeView">
-                                <rect key="frame" x="177" y="42" width="120" height="120"/>
+                                <rect key="frame" x="177" y="36" width="120" height="120"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
@@ -441,10 +638,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ARMode.png" width="57" height="49"/>
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
-        <image name="camera.png" width="65" height="65"/>
+        <image name="bg2.jpg" width="640" height="1136"/>
+        <image name="camera.png" width="57" height="49"/>
         <image name="circles.png" width="640" height="1136"/>
+        <image name="dashboard.png" width="27" height="27"/>
         <image name="dashboardBg.png" width="475" height="318"/>
         <image name="info.png" width="640" height="43"/>
         <image name="infoTitle.png" width="640" height="30"/>
@@ -452,18 +652,24 @@
         <image name="lightOn.png" width="65" height="65"/>
         <image name="lockCenter.png" width="415" height="415"/>
         <image name="lockHalo.png" width="415" height="415"/>
-        <image name="powerOff.png" width="65" height="65"/>
-        <image name="profile.png" width="262" height="81"/>
+        <image name="me.png" width="27" height="27"/>
+        <image name="powerOff.png" width="57" height="49"/>
+        <image name="preview.png" width="68" height="68"/>
+        <image name="profile.png" width="138" height="81"/>
         <image name="radar.png" width="956" height="956"/>
         <image name="scan.png" width="65" height="65"/>
         <image name="scooterEntity.png" width="640" height="1136"/>
         <image name="scooterOutline.png" width="640" height="1136"/>
+        <image name="speed.png" width="34" height="42"/>
         <image name="speedBg.png" width="524" height="524"/>
         <image name="speedCircle.png" width="436" height="436"/>
         <image name="startVideo.png" width="82" height="82"/>
         <image name="stopVideo.png" width="82" height="82"/>
-        <image name="switchCam.png" width="65" height="65"/>
-        <image name="video.png" width="65" height="65"/>
+        <image name="switchCam.png" width="57" height="49"/>
+        <image name="time.png" width="34" height="42"/>
+        <image name="userInfo.png" width="495" height="648"/>
+        <image name="video.png" width="57" height="49"/>
+        <image name="weather.png" width="70" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

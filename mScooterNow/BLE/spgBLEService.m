@@ -17,7 +17,7 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 {
     NSArray *interestedServices;
     CBCharacteristic *powerCharacteristic;
-    NSMutableString *modeChangeSignals;
+    //NSMutableString *modeChangeSignals;
 }
 
 - (id)initWithDelegates:(id<spgBLEServiceDiscoverPeripheralsDelegate>)delegate peripheralDelegate:(id<spgBLEServicePeripheralDelegate>) peripheralDelegate
@@ -37,7 +37,7 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
         CBUUID *modeServiceUUID=CBUUID(kModeServiceUUID);
         interestedServices=@[speedServiceUUID,batteryServiceUUID,cameraServiceUUID,modeServiceUUID,powerServiceUUID];
         
-        modeChangeSignals=[[NSMutableString alloc] init];
+        //modeChangeSignals=[[NSMutableString alloc] init];
     }
     return self;
 }
@@ -266,10 +266,25 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
                 [mutableString appendString:hex];
             }
             
-            if(![mutableString isEqualToString:@"55AA"])
+            //photo
+            SBSCameraCommand cmdType=SBSCameraCommandNotValid;
+            if([mutableString isEqualToString:@"11AA"])
             {
-              if ([self.peripheralDelegate respondsToSelector:@selector(cameraTriggered)]) {
-                [self.peripheralDelegate cameraTriggered];
+                cmdType=SBSCameraCommandTakePhoto;
+            }
+            else if([mutableString isEqualToString:@"22BB"])
+            {
+                cmdType=SBSCameraCommandStartRecordVideo;
+            }
+            else if([mutableString isEqualToString:@"33CC"])
+            {
+                cmdType=SBSCameraCommandStopRecordVideo;
+            }
+            
+            if(cmdType!=SBSCameraCommandNotValid)
+            {
+                if ([self.peripheralDelegate respondsToSelector:@selector(cameraTriggered:)]) {
+                  [self.peripheralDelegate cameraTriggered:cmdType];
               }
             }
         }
@@ -292,6 +307,7 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
                 }
             }
             
+            /*
             //if the sequence is "TFFT", scooter has been auto powered off
             NSString *modeSymbol=modeValue?@"T":@"F";
             [modeChangeSignals appendString:modeSymbol];
@@ -306,6 +322,7 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
                     [self.peripheralDelegate autoPoweredOff];
                 }
             }
+             */
         }
     }
 }

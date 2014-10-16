@@ -258,12 +258,13 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    spgDashboardViewController *destination=segue.destinationViewController;
+    UITabBarController *tabBarController=segue.destinationViewController;
+    spgDashboardViewController *destination=(spgDashboardViewController *)[tabBarController. viewControllers objectAtIndex:0];
     
-    if(sender)
+    if(sender && destination)
     {
-      destination.bleService=self.bleService;
-      destination.peripheral=sender;
+       destination.bleService=self.bleService;
+       destination.peripheral=sender;
     }
 }
 

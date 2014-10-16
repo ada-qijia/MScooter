@@ -198,6 +198,9 @@ static void * RecordingContext = &RecordingContext;
 {
     if(![[self movieFileOutput] isRecording])
     {
+        [self switchMode:NO];
+        self.recordButton.selected=YES;
+        
         self.lockInterfaceRotation=YES;
         
         [[[self movieFileOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
@@ -211,12 +214,15 @@ static void * RecordingContext = &RecordingContext;
 
 -(void)stopVideoCapture
 {
+    self.recordButton.selected=NO;
     [[self movieFileOutput] stopRecording];
 }
 
 -(void)snapStillImage
 {
     dispatch_async([self sessionQueue], ^{
+        [self switchMode:YES];
+        
         // Update the orientation on the still image output video connection before capturing.
         [[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
         
