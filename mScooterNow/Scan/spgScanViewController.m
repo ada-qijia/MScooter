@@ -278,7 +278,16 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
 -(void)pinViewControllerDidDismissAfterPinEntryWasSuccessful:(THPinViewController *)pinViewController
 {
     self.locked=NO;
+    [self.bleService writePower:self.foundPeripheral value:[self getData:33]];
+    
     [self performSegueWithIdentifier:@"ConnectPeripheral" sender:self.foundPeripheral];
+}
+
+-(NSData *)getData:(Byte)value
+{
+    Byte bytes[]={value};
+    NSData *data=[NSData dataWithBytes:bytes length:1];
+    return data;
 }
 
 #pragma - spgBLEServiceDiscoverPeripheralsDelegate
@@ -318,11 +327,20 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
         [self fadeInScooterOutline:0.8];
         [self performSelector:@selector(fadeInScooterEntity:) withObject:[NSNumber numberWithFloat:1.2] afterDelay:0.8];
         
-        [self performSelector:@selector(showUnlock:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:2];
-        [self performSelector:@selector(twinkleUnlock:) withObject:nil afterDelay:2.5];
+        [self.bleService connectPeripheral:peripheral];
     }
 }
 
+-(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral
+{
+    [self performSelector:@selector(showUnlock:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:2];
+    [self performSelector:@selector(twinkleUnlock:) withObject:nil afterDelay:2.5];
+}
+
+-(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
+{
+    [self retryClicked:nil];
+}
 /*
 #pragma mark - Navigation
 

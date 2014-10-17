@@ -23,6 +23,8 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 @optional
 
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI;
+-(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral;
+-(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central;
 
 @end

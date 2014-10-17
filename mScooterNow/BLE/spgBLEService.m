@@ -139,6 +139,11 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 
     [peripheral discoverServices:nil];//interestedServices];
     
+    if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:connectPeripheral:)])
+    {
+        [self.discoverPeripheralsDelegate centralManager:central connectPeripheral:peripheral];
+    }
+    
     if([self.peripheralDelegate respondsToSelector:@selector(centralManager:connectPeripheral:)])
     {
         [self.peripheralDelegate centralManager:central connectPeripheral:peripheral];
@@ -147,6 +152,11 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:disconnectPeripheral:error:)])
+    {
+        [self.discoverPeripheralsDelegate centralManager:central disconnectPeripheral:peripheral error:error];
+    }
+    
     if([self.peripheralDelegate respondsToSelector:@selector(centralManager:disconnectPeripheral:error:)])
     {
         [self.peripheralDelegate centralManager:central disconnectPeripheral:peripheral error:error];
@@ -155,6 +165,11 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:disconnectPeripheral:error:)])
+    {
+        [self.discoverPeripheralsDelegate centralManager:central disconnectPeripheral:peripheral error:error];
+    }
+    
     if([self.peripheralDelegate respondsToSelector:@selector(centralManager:disconnectPeripheral:error:)])
     {
         [self.peripheralDelegate centralManager:central disconnectPeripheral:peripheral error:error];

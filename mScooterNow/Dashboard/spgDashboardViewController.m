@@ -53,7 +53,7 @@
     if(self.bleService && self.peripheral)
     {
         self.bleService.peripheralDelegate=self;
-        [self.bleService connectPeripheral:self.peripheral];
+       // [self.bleService connectPeripheral:self.peripheral];
     }
 }
 
@@ -152,6 +152,10 @@
     self.modeButton.hidden=!self.powerButton.hidden;
     self.modesSwitchButton.hidden=self.modeButton.hidden;
     self.currentModeLabel.hidden=self.modesSwitchButton.hidden;
+    if(nextView==dashboardView)
+    {
+        self.ARModesView.hidden=YES;
+    }
 }
 
 #pragma mark - custom methods
