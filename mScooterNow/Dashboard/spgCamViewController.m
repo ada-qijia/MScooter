@@ -162,14 +162,21 @@ static void * RecordingContext = &RecordingContext;
     return YES;
 }
 
--(BOOL)shouldAutorotate
-{
-    return ![self lockInterfaceRotation];
-}
-
 -(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
 {
     [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
+    if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+    {
+        self.controllerView.frame=CGRectMake(518, 0, 50, 320);
+        self.recordButton.frame=CGRectMake(2, 137, 46, 46);
+        self.previewImage.frame=CGRectMake(5, 265, 40, 40);
+    }
+    else
+    {
+        self.controllerView.frame=CGRectMake(0, 518, 320, 50);
+        self.recordButton.frame=CGRectMake(137, 2, 46, 46);
+        self.previewImage.frame=CGRectMake(15, 5, 40, 40);
+    }
 }
 
 - (void)didReceiveMemoryWarning {

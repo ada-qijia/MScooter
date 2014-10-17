@@ -10,6 +10,8 @@
 
 @interface spgCamViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIView *controllerView;
+@property (weak, nonatomic) IBOutlet UIImageView *previewImage;
 @property (weak, nonatomic) IBOutlet UIButton *recordButton;
 
 - (IBAction)captureMedia:(UIButton *)sender;

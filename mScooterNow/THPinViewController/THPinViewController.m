@@ -73,6 +73,11 @@
                                                          multiplier:1.0f constant:pinViewYOffset]];
 }
 
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma mark - Properties
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor

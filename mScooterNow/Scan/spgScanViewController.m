@@ -69,6 +69,11 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
     [super viewWillDisappear:animated];
 }
 
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma - UI interaction
 
 -(IBAction)scooterClicked:(id)sender

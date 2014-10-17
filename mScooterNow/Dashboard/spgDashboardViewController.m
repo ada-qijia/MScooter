@@ -77,6 +77,34 @@
     [UIApplication sharedApplication].statusBarHidden=NO;
 }
 
+-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    spgGaugesViewController *gaugesVC= self.childViewControllers[0];
+    if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+    {
+        self.contentView.frame=CGRectMake(0, 0, 568, 320);
+        self.topControllerView.frame=CGRectMake(0, 0,44, 320);
+        self.camButton.frame=CGRectMake(7, 10 ,32, 30);
+        self.modesSwitchButton.frame=CGRectMake(7, 150, 32, 30);
+        self.currentModeLabel.frame=CGRectMake(0, 135, 50, 21);
+        self.ARModesView.frame=CGRectMake(0, 120 ,135, 44);
+        self.modeButton.frame=CGRectMake(7, 279, 33, 30);
+        
+        [gaugesVC rotateLayout:NO];
+    }
+    else
+    {
+        self.contentView.frame=CGRectMake(0, 0, 320, 568);
+        self.topControllerView.frame=CGRectMake(0, 0,320, 44);
+        self.camButton.frame=CGRectMake(279, 7 ,32, 30);
+        self.modesSwitchButton.frame=CGRectMake(110, 7, 32, 30);
+        self.currentModeLabel.frame=CGRectMake(145, 12, 50, 21);
+        self.ARModesView.frame=CGRectMake(145, 0 ,135, 44);
+        self.modeButton.frame=CGRectMake(10, 7, 33, 30);
+        
+        [gaugesVC rotateLayout:YES];
+    }
+}
 
 #pragma mark - gesture methods
 
@@ -304,8 +332,8 @@
 -(void)powerCharacteristicFound
 {
     NSLog(@"power on now");
-    //power on
-    [self.bleService writePower:self.peripheral value:[self getData:247]];
+    //power on 247
+    [self.bleService writePower:self.peripheral value:[self getData:33]];
 }
 
 -(void)LogData:(NSData *)data ofCharacteristic:(NSString *)type

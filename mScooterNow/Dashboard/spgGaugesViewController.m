@@ -123,6 +123,39 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma - update UI
+
+-(void)rotateLayout:(BOOL)portrait
+{
+    if(portrait)
+    {
+        self.ARView.frame=CGRectMake(0, 0, 320, 568);
+        
+        self.ARInfoView.frame=CGRectMake(0, 0,320, 510);
+        self.realDataView.frame=CGRectMake(10, 78, 150, 40);
+        self.mapView.frame=CGRectMake(200, 70, 110, 110);
+        self.ARGaugeView.frame=CGRectMake(0, 320, 320, 192);
+        
+        self.listWeatherView.frame=CGRectMake(215, 55, 80, 40);
+        self.listDateView.frame=CGRectMake(35, 415, 160, 40);
+        self.listSpeedView.frame=CGRectMake(35, 460, 160, 40);
+    }
+    else
+    {
+        self.ARView.frame=CGRectMake(0, 0, 568, 320);
+        
+        self.ARInfoView.frame=CGRectMake(0, 0,510, 320);
+        self.realDataView.frame=CGRectMake(60, 10, 150, 40);
+        self.mapView.frame=CGRectMake(390, 10, 110, 110);
+        self.ARGaugeView.frame=CGRectMake(90, 126, 320, 192);
+        
+        self.listWeatherView.frame=CGRectMake(420, 10, 110, 110);
+        self.listDateView.frame=CGRectMake(75, 270, 160, 40);
+        self.listSpeedView.frame=CGRectMake(310, 270, 160, 40);
+    }
+        self.ARContainerView.frame=self.ARView.frame;
+        self.ARListView.frame=self.ARInfoView.frame;
+}
 
 #pragma - date time utilities
 

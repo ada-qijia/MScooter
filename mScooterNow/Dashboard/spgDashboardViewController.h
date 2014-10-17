@@ -24,6 +24,8 @@ typedef enum:NSUInteger
 @property (weak,nonatomic) CBPeripheral *peripheral;
 @property (strong,nonatomic) spgBLEService *bleService;
 
+@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *topControllerView;
 @property (weak, nonatomic) IBOutlet UIView *warningView;
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
 @property (weak, nonatomic) IBOutlet UIButton *modeButton;

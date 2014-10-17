@@ -29,6 +29,8 @@
 		32ADA25D19EF6A3C0081BD51 /* speed.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25C19EF6A3C0081BD51 /* speed.png */; };
 		32ADA25F19EF70FF0081BD51 /* dashboard@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA25E19EF70FF0081BD51 /* dashboard@2x.png */; };
 		32ADA26119EF71C00081BD51 /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA26019EF71C00081BD51 /* weather.png */; };
+		32ADA26519EF8FF60081BD51 /* spgSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32ADA26419EF8FF60081BD51 /* spgSettingsViewController.m */; };
+		32ADA26819EFB0520081BD51 /* spgTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32ADA26719EFB0520081BD51 /* spgTabBarViewController.m */; };
 		32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFF019C97B1800D9FFF5 /* THPinViewController.strings */; };
 		32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF719C97B1800D9FFF5 /* THPinInputCirclesView.m */; };
 		32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF919C97B1800D9FFF5 /* THPinInputCircleView.m */; };
@@ -107,6 +109,10 @@
 		32ADA25C19EF6A3C0081BD51 /* speed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speed.png; sourceTree = "<group>"; };
 		32ADA25E19EF70FF0081BD51 /* dashboard@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboard@2x.png"; sourceTree = "<group>"; };
 		32ADA26019EF71C00081BD51 /* weather.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = weather.png; sourceTree = "<group>"; };
+		32ADA26319EF8FF60081BD51 /* spgSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgSettingsViewController.h; path = Settings/spgSettingsViewController.h; sourceTree = "<group>"; };
+		32ADA26419EF8FF60081BD51 /* spgSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgSettingsViewController.m; path = Settings/spgSettingsViewController.m; sourceTree = "<group>"; };
+		32ADA26619EFB0520081BD51 /* spgTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgTabBarViewController.h; sourceTree = "<group>"; };
+		32ADA26719EFB0520081BD51 /* spgTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgTabBarViewController.m; sourceTree = "<group>"; };
 		32B1000019C97B1800D9FFF5 /* THPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewController.h; sourceTree = "<group>"; };
 		32B1000119C97B1800D9FFF5 /* THPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinViewController.m; sourceTree = "<group>"; };
 		32B1000219C97B1800D9FFF5 /* THPinViewControllerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewControllerMacros.h; sourceTree = "<group>"; };
@@ -204,6 +210,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		32ADA26219EF8FA20081BD51 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				32ADA26319EF8FF60081BD51 /* spgSettingsViewController.h */,
+				32ADA26419EF8FF60081BD51 /* spgSettingsViewController.m */,
+			);
+			name = Settings;
+			sourceTree = "<group>";
+		};
 		32B1000619C97B1800D9FFF5 /* WMGaugeView */ = {
 			isa = PBXGroup;
 			children = (
@@ -275,6 +290,7 @@
 		32B1FF8F19C974AC00D9FFF5 /* mScooterNow */ = {
 			isa = PBXGroup;
 			children = (
+				32ADA26219EF8FA20081BD51 /* Settings */,
 				32B1001C19C97D6100D9FFF5 /* Dashboard */,
 				32B1001219C97B2D00D9FFF5 /* BLE */,
 				32B1FFEF19C97B1800D9FFF5 /* THPinViewController */,
@@ -289,6 +305,8 @@
 				32B1FFA119C974AD00D9FFF5 /* Images.xcassets */,
 				32B1FF9019C974AC00D9FFF5 /* Supporting Files */,
 				32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */,
+				32ADA26619EFB0520081BD51 /* spgTabBarViewController.h */,
+				32ADA26719EFB0520081BD51 /* spgTabBarViewController.m */,
 			);
 			path = mScooterNow;
 			sourceTree = "<group>";
@@ -523,6 +541,7 @@
 			files = (
 				32B1000C19C97B1800D9FFF5 /* THPinNumButton.m in Sources */,
 				32B1FFEE19C97AC100D9FFF5 /* spgScanViewController.m in Sources */,
+				32ADA26519EF8FF60081BD51 /* spgSettingsViewController.m in Sources */,
 				32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */,
 				32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */,
 				32B1FF9619C974AC00D9FFF5 /* main.m in Sources */,
@@ -533,6 +552,7 @@
 				32B1FF9A19C974AD00D9FFF5 /* spgAppDelegate.m in Sources */,
 				32B1000F19C97B1800D9FFF5 /* THPinViewController.m in Sources */,
 				32B1002519C97DF300D9FFF5 /* spgGaugesViewController.m in Sources */,
+				32ADA26819EFB0520081BD51 /* spgTabBarViewController.m in Sources */,
 				32B1001119C97B1800D9FFF5 /* WMGaugeView.m in Sources */,
 				32A7AB6919E67E49008B7D32 /* spgCamViewController.m in Sources */,
 				32B1001819C97B7900D9FFF5 /* spgPinViewController.m in Sources */,

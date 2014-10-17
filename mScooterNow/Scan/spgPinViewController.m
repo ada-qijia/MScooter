@@ -32,7 +32,7 @@ static NSUInteger const THNumberOfPinEntries = 6;
 {
     [super viewDidLoad];
     
-    self.correctPin= @"1234";
+    self.correctPin= kCorrectPin;
     //self.locked=YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];

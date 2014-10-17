@@ -26,4 +26,5 @@
 
 #define kBeijingCityID @"101010100"
 
+#define kCorrectPin @"0033"
 #endif
