@@ -46,6 +46,7 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 
 -(void)startScan
 {
+    /*
     //find known peripheral
     NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
     NSString *idString= [userDefaults stringForKey:kMyPeripheralIDKey];
@@ -69,6 +70,7 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
         }
     }
     else//scan
+     */
     {
         [self.centralManager scanForPeripheralsWithServices:nil options:nil];
     }

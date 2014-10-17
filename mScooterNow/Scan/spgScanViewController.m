@@ -317,6 +317,7 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
         self.foundPeripheral=peripheral;
         [self fadeInScooterOutline:0.8];
         [self performSelector:@selector(fadeInScooterEntity:) withObject:[NSNumber numberWithFloat:1.2] afterDelay:0.8];
+        
         [self performSelector:@selector(showUnlock:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:2];
         [self performSelector:@selector(twinkleUnlock:) withObject:nil afterDelay:2.5];
     }

@@ -9,6 +9,7 @@
 #import "spgGaugesViewController.h"
 #import "WMGaugeView.h"
 #import "spgMScooterDefinitions.h"
+#import "spgCamViewController.h"
 
 @interface spgGaugesViewController ()
 
@@ -127,18 +128,19 @@
 
 -(void)rotateLayout:(BOOL)portrait
 {
+    spgCamViewController *camViewController = self.childViewControllers[0];
     if(portrait)
     {
         self.ARView.frame=CGRectMake(0, 0, 320, 568);
         
         self.ARInfoView.frame=CGRectMake(0, 0,320, 510);
-        self.realDataView.frame=CGRectMake(10, 78, 150, 40);
+        self.realDataView.frame=CGRectMake(10, 60, 150, 40);
         self.mapView.frame=CGRectMake(200, 70, 110, 110);
         self.ARGaugeView.frame=CGRectMake(0, 320, 320, 192);
         
         self.listWeatherView.frame=CGRectMake(215, 55, 80, 40);
-        self.listDateView.frame=CGRectMake(35, 415, 160, 40);
-        self.listSpeedView.frame=CGRectMake(35, 460, 160, 40);
+        self.listDateView.frame=CGRectMake(25, 415, 160, 40);
+        self.listSpeedView.frame=CGRectMake(25, 470, 160, 40);
     }
     else
     {
@@ -155,6 +157,9 @@
     }
         self.ARContainerView.frame=self.ARView.frame;
         self.ARListView.frame=self.ARInfoView.frame;
+    
+    UIInterfaceOrientation toOrientation=portrait?UIInterfaceOrientationPortrait:UIInterfaceOrientationLandscapeLeft;
+    [camViewController rotateLayout:toOrientation];
 }
 
 #pragma - date time utilities

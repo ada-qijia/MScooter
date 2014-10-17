@@ -77,10 +77,11 @@
     [UIApplication sharedApplication].statusBarHidden=NO;
 }
 
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
-{
+ -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{ 
     spgGaugesViewController *gaugesVC= self.childViewControllers[0];
-    if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
+    
+    if(size.width>size.height)
     {
         self.contentView.frame=CGRectMake(0, 0, 568, 320);
         self.topControllerView.frame=CGRectMake(0, 0,44, 320);
@@ -89,6 +90,9 @@
         self.currentModeLabel.frame=CGRectMake(0, 135, 50, 21);
         self.ARModesView.frame=CGRectMake(0, 120 ,135, 44);
         self.modeButton.frame=CGRectMake(7, 279, 33, 30);
+        
+        self.warningView.center=CGPointMake(22, 160);
+        self.warningView.transform=CGAffineTransformMakeRotation(-M_PI_2);
         
         [gaugesVC rotateLayout:NO];
     }
@@ -102,6 +106,9 @@
         self.ARModesView.frame=CGRectMake(145, 0 ,135, 44);
         self.modeButton.frame=CGRectMake(10, 7, 33, 30);
         
+        self.warningView.center=CGPointMake(160,22);
+        self.warningView.transform=CGAffineTransformIdentity;
+
         [gaugesVC rotateLayout:YES];
     }
 }
@@ -289,12 +296,15 @@
     {
         switch (commandType) {
             case SBSCameraCommandTakePhoto:
+                self.modeButton.selected=YES;
                 [videoCaptureVC snapStillImage];
                 break;
             case SBSCameraCommandStartRecordVideo:
+                self.modeButton.selected=NO;
                 [videoCaptureVC startVideoCapture];
                 break;
             case SBSCameraCommandStopRecordVideo:
+                self.modeButton.selected=NO;
                 [videoCaptureVC stopVideoCapture];
                 break;
             default:

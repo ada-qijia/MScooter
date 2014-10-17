@@ -23,4 +23,6 @@
 -(void)changeCamera;
 -(void)switchMode:(BOOL)toPhoto;
 
+-(void)rotateLayout:(UIInterfaceOrientation)toInterfaceOrientation;
+
 @end

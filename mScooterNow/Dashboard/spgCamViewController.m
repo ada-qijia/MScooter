@@ -141,6 +141,7 @@ static void * RecordingContext = &RecordingContext;
     }
     else if (context == RecordingContext)
     {
+        /*
         BOOL isRecording = [change[NSKeyValueChangeNewKey] boolValue];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -153,6 +154,7 @@ static void * RecordingContext = &RecordingContext;
                 //[[self recordButton] setEnabled:YES];
             }
         });
+         */
     }
 
 }
@@ -162,7 +164,7 @@ static void * RecordingContext = &RecordingContext;
     return YES;
 }
 
--(void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+-(void)rotateLayout:(UIInterfaceOrientation)toInterfaceOrientation
 {
     [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
     if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
@@ -227,9 +229,9 @@ static void * RecordingContext = &RecordingContext;
 
 -(void)snapStillImage
 {
+    [self switchMode:YES];
+    
     dispatch_async([self sessionQueue], ^{
-        [self switchMode:YES];
-        
         // Update the orientation on the still image output video connection before capturing.
         [[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] setVideoOrientation:[[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] videoOrientation]];
         
@@ -383,12 +385,13 @@ static void * RecordingContext = &RecordingContext;
     //photo
     if(toPhoto)
     {
+        self.recordButton.selected=NO;
         [self.recordButton setImage:[UIImage imageNamed:@"shoot.png"] forState:UIControlStateNormal];
         [self.recordButton setImage:nil forState:UIControlStateSelected];
     }
     else//video
     {
-        self.recordButton.selected=false;
+        self.recordButton.selected=NO;
         [self.recordButton setImage:[UIImage imageNamed:@"startVideo.png"] forState:UIControlStateNormal];
         [self.recordButton setImage:[UIImage imageNamed:@"stopVideo.png"] forState:UIControlStateSelected];
     }
