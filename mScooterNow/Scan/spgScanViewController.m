@@ -339,7 +339,10 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
 
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    [self retryClicked:nil];
+    if(self.isViewLoaded && self.view.window)
+    {
+      [self retryClicked:nil];
+    }
 }
 /*
 #pragma mark - Navigation

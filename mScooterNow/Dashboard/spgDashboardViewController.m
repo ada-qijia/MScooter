@@ -67,10 +67,12 @@
 {
     [super viewWillDisappear:animated];
     
+    /*
     if(self.bleService)
     {
         [self.bleService disConnectPeripheral:self.peripheral];
     }
+     */
     
     [videoCaptureVC stopVideoCapture];
     
