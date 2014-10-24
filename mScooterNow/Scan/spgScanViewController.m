@@ -9,13 +9,13 @@
 #import "spgScanViewController.h"
 
 static NSString *const SCOOTER_SERVICE_UUID=@"4B4681A4-1246-1EEC-AB2B-FE45F896822D";
-static NSString *const SPEED_CHARACTERISTIC_UUID=@"";
-static NSString *const POWER_CHARACTERISTIC_UUID=@"";
+static const NSInteger CountPerPage = 1;
+static const NSInteger ScanInterval = 6;
 
 @interface spgScanViewController ()
 
-@property (strong,nonatomic)spgBLEService *bleService;
-@property (strong,nonatomic)CBPeripheral *foundPeripheral;
+@property (strong,nonatomic) spgBLEService *bleService;
+@property (strong,nonatomic) NSMutableArray *foundPeripherals;
 
 @end
 
@@ -23,14 +23,17 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
 {
     BOOL isPinning;
     BOOL isScanning;
+    NSTimer *scanTimer;
+    CGPoint positions[CountPerPage];
 }
+
+#pragma - UIViewController methods
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
-    }
+          }
     return self;
 }
 
@@ -39,13 +42,14 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
     [super viewDidLoad];
     
     //initialize
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.jpg"]];
+    self.view.backgroundColor = BackgroundImageColor;
+    self.foundPeripherals=[[NSMutableArray alloc] init];
+    [self createPositions];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -78,31 +82,65 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
 
 -(IBAction)scooterClicked:(id)sender
 {
-    [self login:nil];
+    //navigate
+     NSInteger index=[sender superview].tag;
+     [self navigateWithDeviceIndex:index isKnown:NO];
 }
 
 - (IBAction)retryClicked:(id)sender {
-    
-    self.scooterOutline.hidden=YES;
-    self.scooterEntity.hidden=YES;
-    self.unlockHalo.hidden=YES;
-    self.unlockButton.hidden=YES;
-    self.retryButton.enabled=NO;
+    for(UIView *deviceView in self.devicesScrollView.subviews)
+    {
+        [deviceView removeFromSuperview];
+    }
 
+    self.foundView.hidden=YES;
+    self.notFoundView.hidden=YES;
+    self.pageControl.hidden=YES;
+    
     [self startScan];
+}
+
+- (IBAction)pageChanged:(UIPageControl *)sender {
+    float offsetX=sender.currentPage * self.view.frame.size.width;
+    [self.devicesScrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
 
 #pragma - custom methods
 
 -(BOOL)startScan
 {
-    self.foundPeripheral=nil;
+    [self.foundPeripherals removeAllObjects];
   
     if(!isScanning && self.bleService.centralManager.state==CBCentralManagerStatePoweredOn)
-    {   //run animation
+    {
+        //start a timer
+        scanTimer=[NSTimer scheduledTimerWithTimeInterval:ScanInterval target:self selector:@selector(timerElapsed) userInfo:nil repeats:NO];
+
+        //run animation
         [self startSpin];
         
-        [self.bleService startScan];
+        //find known peripheral
+        NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
+        NSString *idString= [userDefaults stringForKey:kMyPeripheralIDKey];
+        if(idString)
+        {
+            NSUUID *knownId=[[NSUUID alloc] initWithUUIDString:idString];
+            NSArray *savedIdentifier=[NSArray arrayWithObjects:knownId, nil];
+            NSArray *knownPeripherals= [self.bleService.centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
+            if(knownPeripherals.count>0)
+            {
+                [self.foundPeripherals addObject:knownPeripherals[0]];
+                [self navigateWithDeviceIndex:0 isKnown:YES];
+            }
+            else
+            {
+                [self.bleService startScan];
+            }
+        }
+        else
+        {
+            [self.bleService startScan];
+        }
         
         isScanning=YES;
         return true;
@@ -116,20 +154,21 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
     {
         isScanning=NO;
         [self.bleService stopScan];
-        [self removeAllAnimations];
+        [self stopSpin];
     
         self.retryButton.enabled=YES;
     }
 }
 
--(void)removeAllAnimations
+-(void)timerElapsed
 {
-    [self stopSpin];
-    [self.scooterOutline.layer removeAllAnimations];
-    [self.scooterEntity.layer removeAllAnimations];
-    [self.unlockHalo.layer removeAllAnimations];
+    [self stopScan];
+    if(self.foundPeripherals.count==0)
+    {
+        self.foundView.hidden=YES;
+        self.notFoundView.hidden=NO;
+    }
 }
-
 #pragma radar spin animation
 
 -(void)runSpinAnimation
@@ -170,7 +209,6 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
 -(void)startSpin
 {
     self.radarImage.alpha = 1.0;
-    self.circlesBg.hidden=YES;
     
     if(!isPinning)
     {
@@ -188,8 +226,7 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
 
 -(void)stopSpin
 {
-    self.radarImage.alpha=0;
-    self.circlesBg.hidden=NO;
+    self.radarImage.alpha=0.5;
     
     if(isPinning)
     {
@@ -198,96 +235,20 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
     }
 }
 
-#pragma mark - scooter animation
+#pragma mark - navigation
 
--(void)fadeInScooterOutline:(float)duration
+-(void)navigateWithDeviceIndex:(NSInteger) index isKnown:(BOOL)isKnown
 {
-    self.scooterOutline.hidden=NO;
-    
-    CABasicAnimation* fadeIn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeIn.fromValue = [NSNumber numberWithFloat:0.0];
-    fadeIn.toValue = [NSNumber numberWithFloat:1.0];
-    fadeIn.duration = duration;
-    
-    [self.scooterOutline.layer addAnimation:fadeIn forKey:@"opacity"];
-}
-
--(void)fadeInScooterEntity:(NSNumber *)duration
-{
-    self.scooterEntity.hidden=NO;
-    
-    CABasicAnimation* fadeIn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeIn.fromValue = [NSNumber numberWithFloat:0.0];
-    fadeIn.toValue = [NSNumber numberWithFloat:1.0];
-    fadeIn.duration =duration? duration.floatValue: 1.5;
-
-    [self.scooterEntity.layer addAnimation:fadeIn forKey:@"opacity"];
-}
-
--(void)showUnlock:(NSNumber *)duration
-{
-    self.unlockHalo.hidden=NO;
-    self.unlockButton.hidden=NO;
-    
-    float defaultDuration=1.0;
-    CABasicAnimation* fadeIn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeIn.fromValue = [NSNumber numberWithFloat:0.3];
-    fadeIn.toValue = [NSNumber numberWithFloat:1.0];
-    
-    CABasicAnimation* expand = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    expand.fromValue = [NSNumber numberWithFloat:0.3];
-    expand.toValue = [NSNumber numberWithFloat:1.0];
-    
-    CAAnimationGroup* group = [CAAnimationGroup animation];
-    group.animations = [NSArray arrayWithObjects:expand, nil];
-    group.duration = duration?duration.floatValue:defaultDuration;
-    
-    [self.unlockHalo.layer addAnimation:group forKey:@"haloGroup"];
-    [self.unlockButton.layer addAnimation:group forKey:@"unlockGroup"];
-}
-
--(void)twinkleUnlock:(NSNumber *)duration
-{
-    [self stopScan];
-    
-    CABasicAnimation* twinkle = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    twinkle.fromValue = [NSNumber numberWithFloat:0.5];
-    twinkle.toValue = [NSNumber numberWithFloat:1.0];
-    twinkle.duration = duration?duration.floatValue:0.5;
-    twinkle.autoreverses=YES;
-    twinkle.repeatCount=HUGE_VALF;
-    [self.unlockHalo.layer addAnimation:twinkle forKey:@"opacity"];
-}
-
-#pragma mark - segue navigation
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    UITabBarController *tabBarController=segue.destinationViewController;
-    spgDashboardViewController *destination=(spgDashboardViewController *)[tabBarController. viewControllers objectAtIndex:0];
-    
-    if(sender && destination)
+    spgConnectViewController *destination=[[spgConnectViewController alloc] initWithNibName:@"spgConnectViewController" bundle:nil];
+    destination.bleService=self.bleService;
+    destination.isPeripheralKnown=isKnown;
+    if(self.foundPeripherals.count>index)
     {
-       destination.bleService=self.bleService;
-       destination.peripheral=sender;
+        destination.peripheral=self.foundPeripherals[index];
     }
-}
-
-#pragma mark - pin delegate
-
--(void)pinViewControllerDidDismissAfterPinEntryWasSuccessful:(THPinViewController *)pinViewController
-{
-    self.locked=NO;
-    [self.bleService writePower:self.foundPeripheral value:[self getData:33]];
     
-    [self performSegueWithIdentifier:@"ConnectPeripheral" sender:self.foundPeripheral];
-}
-
--(NSData *)getData:(Byte)value
-{
-    Byte bytes[]={value};
-    NSData *data=[NSData dataWithBytes:bytes length:1];
-    return data;
+    //destination.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:destination animated:NO completion:nil];
 }
 
 #pragma - spgBLEServiceDiscoverPeripheralsDelegate
@@ -318,41 +279,58 @@ static NSString *const POWER_CHARACTERISTIC_UUID=@"";
     }
 }
 
+//scan multiple devices
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    //[self stopScan];
-    if(!self.foundPeripheral)
-    {
-        self.foundPeripheral=peripheral;
-        [self fadeInScooterOutline:0.8];
-        [self performSelector:@selector(fadeInScooterEntity:) withObject:[NSNumber numberWithFloat:1.2] afterDelay:0.8];
-        
-        [self.bleService connectPeripheral:peripheral];
-    }
+    [self.foundPeripherals addObject:peripheral];
+    [self addDeviceSite:peripheral];
 }
 
--(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral
-{
-    [self performSelector:@selector(showUnlock:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:2];
-    [self performSelector:@selector(twinkleUnlock:) withObject:nil afterDelay:2.5];
+#pragma - UIScrollViewDelegate
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    self.pageControl.currentPage = scrollView.contentOffset.x/self.view.frame.size.width;
 }
 
--(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
-{
-    if(self.isViewLoaded && self.view.window)
-    {
-      [self retryClicked:nil];
-    }
-}
-/*
-#pragma mark - Navigation
+#pragma - utilities
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)addDeviceSite:(CBPeripheral *)peripheral
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    NSUInteger row = [self.foundPeripherals indexOfObject:peripheral];
+    NSInteger numOfPages=(NSInteger)ceil((float)(row+1)/CountPerPage);
+    
+    self.foundView.hidden=NO;
+    
+    //set pageControl
+    self.pageControl.hidden=row<CountPerPage;
+    self.pageControl.currentPage=0;
+    self.pageControl.numberOfPages=numOfPages;
+    
+    //set scroll view
+    [self.devicesScrollView setContentSize:CGSizeMake(self.view.frame.size.width*numOfPages, self.view.frame.size.height)];
+    
+    //Add Device
+    NSInteger indexInPage=row%CountPerPage;
+        UIView *deviceView=[[[NSBundle mainBundle] loadNibNamed:@"spgDeviceSite" owner:self options:nil] objectAtIndex:0];
+        deviceView.tag=row;
+        deviceView.frame=CGRectMake((numOfPages-1)* self.view.frame.size.width+positions[indexInPage].x, positions[indexInPage].y, deviceView.frame.size.width, deviceView.frame.size.height);
+        UILabel *name=(UILabel *)[deviceView viewWithTag:11];
+        name.text=peripheral.name;
+        UIButton *button=(UIButton *)[deviceView viewWithTag:12];
+        button.layer.borderColor=[ThemeColor CGColor];
+        [button addTarget:self action:@selector(scooterClicked:) forControlEvents:UIControlEventTouchUpInside];
+    
+        [self.devicesScrollView addSubview:deviceView];
 }
-*/
+
+-(void)createPositions
+{
+    positions[0]= CGPointMake(30, 90);;
+   
+    /*positions[1]= CGPointMake(130, 270);
+    positions[2]= CGPointMake(45, 190);
+    positions[3]= CGPointMake(230, 285);
+    positions[4]= CGPointMake(100, 15);*/
+}
 
 @end

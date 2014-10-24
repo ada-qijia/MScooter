@@ -10,13 +10,13 @@
 #import "spgMScooterDefinitions.h"
 
 #define CBUUID(s) [CBUUID UUIDWithString:s];
-//#define kMyPeripheralIDKey @"myPeripheralID";
-static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 
 @implementation spgBLEService
 {
     NSArray *interestedServices;
     CBCharacteristic *powerCharacteristic;
+    CBCharacteristic *powerTestCharacteristic;
+    CBCharacteristic *powerTest2Characteristic;
     //NSMutableString *modeChangeSignals;
 }
 
@@ -46,31 +46,6 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
 
 -(void)startScan
 {
-    /*
-    //find known peripheral
-    NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
-    NSString *idString= [userDefaults stringForKey:kMyPeripheralIDKey];
-    if(idString)
-    {
-        NSUUID *knownId=[[NSUUID alloc] initWithUUIDString:idString];
-        NSArray *savedIdentifier=[NSArray arrayWithObjects:knownId, nil];
-        NSArray *knownPeripherals= [self.centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
-        if(knownPeripherals.count>0)
-        {
-            if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
-            {
-                [self.discoverPeripheralsDelegate centralManager:self.centralManager didDiscoverPeripheral:[knownPeripherals firstObject] advertisementData:nil RSSI:nil];
-            }
-            //clean the saved ID temporarily for demo
-            [userDefaults setObject:nil forKey:kMyPeripheralIDKey];
-        }
-        else//scan
-        {
-            [self.centralManager scanForPeripheralsWithServices:nil options:nil];
-        }
-    }
-    else//scan
-     */
     {
         [self.centralManager scanForPeripheralsWithServices:nil options:nil];
     }
@@ -104,6 +79,14 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
     }
 }
 
+-(void)writeTestPower:(CBPeripheral *)peripheral value:(NSData *)data
+{
+    if (peripheral && powerTestCharacteristic && powerTest2Characteristic) {
+        [peripheral writeValue:data forCharacteristic:powerTestCharacteristic type:CBCharacteristicWriteWithResponse];
+        [peripheral writeValue:data forCharacteristic:powerTest2Characteristic type:CBCharacteristicWriteWithResponse];
+    }
+}
+
 #pragma mark - central manager delegate
 
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central
@@ -119,10 +102,12 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
     NSRange range= [peripheral.name rangeOfString:kScooterDeviceName options:NSCaseInsensitiveSearch];
     if(range.location!=NSNotFound)
     {
+/*
         //save to user defaults
         NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
         [userDefaults setObject:[peripheral.identifier UUIDString] forKey:kMyPeripheralIDKey];
         [userDefaults synchronize];
+*/
         
         if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
         {
@@ -201,6 +186,13 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
         }
         else if([uuid isEqualToString:kPowerServiceUUID])
         {
+            //test
+            characteristicUUID=CBUUID(kPowerTestCharacteristicUUID);
+            [peripheral  discoverCharacteristics:@[characteristicUUID] forService:service];
+            
+            characteristicUUID=CBUUID(kPowerTest2CharacteristicUUID);
+            [peripheral  discoverCharacteristics:@[characteristicUUID] forService:service];
+            
             characteristicUUID=CBUUID(kPowerCharacteristicUUID);
         }
         else if([uuid isEqualToString:kModeServiceUUID])
@@ -232,6 +224,15 @@ static NSString *kMyPeripheralIDKey=@"myPeripheralID";
                 {
                     [self.peripheralDelegate powerCharacteristicFound];
                 }
+            }
+            //test
+            else if([uuid isEqualToString:kPowerTestCharacteristicUUID])
+            {
+                powerTestCharacteristic=characteristic;
+            }
+            else if([uuid isEqualToString:kPowerTest2CharacteristicUUID])
+            {
+                powerTest2Characteristic=characteristic;
             }
         }
     }

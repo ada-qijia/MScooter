@@ -65,4 +65,6 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 -(void)disConnectPeripheral:(CBPeripheral *)peripheral;
 -(void)writePower:(CBPeripheral *)peripheral value:(NSData *) data;
 
+-(void)writeTestPower:(CBPeripheral *)peripheral value:(NSData *)data;
+
 @end

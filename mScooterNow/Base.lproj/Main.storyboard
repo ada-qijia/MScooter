@@ -1,76 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="TvW-Sd-94B">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
     </dependencies>
     <scenes>
-        <!--Spg Scan View Controller-->
-        <scene sceneID="ufC-wZ-h7g">
+        <!--Spg Introduction View Controller-->
+        <scene sceneID="2x5-vh-wJE">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="spgScanViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="bE6-UT-Z1d">
+                <viewController id="TvW-Sd-94B" customClass="spgIntroductionViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jqx-ZB-Ppi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circles.png" id="OOy-vw-RcS">
-                                <rect key="frame" x="-23" y="-13" width="370" height="590"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="radar.png" id="Re7-aB-7tw">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scooterOutline.png" id="nbl-JI-NOy">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scooterEntity.png" id="sBy-Ef-wEA">
-                                <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="lockHalo.png" id="dJY-M4-g46">
-                                <rect key="frame" x="60" y="195" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jF6-4q-19f">
-                                <rect key="frame" x="60" y="195" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="lockCenter.png">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="scooterClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="nlX-8G-cSg"/>
-                                </connections>
-                            </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Zhk-87-eSr">
-                                <rect key="frame" x="249" y="32" width="71" height="33"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="Retry">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="retryClicked:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="f9f-Jf-F30"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </view>
-                    <connections>
-                        <outlet property="circlesBg" destination="OOy-vw-RcS" id="emv-Ua-q2t"/>
-                        <outlet property="radarImage" destination="Re7-aB-7tw" id="eYS-79-R7V"/>
-                        <outlet property="retryButton" destination="Zhk-87-eSr" id="jqW-Zk-bFG"/>
-                        <outlet property="scooterEntity" destination="sBy-Ef-wEA" id="cpv-RB-kR4"/>
-                        <outlet property="scooterOutline" destination="nbl-JI-NOy" id="XVn-QL-vtO"/>
-                        <outlet property="unlockButton" destination="jF6-4q-19f" id="Rtw-GO-LzM"/>
-                        <outlet property="unlockHalo" destination="dJY-M4-g46" id="HCM-0Z-o3u"/>
-                        <segue destination="4cp-gC-zrv" kind="modal" identifier="ConnectPeripheral" id="BJ6-De-8RC"/>
-                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eBS-ag-FJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-682" y="56"/>
+            <point key="canvasLocation" x="-694" y="56"/>
         </scene>
         <!--Account-->
         <scene sceneID="yY2-qk-6rZ">
@@ -98,7 +43,7 @@
         <!--Spg Tab Bar View Controller-->
         <scene sceneID="dRA-u7-st0">
             <objects>
-                <tabBarController id="4cp-gC-zrv" customClass="spgTabBarViewController" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="spgTabBarControllerID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4cp-gC-zrv" customClass="spgTabBarViewController" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" id="8PZ-c2-Tah">
@@ -107,13 +52,30 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="qNt-DY-caT" kind="relationship" relationship="viewControllers" id="tFb-Hx-hko"/>
-                        <segue destination="Xoj-0t-sl9" kind="relationship" relationship="viewControllers" id="qBM-YO-dOa"/>
+                        <segue destination="qNt-DY-caT" kind="relationship" relationship="viewControllers" id="7hP-mK-hNj"/>
+                        <segue destination="XkJ-Rr-u49" kind="relationship" relationship="viewControllers" id="IQl-9a-c1V"/>
+                        <segue destination="Xoj-0t-sl9" kind="relationship" relationship="viewControllers" id="v6x-fT-xfB"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQg-7C-Kbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-265" y="56"/>
+        </scene>
+        <!--AR-->
+        <scene sceneID="77H-8H-7hu">
+            <objects>
+                <viewController id="XkJ-Rr-u49" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eUi-O7-nzJ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="AR" image="dashboard.png" id="J0U-A3-rgj"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fj3-Kd-HGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="125" y="607"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="GgK-Mw-vYF">
@@ -199,6 +161,18 @@
                                         </state>
                                         <connections>
                                             <action selector="switchCam:" destination="qNt-DY-caT" eventType="touchUpInside" id="1RC-cw-rZc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Mvt-ao-5u5">
+                                        <rect key="frame" x="137" y="7" width="68" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="power on">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="powerOn:" destination="qNt-DY-caT" eventType="touchUpInside" id="wlZ-3n-lKn"/>
                                         </connections>
                                     </button>
                                     <view hidden="YES" contentMode="scaleToFill" id="bCU-sn-3vM" userLabel="WarningView">
@@ -713,23 +687,17 @@
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
         <image name="camera.png" width="57" height="49"/>
-        <image name="circles.png" width="640" height="1136"/>
         <image name="dashboard.png" width="27" height="27"/>
         <image name="dashboardBg.png" width="475" height="318"/>
         <image name="info.png" width="640" height="43"/>
         <image name="infoTitle.png" width="640" height="30"/>
         <image name="lightOff.png" width="65" height="65"/>
         <image name="lightOn.png" width="65" height="65"/>
-        <image name="lockCenter.png" width="415" height="415"/>
-        <image name="lockHalo.png" width="415" height="415"/>
         <image name="me.png" width="27" height="27"/>
         <image name="powerOff.png" width="57" height="49"/>
         <image name="preview.png" width="68" height="68"/>
         <image name="profile.png" width="138" height="81"/>
-        <image name="radar.png" width="956" height="956"/>
         <image name="scan.png" width="65" height="65"/>
-        <image name="scooterEntity.png" width="640" height="1136"/>
-        <image name="scooterOutline.png" width="640" height="1136"/>
         <image name="speed.png" width="34" height="42"/>
         <image name="speedBg.png" width="524" height="524"/>
         <image name="speedCircle.png" width="436" height="436"/>

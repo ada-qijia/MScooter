@@ -43,4 +43,6 @@ typedef enum:NSUInteger
 - (IBAction)switchARMode:(UIButton *)sender;
 - (IBAction)showARModes:(id)sender;
 
+- (IBAction)powerOn:(id)sender;
+
 @end

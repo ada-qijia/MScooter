@@ -368,10 +368,12 @@
 #pragma mark - UI interaction
 
 - (IBAction)RetryClicked:(id)sender {
+    /*
     spgScanViewController *root=(spgScanViewController *)self.presentingViewController;
     root.shouldRetry=YES;
     
     [self dismissViewControllerAnimated:YES completion:nil];
+     */
 }
 
 - (IBAction)lightClicked:(UIButton *)sender {
@@ -425,6 +427,10 @@
     self.ARModesView.hidden=NO;
 }
 
+- (IBAction)powerOn:(id)sender {
+    [self.bleService writeTestPower:self.peripheral value:[self getData:255]];
+}
+
 -(void)gotoARMode:(ARMode)toMode
 {
     if(currentMode!=toMode)
@@ -459,6 +465,13 @@
 {
     Byte bytes[]={value};
     NSData *data=[NSData dataWithBytes:bytes length:1];
+    return data;
+}
+
+-(NSData *)getDataFromArray
+{
+    Byte bytes[5]={10,100,0,255,88};
+    NSData *data=[NSData dataWithBytes:bytes length:sizeof(bytes)];
     return data;
 }
 @end

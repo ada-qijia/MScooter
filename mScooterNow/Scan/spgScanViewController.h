@@ -8,23 +8,25 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "spgMScooterDefinitions.h"
 #import "spgBLEService.h"
-#import "spgPinViewController.h"
-#import "spgDashboardViewController.h"
+#import "spgConnectViewController.h"
 
-@interface spgScanViewController : spgPinViewController<spgBLEServiceDiscoverPeripheralsDelegate>
+
+@interface spgScanViewController : UIViewController <spgBLEServiceDiscoverPeripheralsDelegate,UIScrollViewDelegate>
 
 @property (nonatomic) BOOL shouldRetry;
 
 @property (weak, nonatomic) IBOutlet UIImageView *radarImage;
-@property (weak, nonatomic) IBOutlet UIImageView *scooterOutline;
-@property (weak, nonatomic) IBOutlet UIImageView *scooterEntity;
-@property (weak, nonatomic) IBOutlet UIImageView *unlockHalo;
-@property (weak, nonatomic) IBOutlet UIButton *unlockButton;
 @property (weak, nonatomic) IBOutlet UIButton *retryButton;
-@property (weak, nonatomic) IBOutlet UIImageView *circlesBg;
 
--(IBAction)scooterClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *foundView;
+@property (weak, nonatomic) IBOutlet UIScrollView *devicesScrollView;
+@property (weak, nonatomic) IBOutlet UIView *notFoundView;
+@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
+
+- (IBAction)scooterClicked:(id)sender;
 - (IBAction)retryClicked:(id)sender;
+- (IBAction)pageChanged:(UIPageControl *)sender;
 
 @end

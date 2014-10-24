@@ -83,16 +83,11 @@ static NSUInteger const THNumberOfPinEntries = 6;
 {
     THPinViewController *pinViewController = [[THPinViewController alloc] initWithDelegate:self];
     pinViewController.promptTitle = @"PASSWORD";
-    //UIColor *darkBlueColor = [UIColor colorWithRed:0.012f green:0.071f blue:0.365f alpha:1.0f];
     pinViewController.promptColor = [UIColor whiteColor];
     pinViewController.view.tintColor = ThemeColor;
     
     // for a solid background color, use this:
     pinViewController.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    
-    // for a translucent background, use this:
-    //self.view.tag = THPinViewControllerContentViewTag;
-    //self.modalPresentationStyle = UIModalPresentationCurrentContext;
     pinViewController.translucentBackground = NO;
     
     [self presentViewController:pinViewController animated:animated completion:nil];
@@ -120,12 +115,16 @@ static NSUInteger const THNumberOfPinEntries = 6;
 
 - (BOOL)pinViewController:(THPinViewController *)pinViewController isPinValid:(NSString *)pin
 {
+    self.currentPin = pin;
+    return YES;
+    /*
     if ([pin isEqualToString:self.correctPin]) {
         return YES;
     } else {
         self.remainingPinEntries--;
         return NO;
     }
+     */
 }
 
 - (BOOL)userCanRetryInPinViewController:(THPinViewController *)pinViewController
@@ -171,16 +170,5 @@ static NSUInteger const THNumberOfPinEntries = 6;
         [self logout:self];
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

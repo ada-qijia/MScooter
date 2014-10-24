@@ -21,9 +21,15 @@
 #define kModeServiceUUID @"FFC0"
 #define kModeCharateristicUUID @"FFC1"
 
+#define kPowerTestCharacteristicUUID @"F000BB05-0451-4000-B000-000000000000"
+#define kPowerTest2CharacteristicUUID @"F000BB06-0451-4000-B000-000000000000"
+
 #define ThemeColor [UIColor colorWithRed:76/255.0 green:193/255.0 blue:209/255.0 alpha:1.0]
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 
+#define BackgroundImageColor [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.jpg"]];
+
+static NSString * const kMyPeripheralIDKey= @"myPeripheralID";
 #define kBeijingCityID @"101010100"
 
 #define kCorrectPin @"0033"

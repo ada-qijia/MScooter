@@ -13,6 +13,7 @@
 
 @property (nonatomic, assign) BOOL locked;
 @property (copy,nonatomic) NSString *correctPin;
+@property (copy,nonatomic) NSString *currentPin;
 
 - (void)login:(id)sender;
 - (void)logout:(id)sender;
