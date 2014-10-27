@@ -16,7 +16,7 @@
 
 @property (nonatomic) BOOL isPeripheralKnown;
 @property (weak,nonatomic) CBPeripheral *peripheral;
-@property (strong,nonatomic) spgBLEService *bleService;
+@property (weak,nonatomic) spgBLEService *bleService;
 
 @property (weak, nonatomic) IBOutlet UIImageView *scooterOutline;
 @property (weak, nonatomic) IBOutlet UIImageView *scooterEntity;

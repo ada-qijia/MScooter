@@ -18,6 +18,7 @@
 		32A13C2E19F4D99700D1AC9E /* spgIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A13C2D19F4D99700D1AC9E /* spgIntroductionView.m */; };
 		32A13C3219F4DAAF00D1AC9E /* spgChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A13C3019F4DAAF00D1AC9E /* spgChangePasswordViewController.m */; };
 		32A13C3319F4DAAF00D1AC9E /* spgChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A13C3119F4DAAF00D1AC9E /* spgChangePasswordViewController.xib */; };
+		32A29B5E19F9F33F00D2BD3F /* spgARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */; };
 		32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */; };
 		32A7AB6919E67E49008B7D32 /* spgCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6819E67E49008B7D32 /* spgCamViewController.m */; };
 		32ABC2C619CBC9AE00F3254E /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BC19CBC9AE00F3254E /* camera.png */; };
@@ -112,6 +113,11 @@
 		32A13C2F19F4DAAF00D1AC9E /* spgChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgChangePasswordViewController.h; path = Settings/spgChangePasswordViewController.h; sourceTree = "<group>"; };
 		32A13C3019F4DAAF00D1AC9E /* spgChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgChangePasswordViewController.m; path = Settings/spgChangePasswordViewController.m; sourceTree = "<group>"; };
 		32A13C3119F4DAAF00D1AC9E /* spgChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgChangePasswordViewController.xib; path = Settings/spgChangePasswordViewController.xib; sourceTree = "<group>"; };
+		32A29B5C19F9F33F00D2BD3F /* spgARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgARViewController.h; sourceTree = "<group>"; };
+		32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgARViewController.m; sourceTree = "<group>"; };
+		32A29B6119FA59F500D2BD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = en; path = en.lproj/spgMScooterUtilities.h; sourceTree = "<group>"; };
+		32A29B6319FA59F500D2BD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = en; path = en.lproj/spgMScooterUtilities.m; sourceTree = "<group>"; };
+		32A29B6419FA5B4100D2BD3F /* spgMScooterCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgMScooterCommon.h; sourceTree = "<group>"; };
 		32A7AB6419E67D77008B7D32 /* spgCamPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgCamPreviewView.h; sourceTree = "<group>"; };
 		32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgCamPreviewView.m; sourceTree = "<group>"; };
 		32A7AB6719E67E49008B7D32 /* spgCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgCamViewController.h; sourceTree = "<group>"; };
@@ -272,6 +278,26 @@
 			name = IntroductionBase;
 			sourceTree = "<group>";
 		};
+		32A29B5B19F9F33F00D2BD3F /* AR */ = {
+			isa = PBXGroup;
+			children = (
+				32A29B5C19F9F33F00D2BD3F /* spgARViewController.h */,
+				32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */,
+			);
+			path = AR;
+			sourceTree = "<group>";
+		};
+		32A29B5F19FA597A00D2BD3F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */,
+				32A29B6019FA59F500D2BD3F /* spgMScooterUtilities.h */,
+				32A29B6219FA59F500D2BD3F /* spgMScooterUtilities.m */,
+				32A29B6419FA5B4100D2BD3F /* spgMScooterCommon.h */,
+			);
+			name = Common;
+			sourceTree = "<group>";
+		};
 		32ADA26219EF8FA20081BD51 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +381,8 @@
 		32B1FF8F19C974AC00D9FFF5 /* mScooterNow */ = {
 			isa = PBXGroup;
 			children = (
+				32A29B5F19FA597A00D2BD3F /* Common */,
+				32A29B5B19F9F33F00D2BD3F /* AR */,
 				329FF84419F608260011B1CE /* Login */,
 				32A13C2219F4D7B200D1AC9E /* Introduction */,
 				32ADA26219EF8FA20081BD51 /* Settings */,
@@ -371,7 +399,6 @@
 				32B1FF9F19C974AD00D9FFF5 /* spgViewController.m */,
 				32B1FFA119C974AD00D9FFF5 /* Images.xcassets */,
 				32B1FF9019C974AC00D9FFF5 /* Supporting Files */,
-				32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */,
 				32ADA26619EFB0520081BD51 /* spgTabBarViewController.h */,
 				32ADA26719EFB0520081BD51 /* spgTabBarViewController.m */,
 			);
@@ -637,6 +664,7 @@
 				32A7AB6919E67E49008B7D32 /* spgCamViewController.m in Sources */,
 				32A13C3219F4DAAF00D1AC9E /* spgChangePasswordViewController.m in Sources */,
 				329FF86019F661EE0011B1CE /* spgIntroductionPanel.m in Sources */,
+				32A29B5E19F9F33F00D2BD3F /* spgARViewController.m in Sources */,
 				32B1001819C97B7900D9FFF5 /* spgPinViewController.m in Sources */,
 				32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */,
 				32BBF29E19F77C6A006A00AF /* spgConnectViewController.m in Sources */,
@@ -652,6 +680,22 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		32A29B6019FA59F500D2BD3F /* spgMScooterUtilities.h */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32A29B6119FA59F500D2BD3F /* en */,
+			);
+			name = spgMScooterUtilities.h;
+			sourceTree = "<group>";
+		};
+		32A29B6219FA59F500D2BD3F /* spgMScooterUtilities.m */ = {
+			isa = PBXVariantGroup;
+			children = (
+				32A29B6319FA59F500D2BD3F /* en */,
+			);
+			name = spgMScooterUtilities.m;
+			sourceTree = "<group>";
+		};
 		32B1FF9219C974AC00D9FFF5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -7,33 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WMGaugeView.h"
+#import "spgMScooterDefinitions.h"
+#import "spgCamViewController.h"
 
 @interface spgGaugesViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UIView *ARView;
-@property (weak, nonatomic) IBOutlet UIView *ARContainerView;
-
-@property (weak, nonatomic) IBOutlet UIView *ARInfoView;
-@property (weak, nonatomic) IBOutlet UIView *ARListView;
-
-@property (weak, nonatomic) IBOutlet UILabel *weekDayLabel;
-@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *timeLabel;
-@property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *temperatureLabel;
-
-@property (weak, nonatomic) IBOutlet UILabel *longDateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *speedLabel;
-
-//views in infoview
-@property (weak, nonatomic) IBOutlet UIView *mapView;
-@property (weak, nonatomic) IBOutlet UIView *ARGaugeView;
-@property (weak, nonatomic) IBOutlet UIView *realDataView;
-
-//views in listview
-@property (weak, nonatomic) IBOutlet UIView *listWeatherView;
-@property (weak, nonatomic) IBOutlet UIView *listDateView;
-@property (weak, nonatomic) IBOutlet UIView *listSpeedView;
-
+@property (weak, nonatomic) IBOutlet WMGaugeView *speedGaugeView;
+@property (weak, nonatomic) IBOutlet WMGaugeView *batteryGaugeView;
+@property (weak, nonatomic) IBOutlet WMGaugeView *distanceGaugeView;
 
 -(void)rotateLayout:(BOOL)portrait;
 

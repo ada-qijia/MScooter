@@ -7,6 +7,7 @@
 //
 
 #import "spgConnectViewController.h"
+#import "spgTabBarViewController.h"
 
 @interface spgConnectViewController ()
 
@@ -96,7 +97,9 @@
     {
         //navigate to next page
         UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        UITabBarController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
+        spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
+        tabBarVC.peripheral=self.peripheral;
+        tabBarVC.bleService=self.bleService;
         
         [self presentViewController:tabBarVC animated:NO completion:nil];
     }

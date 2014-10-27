@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "spgBLEService.h"
+#import "spgMScooterCommon.h"
 
-@interface spgTabBarViewController : UITabBarController
+@interface spgTabBarViewController : UITabBarController<spgBLEServicePeripheralDelegate>
+
+@property (weak,nonatomic) CBPeripheral *peripheral;
+@property (strong,nonatomic) spgBLEService *bleService;
 
 @end

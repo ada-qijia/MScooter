@@ -33,4 +33,12 @@ static NSString * const kMyPeripheralIDKey= @"myPeripheralID";
 #define kBeijingCityID @"101010100"
 
 #define kCorrectPin @"0033"
+
+typedef enum:NSUInteger
+{
+    ARModeCool,
+    ARModeList,
+    ARModeNormal
+}ARMode;
+
 #endif

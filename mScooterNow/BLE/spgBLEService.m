@@ -20,25 +20,40 @@
     //NSMutableString *modeChangeSignals;
 }
 
+static spgBLEService *sharedInstance=nil;
+
++(spgBLEService *)sharedInstance
+{
+    if(!sharedInstance)
+    {
+        sharedInstance=[[super alloc] init];
+    }
+    
+    return sharedInstance;
+}
+
 - (id)initWithDelegates:(id<spgBLEServiceDiscoverPeripheralsDelegate>)delegate peripheralDelegate:(id<spgBLEServicePeripheralDelegate>) peripheralDelegate
 {
-    self = [super init];
-    if (self) {       
-        self.discoverPeripheralsDelegate=delegate;
-        self.peripheralDelegate=peripheralDelegate;
-        self.centralManager=[[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-        self.centralManager.delegate=self;
-        
-        //initilize interested service
-        CBUUID *speedServiceUUID=CBUUID(kSpeedCharacteristicUUID);
-        CBUUID *batteryServiceUUID=CBUUID(kBatteryCharacteristicUUID);
-        CBUUID *cameraServiceUUID=CBUUID(kCameraServiceUUID);
-        CBUUID *powerServiceUUID=CBUUID(kPowerServiceUUID);
-        CBUUID *modeServiceUUID=CBUUID(kModeServiceUUID);
-        interestedServices=@[speedServiceUUID,batteryServiceUUID,cameraServiceUUID,modeServiceUUID,powerServiceUUID];
-        
-        //modeChangeSignals=[[NSMutableString alloc] init];
+    if(!self)
+    {
+        self = [super init];
     }
+    
+    self.discoverPeripheralsDelegate=delegate;
+    self.peripheralDelegate=peripheralDelegate;
+    self.centralManager=[[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
+    self.centralManager.delegate=self;
+    
+    //initilize interested service
+    CBUUID *speedServiceUUID=CBUUID(kSpeedCharacteristicUUID);
+    CBUUID *batteryServiceUUID=CBUUID(kBatteryCharacteristicUUID);
+    CBUUID *cameraServiceUUID=CBUUID(kCameraServiceUUID);
+    CBUUID *powerServiceUUID=CBUUID(kPowerServiceUUID);
+    CBUUID *modeServiceUUID=CBUUID(kModeServiceUUID);
+    interestedServices=@[speedServiceUUID,batteryServiceUUID,cameraServiceUUID,modeServiceUUID,powerServiceUUID];
+    
+    //modeChangeSignals=[[NSMutableString alloc] init];
+    
     return self;
 }
 
@@ -92,9 +107,9 @@
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManagerDidUpdateState:)])
-        {
-            [self.discoverPeripheralsDelegate centralManagerDidUpdateState:self.centralManager];
-        }
+    {
+        [self.discoverPeripheralsDelegate centralManagerDidUpdateState:self.centralManager];
+    }
 }
 
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
@@ -102,12 +117,12 @@
     NSRange range= [peripheral.name rangeOfString:kScooterDeviceName options:NSCaseInsensitiveSearch];
     if(range.location!=NSNotFound)
     {
-/*
-        //save to user defaults
-        NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
-        [userDefaults setObject:[peripheral.identifier UUIDString] forKey:kMyPeripheralIDKey];
-        [userDefaults synchronize];
-*/
+        /*
+         //save to user defaults
+         NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
+         [userDefaults setObject:[peripheral.identifier UUIDString] forKey:kMyPeripheralIDKey];
+         [userDefaults synchronize];
+         */
         
         if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
         {
@@ -121,7 +136,7 @@
     NSLog(@"connected peripheral: %@",peripheral.name);
     
     peripheral.delegate=self;
-
+    
     [peripheral discoverServices:nil];//interestedServices];
     
     if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:connectPeripheral:)])
@@ -170,15 +185,15 @@
     {
         NSString *uuid=[service.UUID UUIDString];
         //NSLog(@"Service: %@", uuid);
-
+        
         CBUUID *characteristicUUID=nil;
         if([uuid isEqualToString:kSpeedServiceUUID])
         {
-          characteristicUUID=[CBUUID UUIDWithString:kSpeedCharacteristicUUID];
+            characteristicUUID=[CBUUID UUIDWithString:kSpeedCharacteristicUUID];
         }
         else if([uuid isEqualToString:kBatteryServiceUUID])
         {
-           characteristicUUID=[CBUUID UUIDWithString:kBatteryCharacteristicUUID];
+            characteristicUUID=[CBUUID UUIDWithString:kBatteryCharacteristicUUID];
         }
         else if([uuid isEqualToString:kCameraServiceUUID])
         {
@@ -202,7 +217,7 @@
         
         if(characteristicUUID)
         {
-           [peripheral  discoverCharacteristics:@[characteristicUUID] forService:service];
+            [peripheral  discoverCharacteristics:@[characteristicUUID] forService:service];
         }
     }
 }
@@ -302,8 +317,8 @@
             if(cmdType!=SBSCameraCommandNotValid)
             {
                 if ([self.peripheralDelegate respondsToSelector:@selector(cameraTriggered:)]) {
-                  [self.peripheralDelegate cameraTriggered:cmdType];
-              }
+                    [self.peripheralDelegate cameraTriggered:cmdType];
+                }
             }
         }
         else if([uuid isEqualToString:kModeCharateristicUUID])
@@ -320,26 +335,26 @@
             //true
             if(modeValue)
             {
-            if ([self.peripheralDelegate respondsToSelector:@selector(modeChanged)]) {
-                [self.peripheralDelegate modeChanged];
+                if ([self.peripheralDelegate respondsToSelector:@selector(modeChanged)]) {
+                    [self.peripheralDelegate modeChanged];
                 }
             }
             
             /*
-            //if the sequence is "TFFT", scooter has been auto powered off
-            NSString *modeSymbol=modeValue?@"T":@"F";
-            [modeChangeSignals appendString:modeSymbol];
-            if(modeChangeSignals.length>4)
-            {
-                [modeChangeSignals deleteCharactersInRange:NSMakeRange(0, 1)];
-            }
-            
-            if(modeChangeSignals.length==4&&[modeChangeSignals isEqualToString:@"TFFT"])
-            {
-                if ([self.peripheralDelegate respondsToSelector:@selector(autoPoweredOff)]) {
-                    [self.peripheralDelegate autoPoweredOff];
-                }
-            }
+             //if the sequence is "TFFT", scooter has been auto powered off
+             NSString *modeSymbol=modeValue?@"T":@"F";
+             [modeChangeSignals appendString:modeSymbol];
+             if(modeChangeSignals.length>4)
+             {
+             [modeChangeSignals deleteCharactersInRange:NSMakeRange(0, 1)];
+             }
+             
+             if(modeChangeSignals.length==4&&[modeChangeSignals isEqualToString:@"TFFT"])
+             {
+             if ([self.peripheralDelegate respondsToSelector:@selector(autoPoweredOff)]) {
+             [self.peripheralDelegate autoPoweredOff];
+             }
+             }
              */
         }
     }
