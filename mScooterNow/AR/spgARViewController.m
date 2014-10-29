@@ -9,6 +9,8 @@
 #import "spgARViewController.h"
 #import "spgMScooterDefinitions.h"
 #import "spgCamViewController.h"
+#import "WMGaugeView.h"
+#import "spgARGaugesViewController.h"
 
 @interface spgARViewController ()
 
@@ -66,43 +68,72 @@
     self.tabBarController.tabBar.hidden=NO;
 }
 
-/*
--(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+#pragma - spgScooterPresentationDelegate
+
+-(void)updateConnectionState:(BOOL) connected
 {
-    spgGaugesViewController *gaugesVC= self.childViewControllers[0];
+    spgARGaugesViewController *gaugesVC= self.childViewControllers[1];
+    [gaugesVC setGaugesEnabled:connected];
+}
+
+-(void)updateSpeed:(float)speed
+{
+    WMGaugeView *speedView = (WMGaugeView *)[self.ARGaugeView viewWithTag:41];
+    [speedView setValue:speed animated:YES duration:0.3];
     
-    if(size.width>size.height)
-    {
-        self.contentView.frame=CGRectMake(0, 0, 568, 320);
-        self.topControllerView.frame=CGRectMake(0, 0,44, 320);
-        self.camButton.frame=CGRectMake(7, 10 ,32, 30);
-        self.modesSwitchButton.frame=CGRectMake(7, 150, 32, 30);
-        self.currentModeLabel.frame=CGRectMake(0, 135, 50, 21);
-        self.ARModesView.frame=CGRectMake(0, 120 ,135, 44);
-        self.modeButton.frame=CGRectMake(7, 279, 33, 30);
-        
-        self.warningView.center=CGPointMake(22, 160);
-        self.warningView.transform=CGAffineTransformMakeRotation(-M_PI_2);
-        
-        [gaugesVC rotateLayout:NO];
-    }
-    else
-    {
-        self.contentView.frame=CGRectMake(0, 0, 320, 568);
-        self.topControllerView.frame=CGRectMake(0, 0,320, 44);
-        self.camButton.frame=CGRectMake(279, 7 ,32, 30);
-        self.modesSwitchButton.frame=CGRectMake(110, 7, 32, 30);
-        self.currentModeLabel.frame=CGRectMake(145, 12, 50, 21);
-        self.ARModesView.frame=CGRectMake(145, 0 ,135, 44);
-        self.modeButton.frame=CGRectMake(10, 7, 33, 30);
-        
-        self.warningView.center=CGPointMake(160,22);
-        self.warningView.transform=CGAffineTransformIdentity;
-        
-        [gaugesVC rotateLayout:YES];
+    self.speedLabel.text=[NSString stringWithFormat:@"%02.f",speed];
+}
+
+-(void)updateBattery:(float)battery
+{
+    WMGaugeView *batteryView = (WMGaugeView *)[self.ARGaugeView viewWithTag:42];
+    [batteryView setValue:battery animated:YES duration:0.3];
+}
+
+-(void)cameraTriggered:(SBSCameraCommand)commandType
+{
+    switch (commandType) {
+     case SBSCameraCommandTakePhoto:
+            self.captureModeButton.selected=YES;
+            [videoCaptureVC snapStillImage];
+            break;
+     case SBSCameraCommandStartRecordVideo:
+            self.captureModeButton.selected=NO;
+            [videoCaptureVC startVideoCapture];
+            break;
+     case SBSCameraCommandStopRecordVideo:
+            self.captureModeButton.selected=NO;
+            [videoCaptureVC stopVideoCapture];
+            break;
+     default:
+            break;
     }
 }
-*/
+
+-(void)modeChanged
+{
+    [self switchARMode:YES];
+    
+    /*
+    ARMode toMode=ARModeCool;
+    switch (currentMode) {
+        case ARModeCool:
+            toMode=ARModeList;
+            break;
+        case ARModeList:
+            toMode=ARModeMap;
+            break;
+        case ARModeMap:
+            toMode=ARModeNormal;
+            break;
+        default:
+            toMode=ARModeCool;
+            break;
+    }
+    
+    [self gotoARMode:toMode];
+     */
+}
 
 #pragma - UI interaction
 
@@ -112,21 +143,15 @@
     {
         currentMode=toMode;
   
-        if(toMode==ARModeCool)
-        {
-            self.ARInfoView.hidden=NO;
-            self.ARListView.hidden=YES;
+        UIView *modeView=[self getViewOfARMode:toMode];
+        NSArray* modeViews=[NSArray arrayWithObjects:self.ARInfoView,self.ARListView,self.ARMapView, nil];
+        for (UIView* modeV in modeViews) {
+            modeV.hidden=!(modeV==modeView);
         }
-        else if(toMode==ARModeList)
-        {
-            self.ARInfoView.hidden=YES;
-            self.ARListView.hidden=NO;
-        }
-        else
-        {
-            self.ARInfoView.hidden=YES;
-            self.ARListView.hidden=YES;
-        }
+        
+        BOOL fullScreen=!(toMode==ARModeMap);
+        spgCamViewController *camVC= self.childViewControllers[0];
+        [camVC showInFullScreen:fullScreen];
     }
 }
 
@@ -154,9 +179,10 @@
 
 -(void)switchARMode:(BOOL) next
 {
+    int modeCount=4;
     UIView *currentView=[self getViewOfARMode:currentMode];
     
-    ARMode toMode=next?(currentMode+1)%3:(currentMode-1+3)%3;
+    ARMode toMode=next?(currentMode+1)%modeCount:(currentMode-1+modeCount)%modeCount;
     UIView *nextView=[self getViewOfARMode:toMode];
   
     CATransition *transition = [CATransition animation];
@@ -172,6 +198,10 @@
     nextView.hidden=NO;
     
     currentMode=toMode;
+    
+    BOOL fullScreen=!(toMode==ARModeMap);
+    spgCamViewController *camVC= self.childViewControllers[0];
+    [camVC showInFullScreen:fullScreen];
 }
 
 -(UIView *)getViewOfARMode:(ARMode) mode
@@ -181,6 +211,8 @@
             return self.ARInfoView;
         case ARModeList:
             return self.ARListView;
+        case ARModeMap:
+            return self.ARMapView;
         case ARModeNormal:
             return nil;
         default:

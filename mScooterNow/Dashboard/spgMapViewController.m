@@ -29,8 +29,6 @@
     [super viewDidLoad];
     
     //set mapView
-    self.mapView.layer.borderWidth=2;
-    self.mapView.layer.borderColor=[ThemeColor CGColor];
     self.mapView.delegate=self;
     
     self.mapView.mapType=MKMapTypeStandard;
@@ -83,16 +81,5 @@
         return nil;
     }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

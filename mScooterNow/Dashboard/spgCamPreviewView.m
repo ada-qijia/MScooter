@@ -16,6 +16,28 @@
     return [AVCaptureVideoPreviewLayer class];
 }
 
+-(instancetype)initWithFrame:(CGRect)frame
+{
+    self =[super initWithFrame:frame];
+    if(self)
+    {
+        AVCaptureVideoPreviewLayer *previewLayer= (AVCaptureVideoPreviewLayer *)self.layer;
+        previewLayer.videoGravity=AVLayerVideoGravityResize;
+    }
+    return self;
+}
+
+-(instancetype)initWithCoder:(NSCoder *)aDecoder
+{
+    self =[super initWithCoder:aDecoder];
+    if(self)
+    {
+        AVCaptureVideoPreviewLayer *previewLayer= (AVCaptureVideoPreviewLayer *)self.layer;
+        previewLayer.videoGravity=AVLayerVideoGravityResize;
+    }
+    return self;
+}
+
 -(AVCaptureSession *)session
 {
     return [(AVCaptureVideoPreviewLayer *)[self layer] session];

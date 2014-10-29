@@ -8,12 +8,28 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "spgBLEService.h"
 #import "spgMScooterCommon.h"
+#import "spgBLEService.h"
+//#import "spgMScooterUtilities.h"
+
+@protocol spgScooterPresentationDelegate <NSObject>
+
+@optional
+
+//for both dashboard and AR
+-(void)updateConnectionState:(BOOL) connected;
+-(void)updateSpeed:(float)speed;
+-(void)updateBattery:(float)battery;
+
+//only for AR mode
+-(void)cameraTriggered:(SBSCameraCommand)commandType;
+-(void)modeChanged;
+
+@end
+
+
+
 
 @interface spgTabBarViewController : UITabBarController<spgBLEServicePeripheralDelegate>
-
-@property (weak,nonatomic) CBPeripheral *peripheral;
-@property (strong,nonatomic) spgBLEService *bleService;
 
 @end

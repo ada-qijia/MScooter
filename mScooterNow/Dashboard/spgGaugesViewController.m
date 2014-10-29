@@ -101,12 +101,19 @@
 -(void)rotateLayout:(BOOL)portrait
 {}
 
-//colorful borders of dashboard gauge
--(void)SetDashboardCirclesHiden:(BOOL) hidden
+-(void)setGaugesEnabled:(BOOL)enabled
 {
-    [self.view viewWithTag:31].hidden=hidden;
-    [self.view viewWithTag:32].hidden=hidden;
-    [self.view viewWithTag:33].hidden=hidden;
+    [self.view viewWithTag:31].hidden=!enabled;
+    [self.view viewWithTag:32].hidden=!enabled;
+    [self.view viewWithTag:33].hidden=!enabled;
+}
+
+-(void)setBatteryLow:(BOOL)low
+{
+    NSString *imgName=low?@"batteryLowBg.png":@"batteryBg.png";
+    self.batteryBgImage.image=[UIImage imageNamed:imgName];
+    [self.view viewWithTag:32].hidden=low;
+    [self.view viewWithTag:33].hidden=low;
 }
 
 @end

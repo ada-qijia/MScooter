@@ -17,6 +17,11 @@
 @property (weak, nonatomic) IBOutlet WMGaugeView *batteryGaugeView;
 @property (weak, nonatomic) IBOutlet WMGaugeView *distanceGaugeView;
 
+@property (weak, nonatomic) IBOutlet UIImageView *batteryBgImage;
+
 -(void)rotateLayout:(BOOL)portrait;
+
+-(void)setGaugesEnabled:(BOOL)enabled;
+-(void)setBatteryLow:(BOOL)low;
 
 @end

@@ -7,13 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "spgTabBarViewController.h"
 
-@interface spgARViewController : UIViewController
+@interface spgARViewController : UIViewController <spgScooterPresentationDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *ARContainerView;
 
 @property (weak, nonatomic) IBOutlet UIView *ARInfoView;
 @property (weak, nonatomic) IBOutlet UIView *ARListView;
+@property (weak, nonatomic) IBOutlet UIView *ARMapView;
 
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *timeLabel;
 @property (strong, nonatomic) IBOutletCollection(UILabel) NSArray *temperatureLabel;

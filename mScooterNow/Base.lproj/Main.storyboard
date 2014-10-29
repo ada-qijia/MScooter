@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="TvW-Sd-94B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="TvW-Sd-94B">
     <dependencies>
-        <deployment defaultVersion="1808" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
     </dependencies>
     <scenes>
         <!--Spg Introduction View Controller-->
@@ -78,7 +78,7 @@
                                 </connections>
                             </containerView>
                             <view hidden="YES" contentMode="scaleToFill" id="YbF-L4-QYH" userLabel="ListView">
-                                <rect key="frame" x="0.0" y="29" width="320" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="510"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="3LT-T4-dHB">
@@ -102,7 +102,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="AbP-rH-H80">
-                                        <rect key="frame" x="25" y="415" width="160" height="40"/>
+                                        <rect key="frame" x="25" y="410" width="160" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="time.png" id="U51-iX-ZDx">
@@ -131,7 +131,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <view contentMode="scaleToFill" id="HIb-VF-Xla">
-                                        <rect key="frame" x="25" y="470" width="160" height="40"/>
+                                        <rect key="frame" x="25" y="460" width="160" height="40"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speed.png" id="ocW-t6-sug">
@@ -160,28 +160,20 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" id="bm2-rZ-hgw" userLabel="InfoView">
-                                <rect key="frame" x="0.0" y="29" width="320" height="510"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="510"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <containerView hidden="YES" contentMode="scaleToFill" id="KI8-h8-yIq">
-                                        <rect key="frame" x="200" y="70" width="110" height="110"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <connections>
-                                            <segue destination="rpL-yg-vHJ" kind="embed" id="eYq-jC-tvh"/>
-                                        </connections>
-                                    </containerView>
                                     <containerView contentMode="scaleToFill" id="kpV-9f-xBs">
-                                        <rect key="frame" x="0.0" y="320" width="320" height="192"/>
+                                        <rect key="frame" x="0.0" y="310" width="320" height="192"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <segue destination="NxP-si-EGj" kind="embed" id="hos-zD-R6z"/>
                                         </connections>
                                     </containerView>
                                     <view contentMode="scaleToFill" id="AFm-te-WCy">
-                                        <rect key="frame" x="10" y="60" width="150" height="40"/>
+                                        <rect key="frame" x="10" y="55" width="150" height="40"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile.png" id="h8X-9i-wPT">
@@ -228,14 +220,34 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="Y8R-xz-PLK">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                            <view hidden="YES" contentMode="scaleToFill" id="7dV-gY-CeH" userLabel="MapView">
+                                <rect key="frame" x="0.0" y="300" width="320" height="220"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
+                                    <containerView contentMode="scaleToFill" id="KI8-h8-yIq">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <connections>
+                                            <segue destination="rpL-yg-vHJ" kind="embed" id="eYq-jC-tvh"/>
+                                        </connections>
+                                    </containerView>
+                                </subviews>
+                            </view>
+                            <view contentMode="scaleToFill" id="Y8R-xz-PLK">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fh7-Fo-za2">
+                                        <rect key="frame" x="10" y="3" width="35" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <inset key="contentEdgeInsets" minX="3" minY="4" maxX="3" maxY="4"/>
+                                        <state key="normal" image="close.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="obh-II-W4t">
-                                        <rect key="frame" x="143" y="7" width="33" height="30"/>
+                                        <rect key="frame" x="143" y="5" width="33" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="modeSwitch" image="video.png">
@@ -247,7 +259,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vmu-U7-tOO">
-                                        <rect key="frame" x="270" y="7" width="32" height="30"/>
+                                        <rect key="frame" x="270" y="5" width="32" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="camSwitch" image="switchCam.png">
@@ -263,13 +275,16 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="AR" image="dashboard.png" id="J0U-A3-rgj"/>
+                    <tabBarItem key="tabBarItem" title="AR" image="capture.png" id="J0U-A3-rgj">
+                        <inset key="imageInsets" minX="5" minY="3" maxX="5" maxY="3"/>
+                    </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ARContainerView" destination="ze2-Yo-kSN" id="IoL-as-MKv"/>
                         <outlet property="ARGaugeView" destination="kpV-9f-xBs" id="tji-Wu-qJz"/>
                         <outlet property="ARInfoView" destination="bm2-rZ-hgw" id="b5P-Wa-R68"/>
                         <outlet property="ARListView" destination="YbF-L4-QYH" id="5Xs-fQ-nQH"/>
+                        <outlet property="ARMapView" destination="7dV-gY-CeH" id="fwz-ZN-2Hs"/>
                         <outlet property="camButton" destination="Vmu-U7-tOO" id="gvQ-yv-7yF"/>
                         <outlet property="captureModeButton" destination="obh-II-W4t" id="rho-uM-GK3"/>
                         <outlet property="dateLabel" destination="yxh-aa-WH1" id="Qe2-qu-kN8"/>
@@ -312,13 +327,13 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NV2-Pa-G6X">
-                                        <rect key="frame" x="8" y="6" width="35" height="30"/>
+                                        <rect key="frame" x="270" y="7" width="35" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="contentEdgeInsets" minX="-2" minY="0.0" maxX="-2" maxY="0.0"/>
                                         <state key="normal" title="powerOff" image="powerOff.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <state key="selected" image="powerOn.png"/>
                                         <connections>
                                             <action selector="powerOff:" destination="qNt-DY-caT" eventType="touchUpInside" id="KHf-SS-XXX"/>
                                         </connections>
@@ -349,7 +364,6 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.90000000000000002" colorSpace="calibratedWhite"/>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.70000000000000007" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -361,6 +375,7 @@
                     <connections>
                         <outlet property="camButton" destination="Vmu-U7-tOO" id="rah-ou-30n"/>
                         <outlet property="contentView" destination="VXl-aE-Dqk" id="c0b-s8-wb5"/>
+                        <outlet property="powerButton" destination="NV2-Pa-G6X" id="WEv-0L-cWd"/>
                         <outlet property="topControllerView" destination="vjU-u3-QoN" id="ZLv-rf-J1u"/>
                         <outlet property="warningView" destination="bCU-sn-3vM" id="4sm-m3-KTb"/>
                     </connections>
@@ -454,6 +469,7 @@
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="batteryBgImage" destination="H56-zT-AI4" id="7vF-C5-ddF"/>
                         <outlet property="batteryGaugeView" destination="hBZ-eU-Imn" id="yZo-Jl-LVS"/>
                         <outlet property="distanceGaugeView" destination="R9a-Gi-05f" id="OAy-ho-Wfk"/>
                         <outlet property="speedGaugeView" destination="xPj-ae-r5j" id="5Rl-QC-Bnr"/>
@@ -520,6 +536,10 @@
                                 <rect key="frame" x="20" y="0.0" width="285" height="192"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dashboardCircle.png" id="br6-Qy-YIY">
+                                <rect key="frame" x="20" y="0.0" width="285" height="192"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view tag="41" contentMode="scaleToFill" id="IfR-0P-Hxl" customClass="WMGaugeView">
                                 <rect key="frame" x="26" y="6" width="180" height="180"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -547,6 +567,7 @@
                     <toolbarItems/>
                     <connections>
                         <outlet property="batteryGaugeView" destination="PTy-qe-xke" id="Jtf-Tc-Zrl"/>
+                        <outlet property="dashboardCircleImage" destination="br6-Qy-YIY" id="dEJ-Dm-2jJ"/>
                         <outlet property="speedGaugeView" destination="IfR-0P-Hxl" id="s6Z-0a-5Gn"/>
                     </connections>
                 </viewController>
@@ -559,18 +580,12 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="rpL-yg-vHJ" customClass="spgMapViewController" sceneMemberID="viewController">
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="cpj-Hu-VAy">
-                        <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" id="k2q-Qq-LOL">
-                                <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" pitchEnabled="NO" id="k2q-Qq-LOL">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="55"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
                             </mapView>
                         </subviews>
                     </view>
@@ -588,12 +603,16 @@
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
         <image name="camera.png" width="57" height="49"/>
+        <image name="capture.png" width="72" height="42"/>
+        <image name="close.png" width="57" height="49"/>
         <image name="dashboard.png" width="27" height="27"/>
         <image name="dashboardBg.png" width="475" height="318"/>
+        <image name="dashboardCircle.png" width="475" height="318"/>
         <image name="info.png" width="640" height="43"/>
         <image name="infoTitle.png" width="640" height="30"/>
         <image name="me.png" width="27" height="27"/>
-        <image name="powerOff.png" width="57" height="49"/>
+        <image name="powerOff.png" width="72" height="72"/>
+        <image name="powerOn.png" width="72" height="72"/>
         <image name="preview.png" width="68" height="68"/>
         <image name="profile.png" width="138" height="81"/>
         <image name="scan.png" width="65" height="65"/>
@@ -604,7 +623,7 @@
         <image name="stopVideo.png" width="82" height="82"/>
         <image name="switchCam.png" width="57" height="49"/>
         <image name="time.png" width="34" height="42"/>
-        <image name="userInfo.png" width="495" height="648"/>
+        <image name="userInfo.png" width="495" height="727"/>
         <image name="video.png" width="57" height="49"/>
         <image name="weather.png" width="70" height="70"/>
     </resources>

@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface spgCamViewController : UIViewController
 
@@ -24,5 +25,6 @@
 -(void)switchMode:(BOOL)toPhoto;
 
 -(void)rotateLayout:(UIInterfaceOrientation)toInterfaceOrientation;
+-(void)showInFullScreen:(BOOL)fullScreen;
 
 @end

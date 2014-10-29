@@ -104,6 +104,7 @@ static NSUInteger const THNumberOfPinEntries = 6;
 - (void)logout:(id)sender
 {
     self.locked = YES;
+    self.currentPin=nil;
 }
 
 #pragma mark - THPinViewControllerDelegate
@@ -134,16 +135,17 @@ static NSUInteger const THNumberOfPinEntries = 6;
 
 - (void)incorrectPinEnteredInPinViewController:(THPinViewController *)pinViewController
 {
-    if (self.remainingPinEntries > THNumberOfPinEntries / 2) {
+    /*if (self.remainingPinEntries > THNumberOfPinEntries / 2) {
         return;
-    }
+    }*/
     
     UIAlertView *alert =
     [[UIAlertView alloc] initWithTitle:@"Incorrect Password"
-                               message:(self.remainingPinEntries == 1 ?
+                                message:@"Please try again"
+                               /*message:(self.remainingPinEntries == 1 ?
                                         @"You can try again once." :
                                         [NSString stringWithFormat:@"You can try again %lu times.",
-                                         (unsigned long)self.remainingPinEntries])
+                                         (unsigned long)self.remainingPinEntries])*/
                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     

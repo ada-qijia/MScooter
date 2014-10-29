@@ -10,4 +10,8 @@
 
 @interface spgARGaugesViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *dashboardCircleImage;
+
+-(void)setGaugesEnabled:(BOOL)enabled;
+
 @end

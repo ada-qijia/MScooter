@@ -32,20 +32,23 @@
 {
     CGRect fullFrame= CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
-    UIView *contentView=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scooterEntity.png"]];
-    contentView.frame=CGRectMake(0, 0, 250, 300);
+    UIView *contentView1=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"userGuide0.png"]];
+    contentView1.frame=CGRectMake(0, 0, 320, 223);
     
-    UIView *contentView2=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"scooterOutline.png"]];
-     contentView2.frame=CGRectMake(0, 0, 250, 300);
+    UIView *contentView2=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"userGuide1.png"]];
+     contentView2.frame=contentView1.frame;
+    
+    UIView *contentView3=[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"userGuide2.png"]];
+    contentView3.frame=contentView1.frame;
     
     spgIntroductionPanel *panel1=[spgIntroductionPanel introductionPanel];
-    [panel1 buildWithContents:contentView description:@"Use your phone to Power on/Power off your scooter"];
+    [panel1 buildWithContents:contentView1 description:@"Use your phone to Power on/Power off your scooter"];
     
     spgIntroductionPanel *panel2=[spgIntroductionPanel introductionPanel];
     [panel2 buildWithContents:contentView2 description:@"Manage your scooter data"];
     
     spgIntroductionPanel *panel3=[spgIntroductionPanel introductionPanel];
-    [panel3 buildWithContents:contentView2 description:@"Augmented Reality Video Experience"];
+    [panel3 buildWithContents:contentView3 description:@"Augmented Reality Video Experience"];
     
     
     NSArray *panels=@[panel1,panel2,panel3];

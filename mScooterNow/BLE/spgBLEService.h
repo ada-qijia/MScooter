@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreBluetooth/CoreBluetooth.h>
+#import "spgMScooterCommon.h"
 
 typedef NS_ENUM(NSUInteger, SBSCameraCommand){
     SBSCameraCommandTakePhoto,
@@ -43,6 +44,7 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 -(void)cameraTriggered:(SBSCameraCommand)commandType;
 -(void)modeChanged;
 -(void)autoPoweredOff;
+-(void)passwordCertificationReturned:(BOOL) correct;
 -(void)powerCharacteristicFound;
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
 -(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral;
@@ -59,14 +61,13 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 @property (nonatomic, weak) id<spgBLEServiceDiscoverPeripheralsDelegate> discoverPeripheralsDelegate;
 @property (nonatomic, weak) id<spgBLEServicePeripheralDelegate> peripheralDelegate;
 @property (strong, nonatomic) CBCentralManager *centralManager;
+@property (strong,nonatomic) CBPeripheral *peripheral;
 
 -(id)initWithDelegates:(id<spgBLEServiceDiscoverPeripheralsDelegate>)delegate peripheralDelegate:(id<spgBLEServicePeripheralDelegate>) peripheralDelegate;
 -(void)startScan;
 -(void)stopScan;
--(void)connectPeripheral:(CBPeripheral *)peripheral;
--(void)disConnectPeripheral:(CBPeripheral *)peripheral;
--(void)writePower:(CBPeripheral *)peripheral value:(NSData *) data;
-
--(void)writeTestPower:(CBPeripheral *)peripheral value:(NSData *)data;
-
+-(void)connectPeripheral;
+-(void)disConnectPeripheral;
+-(void)writePower:(NSData *) data;
+-(void)writePassword:(NSData *)data;
 @end

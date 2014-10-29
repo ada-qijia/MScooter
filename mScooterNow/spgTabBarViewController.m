@@ -11,6 +11,8 @@
 
 @interface spgTabBarViewController ()
 
+@property (strong,nonatomic) spgBLEService *bleService;
+
 @end
 
 @implementation spgTabBarViewController
@@ -18,10 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if(self.bleService && self.peripheral)
-    {
-        self.bleService.peripheralDelegate=self;
-    }
+    self.bleService=[spgBLEService sharedInstance];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -32,6 +31,8 @@
 {
     [super viewWillAppear:animated];
     [UIApplication sharedApplication].statusBarHidden=YES;
+    
+    self.bleService.peripheralDelegate=self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -40,11 +41,14 @@
 
      if(self.bleService)
      {
-     [self.bleService disConnectPeripheral:self.peripheral];
+         self.bleService.peripheralDelegate=nil;
+         [self.bleService disConnectPeripheral];
      }
     
     [UIApplication sharedApplication].statusBarHidden=NO;
 }
+
+#pragma - supported orientation
 
 //set only the AR view support landscape orientation.
 -(NSUInteger)supportedInterfaceOrientations
@@ -63,23 +67,29 @@
 
 -(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral
 {
-    /*
+    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
+    if([vc respondsToSelector:@selector(updateConnectionState:)])
+    {
+        [vc updateConnectionState:YES];
+    }
+
     [self setWarningBarHidden:YES];
-    [self SetDashboardCirclesHiden:NO];
-     */
 }
 
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    /*
+    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
+    if([vc respondsToSelector:@selector(updateConnectionState:)])
+    {
+        [vc updateConnectionState:NO];
+    }
+ 
     [self setWarningBarHidden:NO];
-    [self SetDashboardCirclesHiden:YES];
-     */
 }
 
 -(void)speedValueUpdated:(NSData *)speedData
 {
-    [spgMScooterUtilities LogData:speedData title:@"Speed: %@ /n"];
+    [spgMScooterUtilities LogData:speedData title:@"Speed"];
     
     float realSpeed=0;
     int16_t i=0;
@@ -135,87 +145,53 @@
     }
     
     //update speed
-    if([self.selectedViewController respondsToSelector:@selector(updateSpeed:)])
+    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
+    if([vc respondsToSelector:@selector(updateSpeed:)])
     {
+        [vc updateSpeed:realSpeed];
     }
 }
 
 -(void)batteryValueUpdated:(NSData *)batteryData
 {
-     [spgMScooterUtilities LogData:batteryData title:@"Battery: %@ /n"];
+    [spgMScooterUtilities LogData:batteryData title:@"Battery"];
     
-    int16_t i=0;
-    [batteryData getBytes:&i length:sizeof(i)];
-    float realV=i/511.0*3.2*16;//voltage
-    float realBattery=0;
-    if(realV>=42)
-    {
-        realBattery=100;
-    }
-    else if(realV<=30)
-    {
-        realBattery=5;
-    }
-    else
-    {
-        realBattery=(realV-30)*95/12.0+5;
-    }
+    float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
     
     //update battery
+    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
+    if([vc respondsToSelector:@selector(updateBattery:)])
+    {
+        [vc updateBattery:realBattery];
+    }
 }
 
 -(void)cameraTriggered:(SBSCameraCommand) commandType
 {
-    if(self.selectedIndex==1)
+    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
+    if([vc respondsToSelector:@selector(cameraTriggered:)])
     {
-        switch (commandType) {
-                /*
-            case SBSCameraCommandTakePhoto:
-                self.modeButton.selected=YES;
-                [videoCaptureVC snapStillImage];
-                break;
-            case SBSCameraCommandStartRecordVideo:
-                self.modeButton.selected=NO;
-                [videoCaptureVC startVideoCapture];
-                break;
-            case SBSCameraCommandStopRecordVideo:
-                self.modeButton.selected=NO;
-                [videoCaptureVC stopVideoCapture];
-                break;
-            default:
-                break;
-                 */
-        }
-    };
+        [vc cameraTriggered:commandType];
+    }
 }
 
 -(void)modeChanged
 {
-    if(self.selectedIndex==1)
+    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
+    if([vc respondsToSelector:@selector(modeChanged)])
     {
-        /*
-        ARMode toMode=ARModeCool;
-        if(currentMode==ARModeCool)
-        {
-            toMode=ARModeList;
-        }
-        else if(currentMode==ARModeList)
-        {
-            toMode=ARModeNormal;
-        }
-        
-        [self gotoARMode:toMode];
-         */
-    };
+        [vc modeChanged];
+    }
 }
 
-/*
--(void)powerCharacteristicFound
+#pragma - UI update
+
+-(void) setWarningBarHidden:(BOOL)hidden
 {
-    NSLog(@"power on now");
-    //power on 247
-    //[self.bleService writePower:self.peripheral value:[self getData:33]];
+    UIAlertView *alert =
+    [[UIAlertView alloc] initWithTitle:@"Connection Failed"
+                               message:nil
+                               delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Reconnect",nil];
+    [alert show];
 }
- */
-
 @end

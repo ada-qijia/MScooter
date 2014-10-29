@@ -93,15 +93,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+-(void)setGaugesEnabled:(BOOL)enabled
 {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+    /*
+    WMGaugeView *speedView = (WMGaugeView *)[self.view viewWithTag:41];
+    speedView.value=0;
+    WMGaugeView *batteryView = (WMGaugeView *)[self.view viewWithTag:42];
+    batteryView.value=0;
+    */
+    
+    self.dashboardCircleImage.hidden=!enabled;
 }
-*/
-
 @end

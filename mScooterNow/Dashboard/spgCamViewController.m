@@ -186,6 +186,11 @@ static void * RecordingContext = &RecordingContext;
     // Dispose of any resources that can be recreated.
 }
 
+-(void)showInFullScreen:(BOOL)fullScreen
+{
+    CGRect frame=fullScreen?CGRectMake(0, 0, 320, 568):CGRectMake(0, 0, 320, 300);
+    [self previewView].layer.frame=frame;
+}
 
 #pragma - main operations
 

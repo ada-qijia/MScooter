@@ -18,6 +18,24 @@
 		32A13C2E19F4D99700D1AC9E /* spgIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A13C2D19F4D99700D1AC9E /* spgIntroductionView.m */; };
 		32A13C3219F4DAAF00D1AC9E /* spgChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A13C3019F4DAAF00D1AC9E /* spgChangePasswordViewController.m */; };
 		32A13C3319F4DAAF00D1AC9E /* spgChangePasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A13C3119F4DAAF00D1AC9E /* spgChangePasswordViewController.xib */; };
+		32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7E219FF5F9400B7B8DD /* userGuide0@2x.png */; };
+		32A1A7E619FF5F9400B7B8DD /* userGuide1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7E319FF5F9400B7B8DD /* userGuide1@2x.png */; };
+		32A1A7E719FF5F9400B7B8DD /* userGuide2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7E419FF5F9400B7B8DD /* userGuide2@2x.png */; };
+		32A1A7EB19FF65AD00B7B8DD /* scooterTypeA.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7E819FF65AD00B7B8DD /* scooterTypeA.png */; };
+		32A1A7EC19FF65AD00B7B8DD /* scooterTypeB.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7E919FF65AD00B7B8DD /* scooterTypeB.png */; };
+		32A1A7ED19FF65AD00B7B8DD /* scooterTypeC.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7EA19FF65AD00B7B8DD /* scooterTypeC.png */; };
+		32A1A7F319FF769000B7B8DD /* spgMScooterUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A1A7F219FF769000B7B8DD /* spgMScooterUtilities.m */; };
+		32A1A7F719FF877900B7B8DD /* snsSkype.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7F419FF877900B7B8DD /* snsSkype.png */; };
+		32A1A7F819FF877900B7B8DD /* snsWechat.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7F519FF877900B7B8DD /* snsWechat.png */; };
+		32A1A7F919FF877900B7B8DD /* snsWeibo.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7F619FF877900B7B8DD /* snsWeibo.png */; };
+		32A1A7FB19FF89DC00B7B8DD /* Phone.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7FA19FF89DC00B7B8DD /* Phone.png */; };
+		32A1A7FD19FF8B0700B7B8DD /* close.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7FC19FF8B0700B7B8DD /* close.png */; };
+		32A1A7FF19FF8B0C00B7B8DD /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A7FE19FF8B0C00B7B8DD /* back.png */; };
+		32A1A80119FF8B1800B7B8DD /* dot1.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A80019FF8B1800B7B8DD /* dot1.png */; };
+		32A1A80519FF8B2D00B7B8DD /* powerOn.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A80219FF8B2D00B7B8DD /* powerOn.png */; };
+		32A1A80619FF8B2D00B7B8DD /* PowerOnIngBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A80319FF8B2D00B7B8DD /* PowerOnIngBg.png */; };
+		32A1A80719FF8B2D00B7B8DD /* PowerOnIngCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A80419FF8B2D00B7B8DD /* PowerOnIngCircle.png */; };
+		32A1A80919FF8B3C00B7B8DD /* station.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A80819FF8B3C00B7B8DD /* station.png */; };
 		32A29B5E19F9F33F00D2BD3F /* spgARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */; };
 		32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */; };
 		32A7AB6919E67E49008B7D32 /* spgCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6819E67E49008B7D32 /* spgCamViewController.m */; };
@@ -75,9 +93,7 @@
 		32B1FFC119C975C100D9FFF5 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FFC019C975C100D9FFF5 /* CoreBluetooth.framework */; };
 		32B1FFDB19C978C800D9FFF5 /* apple.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCB19C978C800D9FFF5 /* apple.png */; };
 		32B1FFDC19C978C800D9FFF5 /* bg.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCC19C978C800D9FFF5 /* bg.jpg */; };
-		32B1FFDD19C978C800D9FFF5 /* capture1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCD19C978C800D9FFF5 /* capture1@2x.png */; };
 		32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCE19C978C800D9FFF5 /* capture@2x.png */; };
-		32B1FFDF19C978C800D9FFF5 /* capture@2x.png.zip in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFCF19C978C800D9FFF5 /* capture@2x.png.zip */; };
 		32B1FFE019C978C800D9FFF5 /* dashboardBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD019C978C800D9FFF5 /* dashboardBg.png */; };
 		32B1FFE119C978C800D9FFF5 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD119C978C800D9FFF5 /* Default.png */; };
 		32B1FFE219C978C800D9FFF5 /* lockCenter.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD219C978C800D9FFF5 /* lockCenter.png */; };
@@ -90,6 +106,8 @@
 		32B1FFE919C978C800D9FFF5 /* scooterIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFD919C978C800D9FFF5 /* scooterIcon.png */; };
 		32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFDA19C978C800D9FFF5 /* scooterOutline.png */; };
 		32B1FFEE19C97AC100D9FFF5 /* spgScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFED19C97AC100D9FFF5 /* spgScanViewController.m */; };
+		32B5F0E11A00D0A500A70CDC /* batteryLowBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */; };
+		32B5F0E31A00D0B300A70CDC /* dashboardCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B5F0E21A00D0B300A70CDC /* dashboardCircle.png */; };
 		32BBF29A19F77637006A00AF /* spgScan.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BBF29919F77637006A00AF /* spgScan.xib */; };
 		32BBF29E19F77C6A006A00AF /* spgConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BBF29C19F77C6A006A00AF /* spgConnectViewController.m */; };
 		32BBF29F19F77C6A006A00AF /* spgConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BBF29D19F77C6A006A00AF /* spgConnectViewController.xib */; };
@@ -113,10 +131,27 @@
 		32A13C2F19F4DAAF00D1AC9E /* spgChangePasswordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgChangePasswordViewController.h; path = Settings/spgChangePasswordViewController.h; sourceTree = "<group>"; };
 		32A13C3019F4DAAF00D1AC9E /* spgChangePasswordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgChangePasswordViewController.m; path = Settings/spgChangePasswordViewController.m; sourceTree = "<group>"; };
 		32A13C3119F4DAAF00D1AC9E /* spgChangePasswordViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgChangePasswordViewController.xib; path = Settings/spgChangePasswordViewController.xib; sourceTree = "<group>"; };
+		32A1A7E219FF5F9400B7B8DD /* userGuide0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userGuide0@2x.png"; sourceTree = "<group>"; };
+		32A1A7E319FF5F9400B7B8DD /* userGuide1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userGuide1@2x.png"; sourceTree = "<group>"; };
+		32A1A7E419FF5F9400B7B8DD /* userGuide2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "userGuide2@2x.png"; sourceTree = "<group>"; };
+		32A1A7E819FF65AD00B7B8DD /* scooterTypeA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterTypeA.png; sourceTree = "<group>"; };
+		32A1A7E919FF65AD00B7B8DD /* scooterTypeB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterTypeB.png; sourceTree = "<group>"; };
+		32A1A7EA19FF65AD00B7B8DD /* scooterTypeC.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterTypeC.png; sourceTree = "<group>"; };
+		32A1A7F119FF769000B7B8DD /* spgMScooterUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgMScooterUtilities.h; path = Common/spgMScooterUtilities.h; sourceTree = "<group>"; };
+		32A1A7F219FF769000B7B8DD /* spgMScooterUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgMScooterUtilities.m; path = Common/spgMScooterUtilities.m; sourceTree = "<group>"; };
+		32A1A7F419FF877900B7B8DD /* snsSkype.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snsSkype.png; sourceTree = "<group>"; };
+		32A1A7F519FF877900B7B8DD /* snsWechat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snsWechat.png; sourceTree = "<group>"; };
+		32A1A7F619FF877900B7B8DD /* snsWeibo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snsWeibo.png; sourceTree = "<group>"; };
+		32A1A7FA19FF89DC00B7B8DD /* Phone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Phone.png; sourceTree = "<group>"; };
+		32A1A7FC19FF8B0700B7B8DD /* close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = close.png; sourceTree = "<group>"; };
+		32A1A7FE19FF8B0C00B7B8DD /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
+		32A1A80019FF8B1800B7B8DD /* dot1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dot1.png; sourceTree = "<group>"; };
+		32A1A80219FF8B2D00B7B8DD /* powerOn.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerOn.png; sourceTree = "<group>"; };
+		32A1A80319FF8B2D00B7B8DD /* PowerOnIngBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PowerOnIngBg.png; sourceTree = "<group>"; };
+		32A1A80419FF8B2D00B7B8DD /* PowerOnIngCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PowerOnIngCircle.png; sourceTree = "<group>"; };
+		32A1A80819FF8B3C00B7B8DD /* station.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = station.png; sourceTree = "<group>"; };
 		32A29B5C19F9F33F00D2BD3F /* spgARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgARViewController.h; sourceTree = "<group>"; };
 		32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgARViewController.m; sourceTree = "<group>"; };
-		32A29B6119FA59F500D2BD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = en; path = en.lproj/spgMScooterUtilities.h; sourceTree = "<group>"; };
-		32A29B6319FA59F500D2BD3F /* en */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = en; path = en.lproj/spgMScooterUtilities.m; sourceTree = "<group>"; };
 		32A29B6419FA5B4100D2BD3F /* spgMScooterCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgMScooterCommon.h; sourceTree = "<group>"; };
 		32A7AB6419E67D77008B7D32 /* spgCamPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgCamPreviewView.h; sourceTree = "<group>"; };
 		32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgCamPreviewView.m; sourceTree = "<group>"; };
@@ -193,9 +228,7 @@
 		32B1FFC019C975C100D9FFF5 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		32B1FFCB19C978C800D9FFF5 /* apple.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = apple.png; sourceTree = "<group>"; };
 		32B1FFCC19C978C800D9FFF5 /* bg.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg.jpg; sourceTree = "<group>"; };
-		32B1FFCD19C978C800D9FFF5 /* capture1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture1@2x.png"; sourceTree = "<group>"; };
 		32B1FFCE19C978C800D9FFF5 /* capture@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "capture@2x.png"; sourceTree = "<group>"; };
-		32B1FFCF19C978C800D9FFF5 /* capture@2x.png.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = "capture@2x.png.zip"; sourceTree = "<group>"; };
 		32B1FFD019C978C800D9FFF5 /* dashboardBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboardBg.png; sourceTree = "<group>"; };
 		32B1FFD119C978C800D9FFF5 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		32B1FFD219C978C800D9FFF5 /* lockCenter.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lockCenter.png; sourceTree = "<group>"; };
@@ -224,6 +257,8 @@
 		32B1FFFD19C97B1800D9FFF5 /* THPinNumPadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinNumPadView.m; sourceTree = "<group>"; };
 		32B1FFFE19C97B1800D9FFF5 /* THPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinView.h; sourceTree = "<group>"; };
 		32B1FFFF19C97B1800D9FFF5 /* THPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinView.m; sourceTree = "<group>"; };
+		32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = batteryLowBg.png; sourceTree = "<group>"; };
+		32B5F0E21A00D0B300A70CDC /* dashboardCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboardCircle.png; sourceTree = "<group>"; };
 		32BBF29919F77637006A00AF /* spgScan.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgScan.xib; sourceTree = "<group>"; };
 		32BBF29B19F77C6A006A00AF /* spgConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgConnectViewController.h; sourceTree = "<group>"; };
 		32BBF29C19F77C6A006A00AF /* spgConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgConnectViewController.m; sourceTree = "<group>"; };
@@ -291,9 +326,9 @@
 			isa = PBXGroup;
 			children = (
 				32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */,
-				32A29B6019FA59F500D2BD3F /* spgMScooterUtilities.h */,
-				32A29B6219FA59F500D2BD3F /* spgMScooterUtilities.m */,
 				32A29B6419FA5B4100D2BD3F /* spgMScooterCommon.h */,
+				32A1A7F119FF769000B7B8DD /* spgMScooterUtilities.h */,
+				32A1A7F219FF769000B7B8DD /* spgMScooterUtilities.m */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -437,6 +472,25 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				32B5F0E21A00D0B300A70CDC /* dashboardCircle.png */,
+				32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */,
+				32A1A80819FF8B3C00B7B8DD /* station.png */,
+				32A1A80219FF8B2D00B7B8DD /* powerOn.png */,
+				32A1A80319FF8B2D00B7B8DD /* PowerOnIngBg.png */,
+				32A1A80419FF8B2D00B7B8DD /* PowerOnIngCircle.png */,
+				32A1A80019FF8B1800B7B8DD /* dot1.png */,
+				32A1A7FE19FF8B0C00B7B8DD /* back.png */,
+				32A1A7FC19FF8B0700B7B8DD /* close.png */,
+				32A1A7FA19FF89DC00B7B8DD /* Phone.png */,
+				32A1A7F419FF877900B7B8DD /* snsSkype.png */,
+				32A1A7F519FF877900B7B8DD /* snsWechat.png */,
+				32A1A7F619FF877900B7B8DD /* snsWeibo.png */,
+				32A1A7E819FF65AD00B7B8DD /* scooterTypeA.png */,
+				32A1A7E919FF65AD00B7B8DD /* scooterTypeB.png */,
+				32A1A7EA19FF65AD00B7B8DD /* scooterTypeC.png */,
+				32A1A7E219FF5F9400B7B8DD /* userGuide0@2x.png */,
+				32A1A7E319FF5F9400B7B8DD /* userGuide1@2x.png */,
+				32A1A7E419FF5F9400B7B8DD /* userGuide2@2x.png */,
 				32ADA26019EF71C00081BD51 /* weather.png */,
 				32ADA25E19EF70FF0081BD51 /* dashboard@2x.png */,
 				32ADA25C19EF6A3C0081BD51 /* speed.png */,
@@ -466,9 +520,7 @@
 				32B1002A19C981A400D9FFF5 /* speedCircle.png */,
 				32B1FFCB19C978C800D9FFF5 /* apple.png */,
 				32B1FFCC19C978C800D9FFF5 /* bg.jpg */,
-				32B1FFCD19C978C800D9FFF5 /* capture1@2x.png */,
 				32B1FFCE19C978C800D9FFF5 /* capture@2x.png */,
-				32B1FFCF19C978C800D9FFF5 /* capture@2x.png.zip */,
 				32B1FFD019C978C800D9FFF5 /* dashboardBg.png */,
 				32B1FFD119C978C800D9FFF5 /* Default.png */,
 				32B1FFD219C978C800D9FFF5 /* lockCenter.png */,
@@ -581,32 +633,44 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32A1A7F819FF877900B7B8DD /* snsWechat.png in Resources */,
 				32B1003519C98A8800D9FFF5 /* bg2.jpg in Resources */,
 				32ABC2C719CBC9AE00F3254E /* circles.png in Resources */,
+				32A1A7F919FF877900B7B8DD /* snsWeibo.png in Resources */,
+				32A1A80919FF8B3C00B7B8DD /* station.png in Resources */,
 				32B1FFE019C978C800D9FFF5 /* dashboardBg.png in Resources */,
 				32B1003319C982D300D9FFF5 /* timeIcon.png in Resources */,
+				32A1A7FF19FF8B0C00B7B8DD /* back.png in Resources */,
 				32B1FFA219C974AD00D9FFF5 /* Images.xcassets in Resources */,
 				32B1FFDC19C978C800D9FFF5 /* bg.jpg in Resources */,
 				32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */,
 				32ADA25F19EF70FF0081BD51 /* dashboard@2x.png in Resources */,
+				32A1A80119FF8B1800B7B8DD /* dot1.png in Resources */,
+				32A1A7E719FF5F9400B7B8DD /* userGuide2@2x.png in Resources */,
 				32B1FFE419C978C800D9FFF5 /* me@2x.png in Resources */,
 				32A01B3719E7D0C50031AC60 /* startVideo.png in Resources */,
+				32A1A7F719FF877900B7B8DD /* snsSkype.png in Resources */,
+				32A1A80719FF8B2D00B7B8DD /* PowerOnIngCircle.png in Resources */,
 				32ADA25719EF66CA0081BD51 /* preview.png in Resources */,
 				32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */,
 				32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */,
 				32ABC2C919CBC9AE00F3254E /* infoTitle.png in Resources */,
-				32B1FFDF19C978C800D9FFF5 /* capture@2x.png.zip in Resources */,
+				32B5F0E31A00D0B300A70CDC /* dashboardCircle.png in Resources */,
+				32A1A7FD19FF8B0700B7B8DD /* close.png in Resources */,
 				329FF84319F608180011B1CE /* spgLoginViewController.xib in Resources */,
 				329FF86419F662260011B1CE /* spgIntroductionPanel.xib in Resources */,
 				32ABC2CF19CBC9AE00F3254E /* video.png in Resources */,
+				32A1A80519FF8B2D00B7B8DD /* powerOn.png in Resources */,
 				32ABC2C819CBC9AE00F3254E /* info.png in Resources */,
 				32B1FFE819C978C800D9FFF5 /* scooterEntity.png in Resources */,
 				32B1FFE519C978C800D9FFF5 /* moments@2x.png in Resources */,
 				32ADA25319EF66A80081BD51 /* ARMode.png in Resources */,
 				32ABC2CE19CBC9AE00F3254E /* switchCam.png in Resources */,
+				32A1A7EC19FF65AD00B7B8DD /* scooterTypeB.png in Resources */,
 				32B1FFE719C978C800D9FFF5 /* radar.png in Resources */,
 				32BBF29F19F77C6A006A00AF /* spgConnectViewController.xib in Resources */,
 				32B1FFE619C978C800D9FFF5 /* profile.png in Resources */,
+				32A1A7EB19FF65AD00B7B8DD /* scooterTypeA.png in Resources */,
 				32B1002D19C981A400D9FFF5 /* batteryCircle.png in Resources */,
 				32ABC2CA19CBC9AE00F3254E /* lightOff.png in Resources */,
 				32ADA25B19EF66DD0081BD51 /* userInfo.png in Resources */,
@@ -616,24 +680,29 @@
 				32B1FFE119C978C800D9FFF5 /* Default.png in Resources */,
 				32ADA26119EF71C00081BD51 /* weather.png in Resources */,
 				32A01B3619E7D0C50031AC60 /* shoot.png in Resources */,
+				32A1A7E619FF5F9400B7B8DD /* userGuide1@2x.png in Resources */,
+				32B5F0E11A00D0A500A70CDC /* batteryLowBg.png in Resources */,
 				32BBF2A119F77FBD006A00AF /* spgDeviceSite.xib in Resources */,
 				32ADA25D19EF6A3C0081BD51 /* speed.png in Resources */,
 				32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */,
 				32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */,
 				32B1FFE319C978C800D9FFF5 /* lockHalo.png in Resources */,
 				32B1FFE919C978C800D9FFF5 /* scooterIcon.png in Resources */,
+				32A1A80619FF8B2D00B7B8DD /* PowerOnIngBg.png in Resources */,
+				32A1A7FB19FF89DC00B7B8DD /* Phone.png in Resources */,
 				32ABC2C619CBC9AE00F3254E /* camera.png in Resources */,
 				32B1002E19C981A400D9FFF5 /* DIST icon.png in Resources */,
 				32B1FFE219C978C800D9FFF5 /* lockCenter.png in Resources */,
 				32BBF29A19F77637006A00AF /* spgScan.xib in Resources */,
+				32A1A7ED19FF65AD00B7B8DD /* scooterTypeC.png in Resources */,
 				32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */,
 				32A13C3319F4DAAF00D1AC9E /* spgChangePasswordViewController.xib in Resources */,
 				32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */,
+				32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */,
 				32ABC2CB19CBC9AE00F3254E /* lightOn.png in Resources */,
 				32A01B3819E7D0C50031AC60 /* stopVideo.png in Resources */,
 				32B1FF9D19C974AD00D9FFF5 /* Main.storyboard in Resources */,
 				32ADA25919EF66D60081BD51 /* time.png in Resources */,
-				32B1FFDD19C978C800D9FFF5 /* capture1@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -646,6 +715,7 @@
 			files = (
 				32B1000C19C97B1800D9FFF5 /* THPinNumButton.m in Sources */,
 				32B1FFEE19C97AC100D9FFF5 /* spgScanViewController.m in Sources */,
+				32A1A7F319FF769000B7B8DD /* spgMScooterUtilities.m in Sources */,
 				32ADA26519EF8FF60081BD51 /* spgSettingsViewController.m in Sources */,
 				32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */,
 				32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */,
@@ -680,22 +750,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		32A29B6019FA59F500D2BD3F /* spgMScooterUtilities.h */ = {
-			isa = PBXVariantGroup;
-			children = (
-				32A29B6119FA59F500D2BD3F /* en */,
-			);
-			name = spgMScooterUtilities.h;
-			sourceTree = "<group>";
-		};
-		32A29B6219FA59F500D2BD3F /* spgMScooterUtilities.m */ = {
-			isa = PBXVariantGroup;
-			children = (
-				32A29B6319FA59F500D2BD3F /* en */,
-			);
-			name = spgMScooterUtilities.m;
-			sourceTree = "<group>";
-		};
 		32B1FF9219C974AC00D9FFF5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -15,9 +15,7 @@
 {
     NSArray *interestedServices;
     CBCharacteristic *powerCharacteristic;
-    CBCharacteristic *powerTestCharacteristic;
-    CBCharacteristic *powerTest2Characteristic;
-    //NSMutableString *modeChangeSignals;
+    CBCharacteristic *passwordCharacteristic;
 }
 
 static spgBLEService *sharedInstance=nil;
@@ -28,16 +26,13 @@ static spgBLEService *sharedInstance=nil;
     {
         sharedInstance=[[super alloc] init];
     }
-    
+  
     return sharedInstance;
 }
 
 - (id)initWithDelegates:(id<spgBLEServiceDiscoverPeripheralsDelegate>)delegate peripheralDelegate:(id<spgBLEServicePeripheralDelegate>) peripheralDelegate
 {
-    if(!self)
-    {
-        self = [super init];
-    }
+    self =[spgBLEService sharedInstance];
     
     self.discoverPeripheralsDelegate=delegate;
     self.peripheralDelegate=peripheralDelegate;
@@ -51,8 +46,6 @@ static spgBLEService *sharedInstance=nil;
     CBUUID *powerServiceUUID=CBUUID(kPowerServiceUUID);
     CBUUID *modeServiceUUID=CBUUID(kModeServiceUUID);
     interestedServices=@[speedServiceUUID,batteryServiceUUID,cameraServiceUUID,modeServiceUUID,powerServiceUUID];
-    
-    //modeChangeSignals=[[NSMutableString alloc] init];
     
     return self;
 }
@@ -71,34 +64,33 @@ static spgBLEService *sharedInstance=nil;
     [self.centralManager stopScan];
 }
 
--(void)connectPeripheral:(CBPeripheral *)peripheral
+-(void)connectPeripheral
 {
-    if(self.centralManager!=nil && peripheral!=nil)
+    if(self.centralManager!=nil && self.peripheral!=nil)
     {
-        [self.centralManager connectPeripheral:peripheral options:nil];
+        [self.centralManager connectPeripheral:self.peripheral options:nil];
     }
 }
 
--(void)disConnectPeripheral:(CBPeripheral *)peripheral
+-(void)disConnectPeripheral
 {
-    if(self.centralManager!=nil && peripheral!=nil)
+    if(self.centralManager!=nil && self.peripheral!=nil)
     {
-        [self.centralManager cancelPeripheralConnection:peripheral];
+        [self.centralManager cancelPeripheralConnection:self.peripheral];
     }
 }
 
--(void)writePower:(CBPeripheral *)peripheral value:(NSData *) data
+-(void)writePower:(NSData *) data
 {
-    if (peripheral && powerCharacteristic) {
-        [peripheral writeValue:data forCharacteristic:powerCharacteristic type:CBCharacteristicWriteWithResponse];
+    if (self.peripheral && powerCharacteristic) {
+        [self.peripheral writeValue:data forCharacteristic:powerCharacteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 
--(void)writeTestPower:(CBPeripheral *)peripheral value:(NSData *)data
+-(void)writePassword:(NSData *) data
 {
-    if (peripheral && powerTestCharacteristic && powerTest2Characteristic) {
-        [peripheral writeValue:data forCharacteristic:powerTestCharacteristic type:CBCharacteristicWriteWithResponse];
-        [peripheral writeValue:data forCharacteristic:powerTest2Characteristic type:CBCharacteristicWriteWithResponse];
+    if (self.peripheral && passwordCharacteristic) {
+        [self.peripheral writeValue:data forCharacteristic:passwordCharacteristic type:CBCharacteristicWriteWithResponse];
     }
 }
 
@@ -115,7 +107,7 @@ static spgBLEService *sharedInstance=nil;
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSRange range= [peripheral.name rangeOfString:kScooterDeviceName options:NSCaseInsensitiveSearch];
-    if(range.location!=NSNotFound)
+    if(range.location!=NSNotFound||[peripheral.name isEqualToString:kScooterStationName])
     {
         /*
          //save to user defaults
@@ -201,14 +193,10 @@ static spgBLEService *sharedInstance=nil;
         }
         else if([uuid isEqualToString:kPowerServiceUUID])
         {
-            //test
-            characteristicUUID=CBUUID(kPowerTestCharacteristicUUID);
-            [peripheral  discoverCharacteristics:@[characteristicUUID] forService:service];
-            
-            characteristicUUID=CBUUID(kPowerTest2CharacteristicUUID);
-            [peripheral  discoverCharacteristics:@[characteristicUUID] forService:service];
-            
-            characteristicUUID=CBUUID(kPowerCharacteristicUUID);
+            //discover password
+           CBUUID *characteristicUUID0=CBUUID(kPasswordCharacteristicUUID);
+           CBUUID *characteristicUUID1=CBUUID(kPowerCharacteristicUUID);
+           [peripheral  discoverCharacteristics:@[characteristicUUID0, characteristicUUID1] forService:service];
         }
         else if([uuid isEqualToString:kModeServiceUUID])
         {
@@ -240,14 +228,9 @@ static spgBLEService *sharedInstance=nil;
                     [self.peripheralDelegate powerCharacteristicFound];
                 }
             }
-            //test
-            else if([uuid isEqualToString:kPowerTestCharacteristicUUID])
+            else if([uuid isEqualToString:kPasswordCharacteristicUUID])
             {
-                powerTestCharacteristic=characteristic;
-            }
-            else if([uuid isEqualToString:kPowerTest2CharacteristicUUID])
-            {
-                powerTest2Characteristic=characteristic;
+                passwordCharacteristic=characteristic;
             }
         }
     }
@@ -291,25 +274,19 @@ static spgBLEService *sharedInstance=nil;
         }
         else if([uuid isEqualToString:kCameraCharacteristicUUID])
         {
-            NSMutableString *mutableString=[[NSMutableString alloc] init];
-            Byte *bytes=(Byte *)characteristic.value.bytes;
-            for(int i=0;i<characteristic.value.length;i++)
-            {
-                NSString *hex=[NSString stringWithFormat:@"%X", bytes[i]];
-                [mutableString appendString:hex];
-            }
+            NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
             
             //photo
             SBSCameraCommand cmdType=SBSCameraCommandNotValid;
-            if([mutableString isEqualToString:@"11AA"])
+            if([hexString isEqualToString:@"11AA"])
             {
                 cmdType=SBSCameraCommandTakePhoto;
             }
-            else if([mutableString isEqualToString:@"22BB"])
+            else if([hexString isEqualToString:@"22BB"])
             {
                 cmdType=SBSCameraCommandStartRecordVideo;
             }
-            else if([mutableString isEqualToString:@"33CC"])
+            else if([hexString isEqualToString:@"33CC"])
             {
                 cmdType=SBSCameraCommandStopRecordVideo;
             }
@@ -323,15 +300,9 @@ static spgBLEService *sharedInstance=nil;
         }
         else if([uuid isEqualToString:kModeCharateristicUUID])
         {
-            NSMutableString *mutableString=[[NSMutableString alloc] init];
-            Byte *bytes=(Byte *)characteristic.value.bytes;
-            for(int i=0;i<characteristic.value.length;i++)
-            {
-                NSString *hex=[NSString stringWithFormat:@"%X", bytes[i]];
-                [mutableString appendString:hex];
-            }
+            NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
             
-            BOOL modeValue=[mutableString isEqualToString:@"CCBB"];//false when "55AA"
+            BOOL modeValue=[hexString isEqualToString:@"CCBB"];//false when "55AA"
             //true
             if(modeValue)
             {
@@ -339,23 +310,26 @@ static spgBLEService *sharedInstance=nil;
                     [self.peripheralDelegate modeChanged];
                 }
             }
-            
-            /*
-             //if the sequence is "TFFT", scooter has been auto powered off
-             NSString *modeSymbol=modeValue?@"T":@"F";
-             [modeChangeSignals appendString:modeSymbol];
-             if(modeChangeSignals.length>4)
-             {
-             [modeChangeSignals deleteCharactersInRange:NSMakeRange(0, 1)];
-             }
-             
-             if(modeChangeSignals.length==4&&[modeChangeSignals isEqualToString:@"TFFT"])
-             {
-             if ([self.peripheralDelegate respondsToSelector:@selector(autoPoweredOff)]) {
-             [self.peripheralDelegate autoPoweredOff];
-             }
-             }
-             */
+        }
+        else if([uuid isEqualToString:kPasswordCharacteristicUUID])
+        {
+            NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
+            BOOL correct=[hexString isEqualToString:kPasswordCorrectResponse];
+            if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:)]) {
+                [self.peripheralDelegate passwordCertificationReturned:correct];
+            }
+        }
+    }
+}
+
+-(void)peripheral:(CBPeripheral *)peripheral didWriteValueForCharacteristic:(CBCharacteristic *)characteristic error:(NSError *)error
+{
+    if(!error)
+    {
+        NSString *uuid=[characteristic.UUID UUIDString];
+        if([uuid isEqualToString:kPasswordCharacteristicUUID])
+        {
+            [self.peripheral readValueForCharacteristic:characteristic];
         }
     }
 }

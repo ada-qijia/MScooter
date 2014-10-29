@@ -11,6 +11,8 @@
 
 @interface spgConnectViewController ()
 
+@property (weak,nonatomic) spgBLEService *bleService;
+
 @end
 
 @implementation spgConnectViewController
@@ -19,9 +21,10 @@
     [super viewDidLoad];
     
     self.view.backgroundColor=BackgroundImageColor;
-    if(self.bleService && self.peripheral)
+    self.bleService=[spgBLEService sharedInstance];
+    if(self.bleService && self.bleService.peripheral)
     {
-        self.scooterName.text=self.peripheral.name;
+        self.scooterName.text=self.bleService.peripheral.name;
         
         [self showConnectAnimation];
         [self performSelector:@selector(connect) withObject:nil afterDelay:1.0];
@@ -55,7 +58,7 @@
 
 -(void)connect
 {
-    [self.bleService connectPeripheral:self.peripheral];
+    [self.bleService connectPeripheral];
     //show the connect animation
     [self loopConnect];
 }
@@ -68,52 +71,64 @@
     [self.connectionImage.layer removeAllAnimations];
     
     //show the unlock
-    [self performSelector:@selector(showUnlock:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:2];
-    [self performSelector:@selector(twinkleUnlock:) withObject:nil afterDelay:2.5];
+    [self performSelector:@selector(showUnlock:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:1];
+    [self performSelector:@selector(twinkleUnlock:) withObject:nil afterDelay:1.5];
+}
+
+-(void)passwordCertificationReturned:(BOOL)correct
+{
+    if(correct)
+    {
+        [self navigateToNextPage];
+    }
+    else
+    {
+        self.powerOnView.hidden=YES;
+        [self.powerOnCircleImage.layer removeAllAnimations];
+        
+        [self incorrectPinEnteredInPinViewController:nil];
+        [self login:nil];
+    }
 }
 
 #pragma mark - pin delegate
 
 -(void)pinViewControllerDidDismissAfterPinEntryWasSuccessful:(THPinViewController *)pinViewController
 {
-    //[super pinViewControllerDidDismissAfterPinEntryWasSuccessful:pinViewController];
-    
-    //power on
-    //self.currentPin is the real data
-    [self.bleService writePower:self.peripheral value:[self getData:33]];
+    //self.correctPin
+    [self.bleService writePassword:[self getDataFromPin]];
     
     //show power on animation
     self.connectionView.hidden=YES;
     
     [self RotatePowerOn];
-    
-    //for test
-    [self powerOnReturn:true];
 }
 
--(void)powerOnReturn:(BOOL) success
+#pragma - utilities
+
+-(void)navigateToNextPage
 {
-    if(success)
-    {
-        //navigate to next page
-        UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
-        tabBarVC.peripheral=self.peripheral;
-        tabBarVC.bleService=self.bleService;
+    //navigate to next page
+    UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
         
-        [self presentViewController:tabBarVC animated:NO completion:nil];
+    [self presentViewController:tabBarVC animated:YES completion:nil];
+}
+
+-(NSData *)getDataFromPin
+{
+    if(self.currentPin)
+    {
+        Byte byte0=[[self.currentPin substringToIndex:2] intValue];
+        Byte byte1=[[self.currentPin substringFromIndex:2] intValue];
+        Byte array[]={byte0,byte1};
+        NSData *pinData=[NSData dataWithBytes:array length:2];
+        return pinData;
     }
     else
     {
-        //hide power on, show connection view
+        return nil;
     }
-}
-
--(NSData *)getData:(Byte)value
-{
-    Byte bytes[]={value};
-    NSData *data=[NSData dataWithBytes:bytes length:1];
-    return data;
 }
 
 #pragma mark - scooter animation

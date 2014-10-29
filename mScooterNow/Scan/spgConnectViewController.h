@@ -8,15 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import <CoreBluetooth/CoreBluetooth.h>
-#import "spgMScooterDefinitions.h"
+#import "spgMScooterCommon.h"
 #import "spgBLEService.h"
 #import "spgPinViewController.h"
 
 @interface spgConnectViewController : spgPinViewController<spgBLEServicePeripheralDelegate>
 
 @property (nonatomic) BOOL isPeripheralKnown;
-@property (weak,nonatomic) CBPeripheral *peripheral;
-@property (weak,nonatomic) spgBLEService *bleService;
 
 @property (weak, nonatomic) IBOutlet UIImageView *scooterOutline;
 @property (weak, nonatomic) IBOutlet UIImageView *scooterEntity;
