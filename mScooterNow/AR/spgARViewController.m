@@ -33,6 +33,8 @@
     UISwipeGestureRecognizer *horizontalRightSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalRightSwipe:)];
     horizontalRightSwipe.direction=UISwipeGestureRecognizerDirectionRight;
     [self.view addGestureRecognizer:horizontalRightSwipe];
+    
+    videoCaptureVC= [self.childViewControllers objectAtIndex:0];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -43,8 +45,8 @@
 {
     [super viewWillAppear:animated];
     
-    videoCaptureVC= [self.childViewControllers objectAtIndex:0];
-    
+    [self updateConnectedUIState];
+   
     //update time and temperature
     [self updateDateTime];
     
@@ -72,8 +74,7 @@
 
 -(void)updateConnectionState:(BOOL) connected
 {
-    spgARGaugesViewController *gaugesVC= self.childViewControllers[1];
-    [gaugesVC setGaugesEnabled:connected];
+    [self updateConnectedUIState];
 }
 
 -(void)updateSpeed:(float)speed
@@ -113,26 +114,6 @@
 -(void)modeChanged
 {
     [self switchARMode:YES];
-    
-    /*
-    ARMode toMode=ARModeCool;
-    switch (currentMode) {
-        case ARModeCool:
-            toMode=ARModeList;
-            break;
-        case ARModeList:
-            toMode=ARModeMap;
-            break;
-        case ARModeMap:
-            toMode=ARModeNormal;
-            break;
-        default:
-            toMode=ARModeCool;
-            break;
-    }
-    
-    [self gotoARMode:toMode];
-     */
 }
 
 #pragma - UI interaction
@@ -163,6 +144,11 @@
 
 - (IBAction)switchCam:(id)sender {
     [videoCaptureVC changeCamera];
+}
+
+- (IBAction)closeClicked:(UIButton *)sender {
+    spgTabBarViewController *tabBarVC= (spgTabBarViewController *)self.tabBarController;
+    tabBarVC.selectedIndex= tabBarVC.lastSelectedIndex;
 }
 
 #pragma mark - gesture methods
@@ -256,6 +242,14 @@
     
     UIInterfaceOrientation toOrientation=portrait?UIInterfaceOrientationPortrait:UIInterfaceOrientationLandscapeLeft;
     [camViewController rotateLayout:toOrientation];
+}
+
+-(void)updateConnectedUIState
+{
+    CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
+    
+    spgARGaugesViewController *gaugesVC= self.childViewControllers[1];
+    [gaugesVC setGaugesEnabled:currentState==CBPeripheralStateConnected];
 }
 
 #pragma - date time utilities

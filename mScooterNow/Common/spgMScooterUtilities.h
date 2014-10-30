@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "spgMScooterDefinitions.h"
 
 @interface spgMScooterUtilities : NSObject
 
@@ -19,4 +20,8 @@
 +(float)castBatteryToPercent:(NSData *)data;
 
 +(NSString *)castDataToHexString:(NSData *)data;
+
++(NSString *)getMyPeripheralID;
++(void)saveMyPeripheralID:(NSString *)uuid;
+
 @end

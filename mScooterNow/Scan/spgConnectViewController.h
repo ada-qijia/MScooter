@@ -26,8 +26,13 @@
 @property (weak, nonatomic) IBOutlet UIView *connectionView;
 @property (weak, nonatomic) IBOutlet UIView *powerOnView;
 
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+
 @property (weak, nonatomic) IBOutlet UIImageView *powerOnCircleImage;
 
 - (IBAction)unlockClicked:(UIButton *)sender;
+- (IBAction)backClicked:(id)sender;
+- (IBAction)closeClicked:(UIButton *)sender;
 
 @end

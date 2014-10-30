@@ -84,7 +84,7 @@
     {
         realSpeed=1;
     }
-
+    
     return realSpeed;
 }
 
@@ -123,4 +123,18 @@
     return [NSString stringWithString:mutableString];
 }
 
++(NSString *)getMyPeripheralID
+{
+    NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
+    NSString *idString= [userDefaults stringForKey:kMyPeripheralIDKey];
+    return idString;
+}
+
+//save to user defaults
++(void)saveMyPeripheralID:(NSString *)uuid
+{
+    NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
+    [userDefaults setObject:uuid forKey:kMyPeripheralIDKey];
+    [userDefaults synchronize];
+}
 @end

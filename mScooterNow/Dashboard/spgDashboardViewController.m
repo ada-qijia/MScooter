@@ -7,6 +7,7 @@
 //
 
 #import "spgDashboardViewController.h"
+#import "spgScanViewController.h"
 
 @interface spgDashboardViewController ()
 
@@ -28,6 +29,12 @@
     [super viewDidLoad];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self updateConnectedUIState];
+}
+
 #pragma mark - UI interaction
 
 - (IBAction)RetryClicked:(id)sender {
@@ -42,12 +49,27 @@
 - (IBAction)powerOff:(UIButton *)sender {
     if(sender.selected)//power on
     {
-  
+        [self backToScanViewController];
     }
     else//power off
     {
         UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Are you sure to power off your scooter?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Power Off", nil];
         [alert show];
+    }
+}
+
+-(void)backToScanViewController
+{
+    UIViewController *currentVC=self;
+    while (currentVC && ![currentVC isKindOfClass:[spgScanViewController class]]) {
+        [currentVC dismissViewControllerAnimated:NO completion:nil];
+        currentVC=currentVC.presentingViewController;
+    }
+    
+    if([currentVC isKindOfClass:[spgScanViewController class]])
+    {
+        spgScanViewController *scanVC=(spgScanViewController *)currentVC;
+        scanVC.shouldRetry=YES;
     }
 }
 
@@ -57,15 +79,10 @@
 {
     if(buttonIndex==1)
     {
-        self.powerButton.selected=YES;
         spgBLEService *bleService=[spgBLEService sharedInstance];
         [bleService writePower:[spgMScooterUtilities getDataFromInt16:249]];
         
         [bleService disConnectPeripheral];
-    }
-    else
-    {
-        self.powerButton.selected=NO;
     }
 }
 
@@ -73,8 +90,7 @@
 
 -(void)updateConnectionState:(BOOL) connected
 {
-    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
-    [gaugesVC setGaugesEnabled:connected];
+    [self updateConnectedUIState];
 }
 
 -(void)updateSpeed:(float) speed
@@ -90,6 +106,18 @@
     [gaugesVC.distanceGaugeView setValue:battery animated:YES duration:0.3];
     
     [gaugesVC setBatteryLow:battery<15];
+}
+
+#pragma -utility
+
+-(void)updateConnectedUIState
+{
+    CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
+    self.powerButton.enabled=!(currentState==CBPeripheralStateConnecting);
+    self.powerButton.selected= currentState==CBPeripheralStateDisconnected;
+    
+    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
+    [gaugesVC setGaugesEnabled:currentState==CBPeripheralStateConnected];
 }
 
 @end

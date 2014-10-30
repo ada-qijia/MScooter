@@ -39,8 +39,9 @@
 		32A29B5E19F9F33F00D2BD3F /* spgARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */; };
 		32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */; };
 		32A7AB6919E67E49008B7D32 /* spgCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6819E67E49008B7D32 /* spgCamViewController.m */; };
+		32AA67391A02461300AEC01A /* distanceCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AA67381A02461300AEC01A /* distanceCircle.png */; };
 		32ABC2C619CBC9AE00F3254E /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BC19CBC9AE00F3254E /* camera.png */; };
-		32ABC2C719CBC9AE00F3254E /* circles.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BD19CBC9AE00F3254E /* circles.png */; };
+		32ABC2C719CBC9AE00F3254E /* circles@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BD19CBC9AE00F3254E /* circles@2x.png */; };
 		32ABC2C819CBC9AE00F3254E /* info.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BE19CBC9AE00F3254E /* info.png */; };
 		32ABC2C919CBC9AE00F3254E /* infoTitle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2BF19CBC9AE00F3254E /* infoTitle.png */; };
 		32ABC2CA19CBC9AE00F3254E /* lightOff.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ABC2C019CBC9AE00F3254E /* lightOff.png */; };
@@ -77,7 +78,7 @@
 		32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1002919C981A400D9FFF5 /* speedBg.png */; };
 		32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1002A19C981A400D9FFF5 /* speedCircle.png */; };
 		32B1003319C982D300D9FFF5 /* timeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1003219C982D300D9FFF5 /* timeIcon.png */; };
-		32B1003519C98A8800D9FFF5 /* bg2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B1003419C98A8800D9FFF5 /* bg2.jpg */; };
+		32B1003519C98A8800D9FFF5 /* bg2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B1003419C98A8800D9FFF5 /* bg2@2x.jpg */; };
 		32B1003F19CADB8E00D9FFF5 /* spgMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */; };
 		32B1004019CADB8E00D9FFF5 /* spgVideoCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1003E19CADB8E00D9FFF5 /* spgVideoCaptureViewController.m */; };
 		32B1004319CADBB000D9FFF5 /* spgARGaugesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */; };
@@ -157,8 +158,9 @@
 		32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgCamPreviewView.m; sourceTree = "<group>"; };
 		32A7AB6719E67E49008B7D32 /* spgCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgCamViewController.h; sourceTree = "<group>"; };
 		32A7AB6819E67E49008B7D32 /* spgCamViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgCamViewController.m; sourceTree = "<group>"; };
+		32AA67381A02461300AEC01A /* distanceCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distanceCircle.png; sourceTree = "<group>"; };
 		32ABC2BC19CBC9AE00F3254E /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
-		32ABC2BD19CBC9AE00F3254E /* circles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circles.png; sourceTree = "<group>"; };
+		32ABC2BD19CBC9AE00F3254E /* circles@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "circles@2x.png"; sourceTree = "<group>"; };
 		32ABC2BE19CBC9AE00F3254E /* info.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = info.png; sourceTree = "<group>"; };
 		32ABC2BF19CBC9AE00F3254E /* infoTitle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = infoTitle.png; sourceTree = "<group>"; };
 		32ABC2C019CBC9AE00F3254E /* lightOff.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lightOff.png; sourceTree = "<group>"; };
@@ -201,7 +203,7 @@
 		32B1002919C981A400D9FFF5 /* speedBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedBg.png; sourceTree = "<group>"; };
 		32B1002A19C981A400D9FFF5 /* speedCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speedCircle.png; sourceTree = "<group>"; };
 		32B1003219C982D300D9FFF5 /* timeIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = timeIcon.png; sourceTree = "<group>"; };
-		32B1003419C98A8800D9FFF5 /* bg2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bg2.jpg; sourceTree = "<group>"; };
+		32B1003419C98A8800D9FFF5 /* bg2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg2@2x.jpg"; sourceTree = "<group>"; };
 		32B1003B19CADB8E00D9FFF5 /* spgMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgMapViewController.h; sourceTree = "<group>"; };
 		32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgMapViewController.m; sourceTree = "<group>"; };
 		32B1003D19CADB8E00D9FFF5 /* spgVideoCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgVideoCaptureViewController.h; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				32AA67381A02461300AEC01A /* distanceCircle.png */,
 				32B5F0E21A00D0B300A70CDC /* dashboardCircle.png */,
 				32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */,
 				32A1A80819FF8B3C00B7B8DD /* station.png */,
@@ -502,7 +505,7 @@
 				32A01B3419E7D0C50031AC60 /* startVideo.png */,
 				32A01B3519E7D0C50031AC60 /* stopVideo.png */,
 				32ABC2BC19CBC9AE00F3254E /* camera.png */,
-				32ABC2BD19CBC9AE00F3254E /* circles.png */,
+				32ABC2BD19CBC9AE00F3254E /* circles@2x.png */,
 				32ABC2BE19CBC9AE00F3254E /* info.png */,
 				32ABC2BF19CBC9AE00F3254E /* infoTitle.png */,
 				32ABC2C019CBC9AE00F3254E /* lightOff.png */,
@@ -513,7 +516,7 @@
 				32ABC2C519CBC9AE00F3254E /* video.png */,
 				32B1002619C981A400D9FFF5 /* batteryBg.png */,
 				32B1003219C982D300D9FFF5 /* timeIcon.png */,
-				32B1003419C98A8800D9FFF5 /* bg2.jpg */,
+				32B1003419C98A8800D9FFF5 /* bg2@2x.jpg */,
 				32B1002719C981A400D9FFF5 /* batteryCircle.png */,
 				32B1002819C981A400D9FFF5 /* DIST icon.png */,
 				32B1002919C981A400D9FFF5 /* speedBg.png */,
@@ -634,8 +637,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				32A1A7F819FF877900B7B8DD /* snsWechat.png in Resources */,
-				32B1003519C98A8800D9FFF5 /* bg2.jpg in Resources */,
-				32ABC2C719CBC9AE00F3254E /* circles.png in Resources */,
+				32B1003519C98A8800D9FFF5 /* bg2@2x.jpg in Resources */,
+				32ABC2C719CBC9AE00F3254E /* circles@2x.png in Resources */,
 				32A1A7F919FF877900B7B8DD /* snsWeibo.png in Resources */,
 				32A1A80919FF8B3C00B7B8DD /* station.png in Resources */,
 				32B1FFE019C978C800D9FFF5 /* dashboardBg.png in Resources */,
@@ -699,6 +702,7 @@
 				32A13C3319F4DAAF00D1AC9E /* spgChangePasswordViewController.xib in Resources */,
 				32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */,
 				32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */,
+				32AA67391A02461300AEC01A /* distanceCircle.png in Resources */,
 				32ABC2CB19CBC9AE00F3254E /* lightOn.png in Resources */,
 				32A01B3819E7D0C50031AC60 /* stopVideo.png in Resources */,
 				32B1FF9D19C974AD00D9FFF5 /* Main.storyboard in Resources */,

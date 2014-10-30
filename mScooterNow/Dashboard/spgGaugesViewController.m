@@ -112,8 +112,8 @@
 {
     NSString *imgName=low?@"batteryLowBg.png":@"batteryBg.png";
     self.batteryBgImage.image=[UIImage imageNamed:imgName];
-    [self.view viewWithTag:32].hidden=low;
-    [self.view viewWithTag:33].hidden=low;
+    //[self.view viewWithTag:32].hidden=low;
+    //[self.view viewWithTag:33].hidden=low;
 }
 
 @end

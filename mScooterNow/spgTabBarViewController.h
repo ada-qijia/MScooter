@@ -28,8 +28,8 @@
 @end
 
 
+@interface spgTabBarViewController : UITabBarController <UITabBarControllerDelegate,spgBLEServicePeripheralDelegate>
 
-
-@interface spgTabBarViewController : UITabBarController<spgBLEServicePeripheralDelegate>
+@property NSUInteger lastSelectedIndex;
 
 @end

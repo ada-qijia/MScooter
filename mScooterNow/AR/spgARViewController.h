@@ -39,6 +39,7 @@
 
 - (IBAction)switchCameraMode:(UIButton *)sender;
 - (IBAction)switchCam:(id)sender;
+- (IBAction)closeClicked:(UIButton *)sender;
 
 -(void)rotateLayout:(BOOL)portrait;
 

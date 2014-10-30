@@ -18,6 +18,7 @@
 @property (nonatomic) BOOL shouldRetry;
 
 @property (weak, nonatomic) IBOutlet UIImageView *radarImage;
+@property (weak, nonatomic) IBOutlet UIImageView *circlesImage;
 @property (weak, nonatomic) IBOutlet UIButton *retryButton;
 
 @property (weak, nonatomic) IBOutlet UIView *foundView;

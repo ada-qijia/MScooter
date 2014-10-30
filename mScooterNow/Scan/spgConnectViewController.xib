@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="spgConnectViewController">
             <connections>
+                <outlet property="backButton" destination="VbE-Ij-leS" id="yfG-KR-CBQ"/>
+                <outlet property="closeButton" destination="tl6-u6-CNp" id="GIg-1C-2Fc"/>
                 <outlet property="connectionImage" destination="tCS-wU-pvu" id="fLb-aA-9dT"/>
                 <outlet property="connectionView" destination="Loj-fc-kw7" id="9Tk-ZU-RvJ"/>
                 <outlet property="phone" destination="tMt-cc-YRs" id="Taa-2D-03z"/>
@@ -80,12 +82,27 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbE-Ij-leS">
-                    <rect key="frame" x="5" y="7" width="35" height="35"/>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbE-Ij-leS" userLabel="backButton">
+                    <rect key="frame" x="10" y="10" width="35" height="35"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                     <state key="normal" image="back.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="backClicked:" destination="-1" eventType="touchUpInside" id="Scb-br-R14"/>
+                    </connections>
+                </button>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tl6-u6-CNp" userLabel="closeButton">
+                    <rect key="frame" x="10" y="10" width="35" height="35"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <state key="normal" image="close.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="closeClicked:" destination="-1" eventType="touchUpInside" id="pIp-44-DsH"/>
+                    </connections>
                 </button>
             </subviews>
         </view>
@@ -95,7 +112,8 @@
         <image name="PowerOnIngBg.png" width="412" height="412"/>
         <image name="PowerOnIngCircle.png" width="297" height="297"/>
         <image name="back.png" width="36" height="49"/>
-        <image name="circles.png" width="640" height="1136"/>
+        <image name="circles.png" width="320" height="568"/>
+        <image name="close.png" width="57" height="49"/>
         <image name="dot1.png" width="17" height="17"/>
         <image name="lockCenter.png" width="415" height="415"/>
         <image name="lockHalo.png" width="415" height="415"/>

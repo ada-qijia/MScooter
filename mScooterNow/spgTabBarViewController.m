@@ -9,6 +9,8 @@
 #import "spgTabBarViewController.h"
 #import "spgDashboardViewController.h"
 
+static const NSInteger warningViewTag=8888;
+
 @interface spgTabBarViewController ()
 
 @property (strong,nonatomic) spgBLEService *bleService;
@@ -20,6 +22,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.delegate=self;
     self.bleService=[spgBLEService sharedInstance];
 }
 
@@ -30,7 +33,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [UIApplication sharedApplication].statusBarHidden=YES;
     
     self.bleService.peripheralDelegate=self;
 }
@@ -44,8 +46,6 @@
          self.bleService.peripheralDelegate=nil;
          [self.bleService disConnectPeripheral];
      }
-    
-    [UIApplication sharedApplication].statusBarHidden=NO;
 }
 
 #pragma - supported orientation
@@ -186,12 +186,49 @@
 
 #pragma - UI update
 
+//add top notification bar
 -(void) setWarningBarHidden:(BOOL)hidden
 {
-    UIAlertView *alert =
-    [[UIAlertView alloc] initWithTitle:@"Connection Failed"
-                               message:nil
-                               delegate:nil cancelButtonTitle:@"Cancel" otherButtonTitles:@"Reconnect",nil];
-    [alert show];
+    CGRect topFrame=CGRectMake(0, 0, 320, 40);
+    UIView *warningView=[[UIView alloc] initWithFrame:topFrame];
+    warningView.backgroundColor=[UIColor blackColor];
+    warningView.transform=CGAffineTransformMakeTranslation(0, -40);
+    warningView.tag=warningViewTag;
+    
+    UILabel *contentLabel=[[UILabel alloc] initWithFrame:topFrame];
+    [contentLabel setTextColor:[UIColor redColor]];
+    contentLabel.font=[UIFont fontWithName:@"System" size:14];
+    contentLabel.textAlignment=NSTextAlignmentCenter;
+    contentLabel.text=@"Connection failed!";
+    [warningView addSubview:contentLabel];
+    
+    UIView *transitionView= self.view.subviews[0];
+    [transitionView addSubview:warningView];
+    
+    CAKeyframeAnimation *fadeAnimation=[CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
+    fadeAnimation.keyTimes=[NSArray arrayWithObjects:0,0.15,0.85,1.0, nil];
+    fadeAnimation.values=[NSArray arrayWithObjects:[NSNumber numberWithFloat:-40],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:-40], nil];
+    fadeAnimation.duration=3;
+    fadeAnimation.delegate=self;
+    
+    [warningView.layer addAnimation:fadeAnimation forKey:@"notifyAnimation"];
 }
+
+- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
+    if (flag) {
+        UIView *transitionView= self.view.subviews[0];
+        UIView *warningView= [transitionView viewWithTag:warningViewTag];
+        [warningView.layer removeAllAnimations];
+        [warningView removeFromSuperview];
+    }
+}
+
+#pragma -UITabBarControllerDelegate
+
+-(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    self.lastSelectedIndex=self.selectedIndex;
+    return YES;
+}
+
 @end

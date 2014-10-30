@@ -8,6 +8,7 @@
 
 #import "spgConnectViewController.h"
 #import "spgTabBarViewController.h"
+#import "spgScanViewController.h"
 
 @interface spgConnectViewController ()
 
@@ -21,6 +22,12 @@
     [super viewDidLoad];
     
     self.view.backgroundColor=BackgroundImageColor;
+    
+    //set top left button
+    NSString *myPeripheralID=[spgMScooterUtilities getMyPeripheralID];
+    self.backButton.hidden=myPeripheralID;
+    self.closeButton.hidden=!myPeripheralID;
+    
     self.bleService=[spgBLEService sharedInstance];
     if(self.bleService && self.bleService.peripheral)
     {
@@ -52,6 +59,21 @@
 
 - (IBAction)unlockClicked:(UIButton *)sender {
     [self login:nil];
+}
+
+- (IBAction)backClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)closeClicked:(UIButton *)sender {
+    [self.bleService disConnectPeripheral];
+    
+    [self navigateToNextPage];
+    /*
+    spgScanViewController *scanVC=(spgScanViewController *)self.presentingViewController;
+    scanVC.shouldRetry=YES;
+    [self dismissViewControllerAnimated:YES completion:nil];
+     */
 }
 
 #pragma - ble operation

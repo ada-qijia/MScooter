@@ -7,6 +7,7 @@
 //
 
 #import "spgSettingsViewController.h"
+#import "spgChangePasswordViewController.h"
 
 @interface spgSettingsViewController ()
 
@@ -35,4 +36,8 @@
 }
 */
 
+- (IBAction)changePasswordClicked:(UIButton *)sender {
+    spgChangePasswordViewController *changePasswordVC=[[spgChangePasswordViewController alloc] initWithNibName:@"spgChangePasswordViewController" bundle:nil];
+    [self presentViewController:changePasswordVC animated:YES completion:nil];
+}
 @end

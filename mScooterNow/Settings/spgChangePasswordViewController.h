@@ -10,4 +10,7 @@
 
 @interface spgChangePasswordViewController : UIViewController
 
+- (IBAction)okClicked:(UIButton *)sender;
+- (IBAction)cancelClicked:(UIButton *)sender;
+
 @end

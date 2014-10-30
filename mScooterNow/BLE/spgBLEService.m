@@ -26,7 +26,7 @@ static spgBLEService *sharedInstance=nil;
     {
         sharedInstance=[[super alloc] init];
     }
-  
+    
     return sharedInstance;
 }
 
@@ -109,13 +109,6 @@ static spgBLEService *sharedInstance=nil;
     NSRange range= [peripheral.name rangeOfString:kScooterDeviceName options:NSCaseInsensitiveSearch];
     if(range.location!=NSNotFound||[peripheral.name isEqualToString:kScooterStationName])
     {
-        /*
-         //save to user defaults
-         NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
-         [userDefaults setObject:[peripheral.identifier UUIDString] forKey:kMyPeripheralIDKey];
-         [userDefaults synchronize];
-         */
-        
         if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
         {
             [self.discoverPeripheralsDelegate centralManager:self.centralManager didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
@@ -194,9 +187,9 @@ static spgBLEService *sharedInstance=nil;
         else if([uuid isEqualToString:kPowerServiceUUID])
         {
             //discover password
-           CBUUID *characteristicUUID0=CBUUID(kPasswordCharacteristicUUID);
-           CBUUID *characteristicUUID1=CBUUID(kPowerCharacteristicUUID);
-           [peripheral  discoverCharacteristics:@[characteristicUUID0, characteristicUUID1] forService:service];
+            CBUUID *characteristicUUID0=CBUUID(kPasswordCharacteristicUUID);
+            CBUUID *characteristicUUID1=CBUUID(kPowerCharacteristicUUID);
+            [peripheral  discoverCharacteristics:@[characteristicUUID0, characteristicUUID1] forService:service];
         }
         else if([uuid isEqualToString:kModeServiceUUID])
         {
@@ -315,6 +308,10 @@ static spgBLEService *sharedInstance=nil;
         {
             NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
             BOOL correct=[hexString isEqualToString:kPasswordCorrectResponse];
+            if(correct)
+            {
+                [spgMScooterUtilities saveMyPeripheralID:[peripheral.identifier UUIDString]];
+            }
             if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:)]) {
                 [self.peripheralDelegate passwordCertificationReturned:correct];
             }
