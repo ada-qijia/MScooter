@@ -8,6 +8,7 @@
 
 #import "spgSettingsViewController.h"
 #import "spgChangePasswordViewController.h"
+#import "spgScanViewController.h"
 
 @interface spgSettingsViewController ()
 
@@ -26,18 +27,41 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+#pragma - UI interaction
 
 - (IBAction)changePasswordClicked:(UIButton *)sender {
     spgChangePasswordViewController *changePasswordVC=[[spgChangePasswordViewController alloc] initWithNibName:@"spgChangePasswordViewController" bundle:nil];
     [self presentViewController:changePasswordVC animated:YES completion:nil];
 }
+
+- (IBAction)resetScooterClicked:(UIButton *)sender {
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Are you sure to reset a new scooter?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Reset", nil];
+    [alert show];
+}
+
+#pragma - UIAlertViewDelegate
+
+-(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==1)
+    {
+        [self backToScanViewController];
+    }
+}
+
+-(void)backToScanViewController
+{
+    UIViewController *currentVC=self;
+    while (currentVC && ![currentVC isKindOfClass:[spgScanViewController class]]) {
+        [currentVC dismissViewControllerAnimated:NO completion:nil];
+        currentVC=currentVC.presentingViewController;
+    }
+    
+    if([currentVC isKindOfClass:[spgScanViewController class]])
+    {
+        spgScanViewController *scanVC=(spgScanViewController *)currentVC;
+        scanVC.shouldRetry=YES;
+    }
+}
+
 @end

@@ -41,6 +41,17 @@
                                     <action selector="changePasswordClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="uJ4-38-4gH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TMJ-GM-LcY">
+                                <rect key="frame" x="0.0" y="367" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="resetScooterClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="VDE-i7-7dl"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="me.png" id="Yti-bY-Q77">

@@ -26,8 +26,6 @@
 @property (weak, nonatomic) IBOutlet UIView *notFoundView;
 @property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
-@property (weak, nonatomic) IBOutlet UIImageView *stationImage;
-
 - (IBAction)scooterClicked:(id)sender;
 - (IBAction)retryClicked:(id)sender;
 - (IBAction)pageChanged:(UIPageControl *)sender;

@@ -11,5 +11,6 @@
 @interface spgSettingsViewController : UIViewController
 
 - (IBAction)changePasswordClicked:(UIButton *)sender;
+- (IBAction)resetScooterClicked:(UIButton *)sender;
 
 @end

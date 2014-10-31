@@ -9,7 +9,7 @@
 #ifndef mScooterNow_spgMScooterDefinitions_h
 #define mScooterNow_spgMScooterDefinitions_h
 
-#define kScooterStationName @"Bic 05-14030063"
+#define kScooterStationPrefix @"BIC "
 #define kScooterDeviceName @"SCOOTER"
 
 #define kSpeedServiceUUID @"FFF0"

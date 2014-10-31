@@ -14,7 +14,6 @@
                 <outlet property="pageControl" destination="Z9i-vQ-FKQ" id="rzf-bs-fo3"/>
                 <outlet property="radarImage" destination="sA1-bg-dM2" id="Dwf-Zo-q00"/>
                 <outlet property="retryButton" destination="g1r-7n-6UL" id="OQD-nL-22z"/>
-                <outlet property="stationImage" destination="rMQ-kG-rBg" id="B2w-Ho-HVC"/>
                 <outlet property="view" destination="ZMO-uE-FbS" id="hSP-rw-txS"/>
             </connections>
         </placeholder>
@@ -34,17 +33,12 @@
                     <subviews>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="329-g7-rlp">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            <subviews>
-                                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="station.png" translatesAutoresizingMaskIntoConstraints="NO" id="rMQ-kG-rBg">
-                                    <rect key="frame" x="79" y="200" width="160" height="160"/>
-                                </imageView>
-                            </subviews>
                             <connections>
                                 <outlet property="delegate" destination="-1" id="ps1-Lc-UgK"/>
                             </connections>
                         </scrollView>
                         <pageControl hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Z9i-vQ-FKQ">
-                            <rect key="frame" x="135" y="520" width="50" height="37"/>
+                            <rect key="frame" x="135" y="480" width="50" height="37"/>
                             <connections>
                                 <action selector="pageChanged:" destination="-1" eventType="valueChanged" id="K5m-Kv-MS2"/>
                             </connections>
@@ -94,9 +88,8 @@
         </view>
     </objects>
     <resources>
-        <image name="circles.png" width="640" height="1136"/>
+        <image name="circles.png" width="320" height="568"/>
         <image name="radar.png" width="956" height="956"/>
-        <image name="station.png" width="352" height="352"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
