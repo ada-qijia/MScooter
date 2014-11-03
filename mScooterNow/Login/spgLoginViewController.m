@@ -26,6 +26,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma - UI interaction
 
 - (IBAction)loginClicked:(UIButton *)sender {

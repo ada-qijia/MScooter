@@ -70,6 +70,46 @@
     self.tabBarController.tabBar.hidden=NO;
 }
 
+//new layout after orientation changed.
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    spgCamViewController *camVC= self.childViewControllers[0];
+    UIInterfaceOrientation orientation=size.width>size.height?UIInterfaceOrientationLandscapeLeft:UIInterfaceOrientationPortrait;
+    [camVC rotateLayout:orientation];
+    
+    self.view.frame=CGRectMake(0, 0, size.width, size.height);
+    self.ARContainerView.frame=CGRectMake(0, 0, size.width, size.height);
+    if(size.width>size.height)
+    {
+        self.topControllerView.frame=CGRectMake(0, 0,40, 320);
+        self.closeButton.frame=CGRectMake(3, 10, 35, 35);
+        self.captureModeButton.frame=CGRectMake(5, 143, 32, 30);
+        self.camButton.frame=CGRectMake(5, 270 ,32, 30);
+        
+        self.ARListView.frame=CGRectMake(40, 0, 460, 320);
+        self.listDateView.frame=CGRectMake(25, 270, 160, 40);
+        self.listSpeedView.frame=CGRectMake(250, 270, 160, 40);
+        self.ARMapView.frame=CGRectMake(40, 0, 470, 320);;
+        self.mapView.frame=CGRectMake(270, 0, 200, 320);
+    }
+    else
+    {
+        self.topControllerView.frame=CGRectMake(0, 0,320, 40);
+        self.closeButton.frame=CGRectMake(10, 3, 35, 35);
+        self.captureModeButton.frame=CGRectMake(143, 5, 32, 30);
+        self.camButton.frame=CGRectMake(270, 5 ,32, 30);
+        
+        self.ARListView.frame=CGRectMake(0, 40, 320, 460);
+        self.listDateView.frame=CGRectMake(25, 370, 160, 40);
+        self.listSpeedView.frame=CGRectMake(25, 420, 160, 40);
+         self.ARMapView.frame=CGRectMake(0, 40, 320, 470);
+        self.mapView.frame=CGRectMake(0, 260, 320, 200);
+    }
+    
+        self.ARInfoView.frame=self.ARListView.frame;
+    
+}
+
 #pragma - spgScooterPresentationDelegate
 
 -(void)updateConnectionState:(BOOL) connected

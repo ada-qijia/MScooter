@@ -55,6 +55,11 @@
     self.bleService.peripheralDelegate=nil;
 }
 
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma - UI interaction
 
 - (IBAction)unlockClicked:(UIButton *)sender {

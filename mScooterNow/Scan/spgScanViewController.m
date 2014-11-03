@@ -412,8 +412,8 @@ static const NSInteger ScanInterval = 6;
     
     NSInteger pageIndex=-1;
     NSInteger index=0;
-    for (NSNumber *group in self.groupOfPage) {
-        if(group.integerValue== groupOfPeripheral)
+    for (NSNumber *groupID in self.groupOfPage) {
+        if(groupID.integerValue==groupOfPeripheral)
         {
             pageIndex=index;
             break;
@@ -448,11 +448,11 @@ static const NSInteger ScanInterval = 6;
 
 -(NSInteger)scooterNumOfSameGroup:(CBPeripheral *)peripheral
 {
-    NSInteger group=[self getGroupOfPeripheral:peripheral.name];
+    NSInteger groupID=[self getGroupOfPeripheral:peripheral.name];
     int num=0;
     for (CBPeripheral *peripheral in self.foundPeripherals) {
         NSInteger groupOfPeripheral=[self getGroupOfPeripheral:peripheral.name];
-        if(groupOfPeripheral==group)
+        if(groupOfPeripheral==groupID)
         {
             num++;
         }

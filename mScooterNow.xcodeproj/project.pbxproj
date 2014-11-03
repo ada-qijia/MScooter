@@ -80,7 +80,6 @@
 		32B1003319C982D300D9FFF5 /* timeIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B1003219C982D300D9FFF5 /* timeIcon.png */; };
 		32B1003519C98A8800D9FFF5 /* bg2@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32B1003419C98A8800D9FFF5 /* bg2@2x.jpg */; };
 		32B1003F19CADB8E00D9FFF5 /* spgMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */; };
-		32B1004019CADB8E00D9FFF5 /* spgVideoCaptureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1003E19CADB8E00D9FFF5 /* spgVideoCaptureViewController.m */; };
 		32B1004319CADBB000D9FFF5 /* spgARGaugesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */; };
 		32B1FF8A19C974AC00D9FFF5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FF8919C974AC00D9FFF5 /* Foundation.framework */; };
 		32B1FF8C19C974AC00D9FFF5 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32B1FF8B19C974AC00D9FFF5 /* CoreGraphics.framework */; };
@@ -216,8 +215,6 @@
 		32B1003419C98A8800D9FFF5 /* bg2@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bg2@2x.jpg"; sourceTree = "<group>"; };
 		32B1003B19CADB8E00D9FFF5 /* spgMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgMapViewController.h; sourceTree = "<group>"; };
 		32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgMapViewController.m; sourceTree = "<group>"; };
-		32B1003D19CADB8E00D9FFF5 /* spgVideoCaptureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgVideoCaptureViewController.h; sourceTree = "<group>"; };
-		32B1003E19CADB8E00D9FFF5 /* spgVideoCaptureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgVideoCaptureViewController.m; sourceTree = "<group>"; };
 		32B1004119CADBB000D9FFF5 /* spgARGaugesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgARGaugesViewController.h; sourceTree = "<group>"; };
 		32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgARGaugesViewController.m; sourceTree = "<group>"; };
 		32B1FF8619C974AC00D9FFF5 /* 微软小马.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "微软小马.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -340,6 +337,14 @@
 			children = (
 				32A29B5C19F9F33F00D2BD3F /* spgARViewController.h */,
 				32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */,
+				32A7AB6419E67D77008B7D32 /* spgCamPreviewView.h */,
+				32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */,
+				32A7AB6719E67E49008B7D32 /* spgCamViewController.h */,
+				32A7AB6819E67E49008B7D32 /* spgCamViewController.m */,
+				32B1003B19CADB8E00D9FFF5 /* spgMapViewController.h */,
+				32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */,
+				32B1004119CADBB000D9FFF5 /* spgARGaugesViewController.h */,
+				32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */,
 			);
 			path = AR;
 			sourceTree = "<group>";
@@ -388,20 +393,10 @@
 		32B1001C19C97D6100D9FFF5 /* Dashboard */ = {
 			isa = PBXGroup;
 			children = (
-				32B1003B19CADB8E00D9FFF5 /* spgMapViewController.h */,
-				32B1003C19CADB8E00D9FFF5 /* spgMapViewController.m */,
-				32B1003D19CADB8E00D9FFF5 /* spgVideoCaptureViewController.h */,
-				32B1003E19CADB8E00D9FFF5 /* spgVideoCaptureViewController.m */,
 				32B1002319C97DF300D9FFF5 /* spgGaugesViewController.h */,
 				32B1002419C97DF300D9FFF5 /* spgGaugesViewController.m */,
 				32B1001D19C97D7B00D9FFF5 /* spgDashboardViewController.h */,
 				32B1001E19C97D7B00D9FFF5 /* spgDashboardViewController.m */,
-				32B1004119CADBB000D9FFF5 /* spgARGaugesViewController.h */,
-				32B1004219CADBB000D9FFF5 /* spgARGaugesViewController.m */,
-				32A7AB6419E67D77008B7D32 /* spgCamPreviewView.h */,
-				32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */,
-				32A7AB6719E67E49008B7D32 /* spgCamViewController.h */,
-				32A7AB6819E67E49008B7D32 /* spgCamViewController.m */,
 			);
 			path = Dashboard;
 			sourceTree = "<group>";
@@ -765,7 +760,6 @@
 				32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */,
 				32B1FF9619C974AC00D9FFF5 /* main.m in Sources */,
 				32B1001019C97B1800D9FFF5 /* UIImage+ImageEffects.m in Sources */,
-				32B1004019CADB8E00D9FFF5 /* spgVideoCaptureViewController.m in Sources */,
 				32B1001F19C97D7B00D9FFF5 /* spgDashboardViewController.m in Sources */,
 				32B1FFA019C974AD00D9FFF5 /* spgViewController.m in Sources */,
 				32B1FF9A19C974AD00D9FFF5 /* spgAppDelegate.m in Sources */,

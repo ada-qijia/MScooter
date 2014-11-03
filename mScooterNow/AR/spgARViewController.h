@@ -13,6 +13,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *ARContainerView;
 
+@property (weak, nonatomic) IBOutlet UIView *topControllerView;
 @property (weak, nonatomic) IBOutlet UIView *ARInfoView;
 @property (weak, nonatomic) IBOutlet UIView *ARListView;
 @property (weak, nonatomic) IBOutlet UIView *ARMapView;
@@ -34,6 +35,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *longDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *speedLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
 @property (weak, nonatomic) IBOutlet UIButton *captureModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *camButton;
 

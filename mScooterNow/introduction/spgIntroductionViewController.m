@@ -26,6 +26,11 @@
     [super didReceiveMemoryWarning];
 }
 
+-(NSUInteger)supportedInterfaceOrientations
+{
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 #pragma - build spgIntroduction
 
 -(void)buildIntroduction
