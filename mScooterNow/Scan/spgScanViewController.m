@@ -304,16 +304,20 @@ static const NSInteger ScanInterval = 6;
 //scan multiple devices
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+    //NSLog(@"ad:%@", advertisementData.description);
+    //NSString *name = advertisementData[kCBAdvDataLocalName];
+    
+    NSLog(@"name:%@",peripheral.name);
+    
     dispatch_sync(queue, ^{
-        
-        //NSLog(@"ad:%@", advertisementData.description);
-        NSLog(@"name:%@",peripheral.name);
-        
-        NSString *name = advertisementData[kCBAdvDataLocalName];
-        if([name hasPrefix:kScooterStationPrefix] && (![self.foundPeripherals containsObject:peripheral]))//station
+        if([peripheral.name hasPrefix:kScooterStationPrefix])//station
         {
-            [self.foundStations addObject:peripheral];
-            [self addStation:peripheral];
+            if(![self.foundPeripherals containsObject:peripheral])
+            {
+                [self.foundStations addObject:peripheral];
+                [self addStation:peripheral];
+                NSLog(@"add station: %@",peripheral.name);
+            }
         }
         else if(![self.foundPeripherals containsObject:peripheral])// scooter
         {
@@ -324,6 +328,7 @@ static const NSInteger ScanInterval = 6;
             NSData* batteryData= serviceData[batteryUUID];
             
             [self addDeviceSite:peripheral battery:batteryData];
+            NSLog(@"add scooter %@", peripheral.name);
         }
     });
 }
@@ -488,7 +493,7 @@ static const NSInteger ScanInterval = 6;
     }
     else//default image
     {
-       type=@"A";
+        type=@"A";
     }
     
     NSString *level=nil;
