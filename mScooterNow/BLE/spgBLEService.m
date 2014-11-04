@@ -55,7 +55,7 @@ static spgBLEService *sharedInstance=nil;
 -(void)startScan
 {
     {
-        [self.centralManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@NO}];
+        [self.centralManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
     }
 }
 

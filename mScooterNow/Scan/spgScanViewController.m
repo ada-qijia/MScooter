@@ -10,7 +10,7 @@
 
 static NSString *const SCOOTER_SERVICE_UUID=@"4B4681A4-1246-1EEC-AB2B-FE45F896822D";
 static const NSInteger CountPerPage = 5;
-static const NSInteger ScanInterval = 6;
+static const NSInteger ScanInterval = 15;
 
 @interface spgScanViewController ()
 
@@ -305,30 +305,28 @@ static const NSInteger ScanInterval = 6;
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     //NSLog(@"ad:%@", advertisementData.description);
-    //NSString *name = advertisementData[kCBAdvDataLocalName];
-    
-    NSLog(@"name:%@",peripheral.name);
+    //NSString *name = advertisementData[kCBAdvDataLocalName]; sometimes nil
     
     dispatch_sync(queue, ^{
         if([peripheral.name hasPrefix:kScooterStationPrefix])//station
         {
-            if(![self.foundPeripherals containsObject:peripheral])
+            if(![self.foundStations containsObject:peripheral])
             {
                 [self.foundStations addObject:peripheral];
                 [self addStation:peripheral];
-                NSLog(@"add station: %@",peripheral.name);
             }
         }
         else if(![self.foundPeripherals containsObject:peripheral])// scooter
         {
-            [self.foundPeripherals addObject:peripheral];
-            
             NSDictionary *serviceData=advertisementData[kCBAdvDataServiceData];
             CBUUID* batteryUUID=[CBUUID UUIDWithString:kBatteryServiceUUID];
             NSData* batteryData= serviceData[batteryUUID];
             
-            [self addDeviceSite:peripheral battery:batteryData];
-            NSLog(@"add scooter %@", peripheral.name);
+            if(batteryData)
+            {
+                [self.foundPeripherals addObject:peripheral];
+                [self addDeviceSite:peripheral battery:batteryData];
+            }
         }
     });
 }
@@ -362,8 +360,6 @@ static const NSInteger ScanInterval = 6;
     name.text=peripheral.name;
     
     [self.devicesScrollView addSubview:stationView];
-    
-    //NSLog(@"add station:%@ at index %ld",localName, pageIndex);
 }
 
 -(void)addDeviceSite:(CBPeripheral *)peripheral battery:(NSData *)batteryData
@@ -391,7 +387,10 @@ static const NSInteger ScanInterval = 6;
     
     float battery=[spgMScooterUtilities castBatteryToPercent:batteryData];
     UIButton *button=(UIButton *)[deviceView viewWithTag:12];
-    button.imageView.image=[UIImage imageNamed:[self getScooterImageFromName:peripheral.name battery:battery]];
+
+    UIImage *img=[UIImage imageNamed:[self getScooterImageFromName:peripheral.name battery:battery]];
+    [button setImage:img forState:UIControlStateNormal];
+    [button setImage:img forState:UIControlStateSelected];
     [button addTarget:self action:@selector(scooterClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *batteryLabel=(UILabel *)[deviceView viewWithTag:13];
