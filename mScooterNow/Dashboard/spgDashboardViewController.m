@@ -35,6 +35,11 @@
     [self updateConnectedUIState];
 }
 
+-(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
+{
+    return UIInterfaceOrientationPortrait;
+}
+
 #pragma mark - UI interaction
 
 - (IBAction)RetryClicked:(id)sender {
@@ -80,10 +85,16 @@
     if(buttonIndex==1)
     {
         spgBLEService *bleService=[spgBLEService sharedInstance];
-        [bleService writePower:[spgMScooterUtilities getDataFromInt16:249]];
+        [bleService writePower:[spgMScooterUtilities getDataFromByte:249]];
         
-        [bleService disConnectPeripheral];
+        [self performSelector:@selector(disconnect) withObject:nil afterDelay:1];
     }
+}
+
+-(void)disconnect
+{
+    spgBLEService *bleService=[spgBLEService sharedInstance];
+    [bleService disConnectPeripheral];
 }
 
 #pragma - spgScooterPresentationDelegate

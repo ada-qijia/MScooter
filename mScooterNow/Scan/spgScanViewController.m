@@ -310,12 +310,12 @@ static const NSInteger ScanInterval = 6;
         NSLog(@"name:%@",peripheral.name);
         
         NSString *name = advertisementData[kCBAdvDataLocalName];
-        if([name hasPrefix:kScooterStationPrefix])//station
+        if([name hasPrefix:kScooterStationPrefix] && (![self.foundPeripherals containsObject:peripheral]))//station
         {
             [self.foundStations addObject:peripheral];
-            [self addStation:peripheral localName:name];
+            [self addStation:peripheral];
         }
-        else // scooter
+        else if(![self.foundPeripherals containsObject:peripheral])// scooter
         {
             [self.foundPeripherals addObject:peripheral];
             
@@ -323,7 +323,7 @@ static const NSInteger ScanInterval = 6;
             CBUUID* batteryUUID=[CBUUID UUIDWithString:kBatteryServiceUUID];
             NSData* batteryData= serviceData[batteryUUID];
             
-            [self addDeviceSite:peripheral localName:name battery:batteryData];
+            [self addDeviceSite:peripheral battery:batteryData];
         }
     });
 }
@@ -336,7 +336,7 @@ static const NSInteger ScanInterval = 6;
 
 #pragma - utilities
 
--(void)addStation:(CBPeripheral *)peripheral localName:(NSString *)localName
+-(void)addStation:(CBPeripheral *)peripheral
 {
     self.foundView.hidden=NO;
     
@@ -354,14 +354,14 @@ static const NSInteger ScanInterval = 6;
     stationView.frame=CGRectMake(pageIndex * self.view.frame.size.width+80, 200, stationView.frame.size.width, stationView.frame.size.height);
     
     UILabel *name=(UILabel *)[stationView viewWithTag:21];
-    name.text=localName;
+    name.text=peripheral.name;
     
     [self.devicesScrollView addSubview:stationView];
     
     //NSLog(@"add station:%@ at index %ld",localName, pageIndex);
 }
 
--(void)addDeviceSite:(CBPeripheral *)peripheral localName:(NSString *)localName battery:(NSData *)batteryData
+-(void)addDeviceSite:(CBPeripheral *)peripheral battery:(NSData *)batteryData
 {
     self.foundView.hidden=NO;
     
@@ -382,11 +382,11 @@ static const NSInteger ScanInterval = 6;
     deviceView.frame=CGRectMake(pageIndex * self.view.frame.size.width+positions[indexInPage].x, positions[indexInPage].y, deviceView.frame.size.width, deviceView.frame.size.height);
     
     UILabel *name=(UILabel *)[deviceView viewWithTag:11];
-    name.text=localName;
+    name.text=peripheral.name;
     
     float battery=[spgMScooterUtilities castBatteryToPercent:batteryData];
     UIButton *button=(UIButton *)[deviceView viewWithTag:12];
-    button.imageView.image=[UIImage imageNamed:[self getScooterImageFromName:localName battery:battery]];
+    button.imageView.image=[UIImage imageNamed:[self getScooterImageFromName:peripheral.name battery:battery]];
     [button addTarget:self action:@selector(scooterClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *batteryLabel=(UILabel *)[deviceView viewWithTag:13];
@@ -465,7 +465,7 @@ static const NSInteger ScanInterval = 6;
 {
     positions[0]= CGPointMake(45, 65);;
     
-    positions[1]= CGPointMake(185, 310);
+    positions[1]= CGPointMake(190, 320);
     positions[2]= CGPointMake(55, 350);
     positions[3]= CGPointMake(10, 180);
     positions[4]= CGPointMake(190, 125);

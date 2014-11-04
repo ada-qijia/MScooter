@@ -163,7 +163,6 @@
     if(currentMode!=toMode)
     {
         currentMode=toMode;
-  
         UIView *modeView=[self getViewOfARMode:toMode];
         NSArray* modeViews=[NSArray arrayWithObjects:self.ARInfoView,self.ARListView,self.ARMapView, nil];
         for (UIView* modeV in modeViews) {
