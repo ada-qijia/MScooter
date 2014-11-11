@@ -17,9 +17,20 @@
 
 @implementation spgIntroductionViewController
 
+-(id)initWithCoder:(NSCoder *)aDecoder
+{
+    if(self=[super initWithCoder:aDecoder])
+    {
+        self.isRelay=YES;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self buildIntroduction];
+    
+    self.backButton.hidden=self.isRelay;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +79,7 @@
     
     [introductionView buildIntroductionWithPanels:panels];
     
-    [self.view addSubview:introductionView];
+    [self.view insertSubview:introductionView atIndex:0];
 }
 
 -(void)footerButtonClicked:(UIButton *)sender
@@ -86,7 +97,7 @@
 -(void)introduction:(spgIntroductionView *)introductionView didChangeToPanel:(spgIntroductionPanel *)panel withIndex:(NSInteger)panelIndex{
     NSLog(@"Introduction did change to panel %d", (int)panelIndex);
     
-    if(panelIndex==2)
+    if(panelIndex==2 && self.isRelay)
     {
         [introductionView setBottomButtonHidden:NO title:@"Join M-Scooter Now"];
     }
@@ -94,6 +105,13 @@
     {
         [introductionView setBottomButtonHidden:YES title:nil];
     }
+}
+
+#pragma - UI interaction
+
+//close this view
+- (IBAction)backClicked:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "spgLoginViewController.h"
-#import "spgScanViewController.h"
+#import "spgTabBarViewController.h"
 
 @interface spgLoginViewController ()
 
@@ -43,11 +43,11 @@
 
 -(void)navigateToScan
 {
-    spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
-  
-    [self presentViewController:scanVC animated:NO completion:^{
-         [self removeFromParentViewController];
-    }];
+    UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
+    tabBarVC.selectedIndex=1;
+    
+    [self presentViewController:tabBarVC animated:YES completion:nil];
 }
 
 @end

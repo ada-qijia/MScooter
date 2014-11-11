@@ -10,7 +10,10 @@
 
 @interface spgSettingsViewController : UIViewController
 
+- (IBAction)ModeSettingClicked:(id)sender;
 - (IBAction)changePasswordClicked:(UIButton *)sender;
+- (IBAction)AboutClicked:(UIButton *)sender;
+
 - (IBAction)resetScooterClicked:(UIButton *)sender;
 
 @end

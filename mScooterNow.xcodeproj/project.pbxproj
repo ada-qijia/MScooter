@@ -11,6 +11,7 @@
 		329FF84319F608180011B1CE /* spgLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 329FF84119F608180011B1CE /* spgLoginViewController.xib */; };
 		329FF86019F661EE0011B1CE /* spgIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 329FF85F19F661EE0011B1CE /* spgIntroductionPanel.m */; };
 		329FF86419F662260011B1CE /* spgIntroductionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 329FF86319F662260011B1CE /* spgIntroductionPanel.xib */; };
+		32A010331A0B712900F4D4A4 /* spgPeripheralView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A010321A0B712900F4D4A4 /* spgPeripheralView.m */; };
 		32A01B3619E7D0C50031AC60 /* shoot.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A01B3319E7D0C50031AC60 /* shoot.png */; };
 		32A01B3719E7D0C50031AC60 /* startVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A01B3419E7D0C50031AC60 /* startVideo.png */; };
 		32A01B3819E7D0C50031AC60 /* stopVideo.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A01B3519E7D0C50031AC60 /* stopVideo.png */; };
@@ -108,16 +109,21 @@
 		32B1FFEE19C97AC100D9FFF5 /* spgScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFED19C97AC100D9FFF5 /* spgScanViewController.m */; };
 		32B5F0E11A00D0A500A70CDC /* batteryLowBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */; };
 		32B5F0E31A00D0B300A70CDC /* dashboardCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B5F0E21A00D0B300A70CDC /* dashboardCircle.png */; };
+		32B6972B1A106217004C1879 /* spgModeSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B697291A106217004C1879 /* spgModeSettingsViewController.m */; };
+		32B6972C1A106217004C1879 /* spgModeSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32B6972A1A106217004C1879 /* spgModeSettingsViewController.xib */; };
+		32B697301A1094E2004C1879 /* powerHigh.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6972D1A1094E2004C1879 /* powerHigh.png */; };
+		32B697311A1094E2004C1879 /* powerLow.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6972E1A1094E2004C1879 /* powerLow.png */; };
+		32B697321A1094E2004C1879 /* powerMedium.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6972F1A1094E2004C1879 /* powerMedium.png */; };
+		32B697381A109526004C1879 /* scanScope.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B697331A109526004C1879 /* scanScope.png */; };
+		32B697391A109526004C1879 /* scooterA.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B697341A109526004C1879 /* scooterA.png */; };
+		32B6973A1A109526004C1879 /* scooterB.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B697351A109526004C1879 /* scooterB.png */; };
+		32B6973B1A109526004C1879 /* scooterFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B697361A109526004C1879 /* scooterFlag.png */; };
+		32B6973C1A109526004C1879 /* stationFlag.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B697371A109526004C1879 /* stationFlag.png */; };
+		32B697411A10A1EF004C1879 /* battery.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6973D1A10A1EF004C1879 /* battery.png */; };
+		32B697421A10A1EF004C1879 /* distance.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6973E1A10A1EF004C1879 /* distance.png */; };
+		32B697431A10A1EF004C1879 /* momentsList.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B6973F1A10A1EF004C1879 /* momentsList.png */; };
+		32B697441A10A1EF004C1879 /* stationIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B697401A10A1EF004C1879 /* stationIcon.png */; };
 		32B731C31A03521400BB84D8 /* spgStation.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32B731C21A03521400BB84D8 /* spgStation.xib */; };
-		32B731C71A03B31300BB84D8 /* ScooterTypeAHighPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731C41A03B31300BB84D8 /* ScooterTypeAHighPower.png */; };
-		32B731C81A03B31300BB84D8 /* ScooterTypeALowPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731C51A03B31300BB84D8 /* ScooterTypeALowPower.png */; };
-		32B731C91A03B31300BB84D8 /* ScooterTypeAMediumPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731C61A03B31300BB84D8 /* ScooterTypeAMediumPower.png */; };
-		32B731CD1A03B31E00BB84D8 /* ScooterTypeBHighPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731CA1A03B31D00BB84D8 /* ScooterTypeBHighPower.png */; };
-		32B731CE1A03B31E00BB84D8 /* ScooterTypeBLowPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731CB1A03B31D00BB84D8 /* ScooterTypeBLowPower.png */; };
-		32B731CF1A03B31E00BB84D8 /* ScooterTypeBMediumPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731CC1A03B31D00BB84D8 /* ScooterTypeBMediumPower.png */; };
-		32B731D31A03B32500BB84D8 /* ScooterTypeCHighPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731D01A03B32500BB84D8 /* ScooterTypeCHighPower.png */; };
-		32B731D41A03B32500BB84D8 /* ScooterTypeCLowPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731D11A03B32500BB84D8 /* ScooterTypeCLowPower.png */; };
-		32B731D51A03B32500BB84D8 /* ScooterTypeCMediumPower.png in Resources */ = {isa = PBXBuildFile; fileRef = 32B731D21A03B32500BB84D8 /* ScooterTypeCMediumPower.png */; };
 		32BBF29A19F77637006A00AF /* spgScan.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BBF29919F77637006A00AF /* spgScan.xib */; };
 		32BBF29E19F77C6A006A00AF /* spgConnectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32BBF29C19F77C6A006A00AF /* spgConnectViewController.m */; };
 		32BBF29F19F77C6A006A00AF /* spgConnectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32BBF29D19F77C6A006A00AF /* spgConnectViewController.xib */; };
@@ -131,6 +137,8 @@
 		329FF85E19F661EE0011B1CE /* spgIntroductionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgIntroductionPanel.h; path = IntroductionBase/spgIntroductionPanel.h; sourceTree = "<group>"; };
 		329FF85F19F661EE0011B1CE /* spgIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgIntroductionPanel.m; path = IntroductionBase/spgIntroductionPanel.m; sourceTree = "<group>"; };
 		329FF86319F662260011B1CE /* spgIntroductionPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgIntroductionPanel.xib; path = IntroductionBase/spgIntroductionPanel.xib; sourceTree = "<group>"; };
+		32A010311A0B712900F4D4A4 /* spgPeripheralView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgPeripheralView.h; sourceTree = "<group>"; };
+		32A010321A0B712900F4D4A4 /* spgPeripheralView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgPeripheralView.m; sourceTree = "<group>"; };
 		32A01B3319E7D0C50031AC60 /* shoot.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shoot.png; sourceTree = "<group>"; };
 		32A01B3419E7D0C50031AC60 /* startVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = startVideo.png; sourceTree = "<group>"; };
 		32A01B3519E7D0C50031AC60 /* stopVideo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stopVideo.png; sourceTree = "<group>"; };
@@ -268,16 +276,22 @@
 		32B1FFFF19C97B1800D9FFF5 /* THPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinView.m; sourceTree = "<group>"; };
 		32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = batteryLowBg.png; sourceTree = "<group>"; };
 		32B5F0E21A00D0B300A70CDC /* dashboardCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dashboardCircle.png; sourceTree = "<group>"; };
+		32B697281A106217004C1879 /* spgModeSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgModeSettingsViewController.h; path = Settings/spgModeSettingsViewController.h; sourceTree = "<group>"; };
+		32B697291A106217004C1879 /* spgModeSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgModeSettingsViewController.m; path = Settings/spgModeSettingsViewController.m; sourceTree = "<group>"; };
+		32B6972A1A106217004C1879 /* spgModeSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgModeSettingsViewController.xib; path = Settings/spgModeSettingsViewController.xib; sourceTree = "<group>"; };
+		32B6972D1A1094E2004C1879 /* powerHigh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerHigh.png; sourceTree = "<group>"; };
+		32B6972E1A1094E2004C1879 /* powerLow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerLow.png; sourceTree = "<group>"; };
+		32B6972F1A1094E2004C1879 /* powerMedium.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = powerMedium.png; sourceTree = "<group>"; };
+		32B697331A109526004C1879 /* scanScope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scanScope.png; sourceTree = "<group>"; };
+		32B697341A109526004C1879 /* scooterA.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterA.png; sourceTree = "<group>"; };
+		32B697351A109526004C1879 /* scooterB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterB.png; sourceTree = "<group>"; };
+		32B697361A109526004C1879 /* scooterFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterFlag.png; sourceTree = "<group>"; };
+		32B697371A109526004C1879 /* stationFlag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stationFlag.png; sourceTree = "<group>"; };
+		32B6973D1A10A1EF004C1879 /* battery.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = battery.png; sourceTree = "<group>"; };
+		32B6973E1A10A1EF004C1879 /* distance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = distance.png; sourceTree = "<group>"; };
+		32B6973F1A10A1EF004C1879 /* momentsList.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = momentsList.png; sourceTree = "<group>"; };
+		32B697401A10A1EF004C1879 /* stationIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stationIcon.png; sourceTree = "<group>"; };
 		32B731C21A03521400BB84D8 /* spgStation.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgStation.xib; sourceTree = "<group>"; };
-		32B731C41A03B31300BB84D8 /* ScooterTypeAHighPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeAHighPower.png; sourceTree = "<group>"; };
-		32B731C51A03B31300BB84D8 /* ScooterTypeALowPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeALowPower.png; sourceTree = "<group>"; };
-		32B731C61A03B31300BB84D8 /* ScooterTypeAMediumPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeAMediumPower.png; sourceTree = "<group>"; };
-		32B731CA1A03B31D00BB84D8 /* ScooterTypeBHighPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeBHighPower.png; sourceTree = "<group>"; };
-		32B731CB1A03B31D00BB84D8 /* ScooterTypeBLowPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeBLowPower.png; sourceTree = "<group>"; };
-		32B731CC1A03B31D00BB84D8 /* ScooterTypeBMediumPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeBMediumPower.png; sourceTree = "<group>"; };
-		32B731D01A03B32500BB84D8 /* ScooterTypeCHighPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeCHighPower.png; sourceTree = "<group>"; };
-		32B731D11A03B32500BB84D8 /* ScooterTypeCLowPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeCLowPower.png; sourceTree = "<group>"; };
-		32B731D21A03B32500BB84D8 /* ScooterTypeCMediumPower.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ScooterTypeCMediumPower.png; sourceTree = "<group>"; };
 		32BBF29919F77637006A00AF /* spgScan.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgScan.xib; sourceTree = "<group>"; };
 		32BBF29B19F77C6A006A00AF /* spgConnectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgConnectViewController.h; sourceTree = "<group>"; };
 		32BBF29C19F77C6A006A00AF /* spgConnectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgConnectViewController.m; sourceTree = "<group>"; };
@@ -308,6 +322,13 @@
 				329FF84119F608180011B1CE /* spgLoginViewController.xib */,
 			);
 			name = Login;
+			sourceTree = "<group>";
+		};
+		32A0102D1A0B5F1A00F4D4A4 /* Moments */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Moments;
 			sourceTree = "<group>";
 		};
 		32A13C2219F4D7B200D1AC9E /* Introduction */ = {
@@ -368,6 +389,9 @@
 				32A13C2F19F4DAAF00D1AC9E /* spgChangePasswordViewController.h */,
 				32A13C3019F4DAAF00D1AC9E /* spgChangePasswordViewController.m */,
 				32A13C3119F4DAAF00D1AC9E /* spgChangePasswordViewController.xib */,
+				32B697281A106217004C1879 /* spgModeSettingsViewController.h */,
+				32B697291A106217004C1879 /* spgModeSettingsViewController.m */,
+				32B6972A1A106217004C1879 /* spgModeSettingsViewController.xib */,
 			);
 			name = Settings;
 			sourceTree = "<group>";
@@ -433,6 +457,7 @@
 		32B1FF8F19C974AC00D9FFF5 /* mScooterNow */ = {
 			isa = PBXGroup;
 			children = (
+				32A0102D1A0B5F1A00F4D4A4 /* Moments */,
 				32A29B5F19FA597A00D2BD3F /* Common */,
 				32A29B5B19F9F33F00D2BD3F /* AR */,
 				329FF84419F608260011B1CE /* Login */,
@@ -489,15 +514,18 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				32B731D01A03B32500BB84D8 /* ScooterTypeCHighPower.png */,
-				32B731D11A03B32500BB84D8 /* ScooterTypeCLowPower.png */,
-				32B731D21A03B32500BB84D8 /* ScooterTypeCMediumPower.png */,
-				32B731CA1A03B31D00BB84D8 /* ScooterTypeBHighPower.png */,
-				32B731CB1A03B31D00BB84D8 /* ScooterTypeBLowPower.png */,
-				32B731CC1A03B31D00BB84D8 /* ScooterTypeBMediumPower.png */,
-				32B731C41A03B31300BB84D8 /* ScooterTypeAHighPower.png */,
-				32B731C51A03B31300BB84D8 /* ScooterTypeALowPower.png */,
-				32B731C61A03B31300BB84D8 /* ScooterTypeAMediumPower.png */,
+				32B6973D1A10A1EF004C1879 /* battery.png */,
+				32B6973E1A10A1EF004C1879 /* distance.png */,
+				32B6973F1A10A1EF004C1879 /* momentsList.png */,
+				32B697401A10A1EF004C1879 /* stationIcon.png */,
+				32B697331A109526004C1879 /* scanScope.png */,
+				32B697341A109526004C1879 /* scooterA.png */,
+				32B697351A109526004C1879 /* scooterB.png */,
+				32B697361A109526004C1879 /* scooterFlag.png */,
+				32B697371A109526004C1879 /* stationFlag.png */,
+				32B6972D1A1094E2004C1879 /* powerHigh.png */,
+				32B6972E1A1094E2004C1879 /* powerLow.png */,
+				32B6972F1A1094E2004C1879 /* powerMedium.png */,
 				32AA67381A02461300AEC01A /* distanceCircle.png */,
 				32B5F0E21A00D0B300A70CDC /* dashboardCircle.png */,
 				32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */,
@@ -576,6 +604,8 @@
 				32BBF29D19F77C6A006A00AF /* spgConnectViewController.xib */,
 				32BBF2A019F77FBD006A00AF /* spgDeviceSite.xib */,
 				32B731C21A03521400BB84D8 /* spgStation.xib */,
+				32A010311A0B712900F4D4A4 /* spgPeripheralView.h */,
+				32A010321A0B712900F4D4A4 /* spgPeripheralView.m */,
 			);
 			path = Scan;
 			sourceTree = "<group>";
@@ -662,18 +692,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				32A1A7F819FF877900B7B8DD /* snsWechat.png in Resources */,
+				32B6973B1A109526004C1879 /* scooterFlag.png in Resources */,
 				32B1003519C98A8800D9FFF5 /* bg2@2x.jpg in Resources */,
 				32ABC2C719CBC9AE00F3254E /* circles@2x.png in Resources */,
 				32A1A7F919FF877900B7B8DD /* snsWeibo.png in Resources */,
 				32A1A80919FF8B3C00B7B8DD /* station.png in Resources */,
 				32B1FFE019C978C800D9FFF5 /* dashboardBg.png in Resources */,
 				32B1003319C982D300D9FFF5 /* timeIcon.png in Resources */,
-				32B731D51A03B32500BB84D8 /* ScooterTypeCMediumPower.png in Resources */,
 				32A1A7FF19FF8B0C00B7B8DD /* back.png in Resources */,
 				32B1FFA219C974AD00D9FFF5 /* Images.xcassets in Resources */,
 				32B1FFDC19C978C800D9FFF5 /* bg.jpg in Resources */,
 				32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */,
 				32ADA25F19EF70FF0081BD51 /* dashboard@2x.png in Resources */,
+				32B6973C1A109526004C1879 /* stationFlag.png in Resources */,
 				32A1A80119FF8B1800B7B8DD /* dot1.png in Resources */,
 				32A1A7E719FF5F9400B7B8DD /* userGuide2@2x.png in Resources */,
 				32B1FFE419C978C800D9FFF5 /* me@2x.png in Resources */,
@@ -682,10 +713,9 @@
 				32A1A80719FF8B2D00B7B8DD /* PowerOnIngCircle.png in Resources */,
 				32ADA25719EF66CA0081BD51 /* preview.png in Resources */,
 				32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */,
-				32B731CD1A03B31E00BB84D8 /* ScooterTypeBHighPower.png in Resources */,
 				32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */,
 				32ABC2C919CBC9AE00F3254E /* infoTitle.png in Resources */,
-				32B731CF1A03B31E00BB84D8 /* ScooterTypeBMediumPower.png in Resources */,
+				32B6973A1A109526004C1879 /* scooterB.png in Resources */,
 				32B5F0E31A00D0B300A70CDC /* dashboardCircle.png in Resources */,
 				32A1A7FD19FF8B0700B7B8DD /* close.png in Resources */,
 				329FF84319F608180011B1CE /* spgLoginViewController.xib in Resources */,
@@ -693,11 +723,13 @@
 				32ABC2CF19CBC9AE00F3254E /* video.png in Resources */,
 				32B731C31A03521400BB84D8 /* spgStation.xib in Resources */,
 				32A1A80519FF8B2D00B7B8DD /* powerOn.png in Resources */,
+				32B697411A10A1EF004C1879 /* battery.png in Resources */,
 				32ABC2C819CBC9AE00F3254E /* info.png in Resources */,
 				32B1FFE819C978C800D9FFF5 /* scooterEntity.png in Resources */,
-				32B731CE1A03B31E00BB84D8 /* ScooterTypeBLowPower.png in Resources */,
+				32B697321A1094E2004C1879 /* powerMedium.png in Resources */,
 				32B1FFE519C978C800D9FFF5 /* moments@2x.png in Resources */,
 				32ADA25319EF66A80081BD51 /* ARMode.png in Resources */,
+				32B697431A10A1EF004C1879 /* momentsList.png in Resources */,
 				32ABC2CE19CBC9AE00F3254E /* switchCam.png in Resources */,
 				32A1A7EC19FF65AD00B7B8DD /* scooterTypeB.png in Resources */,
 				32B1FFE719C978C800D9FFF5 /* radar.png in Resources */,
@@ -705,7 +737,6 @@
 				32B1FFE619C978C800D9FFF5 /* profile.png in Resources */,
 				32A1A7EB19FF65AD00B7B8DD /* scooterTypeA.png in Resources */,
 				32B1002D19C981A400D9FFF5 /* batteryCircle.png in Resources */,
-				32B731C91A03B31300BB84D8 /* ScooterTypeAMediumPower.png in Resources */,
 				32ABC2CA19CBC9AE00F3254E /* lightOff.png in Resources */,
 				32ADA25B19EF66DD0081BD51 /* userInfo.png in Resources */,
 				32B1FF9419C974AC00D9FFF5 /* InfoPlist.strings in Resources */,
@@ -716,23 +747,26 @@
 				32A01B3619E7D0C50031AC60 /* shoot.png in Resources */,
 				32A1A7E619FF5F9400B7B8DD /* userGuide1@2x.png in Resources */,
 				32B5F0E11A00D0A500A70CDC /* batteryLowBg.png in Resources */,
-				32B731C81A03B31300BB84D8 /* ScooterTypeALowPower.png in Resources */,
 				32BBF2A119F77FBD006A00AF /* spgDeviceSite.xib in Resources */,
+				32B697421A10A1EF004C1879 /* distance.png in Resources */,
 				32ADA25D19EF6A3C0081BD51 /* speed.png in Resources */,
+				32B697441A10A1EF004C1879 /* stationIcon.png in Resources */,
 				32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */,
 				32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */,
 				32B1FFE319C978C800D9FFF5 /* lockHalo.png in Resources */,
 				32B1FFE919C978C800D9FFF5 /* scooterIcon.png in Resources */,
 				32A1A80619FF8B2D00B7B8DD /* PowerOnIngBg.png in Resources */,
-				32B731C71A03B31300BB84D8 /* ScooterTypeAHighPower.png in Resources */,
+				32B697391A109526004C1879 /* scooterA.png in Resources */,
+				32B697301A1094E2004C1879 /* powerHigh.png in Resources */,
 				32A1A7FB19FF89DC00B7B8DD /* Phone.png in Resources */,
+				32B6972C1A106217004C1879 /* spgModeSettingsViewController.xib in Resources */,
 				32ABC2C619CBC9AE00F3254E /* camera.png in Resources */,
 				32B1002E19C981A400D9FFF5 /* DIST icon.png in Resources */,
 				32B1FFE219C978C800D9FFF5 /* lockCenter.png in Resources */,
 				32BBF29A19F77637006A00AF /* spgScan.xib in Resources */,
 				32A1A7ED19FF65AD00B7B8DD /* scooterTypeC.png in Resources */,
-				32B731D31A03B32500BB84D8 /* ScooterTypeCHighPower.png in Resources */,
 				32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */,
+				32B697311A1094E2004C1879 /* powerLow.png in Resources */,
 				32A13C3319F4DAAF00D1AC9E /* spgChangePasswordViewController.xib in Resources */,
 				32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */,
 				32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */,
@@ -740,7 +774,7 @@
 				32ABC2CB19CBC9AE00F3254E /* lightOn.png in Resources */,
 				32A01B3819E7D0C50031AC60 /* stopVideo.png in Resources */,
 				32B1FF9D19C974AD00D9FFF5 /* Main.storyboard in Resources */,
-				32B731D41A03B32500BB84D8 /* ScooterTypeCLowPower.png in Resources */,
+				32B697381A109526004C1879 /* scanScope.png in Resources */,
 				32ADA25919EF66D60081BD51 /* time.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -777,11 +811,13 @@
 				32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */,
 				32BBF29E19F77C6A006A00AF /* spgConnectViewController.m in Sources */,
 				32B1001519C97B2D00D9FFF5 /* spgBLEService.m in Sources */,
+				32B6972B1A106217004C1879 /* spgModeSettingsViewController.m in Sources */,
 				32B1003F19CADB8E00D9FFF5 /* spgMapViewController.m in Sources */,
 				32B1000D19C97B1800D9FFF5 /* THPinNumPadView.m in Sources */,
 				32A13C2619F4D7B200D1AC9E /* spgIntroductionViewController.m in Sources */,
 				32B1004319CADBB000D9FFF5 /* spgARGaugesViewController.m in Sources */,
 				32B1000E19C97B1800D9FFF5 /* THPinView.m in Sources */,
+				32A010331A0B712900F4D4A4 /* spgPeripheralView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

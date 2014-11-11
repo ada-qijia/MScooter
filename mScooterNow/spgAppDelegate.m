@@ -7,7 +7,7 @@
 //
 
 #import "spgAppDelegate.h"
-#import "spgMScooterDefinitions.h"
+#import "spgMScooterCommon.h"
 
 @implementation spgAppDelegate
 
@@ -18,6 +18,12 @@
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
     
     [self.window setTintColor:ThemeColor];
+    
+    //set the default scenario mode to campus
+    if(![spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey])
+    {
+        [spgMScooterUtilities savePreferenceWithKey:kMyScenarioModeKey value:kScenarioModeCampus];
+    }
     
     return YES;
 }

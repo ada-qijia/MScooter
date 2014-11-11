@@ -21,7 +21,9 @@
 
 +(NSString *)castDataToHexString:(NSData *)data;
 
-+(NSString *)getMyPeripheralID;
-+(void)saveMyPeripheralID:(NSString *)uuid;
++(NSString *)getScooterImageFromName:(NSString *)name;
+
++(NSString *)getPreferenceWithKey:(NSString *) key;
++(void)savePreferenceWithKey:(NSString *)key value:(id)value;
 
 @end

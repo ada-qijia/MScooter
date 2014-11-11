@@ -14,12 +14,7 @@
 
 @interface spgConnectViewController : spgPinViewController<spgBLEServicePeripheralDelegate>
 
-@property (nonatomic) BOOL isPeripheralKnown;
-
-@property (weak, nonatomic) IBOutlet UIImageView *scooterOutline;
 @property (weak, nonatomic) IBOutlet UIImageView *scooterEntity;
-@property (weak, nonatomic) IBOutlet UIImageView *unlockHalo;
-@property (weak, nonatomic) IBOutlet UIButton *unlockButton;
 @property (weak, nonatomic) IBOutlet UIImageView *phone;
 @property (weak, nonatomic) IBOutlet UILabel *scooterName;
 @property (weak, nonatomic) IBOutlet UIImageView *connectionImage;
@@ -31,7 +26,6 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *powerOnCircleImage;
 
-- (IBAction)unlockClicked:(UIButton *)sender;
 - (IBAction)backClicked:(id)sender;
 - (IBAction)closeClicked:(UIButton *)sender;
 

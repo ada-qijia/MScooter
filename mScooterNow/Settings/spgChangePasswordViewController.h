@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface spgChangePasswordViewController : UIViewController
+@interface spgChangePasswordViewController : UIViewController <UITextFieldDelegate>
 
 - (IBAction)okClicked:(UIButton *)sender;
 - (IBAction)cancelClicked:(UIButton *)sender;

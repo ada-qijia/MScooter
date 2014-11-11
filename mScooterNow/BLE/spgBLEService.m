@@ -37,7 +37,6 @@ static spgBLEService *sharedInstance=nil;
     self.discoverPeripheralsDelegate=delegate;
     self.peripheralDelegate=peripheralDelegate;
     self.centralManager=[[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
-    self.centralManager.delegate=self;
     
     //initilize interested service
     CBUUID *speedServiceUUID=CBUUID(kSpeedCharacteristicUUID);
@@ -308,12 +307,8 @@ static spgBLEService *sharedInstance=nil;
         {
             NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
             BOOL correct=[hexString isEqualToString:kPasswordCorrectResponse];
-            if(correct)
-            {
-                [spgMScooterUtilities saveMyPeripheralID:[peripheral.identifier UUIDString]];
-            }
-            if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:)]) {
-                [self.peripheralDelegate passwordCertificationReturned:correct];
+            if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:result:)]) {
+                [self.peripheralDelegate passwordCertificationReturned:peripheral result:correct];
             }
         }
     }

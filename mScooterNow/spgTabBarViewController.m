@@ -7,7 +7,6 @@
 //
 
 #import "spgTabBarViewController.h"
-#import "spgDashboardViewController.h"
 
 static const NSInteger warningViewTag=8888;
 
@@ -37,15 +36,15 @@ static const NSInteger warningViewTag=8888;
     self.bleService.peripheralDelegate=self;
 }
 
+//when tabbar is hidden in spgARViewController, this will be called.
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+}
 
-     if(self.bleService)
-     {
-         self.bleService.peripheralDelegate=nil;
-         [self.bleService disConnectPeripheral];
-     }
+-(void)dealloc
+{
+    
 }
 
 #pragma - supported orientation
@@ -67,23 +66,20 @@ static const NSInteger warningViewTag=8888;
 
 -(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral
 {
-    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
-    if([vc respondsToSelector:@selector(updateConnectionState:)])
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateConnectionState:)])
     {
-        [vc updateConnectionState:YES];
+        [self.scooterPresentationDelegate updateConnectionState:YES];
     }
-
     [self setWarningBarHidden:YES];
 }
 
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
-    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
-    if([vc respondsToSelector:@selector(updateConnectionState:)])
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateConnectionState:)])
     {
-        [vc updateConnectionState:NO];
+        [self.scooterPresentationDelegate updateConnectionState:NO];
     }
- 
+    
     [self setWarningBarHidden:NO];
 }
 
@@ -145,10 +141,10 @@ static const NSInteger warningViewTag=8888;
     }
     
     //update speed
-    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
-    if([vc respondsToSelector:@selector(updateSpeed:)])
+    
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateSpeed:)])
     {
-        [vc updateSpeed:realSpeed];
+        [self.scooterPresentationDelegate updateSpeed:realSpeed];
     }
 }
 
@@ -159,28 +155,25 @@ static const NSInteger warningViewTag=8888;
     float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
     
     //update battery
-    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
-    if([vc respondsToSelector:@selector(updateBattery:)])
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateBattery:)])
     {
-        [vc updateBattery:realBattery];
+        [self.scooterPresentationDelegate updateBattery:realBattery];
     }
 }
 
 -(void)cameraTriggered:(SBSCameraCommand) commandType
 {
-    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
-    if([vc respondsToSelector:@selector(cameraTriggered:)])
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(cameraTriggered:)])
     {
-        [vc cameraTriggered:commandType];
+        [self.scooterPresentationDelegate cameraTriggered:commandType];
     }
 }
 
 -(void)modeChanged
 {
-    id<spgScooterPresentationDelegate> vc= (id<spgScooterPresentationDelegate>)self.selectedViewController;
-    if([vc respondsToSelector:@selector(modeChanged)])
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(modeChanged)])
     {
-        [vc modeChanged];
+        [self.scooterPresentationDelegate modeChanged];
     }
 }
 
@@ -189,10 +182,10 @@ static const NSInteger warningViewTag=8888;
 //add top notification bar
 -(void) setWarningBarHidden:(BOOL)hidden
 {
-    CGRect topFrame=CGRectMake(0, 0, 320, 40);
+    CGRect topFrame=CGRectMake(0, 0, 320, 44);
     UIView *warningView=[[UIView alloc] initWithFrame:topFrame];
     warningView.backgroundColor=[UIColor blackColor];
-    warningView.transform=CGAffineTransformMakeTranslation(0, -40);
+    warningView.transform=CGAffineTransformMakeTranslation(0, -44);
     warningView.tag=warningViewTag;
     
     UILabel *contentLabel=[[UILabel alloc] initWithFrame:topFrame];
@@ -207,7 +200,7 @@ static const NSInteger warningViewTag=8888;
     
     CAKeyframeAnimation *fadeAnimation=[CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
     fadeAnimation.keyTimes=[NSArray arrayWithObjects:0,0.15,0.85,1.0, nil];
-    fadeAnimation.values=[NSArray arrayWithObjects:[NSNumber numberWithFloat:-40],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:-40], nil];
+    fadeAnimation.values=[NSArray arrayWithObjects:[NSNumber numberWithFloat:-44],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:-44], nil];
     fadeAnimation.duration=3;
     fadeAnimation.delegate=self;
     
@@ -221,14 +214,6 @@ static const NSInteger warningViewTag=8888;
         [warningView.layer removeAllAnimations];
         [warningView removeFromSuperview];
     }
-}
-
-#pragma -UITabBarControllerDelegate
-
--(BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
-{
-    self.lastSelectedIndex=self.selectedIndex;
-    return YES;
 }
 
 @end

@@ -11,4 +11,9 @@
 
 @interface spgIntroductionViewController : UIViewController <spgIntroductionDelegate>
 
+@property (nonatomic) BOOL isRelay;
+
+@property (weak, nonatomic) IBOutlet UIButton *backButton;
+- (IBAction)backClicked:(id)sender;
+
 @end

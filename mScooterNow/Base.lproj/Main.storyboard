@@ -8,11 +8,28 @@
         <!--Spg Introduction View Controller-->
         <scene sceneID="2x5-vh-wJE">
             <objects>
-                <viewController id="TvW-Sd-94B" customClass="spgIntroductionViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="spgIntroductionVCID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TvW-Sd-94B" customClass="spgIntroductionViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jqx-ZB-Ppi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="knu-EH-Wxu">
+                                <rect key="frame" x="10" y="10" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
+                                <state key="normal" image="back.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="backClicked:" destination="TvW-Sd-94B" eventType="touchUpInside" id="fRX-Rj-J6Z"/>
+                                </connections>
+                            </button>
+                        </subviews>
                     </view>
+                    <connections>
+                        <outlet property="backButton" destination="knu-EH-Wxu" id="SVl-1F-axQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eBS-ag-FJw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -27,11 +44,22 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="userInfo.png" id="WCi-Qu-74f">
-                                <rect key="frame" x="0.0" y="28" width="320" height="450"/>
+                                <rect key="frame" x="0.0" y="25" width="320" height="465"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="78P-5k-G6c">
+                                <rect key="frame" x="0.0" y="185" width="320" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="ModeSettingClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="syl-5X-0ID"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BUY-Ut-iyI">
-                                <rect key="frame" x="0.0" y="238" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="240" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal">
@@ -41,8 +69,19 @@
                                     <action selector="changePasswordClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="uJ4-38-4gH"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lXF-rc-vBT">
+                                <rect key="frame" x="0.0" y="297" width="320" height="55"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="AboutClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="TEp-2d-KdM"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TMJ-GM-LcY">
-                                <rect key="frame" x="0.0" y="367" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="376" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <state key="normal">
@@ -61,7 +100,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0tX-Ns-lAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="125" y="-496"/>
+            <point key="canvasLocation" x="111" y="459"/>
         </scene>
         <!--Spg Tab Bar View Controller-->
         <scene sceneID="dRA-u7-st0">
@@ -75,9 +114,9 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </tabBar>
                     <connections>
-                        <segue destination="qNt-DY-caT" kind="relationship" relationship="viewControllers" id="7hP-mK-hNj"/>
-                        <segue destination="XkJ-Rr-u49" kind="relationship" relationship="viewControllers" id="IQl-9a-c1V"/>
-                        <segue destination="Xoj-0t-sl9" kind="relationship" relationship="viewControllers" id="v6x-fT-xfB"/>
+                        <segue destination="yMH-hE-qLC" kind="relationship" relationship="viewControllers" id="hVV-gp-lrq"/>
+                        <segue destination="qNt-DY-caT" kind="relationship" relationship="viewControllers" id="a6Y-IA-6BG"/>
+                        <segue destination="Xoj-0t-sl9" kind="relationship" relationship="viewControllers" id="iWn-SN-1e5"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iQg-7C-Kbk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -331,7 +370,32 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fj3-Kd-HGs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="27" y="723"/>
+            <point key="canvasLocation" x="849" y="735"/>
+        </scene>
+        <!--Moments-->
+        <scene sceneID="MTr-cm-vDm">
+            <objects>
+                <viewController id="yMH-hE-qLC" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="yrs-xA-ZfB">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2.jpg" id="vMI-ZR-sey">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="momentsList.png" id="cvY-mG-52G">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Moments" image="moments.png" id="qNd-7Q-Vcs"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EmG-Xe-PK9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="111" y="-413"/>
         </scene>
         <!--Dashboard-->
         <scene sceneID="GgK-Mw-vYF">
@@ -348,44 +412,34 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" id="vjU-u3-QoN" userLabel="ControllerView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="6" width="320" height="44"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NV2-Pa-G6X">
-                                        <rect key="frame" x="271" y="0.0" width="44" height="44"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5My-ds-b5q">
+                                        <rect key="frame" x="10" y="0.0" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
-                                        <state key="normal" title="powerOff" image="powerOff.png">
+                                        <state key="normal" title="AR Mode" image="ARMode.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="powerOn.png"/>
                                         <connections>
-                                            <action selector="powerOff:" destination="qNt-DY-caT" eventType="touchUpInside" id="KHf-SS-XXX"/>
+                                            <segue destination="XkJ-Rr-u49" kind="modal" identifier="showARSegue" id="aAO-4g-IuF"/>
                                         </connections>
                                     </button>
-                                    <view hidden="YES" contentMode="scaleToFill" id="bCU-sn-3vM" userLabel="WarningView">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                        <subviews>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connection Failed!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ixZ-xp-pzm">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                                <size key="shadowOffset" width="0.0" height="0.0"/>
-                                            </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BbM-qa-z1t">
-                                                <rect key="frame" x="230" y="2" width="34" height="34"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <state key="normal" image="scan.png">
-                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="RetryClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="2s7-fb-Vd6"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NV2-Pa-G6X">
+                                        <rect key="frame" x="271" y="0.0" width="44" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
+                                        <inset key="contentEdgeInsets" minX="4" minY="4" maxX="4" maxY="4"/>
+                                        <state key="normal" title="power" image="powerOff.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="powerOn.png"/>
+                                        <connections>
+                                            <action selector="powerOn:" destination="qNt-DY-caT" eventType="touchUpInside" id="iPT-EM-tvG"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </view>
                         </subviews>
@@ -400,7 +454,6 @@
                         <outlet property="contentView" destination="VXl-aE-Dqk" id="c0b-s8-wb5"/>
                         <outlet property="powerButton" destination="NV2-Pa-G6X" id="WEv-0L-cWd"/>
                         <outlet property="topControllerView" destination="vjU-u3-QoN" id="ZLv-rf-J1u"/>
-                        <outlet property="warningView" destination="bCU-sn-3vM" id="4sm-m3-KTb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jz5-FB-VnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -545,7 +598,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A0h-wF-Gfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="432" y="723"/>
+            <point key="canvasLocation" x="1249" y="730"/>
         </scene>
         <!--SpgAR Gauges View Controller-->
         <scene sceneID="Zkv-Xs-M0y">
@@ -596,7 +649,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pyW-xU-Mhw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="838" y="911"/>
+            <point key="canvasLocation" x="1655" y="918"/>
         </scene>
         <!--Spg Map View Controller-->
         <scene sceneID="rtR-BI-ev6">
@@ -619,12 +672,15 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cLP-Gx-a9Y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="848" y="512"/>
+            <point key="canvasLocation" x="1665" y="519"/>
         </scene>
     </scenes>
     <resources>
+        <image name="ARMode.png" width="72" height="72"/>
+        <image name="back.png" width="36" height="49"/>
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
+        <image name="bg2.jpg" width="320" height="568"/>
         <image name="camera.png" width="57" height="49"/>
         <image name="capture.png" width="72" height="42"/>
         <image name="close.png" width="57" height="49"/>
@@ -635,11 +691,12 @@
         <image name="info.png" width="640" height="43"/>
         <image name="infoTitle.png" width="640" height="30"/>
         <image name="me.png" width="27" height="27"/>
+        <image name="moments.png" width="27" height="27"/>
+        <image name="momentsList.png" width="640" height="1136"/>
         <image name="powerOff.png" width="72" height="72"/>
         <image name="powerOn.png" width="72" height="72"/>
         <image name="preview.png" width="68" height="68"/>
         <image name="profile.png" width="138" height="81"/>
-        <image name="scan.png" width="65" height="65"/>
         <image name="speed.png" width="34" height="42"/>
         <image name="speedBg.png" width="524" height="524"/>
         <image name="speedCircle.png" width="436" height="436"/>

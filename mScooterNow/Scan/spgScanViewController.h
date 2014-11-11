@@ -12,8 +12,14 @@
 #import "spgBLEService.h"
 #import "spgConnectViewController.h"
 
+typedef enum:NSInteger
+{
+    BLEDeviceStateActive,
+    BLEDeviceStateVague,
+    BLEDeviceStateInactive
+}BLEDeviceState;
 
-@interface spgScanViewController : UIViewController <spgBLEServiceDiscoverPeripheralsDelegate,UIScrollViewDelegate>
+@interface spgScanViewController : UIViewController <spgBLEServiceDiscoverPeripheralsDelegate>
 
 @property (nonatomic) BOOL shouldRetry;
 
@@ -24,10 +30,17 @@
 @property (weak, nonatomic) IBOutlet UIView *foundView;
 @property (weak, nonatomic) IBOutlet UIScrollView *devicesScrollView;
 @property (weak, nonatomic) IBOutlet UIView *notFoundView;
-@property (weak, nonatomic) IBOutlet UIPageControl *pageControl;
 
-- (IBAction)scooterClicked:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *detailView;
+@property (weak, nonatomic) IBOutlet UIImageView *scooterImage;
+@property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *batteryLabel;
+@property (weak, nonatomic) IBOutlet UILabel *distanceLabel;
+- (IBAction)pickupClicked:(id)sender;
+- (IBAction)backClicked:(id)sender;
+
+
+- (IBAction)scooterClicked:(UIButton *)sender;
 - (IBAction)retryClicked:(id)sender;
-- (IBAction)pageChanged:(UIPageControl *)sender;
 
 @end

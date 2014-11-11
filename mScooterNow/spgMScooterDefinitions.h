@@ -33,6 +33,11 @@
 #define BackgroundImageColor [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.jpg"]];
 
 static NSString * const kMyPeripheralIDKey= @"myPeripheralID";
+//default campus mode
+static NSString * const kMyScenarioModeKey=@"myScenarioMode";
+#define kScenarioModeCampus @"campus"
+#define kScenarioModePersonal @"personal"
+
 #define kBeijingCityID @"101010100"
 
 #define kCorrectPin @"0033"

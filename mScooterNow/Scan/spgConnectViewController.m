@@ -7,7 +7,6 @@
 //
 
 #import "spgConnectViewController.h"
-#import "spgTabBarViewController.h"
 #import "spgScanViewController.h"
 
 @interface spgConnectViewController ()
@@ -24,8 +23,8 @@
     self.view.backgroundColor=BackgroundImageColor;
     
     //set top left button
-    NSString *myPeripheralID=[spgMScooterUtilities getMyPeripheralID];
-    self.backButton.hidden=myPeripheralID;
+    NSString *myPeripheralID=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
+    self.backButton.hidden=(myPeripheralID!=nil);
     self.closeButton.hidden=!myPeripheralID;
     
     self.bleService=[spgBLEService sharedInstance];
@@ -40,7 +39,6 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -62,10 +60,6 @@
 
 #pragma - UI interaction
 
-- (IBAction)unlockClicked:(UIButton *)sender {
-    [self login:nil];
-}
-
 - (IBAction)backClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -73,12 +67,7 @@
 - (IBAction)closeClicked:(UIButton *)sender {
     [self.bleService disConnectPeripheral];
     
-    [self navigateToNextPage];
-    /*
-    spgScanViewController *scanVC=(spgScanViewController *)self.presentingViewController;
-    scanVC.shouldRetry=YES;
-    [self dismissViewControllerAnimated:YES completion:nil];
-     */
+    [self backToTabBarViewController];
 }
 
 #pragma - ble operation
@@ -97,16 +86,21 @@
     //stop loop connect animation
     [self.connectionImage.layer removeAllAnimations];
     
-    //show the unlock
-    [self performSelector:@selector(showUnlock:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:1];
-    [self performSelector:@selector(twinkleUnlock:) withObject:nil afterDelay:1.5];
+    [self login:nil];
 }
 
--(void)passwordCertificationReturned:(BOOL)correct
+-(void)passwordCertificationReturned:(CBPeripheral *)peripheral result:(BOOL) correct
 {
     if(correct)
     {
-        [self navigateToNextPage];
+        //save peripheral UUID if success and in personal mode.
+        BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
+        if(isPersonal)
+        {
+            [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:[peripheral.identifier UUIDString]];
+        }
+        
+        [self backToTabBarViewController];
     }
     else
     {
@@ -133,13 +127,13 @@
 
 #pragma - utilities
 
--(void)navigateToNextPage
+-(void)backToTabBarViewController
 {
-    //navigate to next page
-    UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
-        
-    [self presentViewController:tabBarVC animated:YES completion:nil];
+    UIViewController *currentVC=self;
+    while (currentVC && ![currentVC isKindOfClass:[UITabBarController class]]) {
+        [currentVC dismissViewControllerAnimated:NO completion:nil];
+        currentVC=currentVC.presentingViewController;
+    }
 }
 
 -(NSData *)getDataFromPin
@@ -162,47 +156,22 @@
 
 -(void)showConnectAnimation
 {
+    /*
     //remove all animations
     [self resetUI];
-    
-    //fade in the car
-    if(self.isPeripheralKnown)
-    {
-        [self fadeInScooterOutline:0.5];
-        [self performSelector:@selector(fadeInScooterEntity:) withObject:[NSNumber numberWithFloat:0.5] afterDelay:0.5];
-    }
-    else //slide in the car
-    {
-        [self slideInScooter:1];
-    }
-    
+     [self slideInScooter:1];
     //show the iphone
     [self slideInPhone:1];
+     */
 }
 
 -(void)slideInScooter:(float)duration
 {
-    self.scooterOutline.hidden=NO;
-
-    CABasicAnimation* slideFromLeft1 = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
-    slideFromLeft1.fromValue = [NSNumber numberWithFloat:-self.scooterOutline.bounds.size.width*0.7];
-    slideFromLeft1.toValue = [NSNumber numberWithFloat:0];
-    
-    CABasicAnimation* fadeIn1 = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeIn1.fromValue = [NSNumber numberWithFloat:0.3];
-    fadeIn1.toValue = [NSNumber numberWithFloat:1.0];
-
-    CAAnimationGroup *group1=[CAAnimationGroup animation];
-    group1.animations=@[slideFromLeft1,fadeIn1];
-    group1.duration=duration;
-    
-    [self.scooterOutline.layer addAnimation:group1 forKey:@"outlineShow"];
-
     self.scooterEntity.hidden=NO;
     
     CABasicAnimation* slideFromLeft2 = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
-    slideFromLeft2.fromValue = slideFromLeft1.fromValue;
-    slideFromLeft2.toValue = slideFromLeft1.toValue;
+    //slideFromLeft2.fromValue = slideFromLeft1.fromValue;
+    //slideFromLeft2.toValue = slideFromLeft1.toValue;
     
     CABasicAnimation* fadeIn2 = [CABasicAnimation animationWithKeyPath:@"opacity"];
     fadeIn2.fromValue = [NSNumber numberWithFloat:0.3];
@@ -215,18 +184,6 @@
     [self.scooterEntity.layer addAnimation:group2 forKey:@"entitySlideIn"];
 }
 
--(void)fadeInScooterOutline:(float)duration
-{
-    self.scooterOutline.hidden=NO;
-    
-    CABasicAnimation* fadeIn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeIn.fromValue = [NSNumber numberWithFloat:0.0];
-    fadeIn.toValue = [NSNumber numberWithFloat:1.0];
-    fadeIn.duration = duration;
-    
-    [self.scooterOutline.layer addAnimation:fadeIn forKey:@"opacity"];
-}
-
 -(void)fadeInScooterEntity:(NSNumber *)duration
 {
     self.scooterEntity.hidden=NO;
@@ -237,39 +194,6 @@
     fadeIn.duration =duration? duration.floatValue: 1.5;
     
     [self.scooterEntity.layer addAnimation:fadeIn forKey:@"opacity"];
-}
-
--(void)showUnlock:(NSNumber *)duration
-{
-    self.unlockHalo.hidden=NO;
-    self.unlockButton.hidden=NO;
-    
-    float defaultDuration=1.0;
-    CABasicAnimation* fadeIn = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeIn.fromValue = [NSNumber numberWithFloat:0.3];
-    fadeIn.toValue = [NSNumber numberWithFloat:1.0];
-    
-    CABasicAnimation* expand = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    expand.fromValue = [NSNumber numberWithFloat:0.3];
-    expand.toValue = [NSNumber numberWithFloat:1.0];
-    
-    CAAnimationGroup* group = [CAAnimationGroup animation];
-    group.animations = [NSArray arrayWithObjects:expand, nil];
-    group.duration = duration?duration.floatValue:defaultDuration;
-    
-    [self.unlockHalo.layer addAnimation:group forKey:@"haloGroup"];
-    [self.unlockButton.layer addAnimation:group forKey:@"unlockGroup"];
-}
-
--(void)twinkleUnlock:(NSNumber *)duration
-{
-    CABasicAnimation* twinkle = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    twinkle.fromValue = [NSNumber numberWithFloat:0.5];
-    twinkle.toValue = [NSNumber numberWithFloat:1.0];
-    twinkle.duration = duration?duration.floatValue:0.5;
-    twinkle.autoreverses=YES;
-    twinkle.repeatCount=HUGE_VALF;
-    [self.unlockHalo.layer addAnimation:twinkle forKey:@"opacity"];
 }
 
 -(void)slideInPhone:(float)duration
@@ -312,7 +236,7 @@
 
 -(void)resetUI
 {
-    NSArray *viewsMayChanged=@[self.scooterOutline,self.scooterEntity,self.unlockHalo,self.unlockButton,self.phone];
+    NSArray *viewsMayChanged=@[self.scooterEntity,self.phone];
     for (UIView * viewMayChanged in viewsMayChanged ){
         viewMayChanged.hidden=YES;
         [viewMayChanged.layer removeAllAnimations];

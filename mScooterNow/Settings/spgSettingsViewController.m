@@ -8,7 +8,9 @@
 
 #import "spgSettingsViewController.h"
 #import "spgChangePasswordViewController.h"
+#import "spgModeSettingsViewController.h"
 #import "spgScanViewController.h"
+#import "spgIntroductionViewController.h"
 
 @interface spgSettingsViewController ()
 
@@ -29,9 +31,22 @@
 
 #pragma - UI interaction
 
+- (IBAction)ModeSettingClicked:(id)sender {
+    spgModeSettingsViewController *modeSettingsVC=[[spgModeSettingsViewController alloc] initWithNibName:@"spgModeSettingsViewController" bundle:nil];
+    [self presentViewController:modeSettingsVC animated:YES completion:nil];
+}
+
 - (IBAction)changePasswordClicked:(UIButton *)sender {
     spgChangePasswordViewController *changePasswordVC=[[spgChangePasswordViewController alloc] initWithNibName:@"spgChangePasswordViewController" bundle:nil];
     [self presentViewController:changePasswordVC animated:YES completion:nil];
+}
+
+- (IBAction)AboutClicked:(UIButton *)sender {
+    UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    spgIntroductionViewController *introductionVC=[storyboard instantiateViewControllerWithIdentifier:@"spgIntroductionVCID"];
+    introductionVC.isRelay=NO;
+    
+    [self presentViewController:introductionVC animated:YES completion:nil];
 }
 
 - (IBAction)resetScooterClicked:(UIButton *)sender {
@@ -45,22 +60,13 @@
 {
     if(buttonIndex==1)
     {
-        [self backToScanViewController];
-    }
-}
-
--(void)backToScanViewController
-{
-    UIViewController *currentVC=self;
-    while (currentVC && ![currentVC isKindOfClass:[spgScanViewController class]]) {
-        [currentVC dismissViewControllerAnimated:NO completion:nil];
-        currentVC=currentVC.presentingViewController;
-    }
-    
-    if([currentVC isKindOfClass:[spgScanViewController class]])
-    {
-        spgScanViewController *scanVC=(spgScanViewController *)currentVC;
-        scanVC.shouldRetry=YES;
+        //clean saved MyPeripheralID if change to personal mode.
+        [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
+        
+        //navigate to scan page
+        spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
+        
+        [self presentViewController:scanVC animated:NO completion:nil];
     }
 }
 

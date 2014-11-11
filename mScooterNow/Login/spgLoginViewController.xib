@@ -111,7 +111,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bg2.jpg" width="640" height="1136"/>
+        <image name="bg2.jpg" width="320" height="568"/>
         <image name="snsSkype.png" width="132" height="132"/>
         <image name="snsWechat.png" width="132" height="132"/>
         <image name="snsWeibo.png" width="132" height="132"/>

@@ -123,18 +123,36 @@
     return [NSString stringWithString:mutableString];
 }
 
-+(NSString *)getMyPeripheralID
++(NSString *)getScooterImageFromName:(NSString *)name
+{
+    return @"scooterEntity.png";
+    /*
+    if([name hasPrefix:@"S_"])
+    {
+        return @"scooterA.png";
+    }
+    else
+    {
+        return @"scooterB.png";
+    }
+     */
+}
+
+#pragma - local save
+
++(NSString *)getPreferenceWithKey:(NSString *) key
 {
     NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
-    NSString *idString= [userDefaults stringForKey:kMyPeripheralIDKey];
+    NSString *idString= [userDefaults stringForKey:key];
     return idString;
 }
 
 //save to user defaults
-+(void)saveMyPeripheralID:(NSString *)uuid
++(void)savePreferenceWithKey:(NSString *)key value:(id)value
 {
     NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
-    [userDefaults setObject:uuid forKey:kMyPeripheralIDKey];
+    [userDefaults setObject:value forKey:key];
     [userDefaults synchronize];
 }
+
 @end

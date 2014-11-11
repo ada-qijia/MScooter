@@ -7,17 +7,21 @@
 //
 
 #import "spgScanViewController.h"
+#import "spgPeripheralView.h"
 
 static NSString *const SCOOTER_SERVICE_UUID=@"4B4681A4-1246-1EEC-AB2B-FE45F896822D";
-static const NSInteger CountPerPage = 5;
-static const NSInteger ScanInterval = 15;
+static const NSInteger scooterCount = 10;
+static const NSInteger stationCount = 3;
+static const NSInteger stateChangeInterval=3;
+static const NSInteger stationAdvInterval=2;
+static const NSInteger scooterAdvInterval=1;
+
 
 @interface spgScanViewController ()
 
 @property (strong,nonatomic) spgBLEService *bleService;
-@property (strong,nonatomic) NSMutableArray *foundPeripherals;
-@property (strong,nonatomic) NSMutableArray *foundStations;
-@property (strong,nonatomic) NSMutableArray *groupOfPage;//1,2,3
+@property (strong,atomic) NSMutableDictionary *foundPeripherals;
+@property (strong,atomic) NSMutableDictionary *foundStations;
 
 @end
 
@@ -25,10 +29,14 @@ static const NSInteger ScanInterval = 15;
 {
     BOOL isPinning;
     BOOL isScanning;
-    NSTimer *scanTimer;
-    CGPoint positions[CountPerPage];
-    dispatch_group_t group;
+    CGPoint scooterPos[scooterCount];
+    CGPoint stationPos[stationCount];
+    NSMutableArray *availableScooterPos;
+    NSMutableArray *availableStationPos;
     dispatch_queue_t queue;
+    UIImage *dotImage;
+    UIImage *triangleImage;
+    NSTimer *observerTimer;
 }
 
 #pragma - UIViewController methods
@@ -47,13 +55,19 @@ static const NSInteger ScanInterval = 15;
     
     //initialize
     self.view.backgroundColor = BackgroundImageColor;
-    self.foundPeripherals=[[NSMutableArray alloc] init];
-    self.foundStations=[[NSMutableArray alloc] init];
-    self.groupOfPage=[[NSMutableArray alloc] init];
+    self.foundPeripherals=[[NSMutableDictionary alloc] init];
+    self.foundStations=[[NSMutableDictionary alloc] init];
     [self createPositions];
-    
-    group=dispatch_group_create();
     queue=dispatch_queue_create("serial queue", DISPATCH_QUEUE_SERIAL);
+    dotImage=[UIImage imageNamed:@"dot.png"];
+    triangleImage=[UIImage imageNamed:@"triangle.png"];
+    
+    //first load, startScan after centralManager PoweredOn
+    self.bleService=[[spgBLEService sharedInstance] initWithDelegates:self peripheralDelegate:nil];
+    
+    CGSize screenSize=self.view.frame.size;
+    [self.devicesScrollView setContentSize:CGSizeMake(screenSize.height, screenSize.height)];
+    [self.devicesScrollView setContentOffset:CGPointMake((screenSize.height-screenSize.width)/2, 0)];
 }
 
 - (void)didReceiveMemoryWarning
@@ -63,18 +77,7 @@ static const NSInteger ScanInterval = 15;
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    //first load
-    if(!self.bleService)
-    {
-        self.bleService=[[spgBLEService sharedInstance] initWithDelegates:self peripheralDelegate:nil];
-    }
-    //return back
-    else if(self.shouldRetry)
-    {
-        [spgMScooterUtilities saveMyPeripheralID:nil];
-        self.shouldRetry=NO;
-        [self retryClicked:nil];
-    }
+    [super viewWillAppear:animated];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -90,65 +93,76 @@ static const NSInteger ScanInterval = 15;
 
 #pragma - UI interaction
 
--(IBAction)scooterClicked:(id)sender
+CBPeripheral *selectedPeripheral;
+
+-(IBAction)scooterClicked:(UIButton *)sender
 {
+    [self stopScan];
+    
+    CBPeripheral *peripheral= ((spgPeripheralView *)[sender superview]).peripheral;
+    float battery=((spgPeripheralView *)[sender superview]).battery;
+    self.detailView.hidden=NO;
+    self.scooterImage.image=sender.imageView.image;
+    self.deviceNameLabel.text=peripheral.name;
+    self.batteryLabel.text=battery>0?[NSString stringWithFormat:@"%0.f%%",battery]:@"-";
+    self.distanceLabel.text=battery>0?[NSString stringWithFormat:@"%0.fKM",battery/2.5]:@"-";
+    
+    selectedPeripheral=peripheral;
+}
+
+- (IBAction)pickupClicked:(id)sender {
+    self.detailView.hidden=YES;
     //navigate
-    NSInteger index=[sender superview].tag;
-    [self navigateWithDeviceIndex:index isKnown:NO];
+    [self navigateWithPeripheral:selectedPeripheral];
+}
+
+- (IBAction)backClicked:(id)sender {
+    self.detailView.hidden=YES;
 }
 
 - (IBAction)retryClicked:(id)sender {
-    self.foundView.hidden=YES;
-    self.notFoundView.hidden=YES;
-    self.retryButton.hidden=YES;
-    self.pageControl.hidden=YES;
-    
     [self startScan];
-}
-
-- (IBAction)pageChanged:(UIPageControl *)sender {
-    float offsetX=sender.currentPage * self.view.frame.size.width;
-    [self.devicesScrollView setContentOffset:CGPointMake(offsetX, 0) animated:YES];
 }
 
 #pragma - custom methods
 
 -(BOOL)startScan
 {
+    //observe peripheral state
+    observerTimer=[NSTimer scheduledTimerWithTimeInterval:stateChangeInterval/1.5 target:self selector: @selector(timerElapsed) userInfo:nil repeats:YES];
+    
     //ui update
     self.radarImage.hidden=NO;
     self.circlesImage.hidden=YES;
+    self.retryButton.hidden=YES;
+    
     for(UIView *deviceView in self.devicesScrollView.subviews)
     {
         [deviceView removeFromSuperview];
     }
-    [self.devicesScrollView setContentSize:CGSizeMake(self.view.frame.size.width, self.view.frame.size.height)];
     
     //start scan
     [self.foundPeripherals removeAllObjects];
     [self.foundStations removeAllObjects];
-    [self.groupOfPage removeAllObjects];
-    self.pageControl.numberOfPages =0;
     
     if(!isScanning && self.bleService.centralManager.state==CBCentralManagerStatePoweredOn)
     {
-        //start a timer
-        scanTimer=[NSTimer scheduledTimerWithTimeInterval:ScanInterval target:self selector:@selector(timerElapsed) userInfo:nil repeats:NO];
-        
         //run animation
         [self startSpin];
         
+        BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
+        NSString *knownUUIDString=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
+        
         //find known peripheral
-        NSString *idString=[spgMScooterUtilities getMyPeripheralID];
-        if(idString)
+        if(isPersonal && knownUUIDString)
         {
-            NSUUID *knownId=[[NSUUID alloc] initWithUUIDString:idString];
-            NSArray *savedIdentifier=[NSArray arrayWithObjects:knownId, nil];
+            NSUUID *knownUUID=[[NSUUID alloc] initWithUUIDString:knownUUIDString];
+            NSArray *savedIdentifier=[NSArray arrayWithObjects:knownUUID, nil];
             NSArray *knownPeripherals= [self.bleService.centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
             if(knownPeripherals.count>0)
             {
-                [self.foundPeripherals addObject:knownPeripherals[0]];
-                [self navigateWithDeviceIndex:0 isKnown:YES];
+                [self.foundPeripherals setObject:[NSDate dateWithTimeIntervalSince1970:0] forKey:knownPeripherals[0]];
+                [self navigateWithPeripheral:knownPeripherals[0]];
             }
             else
             {
@@ -168,6 +182,9 @@ static const NSInteger ScanInterval = 15;
 
 -(void)stopScan
 {
+    //stop observe
+    [observerTimer invalidate];
+    
     //ui update
     self.radarImage.hidden=YES;
     self.circlesImage.hidden=NO;
@@ -179,20 +196,41 @@ static const NSInteger ScanInterval = 15;
         [self.bleService stopScan];
         [self stopSpin];
         
-        self.retryButton.enabled=YES;
         self.retryButton.hidden=NO;
     }
 }
 
 -(void)timerElapsed
 {
-    [self stopScan];
-    if(self.foundPeripherals.count==0 && self.foundStations.count==0)
-    {
-        self.foundView.hidden=YES;
-        self.notFoundView.hidden=NO;
+    NSMutableDictionary *stations=[NSMutableDictionary dictionaryWithDictionary:self.foundStations];
+    
+    for (CBPeripheral *peripheral in stations) {
+        NSDate *lastDate=[stations objectForKey:peripheral];
+        NSTimeInterval interval=-[lastDate timeIntervalSinceNow];
+        if(interval>=stationAdvInterval && interval<=stateChangeInterval+stationAdvInterval)//vague
+        {
+            [self updateStationUIState:peripheral state:BLEDeviceStateVague];
+        }
+        else if(interval>stateChangeInterval+stationAdvInterval)//disappear
+        {
+            [self updateStationUIState:peripheral state:BLEDeviceStateInactive];
+        }
     }
     
+    NSMutableDictionary *scooters=[NSMutableDictionary dictionaryWithDictionary:self.foundPeripherals];
+    for (CBPeripheral *peripheral in scooters) {
+        NSDate *lastDate=[scooters objectForKey:peripheral];
+        NSTimeInterval interval=-[lastDate timeIntervalSinceNow];
+        
+        if(interval>=scooterAdvInterval && interval<=stateChangeInterval+scooterAdvInterval)//vague
+        {
+            [self updateScooterUIState:peripheral battery:nil state:BLEDeviceStateVague];
+        }
+        else if(interval>stateChangeInterval+scooterAdvInterval)//disappear
+        {
+            [self updateScooterUIState:peripheral battery:nil state:BLEDeviceStateInactive];
+        }
+    }
 }
 
 #pragma radar spin animation
@@ -257,18 +295,35 @@ static const NSInteger ScanInterval = 15;
     }
 }
 
+#pragma mark - scooter & station animation
+
+-(void)breathAnimation:(UIView *)view
+{
+    view.alpha=0;
+    view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.3, 0.3);
+    [UIView animateWithDuration:1.5 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse) animations:^{view.alpha=1.0; view.transform=CGAffineTransformIdentity;} completion:nil];
+}
+
+-(void)scaleInAnimation:(UIView *)view
+{
+    view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{view.transform=CGAffineTransformIdentity;} completion:nil];
+}
+
+-(void)scaleOutAnimation:(UIView *)view
+{
+    view.transform=CGAffineTransformIdentity;
+    [UIView animateWithDuration:1.5 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse) animations:^{view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);} completion:nil];
+}
+
 #pragma mark - navigation
 
--(void)navigateWithDeviceIndex:(NSInteger) index isKnown:(BOOL)isKnown
+-(void)navigateWithPeripheral:(CBPeripheral *) peripheral
 {
     spgConnectViewController *destination=[[spgConnectViewController alloc] initWithNibName:@"spgConnectViewController" bundle:nil];
-    destination.isPeripheralKnown=isKnown;
-    if(self.foundPeripherals.count>index)
-    {
-        self.bleService.peripheral=self.foundPeripherals[index];
-    }
+    self.bleService.peripheral=peripheral;
     
-    destination.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+    //destination.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
     [self presentViewController:destination animated:YES completion:nil];
 }
 
@@ -304,19 +359,32 @@ static const NSInteger ScanInterval = 15;
 //scan multiple devices
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
-    //NSLog(@"ad:%@", advertisementData.description);
+    
     //NSString *name = advertisementData[kCBAdvDataLocalName]; sometimes nil
     
+    NSDate *dateNow=[NSDate date];
     dispatch_sync(queue, ^{
         if([peripheral.name hasPrefix:kScooterStationPrefix])//station
         {
-            if(![self.foundStations containsObject:peripheral])
+            NSLog(@"ad:%@", advertisementData.description);
+            
+            NSDate *lastDate=(NSDate *)self.foundStations[peripheral];
+            [self.foundStations setObject:dateNow forKey:peripheral];
+            
+            if(!lastDate)//first add
             {
-                [self.foundStations addObject:peripheral];
-                [self addStation:peripheral];
+                [self updateStationUIState:peripheral state:BLEDeviceStateVague];
+            }
+            else if([dateNow timeIntervalSinceDate:lastDate]<=stateChangeInterval)
+            {
+                [self updateStationUIState:peripheral state:BLEDeviceStateActive];
+            }
+            else
+            {
+                [self updateStationUIState:peripheral state:BLEDeviceStateVague];
             }
         }
-        else if(![self.foundPeripherals containsObject:peripheral])// scooter
+        else // scooter
         {
             NSDictionary *serviceData=advertisementData[kCBAdvDataServiceData];
             CBUUID* batteryUUID=[CBUUID UUIDWithString:kBatteryServiceUUID];
@@ -324,177 +392,195 @@ static const NSInteger ScanInterval = 15;
             
             if(batteryData)
             {
-                [self.foundPeripherals addObject:peripheral];
-                [self addDeviceSite:peripheral battery:batteryData];
+                NSDate *lastDate=(NSDate *)self.foundPeripherals[peripheral];
+                [self.foundPeripherals setObject:dateNow forKey:peripheral];
+                
+                if(!lastDate)//first add
+                {
+                    [self updateScooterUIState:peripheral battery:batteryData state:BLEDeviceStateVague];
+                }
+                else if([dateNow timeIntervalSinceDate:lastDate]<=stateChangeInterval)
+                {
+                    [self updateScooterUIState:peripheral battery:batteryData state:BLEDeviceStateActive];
+                }
+                else
+                {
+                    [self updateScooterUIState:peripheral battery:batteryData state:BLEDeviceStateVague];
+                }
             }
         }
     });
 }
 
-#pragma - UIScrollViewDelegate
-
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
-    self.pageControl.currentPage = scrollView.contentOffset.x/self.view.frame.size.width;
-}
-
 #pragma - utilities
 
--(void)addStation:(CBPeripheral *)peripheral
+-(void)updateStationUIState:(CBPeripheral *)peripheral state:(BLEDeviceState)stationState
 {
-    self.foundView.hidden=NO;
+    NSLog(@"station state:%ld",stationState);
     
-    NSInteger pageIndex=[self getPageIndexOfPeripheral:peripheral];
-    
-    //add new page
-    if(pageIndex<0)
+    spgPeripheralView *stationView=nil;
+    for(spgPeripheralView *peripheralView in self.devicesScrollView.subviews)
     {
-        [self addNewPage];
-        pageIndex=self.groupOfPage.count-1;
-    }
-    
-    //Add station
-    UIView *stationView=[[[NSBundle mainBundle] loadNibNamed:@"spgStation" owner:self options:nil] objectAtIndex:0];
-    stationView.frame=CGRectMake(pageIndex * self.view.frame.size.width+80, 200, stationView.frame.size.width, stationView.frame.size.height);
-    
-    UILabel *name=(UILabel *)[stationView viewWithTag:21];
-    name.text=peripheral.name;
-    
-    [self.devicesScrollView addSubview:stationView];
-}
-
--(void)addDeviceSite:(CBPeripheral *)peripheral battery:(NSData *)batteryData
-{
-    self.foundView.hidden=NO;
-    
-    NSInteger pageIndex=[self getPageIndexOfPeripheral:peripheral];
-    
-    //add new page
-    if(pageIndex<0)
-    {
-        [self addNewPage];
-        pageIndex=self.groupOfPage.count-1;
-    }
-    
-    //Add Device
-    NSInteger indexInPage=[self scooterNumOfSameGroup:peripheral]-1;
-    
-    UIView *deviceView=[[[NSBundle mainBundle] loadNibNamed:@"spgDeviceSite" owner:self options:nil] objectAtIndex:0];
-    deviceView.tag=[self.foundPeripherals indexOfObject:peripheral];
-    deviceView.frame=CGRectMake(pageIndex * self.view.frame.size.width+positions[indexInPage].x, positions[indexInPage].y, deviceView.frame.size.width, deviceView.frame.size.height);
-    
-    UILabel *name=(UILabel *)[deviceView viewWithTag:11];
-    name.text=peripheral.name;
-    
-    float battery=[spgMScooterUtilities castBatteryToPercent:batteryData];
-    UIButton *button=(UIButton *)[deviceView viewWithTag:12];
-
-    UIImage *img=[UIImage imageNamed:[self getScooterImageFromName:peripheral.name battery:battery]];
-    [button setImage:img forState:UIControlStateNormal];
-    [button setImage:img forState:UIControlStateSelected];
-    [button addTarget:self action:@selector(scooterClicked:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UILabel *batteryLabel=(UILabel *)[deviceView viewWithTag:13];
-    batteryLabel.text=[NSString stringWithFormat:@"%0.f%%",battery];
-    
-    [self.devicesScrollView addSubview:deviceView];
-}
-
--(void)addNewPage
-{
-    //set pageControl
-    self.pageControl.numberOfPages=self.groupOfPage.count;
-    self.pageControl.hidden=self.pageControl.numberOfPages<=1;
-    self.pageControl.currentPage=0;
-    
-    //set scroll view
-    [self.devicesScrollView setContentSize:CGSizeMake(self.view.frame.size.width * self.pageControl.numberOfPages, self.view.frame.size.height)];
-}
-
--(NSInteger)getPageIndexOfPeripheral:(CBPeripheral *)peripheral
-{
-    NSInteger groupOfPeripheral=[self getGroupOfPeripheral:peripheral.name];
-    
-    NSInteger pageIndex=-1;
-    NSInteger index=0;
-    for (NSNumber *groupID in self.groupOfPage) {
-        if(groupID.integerValue==groupOfPeripheral)
+        if(peripheralView.peripheral==peripheral)
         {
-            pageIndex=index;
+            stationView=peripheralView;
             break;
         }
-        index++;
     }
     
-    if(pageIndex<0)//add new page
-    {
-        [self.groupOfPage addObject:[NSNumber numberWithInteger:groupOfPeripheral]];
-    }
-    
-    return pageIndex;
-}
-
--(NSInteger)getGroupOfPeripheral:(NSString *)peripheralName
-{
-    NSInteger groupOfPeripheral;
-    if([peripheralName hasPrefix:kScooterStationPrefix])//station
-    {
-        NSRange range=NSMakeRange(4, 2);
-        groupOfPeripheral=[[peripheralName substringWithRange:range] integerValue]-17; //with tag 18,19,20
-    }
-    else//scooter
-    {
-        NSRange range=NSMakeRange(10, 2);
-        groupOfPeripheral=[[peripheralName substringWithRange:range] integerValue]/5+1;
-    }
-    
-    return groupOfPeripheral;
-}
-
--(NSInteger)scooterNumOfSameGroup:(CBPeripheral *)peripheral
-{
-    NSInteger groupID=[self getGroupOfPeripheral:peripheral.name];
-    int num=0;
-    for (CBPeripheral *peripheral in self.foundPeripherals) {
-        NSInteger groupOfPeripheral=[self getGroupOfPeripheral:peripheral.name];
-        if(groupOfPeripheral==groupID)
+    switch (stationState) {
+        case BLEDeviceStateActive:
+        case BLEDeviceStateVague:
         {
-            num++;
+            NSInteger index=-1;
+            if(stationView==nil)
+            {
+                //Add station
+                stationView=[[[NSBundle mainBundle] loadNibNamed:@"spgStation" owner:self options:nil] objectAtIndex:0];
+                index=((NSNumber *)availableStationPos[0]).integerValue;
+                stationView.frame=CGRectMake(stationPos[index].x, stationPos[index].y, stationView.frame.size.width, stationView.frame.size.height);
+                [availableStationPos removeObjectAtIndex:0];
+                
+                [self.devicesScrollView addSubview:stationView];
+                [self scaleInAnimation:stationView];
+            }
+            else
+            {
+                index=[self.devicesScrollView.subviews indexOfObject:stationView];
+            }
+            
+            stationView.peripheral=peripheral;
+        }
+            stationView.alpha=stationState==BLEDeviceStateActive?1.0:0.5;
+            break;
+        case BLEDeviceStateInactive:
+            for(int i=0;i<stationCount;i++)
+            {
+                if(CGPointEqualToPoint(stationPos[i],stationView.frame.origin))
+                {
+                    [availableStationPos insertObject:[NSNumber numberWithInt:i] atIndex:0];
+                    break;
+                }
+            }
+            
+            [stationView removeFromSuperview];
+            [self.foundStations removeObjectForKey:peripheral];
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)updateScooterUIState:(CBPeripheral *)peripheral battery:(NSData *)batteryData state:(BLEDeviceState)stationState
+{
+    NSLog(@"scooter state:%ld",stationState);
+    
+    spgPeripheralView *scooterView=nil;
+    for(spgPeripheralView *peripheralView in self.devicesScrollView.subviews)
+    {
+        if(peripheralView.peripheral==peripheral)
+        {
+            scooterView=peripheralView;
+            break;
         }
     }
     
-    return num;
+    switch (stationState) {
+        case BLEDeviceStateActive:
+        case BLEDeviceStateVague:
+        {
+            NSInteger index=-1;
+            if(scooterView==nil)
+            {
+                //Add scooter
+                scooterView=[[[NSBundle mainBundle] loadNibNamed:@"spgDeviceSite" owner:self options:nil] objectAtIndex:0];
+                [self.devicesScrollView addSubview:scooterView];
+                index=((NSNumber *)availableScooterPos[0]).integerValue;
+                scooterView.frame=CGRectMake(scooterPos[index].x, scooterPos[index].y, scooterView.frame.size.width, scooterView.frame.size.height);
+                [availableScooterPos removeObjectAtIndex:0];
+                
+                [self scaleInAnimation:scooterView];
+            }
+            else
+            {
+                index=[self.devicesScrollView.subviews indexOfObject:scooterView];
+            }
+            
+            scooterView.peripheral=peripheral;
+            
+            if(batteryData)
+            {
+                float battery=[spgMScooterUtilities castBatteryToPercent:batteryData];
+                UIImageView *powerImage=(UIImageView *)[scooterView viewWithTag:11];
+                powerImage.image=[UIImage imageNamed:[self getBatteryImageFromBattery:battery]];
+                
+                UIButton *button=(UIButton *)[scooterView viewWithTag:12];
+                UIImage *img=[UIImage imageNamed:[spgMScooterUtilities getScooterImageFromName:peripheral.name]];
+                [button setImage:img forState:UIControlStateNormal];
+                //[button setImage:img forState:UIControlStateSelected];
+                [button addTarget:self action:@selector(scooterClicked:) forControlEvents:UIControlEventTouchUpInside];
+                
+                scooterView.battery=battery;
+            }
+            else
+            {
+                scooterView.battery=-1;
+            }
+        }
+            scooterView.alpha=stationState==BLEDeviceStateActive?1.0:0.5;
+            break;
+        case BLEDeviceStateInactive:
+            for(int i=0;i<scooterCount;i++)
+            {
+                if(CGPointEqualToPoint(scooterPos[i],scooterView.frame.origin))
+                {
+                    [availableScooterPos insertObject:[NSNumber numberWithInt:i] atIndex:0];
+                    break;
+                }
+            }
+            
+            [scooterView removeFromSuperview];
+            [self.foundPeripherals removeObjectForKey:peripheral];
+            break;
+        default:
+            break;
+    }
+    
 }
 
 -(void)createPositions
 {
-    positions[0]= CGPointMake(45, 65);;
+    //from center to edge
+    scooterPos[0]= CGPointMake(363, 145);
+    scooterPos[1]= CGPointMake(140, 134);
+    scooterPos[2]= CGPointMake(244, 373);
+    scooterPos[3]= CGPointMake(132, 329);
+    scooterPos[4]= CGPointMake(445, 293);
+    scooterPos[5]= CGPointMake(243, 32);
+    scooterPos[6]= CGPointMake(358, 403);
+    scooterPos[7]= CGPointMake(46, 254);
+    scooterPos[8]= CGPointMake(485, 104);
+    scooterPos[9]= CGPointMake(54, 32);
     
-    positions[1]= CGPointMake(190, 320);
-    positions[2]= CGPointMake(55, 350);
-    positions[3]= CGPointMake(10, 180);
-    positions[4]= CGPointMake(190, 125);
+    stationPos[0]=CGPointMake(232, 183);
+    stationPos[1]=CGPointMake(180, 267);
+    stationPos[2]=CGPointMake(283, 267);
+    
+    availableScooterPos=[NSMutableArray array];
+    for(int i=0;i<scooterCount;i++)
+    {
+        [availableScooterPos addObject:[NSNumber numberWithInt:i]];
+    }
+    
+    availableStationPos=[NSMutableArray array];
+    for(int i=0;i<stationCount;i++)
+    {
+        [availableStationPos addObject:[NSNumber numberWithInt:i]];
+    }
 }
 
--(NSString *)getScooterImageFromName:(NSString *)name battery:(float) battery
+-(NSString *)getBatteryImageFromBattery:(float) battery
 {
-    NSString *type=nil;
-    if([name hasPrefix:@"S_"])
-    {
-        type= @"A";
-    }
-    else if([name hasPrefix:@"M_"])
-    {
-        type= @"B";
-    }
-    else if([name hasPrefix:@"L_"])
-    {
-        type =@"C";
-    }
-    else//default image
-    {
-        type=@"A";
-    }
-    
     NSString *level=nil;
     if(battery<=30)
     {
@@ -509,8 +595,6 @@ static const NSInteger ScanInterval = 15;
         level=@"Medium";
     }
     
-    return [NSString stringWithFormat:@"ScooterType%@%@Power.png",type,level];
-    
+    return [NSString stringWithFormat:@"power%@.png",level];
 }
-
 @end

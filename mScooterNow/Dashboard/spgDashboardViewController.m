@@ -8,12 +8,17 @@
 
 #import "spgDashboardViewController.h"
 #import "spgScanViewController.h"
+#import "spgTabBarViewController.h"
+#import "spgARViewController.h"
 
 @interface spgDashboardViewController ()
 
 @end
 
 @implementation spgDashboardViewController
+{
+    spgTabBarViewController *tabBarVC;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,12 +32,22 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    tabBarVC=(spgTabBarViewController *)self.tabBarController;//.parentViewController;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self updateConnectedUIState];
+    
+    tabBarVC.scooterPresentationDelegate=self;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+
+    tabBarVC.scooterPresentationDelegate=nil;
 }
 
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
@@ -42,19 +57,12 @@
 
 #pragma mark - UI interaction
 
-- (IBAction)RetryClicked:(id)sender {
-    /*
-     spgScanViewController *root=(spgScanViewController *)self.presentingViewController;
-     root.shouldRetry=YES;
-     
-     [self dismissViewControllerAnimated:YES completion:nil];
-     */
-}
-
-- (IBAction)powerOff:(UIButton *)sender {
+- (IBAction)powerOn:(UIButton *)sender {
     if(sender.selected)//power on
     {
-        [self backToScanViewController];
+        spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
+        
+        [self presentViewController:scanVC animated:NO completion:nil];
     }
     else//power off
     {
@@ -63,18 +71,14 @@
     }
 }
 
--(void)backToScanViewController
+#pragma - segue
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UIViewController *currentVC=self;
-    while (currentVC && ![currentVC isKindOfClass:[spgScanViewController class]]) {
-        [currentVC dismissViewControllerAnimated:NO completion:nil];
-        currentVC=currentVC.presentingViewController;
-    }
-    
-    if([currentVC isKindOfClass:[spgScanViewController class]])
+    if([segue.identifier isEqualToString:@"showARSegue"])
     {
-        spgScanViewController *scanVC=(spgScanViewController *)currentVC;
-        scanVC.shouldRetry=YES;
+        spgARViewController *arVC= segue.destinationViewController;
+        arVC.tabBarVC=tabBarVC;
     }
 }
 

@@ -57,6 +57,9 @@
     }
     
     self.tabBarController.tabBar.hidden=YES;
+    
+    //observe scooter presentation updates
+    self.tabBarVC.scooterPresentationDelegate=self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -68,6 +71,9 @@
     [timer invalidate];
     
     self.tabBarController.tabBar.hidden=NO;
+    
+    //remove observe scooter presentation updates
+    self.tabBarVC.scooterPresentationDelegate=nil;
 }
 
 //new layout after orientation changed.
@@ -186,8 +192,7 @@
 }
 
 - (IBAction)closeClicked:(UIButton *)sender {
-    spgTabBarViewController *tabBarVC= (spgTabBarViewController *)self.tabBarController;
-    tabBarVC.selectedIndex= tabBarVC.lastSelectedIndex;
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - gesture methods

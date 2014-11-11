@@ -30,6 +30,6 @@
 
 @interface spgTabBarViewController : UITabBarController <UITabBarControllerDelegate,spgBLEServicePeripheralDelegate>
 
-@property NSUInteger lastSelectedIndex;
+@property (nonatomic, weak) id<spgScooterPresentationDelegate> scooterPresentationDelegate;
 
 @end

@@ -16,9 +16,6 @@
                 <outlet property="powerOnView" destination="kqg-DQ-Vfl" id="q6y-nl-KOS"/>
                 <outlet property="scooterEntity" destination="O65-L8-NQz" id="JNs-RO-ZpC"/>
                 <outlet property="scooterName" destination="29d-Bl-QMQ" id="Da8-8X-vWz"/>
-                <outlet property="scooterOutline" destination="Qw0-OF-quA" id="eOH-Bo-PTk"/>
-                <outlet property="unlockButton" destination="SlD-nW-vLW" id="RXU-QC-hOL"/>
-                <outlet property="unlockHalo" destination="tT7-zg-nPi" id="aJG-0P-WIN"/>
                 <outlet property="view" destination="ZRz-JF-8RF" id="uAR-hE-EsB"/>
             </connections>
         </placeholder>
@@ -30,33 +27,18 @@
                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circles.png" translatesAutoresizingMaskIntoConstraints="NO" id="uFY-ls-k6M">
                     <rect key="frame" x="-23" y="-13" width="370" height="590"/>
                 </imageView>
-                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="Qw0-OF-quA">
-                    <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterEntity.png" translatesAutoresizingMaskIntoConstraints="NO" id="O65-L8-NQz">
-                    <rect key="frame" x="0.0" y="20" width="320" height="548"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="O65-L8-NQz">
+                    <rect key="frame" x="40" y="145" width="255" height="290"/>
                 </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Loj-fc-kw7">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="tMt-cc-YRs">
-                            <rect key="frame" x="240" y="230" width="65" height="128"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Phone.png" translatesAutoresizingMaskIntoConstraints="NO" id="tMt-cc-YRs">
+                            <rect key="frame" x="216" y="230" width="65" height="128"/>
                         </imageView>
                         <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="dot1.png" translatesAutoresizingMaskIntoConstraints="NO" id="tCS-wU-pvu">
-                            <rect key="frame" x="197" y="269" width="24" height="24"/>
+                            <rect key="frame" x="150" y="282" width="24" height="24"/>
                         </imageView>
-                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="lockHalo.png" translatesAutoresizingMaskIntoConstraints="NO" id="tT7-zg-nPi">
-                            <rect key="frame" x="60" y="196" width="200" height="200"/>
-                        </imageView>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SlD-nW-vLW">
-                            <rect key="frame" x="60" y="196" width="200" height="200"/>
-                            <state key="normal" image="lockCenter.png">
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="unlockClicked:" destination="-1" eventType="touchUpInside" id="Yyw-Kv-xkv"/>
-                            </connections>
-                        </button>
                     </subviews>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kqg-DQ-Vfl">
@@ -83,9 +65,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VbE-Ij-leS" userLabel="backButton">
-                    <rect key="frame" x="10" y="10" width="35" height="35"/>
+                    <rect key="frame" x="10" y="10" width="32" height="32"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                     <state key="normal" image="back.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -94,9 +76,9 @@
                     </connections>
                 </button>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tl6-u6-CNp" userLabel="closeButton">
-                    <rect key="frame" x="10" y="10" width="35" height="35"/>
+                    <rect key="frame" x="10" y="10" width="32" height="32"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
+                    <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
                     <state key="normal" image="close.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -115,10 +97,7 @@
         <image name="circles.png" width="320" height="568"/>
         <image name="close.png" width="57" height="49"/>
         <image name="dot1.png" width="17" height="17"/>
-        <image name="lockCenter.png" width="415" height="415"/>
-        <image name="lockHalo.png" width="415" height="415"/>
-        <image name="scooterEntity.png" width="640" height="1136"/>
-        <image name="scooterOutline.png" width="640" height="1136"/>
+        <image name="scooterOutline.png" width="434" height="470"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

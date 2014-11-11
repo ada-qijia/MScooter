@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 -(void)cameraTriggered:(SBSCameraCommand)commandType;
 -(void)modeChanged;
 -(void)autoPoweredOff;
--(void)passwordCertificationReturned:(BOOL) correct;
+-(void)passwordCertificationReturned:(CBPeripheral *)peripheral result:(BOOL) correct;
 -(void)powerCharacteristicFound;
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
 -(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral;
