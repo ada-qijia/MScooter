@@ -30,9 +30,9 @@ typedef enum:NSInteger
 @property (weak, nonatomic) IBOutlet UIView *foundView;
 @property (weak, nonatomic) IBOutlet UIScrollView *devicesScrollView;
 @property (weak, nonatomic) IBOutlet UIView *notFoundView;
+@property (weak, nonatomic) IBOutlet UIView *scopeView;
 
 @property (weak, nonatomic) IBOutlet UIView *detailView;
-@property (weak, nonatomic) IBOutlet UIImageView *scooterImage;
 @property (weak, nonatomic) IBOutlet UILabel *deviceNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *batteryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *distanceLabel;

@@ -102,7 +102,6 @@ CBPeripheral *selectedPeripheral;
     CBPeripheral *peripheral= ((spgPeripheralView *)[sender superview]).peripheral;
     float battery=((spgPeripheralView *)[sender superview]).battery;
     self.detailView.hidden=NO;
-    self.scooterImage.image=sender.imageView.image;
     self.deviceNameLabel.text=peripheral.name;
     self.batteryLabel.text=battery>0?[NSString stringWithFormat:@"%0.f%%",battery]:@"-";
     self.distanceLabel.text=battery>0?[NSString stringWithFormat:@"%0.fKM",battery/2.5]:@"-";
@@ -306,14 +305,15 @@ CBPeripheral *selectedPeripheral;
 
 -(void)scaleInAnimation:(UIView *)view
 {
+    view.alpha=0;
     view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{view.transform=CGAffineTransformIdentity;} completion:nil];
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{view.transform=CGAffineTransformIdentity;view.alpha=1;} completion:nil];
 }
 
 -(void)scaleOutAnimation:(UIView *)view
 {
     view.transform=CGAffineTransformIdentity;
-    [UIView animateWithDuration:1.5 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse) animations:^{view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);} completion:nil];
+    [UIView animateWithDuration:0.5 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse) animations:^{view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);view.alpha=0;} completion:nil];
 }
 
 #pragma mark - navigation
@@ -439,10 +439,13 @@ CBPeripheral *selectedPeripheral;
                 stationView=[[[NSBundle mainBundle] loadNibNamed:@"spgStation" owner:self options:nil] objectAtIndex:0];
                 index=((NSNumber *)availableStationPos[0]).integerValue;
                 stationView.frame=CGRectMake(stationPos[index].x, stationPos[index].y, stationView.frame.size.width, stationView.frame.size.height);
+                stationView.tag=index;
                 [availableStationPos removeObjectAtIndex:0];
                 
                 [self.devicesScrollView addSubview:stationView];
                 [self scaleInAnimation:stationView];
+                
+                [self addDeviceFlagToScope:stationView.frame.origin withTag:stationView.tag isScooter:NO];
             }
             else
             {
@@ -463,7 +466,9 @@ CBPeripheral *selectedPeripheral;
                 }
             }
             
-            [stationView removeFromSuperview];
+            [self scaleOutAnimation:stationView];
+            [self performSelector:@selector(removeViewInScrollView:) withObject:stationView afterDelay:0.5];
+
             [self.foundStations removeObjectForKey:peripheral];
             break;
         default:
@@ -497,9 +502,11 @@ CBPeripheral *selectedPeripheral;
                 [self.devicesScrollView addSubview:scooterView];
                 index=((NSNumber *)availableScooterPos[0]).integerValue;
                 scooterView.frame=CGRectMake(scooterPos[index].x, scooterPos[index].y, scooterView.frame.size.width, scooterView.frame.size.height);
+                scooterView.tag=index+stationCount;
                 [availableScooterPos removeObjectAtIndex:0];
                 
                 [self scaleInAnimation:scooterView];
+                [self addDeviceFlagToScope:scooterView.frame.origin withTag:scooterView.tag isScooter:YES];
             }
             else
             {
@@ -539,13 +546,32 @@ CBPeripheral *selectedPeripheral;
                 }
             }
             
-            [scooterView removeFromSuperview];
+            [self scaleOutAnimation:scooterView];
+            [self performSelector:@selector(removeViewInScrollView:) withObject:scooterView afterDelay:0.5];
             [self.foundPeripherals removeObjectForKey:peripheral];
             break;
         default:
             break;
     }
     
+}
+
+-(void)removeViewInScrollView:(UIView *)view
+{
+    [view removeFromSuperview];
+    //remove related flag in scope view
+    [[self.scopeView viewWithTag:view.tag] removeFromSuperview];
+}
+
+-(void)addDeviceFlagToScope:(CGPoint)originInScrollView withTag:(NSInteger)tag isScooter:(BOOL)isScooter
+{
+    UIImageView *imgView=[UIImageView new];
+    NSString *imgName=isScooter?@"scooterFlag.png":@"stationFlag.png";
+    imgView.image=[UIImage imageNamed:imgName];
+    float ratio=self.scopeView.frame.size.height/self.view.frame.size.height;
+    imgView.frame=CGRectMake(originInScrollView.x*ratio, originInScrollView.y*ratio, 14, 14);
+    imgView.tag=tag;
+    [self.scopeView addSubview:imgView];
 }
 
 -(void)createPositions

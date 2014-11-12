@@ -192,7 +192,7 @@ static const NSInteger warningViewTag=8888;
     [contentLabel setTextColor:[UIColor redColor]];
     contentLabel.font=[UIFont fontWithName:@"System" size:14];
     contentLabel.textAlignment=NSTextAlignmentCenter;
-    contentLabel.text=@"Connection failed!";
+    contentLabel.text=@"Disconnected!";
     [warningView addSubview:contentLabel];
     
     UIView *transitionView= self.view.subviews[0];
