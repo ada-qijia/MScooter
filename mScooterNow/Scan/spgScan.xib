@@ -41,10 +41,10 @@
                                 <outlet property="delegate" destination="-1" id="ps1-Lc-UgK"/>
                             </connections>
                         </scrollView>
-                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whl-4a-mog">
+                        <view tag="10000" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whl-4a-mog">
                             <rect key="frame" x="210" y="10" width="100" height="100"/>
                             <subviews>
-                                <imageView userInteractionEnabled="NO" tag="10000" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scanScope.png" translatesAutoresizingMaskIntoConstraints="NO" id="FEa-Ie-GTf">
+                                <imageView userInteractionEnabled="NO" tag="10001" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scanScope.png" translatesAutoresizingMaskIntoConstraints="NO" id="FEa-Ie-GTf">
                                     <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                                 </imageView>
                             </subviews>
