@@ -8,13 +8,14 @@
 
 #import "spgScanViewController.h"
 #import "spgPeripheralView.h"
+#import "spgScooterPeripheral.h"
 
 static NSString *const SCOOTER_SERVICE_UUID=@"4B4681A4-1246-1EEC-AB2B-FE45F896822D";
 static const NSInteger scooterCount = 10;
 static const NSInteger stationCount = 3;
-static const NSInteger stateChangeInterval=3;
+static const NSInteger stateChangeInterval=1.5;
 static const NSInteger stationAdvInterval=2;
-static const NSInteger scooterAdvInterval=1;
+static const NSInteger scooterTimeArrayCount=3;
 
 
 @interface spgScanViewController ()
@@ -135,10 +136,26 @@ CBPeripheral *selectedPeripheral;
     self.circlesImage.hidden=YES;
     self.retryButton.hidden=YES;
     
+    for (UIView *flagView in self.scopeView.subviews) {
+        [flagView removeFromSuperview];
+    }
     for(UIView *deviceView in self.devicesScrollView.subviews)
     {
         [deviceView removeFromSuperview];
     }
+    
+    [availableScooterPos removeAllObjects];
+    for(int i=0;i<scooterCount;i++)
+    {
+        [availableScooterPos addObject:[NSNumber numberWithInt:i]];
+    }
+    
+    [availableStationPos removeAllObjects];
+    for(int i=0;i<stationCount;i++)
+    {
+        [availableStationPos addObject:[NSNumber numberWithInt:i]];
+    }
+
     
     //start scan
     [self.foundPeripherals removeAllObjects];
@@ -160,7 +177,7 @@ CBPeripheral *selectedPeripheral;
             NSArray *knownPeripherals= [self.bleService.centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
             if(knownPeripherals.count>0)
             {
-                [self.foundPeripherals setObject:[NSDate dateWithTimeIntervalSince1970:0] forKey:knownPeripherals[0]];
+                [self.foundPeripherals setObject:[self CreateNewSpgScooterPeripheral] forKey:knownPeripherals[0]];
                 [self navigateWithPeripheral:knownPeripherals[0]];
             }
             else
@@ -177,6 +194,21 @@ CBPeripheral *selectedPeripheral;
         return true;
     }
     return false;
+}
+
+-(spgScooterPeripheral *)CreateNewSpgScooterPeripheral
+{
+    spgScooterPeripheral *entity=[[spgScooterPeripheral alloc] init];
+    
+    NSMutableArray *array=[[NSMutableArray alloc] init];
+    for(int i=0;i<scooterTimeArrayCount;i++)
+    {
+        [array addObject:[NSDate dateWithTimeIntervalSince1970:0]];
+    }
+    entity.RecentTimeArray=array;
+    entity.LastPosition=-1;
+    
+    return entity;
 }
 
 -(void)stopScan
@@ -201,11 +233,12 @@ CBPeripheral *selectedPeripheral;
 
 -(void)timerElapsed
 {
+    NSDate *dateNow=[[NSDate alloc] initWithTimeIntervalSinceNow:0];
     NSMutableDictionary *stations=[NSMutableDictionary dictionaryWithDictionary:self.foundStations];
     
     for (CBPeripheral *peripheral in stations) {
         NSDate *lastDate=[stations objectForKey:peripheral];
-        NSTimeInterval interval=-[lastDate timeIntervalSinceNow];
+        NSTimeInterval interval= [dateNow timeIntervalSinceDate:lastDate];
         if(interval>=stationAdvInterval && interval<=stateChangeInterval+stationAdvInterval)//vague
         {
             [self updateStationUIState:peripheral state:BLEDeviceStateVague];
@@ -218,16 +251,27 @@ CBPeripheral *selectedPeripheral;
     
     NSMutableDictionary *scooters=[NSMutableDictionary dictionaryWithDictionary:self.foundPeripherals];
     for (CBPeripheral *peripheral in scooters) {
-        NSDate *lastDate=[scooters objectForKey:peripheral];
-        NSTimeInterval interval=-[lastDate timeIntervalSinceNow];
-        
-        if(interval>=scooterAdvInterval && interval<=stateChangeInterval+scooterAdvInterval)//vague
-        {
-            [self updateScooterUIState:peripheral battery:nil state:BLEDeviceStateVague];
+        spgScooterPeripheral *entity=[scooters objectForKey:peripheral];
+        int recentCount=0;
+        for (NSDate *date in entity.RecentTimeArray) {
+            NSTimeInterval interval=[dateNow timeIntervalSinceDate:date];
+            if(interval<=stateChangeInterval)
+            {
+                recentCount++;
+            }
         }
-        else if(interval>stateChangeInterval+scooterAdvInterval)//disappear
+
+        if(recentCount==0)
         {
-            [self updateScooterUIState:peripheral battery:nil state:BLEDeviceStateInactive];
+            [self updateScooterUIState:peripheral battery:entity.BatteryData state:BLEDeviceStateInactive];
+        }
+        else if(recentCount<=2)
+        {
+            [self updateScooterUIState:peripheral battery:entity.BatteryData state:BLEDeviceStateVague];
+        }
+        else
+        {
+            [self updateScooterUIState:peripheral battery:entity.BatteryData state:BLEDeviceStateActive];
         }
     }
 }
@@ -392,21 +436,16 @@ CBPeripheral *selectedPeripheral;
             
             if(batteryData)
             {
-                NSDate *lastDate=(NSDate *)self.foundPeripherals[peripheral];
-                [self.foundPeripherals setObject:dateNow forKey:peripheral];
-                
-                if(!lastDate)//first add
+                spgScooterPeripheral *entity= self.foundPeripherals[peripheral];
+                //first add
+                if(!entity)
                 {
-                    [self updateScooterUIState:peripheral battery:batteryData state:BLEDeviceStateVague];
+                    entity=[self CreateNewSpgScooterPeripheral];
+                    [self.foundPeripherals setObject:entity forKey:peripheral];
                 }
-                else if([dateNow timeIntervalSinceDate:lastDate]<=stateChangeInterval)
-                {
-                    [self updateScooterUIState:peripheral battery:batteryData state:BLEDeviceStateActive];
-                }
-                else
-                {
-                    [self updateScooterUIState:peripheral battery:batteryData state:BLEDeviceStateVague];
-                }
+                entity.BatteryData=batteryData;
+                [entity.RecentTimeArray removeObjectAtIndex:0];
+                [entity.RecentTimeArray addObject:dateNow];
             }
         }
     });
@@ -468,7 +507,7 @@ CBPeripheral *selectedPeripheral;
             
             [self scaleOutAnimation:stationView];
             [self performSelector:@selector(removeViewInScrollView:) withObject:stationView afterDelay:0.5];
-
+            
             [self.foundStations removeObjectForKey:peripheral];
             break;
         default:
