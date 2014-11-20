@@ -32,6 +32,7 @@
 
 #define BackgroundImageColor [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.jpg"]];
 
+static NSString * const kNotFirstUseKey=@"notFirstUse";
 static NSString * const kMyPeripheralIDKey= @"myPeripheralID";
 //default campus mode
 static NSString * const kMyScenarioModeKey=@"myScenarioMode";
@@ -50,10 +51,11 @@ static NSString * const kMyScenarioModeKey=@"myScenarioMode";
 
 typedef enum:NSUInteger
 {
+    Gauge,
     ARModeCool,
     ARModeList,
     ARModeMap,
     ARModeNormal
-}ARMode;
+}DashboardMode;
 
 #endif

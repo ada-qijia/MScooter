@@ -18,6 +18,7 @@
 @implementation spgDashboardViewController
 {
     spgTabBarViewController *tabBarVC;
+    DashboardMode currentMode;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -33,6 +34,14 @@
 {
     [super viewDidLoad];
     tabBarVC=(spgTabBarViewController *)self.tabBarController;//.parentViewController;
+    
+    UISwipeGestureRecognizer *horizontalLeftSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalLeftSwipe:)];
+    horizontalLeftSwipe.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:horizontalLeftSwipe];
+    
+    UISwipeGestureRecognizer *horizontalRightSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalRightSwipe:)];
+    horizontalRightSwipe.direction=UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:horizontalRightSwipe];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -46,13 +55,66 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-
+    
     tabBarVC.scooterPresentationDelegate=nil;
 }
 
 -(UIInterfaceOrientation)preferredInterfaceOrientationForPresentation
 {
     return UIInterfaceOrientationPortrait;
+}
+
+#pragma mark - gesture methods
+
+-(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
+{
+    [self switchViewMode:YES];
+}
+
+-(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
+{
+    [self switchViewMode:NO];
+}
+
+-(void)switchViewMode:(BOOL) next
+{
+    int modeCount=5;
+    UIView *currentView=currentMode==Gauge?self.GaugeView:self.ARView;
+    
+    DashboardMode toMode=next?(currentMode+1)%modeCount:(currentMode-1+modeCount)%modeCount;
+    UIView *nextView=toMode==Gauge?self.GaugeView:self.ARView;
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.type = kCATransitionPush;
+    transition.subtype =next? kCATransitionFromRight:kCATransitionFromLeft;
+    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    
+    [currentView.layer addAnimation:transition forKey:nil];
+    [nextView.layer addAnimation:transition forKey:nil];
+    
+    [[self getViewOfARMode:currentMode] setHidden:YES];
+    [[self getViewOfARMode:toMode] setHidden:NO];
+    currentView.hidden=YES;
+    nextView.hidden=NO;
+    
+    currentMode=toMode;
+}
+
+-(UIView *)getViewOfARMode:(DashboardMode) mode
+{
+    switch (mode) {
+        case ARModeCool:
+            return [self.ARView viewWithTag:11];//.ARInfoView;
+        case ARModeList:
+            return [self.ARView viewWithTag:10];//.ARListView;
+        case ARModeMap:
+            return [self.ARView viewWithTag:12];//.ARMapView;
+        case ARModeNormal:
+            return nil;
+        default:
+            return nil;
+    }
 }
 
 #pragma mark - UI interaction
@@ -110,17 +172,22 @@
 
 -(void)updateSpeed:(float) speed
 {
-    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
+    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:1];
     [gaugesVC.speedGaugeView setValue:speed animated:YES duration:0.3];
 }
 
 -(void)updateBattery:(float) battery
 {
-    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
-    [gaugesVC.batteryGaugeView setValue:battery animated:YES duration:0.3];
-    [gaugesVC.distanceGaugeView setValue:battery animated:YES duration:0.3];
+    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:1];
+    gaugesVC.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
+    gaugesVC.DistanceLabel.text=gaugesVC.BatteryLabel.text;
     
     [gaugesVC setBatteryLow:battery<15];
+}
+
+-(void)modeChanged
+{
+    [self switchViewMode:YES];
 }
 
 #pragma -utility
@@ -131,7 +198,7 @@
     self.powerButton.enabled=!(currentState==CBPeripheralStateConnecting);
     self.powerButton.selected= currentState==CBPeripheralStateDisconnected;
     
-    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:0];
+    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:1];
     [gaugesVC setGaugesEnabled:currentState==CBPeripheralStateConnected];
 }
 

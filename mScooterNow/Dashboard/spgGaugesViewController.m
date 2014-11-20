@@ -55,39 +55,6 @@
     self.speedGaugeView.scalePosition=0.05;
     self.speedGaugeView.scaleDivisionColor=[UIColor whiteColor];
     self.speedGaugeView.scaleSubDivisionColor=[UIColor whiteColor];
-    
-    [self setBatteryStyle:self.batteryGaugeView];
-    [self setBatteryStyle:self.distanceGaugeView];
-    self.distanceGaugeView.unitOfMeasurement=@"km";
-}
-
--(void)setBatteryStyle:(WMGaugeView *)gaugeView
-{
-    gaugeView.unitOfMeasurementFont=[UIFont boldSystemFontOfSize:0.09];
-    gaugeView.unitOfMeasurement=@"%";
-    gaugeView.showUnitOfMeasurement=YES;
-    gaugeView.minValue=0.0;
-    gaugeView.maxValue = 100.0;
-    gaugeView.scaleDivisions = 10;
-    gaugeView.scaleSubdivisions = 5;
-    gaugeView.scaleStartAngle = -180;
-    gaugeView.scaleEndAngle = 180;
-    gaugeView.innerBackgroundStyle = WMGaugeViewInnerBackgroundStyleFlat;
-    gaugeView.scaleFont = [UIFont boldSystemFontOfSize:0.0];//[UIFont fontWithName:@"AvenirNext-UltraLight" size:0.065];
-    gaugeView.scalesubdivisionsAligment = WMGaugeViewSubdivisionsAlignmentCenter;
-    gaugeView.scaleSubdivisionsWidth = 0.002;
-    gaugeView.scaleSubdivisionsLength = 0.04;
-    gaugeView.scaleDivisionsWidth = 0.007;
-    gaugeView.scaleDivisionsLength = 0.07;
-    gaugeView.needleStyle = WMGaugeViewNeedleStyleFlatThin;
-    gaugeView.needleWidth = 0.012;
-    gaugeView.needleHeight = 0.4;
-    gaugeView.needleScrewStyle = WMGaugeViewNeedleScrewStylePlain;
-    gaugeView.needleScrewRadius = 0.05;
-    gaugeView.showScale=YES;
-    gaugeView.scalePosition=0.04;
-    gaugeView.scaleDivisionColor=[UIColor whiteColor];
-    gaugeView.scaleSubDivisionColor=[UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning
@@ -103,6 +70,7 @@
 
 -(void)setGaugesEnabled:(BOOL)enabled
 {
+    //colorful circles
     [self.view viewWithTag:31].hidden=!enabled;
     [self.view viewWithTag:32].hidden=!enabled;
     [self.view viewWithTag:33].hidden=!enabled;
@@ -112,8 +80,6 @@
 {
     NSString *imgName=low?@"batteryLowBg.png":@"batteryBg.png";
     self.batteryBgImage.image=[UIImage imageNamed:imgName];
-    //[self.view viewWithTag:32].hidden=low;
-    //[self.view viewWithTag:33].hidden=low;
 }
 
 @end

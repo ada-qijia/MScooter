@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="TvW-Sd-94B">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
@@ -138,7 +138,7 @@
                                     <segue destination="U2D-sJ-lHO" kind="embed" id="9e3-0G-5BJ"/>
                                 </connections>
                             </containerView>
-                            <view hidden="YES" contentMode="scaleToFill" id="YbF-L4-QYH" userLabel="ListView">
+                            <view hidden="YES" tag="10" contentMode="scaleToFill" id="YbF-L4-QYH" userLabel="ListView">
                                 <rect key="frame" x="0.0" y="40" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -222,7 +222,7 @@
                                     </view>
                                 </subviews>
                             </view>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" id="bm2-rZ-hgw" userLabel="InfoView">
+                            <view clipsSubviews="YES" tag="11" contentMode="scaleToFill" id="bm2-rZ-hgw" userLabel="InfoView">
                                 <rect key="frame" x="0.0" y="40" width="320" height="460"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -282,7 +282,7 @@
                                     </view>
                                 </subviews>
                             </view>
-                            <view hidden="YES" contentMode="scaleToFill" id="7dV-gY-CeH" userLabel="MapView">
+                            <view hidden="YES" tag="12" contentMode="scaleToFill" id="7dV-gY-CeH" userLabel="MapView">
                                 <rect key="frame" x="0.0" y="40" width="320" height="470"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
@@ -406,7 +406,14 @@
                     <view key="view" contentMode="scaleToFill" id="se9-37-Rfa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <subviews>
-                            <containerView contentMode="scaleToFill" id="VXl-aE-Dqk">
+                            <containerView hidden="YES" opaque="NO" contentMode="scaleToFill" id="foT-2f-JYi" userLabel="ARView">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <connections>
+                                    <segue destination="XkJ-Rr-u49" kind="embed" id="ssw-sl-cmS"/>
+                                </connections>
+                            </containerView>
+                            <containerView contentMode="scaleToFill" id="VXl-aE-Dqk" userLabel="GaugeView">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
@@ -425,9 +432,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="powerOn.png"/>
-                                        <connections>
-                                            <segue destination="XkJ-Rr-u49" kind="modal" identifier="showARSegue" id="aAO-4g-IuF"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NV2-Pa-G6X">
                                         <rect key="frame" x="271" y="0.0" width="44" height="44"/>
@@ -452,8 +456,9 @@
                     </tabBarItem>
                     <navigationItem key="navigationItem" id="cSL-jz-0bf"/>
                     <connections>
+                        <outlet property="ARView" destination="foT-2f-JYi" id="1AO-aX-60e"/>
+                        <outlet property="GaugeView" destination="VXl-aE-Dqk" id="5tV-a9-b4N"/>
                         <outlet property="camButton" destination="Vmu-U7-tOO" id="rah-ou-30n"/>
-                        <outlet property="contentView" destination="VXl-aE-Dqk" id="c0b-s8-wb5"/>
                         <outlet property="powerButton" destination="NV2-Pa-G6X" id="WEv-0L-cWd"/>
                         <outlet property="topControllerView" destination="vjU-u3-QoN" id="ZLv-rf-J1u"/>
                     </connections>
@@ -475,15 +480,15 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedBg.png" id="sNi-er-7dL">
-                                        <rect key="frame" x="18" y="42" width="285" height="285"/>
+                                        <rect key="frame" x="18" y="52" width="285" height="285"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedCircle.png" id="9gf-Zc-Ked">
-                                        <rect key="frame" x="43" y="66" width="236" height="236"/>
+                                        <rect key="frame" x="43" y="76" width="236" height="236"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <view tag="34" contentMode="scaleToFill" id="xPj-ae-r5j" customClass="WMGaugeView">
-                                        <rect key="frame" x="46" y="69" width="230" height="230"/>
+                                        <rect key="frame" x="46" y="79" width="230" height="230"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <userDefinedRuntimeAttributes>
@@ -493,63 +498,55 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <view contentMode="scaleToFill" id="gL5-XU-UxJ">
-                                        <rect key="frame" x="0.0" y="454" width="320" height="45"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="infoTitle.png" id="06A-H4-xXL">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="15"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.png" id="UHz-Ot-F6d">
-                                                <rect key="frame" x="0.0" y="15" width="320" height="22"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            </imageView>
-                                        </subviews>
-                                    </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batteryBg.png" id="H56-zT-AI4">
-                                        <rect key="frame" x="23" y="312" width="280" height="128"/>
+                                        <rect key="frame" x="23" y="322" width="280" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batteryCircle.png" id="oAd-lx-Ipg">
-                                        <rect key="frame" x="35" y="324" width="104" height="104"/>
+                                        <rect key="frame" x="35" y="334" width="104" height="104"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distanceCircle.png" id="gQL-Vf-Gzn">
-                                        <rect key="frame" x="187" y="324" width="104" height="104"/>
+                                        <rect key="frame" x="187" y="334" width="104" height="104"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <view tag="35" contentMode="scaleToFill" id="hBZ-eU-Imn" customClass="WMGaugeView">
-                                        <rect key="frame" x="36" y="326" width="101" height="100"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="GLB-Yd-23Z">
+                                        <rect key="frame" x="60" y="370" width="35" height="24"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="50"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
-                                    <view tag="36" contentMode="scaleToFill" id="R9a-Gi-05f" customClass="WMGaugeView">
-                                        <rect key="frame" x="190" y="326" width="100" height="100"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="%" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Hc-Q1-1GY">
+                                        <rect key="frame" x="94" y="377" width="25" height="21"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="50"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </view>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Vfa-aS-rWy">
+                                        <rect key="frame" x="211" y="370" width="35" height="24"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="km" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BBD-uH-Paz">
+                                        <rect key="frame" x="247" y="377" width="25" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                             </view>
                         </subviews>
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="BatteryLabel" destination="GLB-Yd-23Z" id="QrB-xr-3f3"/>
+                        <outlet property="DistanceLabel" destination="Vfa-aS-rWy" id="8ky-aE-AEP"/>
                         <outlet property="batteryBgImage" destination="H56-zT-AI4" id="7vF-C5-ddF"/>
-                        <outlet property="batteryGaugeView" destination="hBZ-eU-Imn" id="yZo-Jl-LVS"/>
-                        <outlet property="distanceGaugeView" destination="R9a-Gi-05f" id="OAy-ho-Wfk"/>
                         <outlet property="speedGaugeView" destination="xPj-ae-r5j" id="5Rl-QC-Bnr"/>
                     </connections>
                 </viewController>
@@ -690,8 +687,6 @@
         <image name="dashboardBg.png" width="475" height="318"/>
         <image name="dashboardCircle.png" width="475" height="318"/>
         <image name="distanceCircle.png" width="203" height="203"/>
-        <image name="info.png" width="640" height="43"/>
-        <image name="infoTitle.png" width="640" height="30"/>
         <image name="me.png" width="27" height="27"/>
         <image name="moments.png" width="27" height="27"/>
         <image name="momentsList.png" width="640" height="1136"/>

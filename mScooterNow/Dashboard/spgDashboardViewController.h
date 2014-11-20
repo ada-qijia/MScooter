@@ -13,7 +13,8 @@
 
 @interface spgDashboardViewController : UIViewController<spgScooterPresentationDelegate,UIAlertViewDelegate>
 
-@property (weak, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet UIView *ARView;
+@property (weak, nonatomic) IBOutlet UIView *GaugeView;
 @property (weak, nonatomic) IBOutlet UIView *topControllerView;
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
 

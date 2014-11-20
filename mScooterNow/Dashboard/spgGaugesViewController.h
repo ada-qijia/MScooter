@@ -14,10 +14,10 @@
 @interface spgGaugesViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet WMGaugeView *speedGaugeView;
-@property (weak, nonatomic) IBOutlet WMGaugeView *batteryGaugeView;
-@property (weak, nonatomic) IBOutlet WMGaugeView *distanceGaugeView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *batteryBgImage;
+@property (weak, nonatomic) IBOutlet UILabel *BatteryLabel;
+@property (weak, nonatomic) IBOutlet UILabel *DistanceLabel;
 
 -(void)rotateLayout:(BOOL)portrait;
 

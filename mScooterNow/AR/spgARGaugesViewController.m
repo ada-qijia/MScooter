@@ -95,13 +95,6 @@
 
 -(void)setGaugesEnabled:(BOOL)enabled
 {
-    /*
-    WMGaugeView *speedView = (WMGaugeView *)[self.view viewWithTag:41];
-    speedView.value=0;
-    WMGaugeView *batteryView = (WMGaugeView *)[self.view viewWithTag:42];
-    batteryView.value=0;
-    */
-    
     self.dashboardCircleImage.hidden=!enabled;
 }
 @end

@@ -43,6 +43,10 @@
 
 -(void)navigateToScan
 {
+    //save notFirstUse preference
+    [spgMScooterUtilities savePreferenceWithKey:kNotFirstUseKey value:@"YES"];
+    
+    //navigate
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
     tabBarVC.selectedIndex=1;

@@ -8,26 +8,46 @@
 
 #import "spgAppDelegate.h"
 #import "spgMScooterCommon.h"
+#import "spgIntroductionViewController.h"
+#import "spgTabBarViewController.h"
+#import "spgScanViewController.h"
 
 @implementation spgAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    // Override point for customization after application launch.
-    //[[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
     [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    
-    [self.window setTintColor:ThemeColor];
     
     //set the default scenario mode to campus
     if(![spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey])
     {
         [spgMScooterUtilities savePreferenceWithKey:kMyScenarioModeKey value:kScenarioModeCampus];
     }
+
+    //whether show user guide or main dashboard
+    self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
     
+    NSString *notFirstUse=[spgMScooterUtilities getPreferenceWithKey:kNotFirstUseKey];
+    if(!notFirstUse || ![notFirstUse isEqualToString:@"YES"])
+    {
+        self.window.rootViewController= [storyboard instantiateViewControllerWithIdentifier:@"spgIntroductionVCID"];
+    }
+    else
+    {
+        self.window.rootViewController=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
+    }
+    
+    /*
+    spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
+    self.window.rootViewController=scanVC;
+     */
+
+    [self.window makeKeyAndVisible];
+    [self.window setTintColor:ThemeColor];
     return YES;
 }
-							
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -36,7 +56,7 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
+    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 }
 

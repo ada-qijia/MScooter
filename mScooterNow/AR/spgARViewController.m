@@ -20,19 +20,11 @@
 {
     NSTimer *timer;
     spgCamViewController *videoCaptureVC;
-    ARMode currentMode;
+    DashboardMode currentMode;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UISwipeGestureRecognizer *horizontalLeftSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalLeftSwipe:)];
-    horizontalLeftSwipe.direction=UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:horizontalLeftSwipe];
-    
-    UISwipeGestureRecognizer *horizontalRightSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalRightSwipe:)];
-    horizontalRightSwipe.direction=UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:horizontalRightSwipe];
     
     videoCaptureVC= [self.childViewControllers objectAtIndex:0];
 }
@@ -157,29 +149,7 @@
     }
 }
 
--(void)modeChanged
-{
-    [self switchARMode:YES];
-}
-
 #pragma - UI interaction
-
--(void)gotoARMode:(ARMode)toMode
-{
-    if(currentMode!=toMode)
-    {
-        currentMode=toMode;
-        UIView *modeView=[self getViewOfARMode:toMode];
-        NSArray* modeViews=[NSArray arrayWithObjects:self.ARInfoView,self.ARListView,self.ARMapView, nil];
-        for (UIView* modeV in modeViews) {
-            modeV.hidden=!(modeV==modeView);
-        }
-        
-        BOOL fullScreen=!(toMode==ARModeMap);
-        spgCamViewController *camVC= self.childViewControllers[0];
-        [camVC showInFullScreen:fullScreen];
-    }
-}
 
 //between video and photo
 - (IBAction)switchCameraMode:(UIButton *)sender {
@@ -193,61 +163,6 @@
 
 - (IBAction)closeClicked:(UIButton *)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - gesture methods
-
--(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
-{
-    [self switchARMode:YES];
-}
-
--(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
-{
-    [self switchARMode:NO];
-}
-
--(void)switchARMode:(BOOL) next
-{
-    int modeCount=4;
-    UIView *currentView=[self getViewOfARMode:currentMode];
-    
-    ARMode toMode=next?(currentMode+1)%modeCount:(currentMode-1+modeCount)%modeCount;
-    UIView *nextView=[self getViewOfARMode:toMode];
-  
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.5;
-    transition.type = kCATransitionPush;
-    transition.subtype =next? kCATransitionFromRight:kCATransitionFromLeft;
-    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-    
-    [nextView.layer addAnimation:transition forKey:nil];
-    [currentView.layer addAnimation:transition forKey:nil];
-    
-    currentView.hidden=YES;
-    nextView.hidden=NO;
-    
-    currentMode=toMode;
-    
-    BOOL fullScreen=!(toMode==ARModeMap);
-    spgCamViewController *camVC= self.childViewControllers[0];
-    [camVC showInFullScreen:fullScreen];
-}
-
--(UIView *)getViewOfARMode:(ARMode) mode
-{
-    switch (mode) {
-        case ARModeCool:
-            return self.ARInfoView;
-        case ARModeList:
-            return self.ARListView;
-        case ARModeMap:
-            return self.ARMapView;
-        case ARModeNormal:
-            return nil;
-        default:
-            return nil;
-    }
 }
 
 #pragma - update UI
