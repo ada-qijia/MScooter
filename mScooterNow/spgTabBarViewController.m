@@ -177,6 +177,16 @@ static const NSInteger warningViewTag=8888;
     }
 }
 
+#pragma - TabBar Delegate
+
+-(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
+{
+    if([tabBar.items indexOfObject:item]==0)
+    {
+        item.badgeValue=nil;
+    }
+}
+
 #pragma - UI update
 
 //add top notification bar

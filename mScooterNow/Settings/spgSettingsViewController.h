@@ -15,5 +15,6 @@
 - (IBAction)AboutClicked:(UIButton *)sender;
 
 - (IBAction)resetScooterClicked:(UIButton *)sender;
+- (IBAction)PasswordSwitchChanged:(UISwitch *)sender;
 
 @end

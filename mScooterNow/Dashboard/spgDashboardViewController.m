@@ -18,6 +18,8 @@
 @implementation spgDashboardViewController
 {
     spgTabBarViewController *tabBarVC;
+    spgARViewController *ARVC;
+    spgGaugesViewController *gaugeVC;
     DashboardMode currentMode;
 }
 
@@ -34,6 +36,8 @@
 {
     [super viewDidLoad];
     tabBarVC=(spgTabBarViewController *)self.tabBarController;//.parentViewController;
+    ARVC=[self.childViewControllers objectAtIndex:0];
+    gaugeVC=[self.childViewControllers objectAtIndex:1];
     
     UISwipeGestureRecognizer *horizontalLeftSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalLeftSwipe:)];
     horizontalLeftSwipe.direction=UISwipeGestureRecognizerDirectionLeft;
@@ -66,14 +70,24 @@
 
 #pragma mark - gesture methods
 
+//only change mode when connected
 -(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
 {
-    [self switchViewMode:YES];
+    CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
+    if(currentState==CBPeripheralStateConnected)
+    {
+        [self switchViewMode:YES];
+    }
 }
 
+//only change mode when connected
 -(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
 {
-    [self switchViewMode:NO];
+    CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
+    if(currentState==CBPeripheralStateConnected)
+    {
+        [self switchViewMode:NO];
+    }
 }
 
 -(void)switchViewMode:(BOOL) next
@@ -117,21 +131,22 @@
     }
 }
 
-#pragma mark - UI interaction
-
-- (IBAction)powerOn:(UIButton *)sender {
-    if(sender.selected)//power on
-    {
-        spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
-        
-        [self presentViewController:scanVC animated:NO completion:nil];
-    }
-    else//power off
-    {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Are you sure to power off your scooter?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Power Off", nil];
-        [alert show];
-    }
-}
+/*
+ #pragma mark - UI interaction
+ 
+ - (IBAction)powerOn:(UIButton *)sender {
+ if(sender.selected)//power on
+ {
+ spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
+ 
+ [self presentViewController:scanVC animated:NO completion:nil];
+ }
+ else//power off
+ {
+ UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Are you sure to power off your scooter?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Power Off", nil];
+ [alert show];
+ }
+ }
 
 #pragma - segue
 
@@ -143,7 +158,7 @@
         arVC.tabBarVC=tabBarVC;
     }
 }
-
+  
 #pragma - UIAlertViewDelegate
 
 -(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
@@ -162,27 +177,47 @@
     spgBLEService *bleService=[spgBLEService sharedInstance];
     [bleService disConnectPeripheral];
 }
+*/
 
 #pragma - spgScooterPresentationDelegate
 
 -(void)updateConnectionState:(BOOL) connected
 {
-    [self updateConnectedUIState];
+    if(self.ARView.hidden)
+    {
+        [self updateConnectedUIState];
+    }
+    else
+    {
+        [ARVC updateConnectionState:connected];
+    }
 }
 
 -(void)updateSpeed:(float) speed
 {
-    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:1];
-    [gaugesVC.speedGaugeView setValue:speed animated:YES duration:0.3];
+    if(self.ARView.hidden)
+    {
+        [gaugeVC.speedGaugeView setValue:speed animated:YES duration:0.3];
+    }
+    else
+    {
+        [ARVC updateSpeed:speed];
+    }
 }
 
 -(void)updateBattery:(float) battery
 {
-    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:1];
-    gaugesVC.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
-    gaugesVC.DistanceLabel.text=gaugesVC.BatteryLabel.text;
-    
-    [gaugesVC setBatteryLow:battery<15];
+    if(self.ARView.hidden)
+    {
+        gaugeVC.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
+        gaugeVC.DistanceLabel.text=gaugeVC.BatteryLabel.text;
+        
+        [gaugeVC setBatteryLow:battery<15];
+    }
+    else
+    {
+        [ARVC updateBattery:battery];
+    }
 }
 
 -(void)modeChanged
@@ -198,8 +233,7 @@
     self.powerButton.enabled=!(currentState==CBPeripheralStateConnecting);
     self.powerButton.selected= currentState==CBPeripheralStateDisconnected;
     
-    spgGaugesViewController *gaugesVC= [self.childViewControllers objectAtIndex:1];
-    [gaugesVC setGaugesEnabled:currentState==CBPeripheralStateConnected];
+    [gaugeVC setGaugesEnabled:currentState==CBPeripheralStateConnected];
 }
 
 @end

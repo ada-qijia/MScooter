@@ -56,7 +56,7 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 
 @interface spgBLEService : NSObject<CBCentralManagerDelegate,CBPeripheralDelegate>
 
-+(id)sharedInstance;
++(spgBLEService *)sharedInstance;
 
 @property (nonatomic, weak) id<spgBLEServiceDiscoverPeripheralsDelegate> discoverPeripheralsDelegate;
 @property (nonatomic, weak) id<spgBLEServicePeripheralDelegate> peripheralDelegate;

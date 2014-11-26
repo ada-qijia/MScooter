@@ -19,6 +19,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *BatteryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *DistanceLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *AddButton;
+@property (weak, nonatomic) IBOutlet UIButton *ConnectButton;
+
+- (IBAction)AddScooter:(UIButton *)sender;
+- (IBAction)ConnectScooter:(UIButton *)sender;
+
 -(void)rotateLayout:(BOOL)portrait;
 
 -(void)setGaugesEnabled:(BOOL)enabled;

@@ -7,11 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CoreBluetooth/CoreBluetooth.h>
+#import "spgMScooterCommon.h"
 
 @interface spgScooterPeripheral : NSObject
 
+@property CBPeripheral *Peripheral;
 @property (strong,nonatomic) NSMutableArray *RecentTimeArray;
 @property (strong,nonatomic) NSData *BatteryData;
-@property (nonatomic) int LastPosition;
+@property (nonatomic) BLEDeviceState CurrentState;
+@property (nonatomic) int FlagTag;
+
+-(id)initWithPeripheral:(CBPeripheral *)peripheral timeArrayCapacity:(NSUInteger) capacity;
 
 @end

@@ -21,7 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg2.jpg"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgGradient.jpg"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -52,6 +52,11 @@
 - (IBAction)resetScooterClicked:(UIButton *)sender {
     UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Are you sure to reset a new scooter?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Reset", nil];
     [alert show];
+}
+
+- (IBAction)PasswordSwitchChanged:(UISwitch *)sender {
+    NSString *isOn=sender.isOn?@"YES":@"NO";
+    [spgMScooterUtilities savePreferenceWithKey:kPasswordOnKey value:isOn];
 }
 
 #pragma - UIAlertViewDelegate

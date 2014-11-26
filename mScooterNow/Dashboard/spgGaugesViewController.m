@@ -7,6 +7,8 @@
 //
 
 #import "spgGaugesViewController.h"
+#import "spgScanViewController.h"
+#import "spgBLEService.h"
 
 @interface spgGaugesViewController ()
 
@@ -23,11 +25,18 @@
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    spgBLEService *bleService=[spgBLEService sharedInstance];
+    BOOL connected=bleService.peripheral.state==CBPeripheralStateConnected;
+    [self setAddConnectUIState:(!connected)];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg2.jpg"]];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgGradient.jpg"]];
     
     self.speedGaugeView.unitOfMeasurementFont=[UIFont boldSystemFontOfSize:0.07];
     self.speedGaugeView.unitOfMeasurement=@"km/h";
@@ -65,6 +74,15 @@
 
 #pragma - update UI
 
+- (IBAction)AddScooter:(UIButton *)sender {
+    spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
+    [self presentViewController:scanVC animated:YES completion:nil];
+}
+
+- (IBAction)ConnectScooter:(UIButton *)sender {
+    [[spgBLEService sharedInstance] connectPeripheral];
+}
+
 -(void)rotateLayout:(BOOL)portrait
 {}
 
@@ -74,12 +92,59 @@
     [self.view viewWithTag:31].hidden=!enabled;
     [self.view viewWithTag:32].hidden=!enabled;
     [self.view viewWithTag:33].hidden=!enabled;
+    
+    [self setAddConnectUIState:enabled];
 }
 
 -(void)setBatteryLow:(BOOL)low
 {
     NSString *imgName=low?@"batteryLowBg.png":@"batteryBg.png";
     self.batteryBgImage.image=[UIImage imageNamed:imgName];
+}
+
+-(void)setAddConnectUIState:(BOOL)enabled
+{
+    if(enabled)
+    {
+        BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
+        NSString *knownUUIDString=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
+        BOOL passwordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
+        
+        //set peripheral
+        if([spgBLEService sharedInstance].peripheral==nil)
+        {
+            if(isPersonal && knownUUIDString)//saved
+            {
+                NSUUID *knownUUID=[[NSUUID alloc] initWithUUIDString:knownUUIDString];
+                NSArray *savedIdentifier=[NSArray arrayWithObjects:knownUUID, nil];
+                NSArray *knownPeripherals= [[spgBLEService sharedInstance].centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
+                if(knownPeripherals.count>0)
+                {
+                    [spgBLEService sharedInstance].peripheral=knownPeripherals[0];
+                }
+            }
+        }
+        
+        if([spgBLEService sharedInstance].peripheral)//connect to old peripheral
+        {
+            self.AddButton.hidden=YES;
+            self.ConnectButton.hidden=passwordOn?NO:YES;
+            if(!passwordOn)
+            {
+                [[spgBLEService sharedInstance] connectPeripheral];
+            }
+        }
+        else//need add
+        {
+            self.AddButton.hidden=NO;
+            self.ConnectButton.hidden=YES;
+        }
+    }
+    else
+    {
+        self.AddButton.hidden=YES;
+        self.ConnectButton.hidden=YES;
+    }
 }
 
 @end

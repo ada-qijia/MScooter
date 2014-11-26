@@ -18,6 +18,8 @@
 @property (weak, nonatomic) IBOutlet UIView *topControllerView;
 @property (weak, nonatomic) IBOutlet UIButton *powerButton;
 
+/*
 - (IBAction)powerOn:(UIButton *)sender;
+*/
 
 @end

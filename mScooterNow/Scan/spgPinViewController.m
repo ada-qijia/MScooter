@@ -87,8 +87,8 @@ static NSUInteger const THNumberOfPinEntries = 6;
     pinViewController.view.tintColor = ThemeColor;
     
     // for a solid background color, use this:
-    pinViewController.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    pinViewController.translucentBackground = NO;
+    //pinViewController.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    pinViewController.translucentBackground = YES;
     
     [self presentViewController:pinViewController animated:animated completion:nil];
 }

@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bg2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Ees-8f-dUB">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bgGradient.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Ees-8f-dUB">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="We Need an Account to Manage Your Data" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lwz-KT-NuS">
@@ -111,7 +111,7 @@
         </view>
     </objects>
     <resources>
-        <image name="bg2.jpg" width="320" height="568"/>
+        <image name="bgGradient.jpg" width="320" height="568"/>
         <image name="snsSkype.png" width="132" height="132"/>
         <image name="snsWechat.png" width="132" height="132"/>
         <image name="snsWeibo.png" width="132" height="132"/>

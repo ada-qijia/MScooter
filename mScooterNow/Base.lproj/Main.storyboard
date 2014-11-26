@@ -65,9 +65,6 @@
                                 <state key="normal">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
-                                <connections>
-                                    <action selector="changePasswordClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="uJ4-38-4gH"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lXF-rc-vBT">
                                 <rect key="frame" x="0.0" y="297" width="320" height="55"/>
@@ -91,6 +88,13 @@
                                     <action selector="resetScooterClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="VDE-i7-7dl"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="TUX-mR-pLK">
+                                <rect key="frame" x="263" y="253" width="51" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="PasswordSwitchChanged:" destination="Xoj-0t-sl9" eventType="valueChanged" id="Uxc-Du-XrO"/>
+                                </connections>
+                            </switch>
                         </subviews>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="me.png" id="Yti-bY-Q77">
@@ -380,7 +384,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg2.jpg" id="vMI-ZR-sey">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bgGradient.jpg" id="vMI-ZR-sey">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -410,7 +414,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <connections>
-                                    <segue destination="XkJ-Rr-u49" kind="embed" id="ssw-sl-cmS"/>
+                                    <segue destination="XkJ-Rr-u49" kind="embed" identifier="" id="ssw-sl-cmS"/>
                                 </connections>
                             </containerView>
                             <containerView contentMode="scaleToFill" id="VXl-aE-Dqk" userLabel="GaugeView">
@@ -442,9 +446,6 @@
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <state key="selected" image="powerOn.png"/>
-                                        <connections>
-                                            <action selector="powerOn:" destination="qNt-DY-caT" eventType="touchUpInside" id="iPT-EM-tvG"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                             </view>
@@ -498,6 +499,26 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GSg-bK-o8y">
+                                        <rect key="frame" x="114" y="269" width="92" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Add Scooter">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="AddScooter:" destination="23R-lI-sAc" eventType="touchUpInside" id="1J5-ba-Ytt"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kzh-0U-fMq">
+                                        <rect key="frame" x="114" y="269" width="92" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Connect Scooter">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ConnectScooter:" destination="23R-lI-sAc" eventType="touchUpInside" id="G7n-9j-sua"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batteryBg.png" id="H56-zT-AI4">
                                         <rect key="frame" x="23" y="322" width="280" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -544,7 +565,9 @@
                     </view>
                     <toolbarItems/>
                     <connections>
+                        <outlet property="AddButton" destination="GSg-bK-o8y" id="7hS-e9-NI9"/>
                         <outlet property="BatteryLabel" destination="GLB-Yd-23Z" id="QrB-xr-3f3"/>
+                        <outlet property="ConnectButton" destination="kzh-0U-fMq" id="HsA-Jd-CcM"/>
                         <outlet property="DistanceLabel" destination="Vfa-aS-rWy" id="8ky-aE-AEP"/>
                         <outlet property="batteryBgImage" destination="H56-zT-AI4" id="7vF-C5-ddF"/>
                         <outlet property="speedGaugeView" destination="xPj-ae-r5j" id="5Rl-QC-Bnr"/>
@@ -679,7 +702,7 @@
         <image name="back.png" width="36" height="49"/>
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
-        <image name="bg2.jpg" width="320" height="568"/>
+        <image name="bgGradient.jpg" width="320" height="568"/>
         <image name="camera.png" width="57" height="49"/>
         <image name="capture.png" width="72" height="42"/>
         <image name="close.png" width="57" height="49"/>

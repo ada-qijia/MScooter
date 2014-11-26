@@ -23,7 +23,7 @@
     {
         [spgMScooterUtilities savePreferenceWithKey:kMyScenarioModeKey value:kScenarioModeCampus];
     }
-
+    
     //whether show user guide or main dashboard
     self.window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
     UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -35,14 +35,16 @@
     }
     else
     {
-        self.window.rootViewController=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
+        spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
+        tabBarVC.selectedIndex=1;
+        self.window.rootViewController=tabBarVC;
     }
     
     /*
-    spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
-    self.window.rootViewController=scanVC;
+     spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
+     self.window.rootViewController=scanVC;
      */
-
+    
     [self.window makeKeyAndVisible];
     [self.window setTintColor:ThemeColor];
     return YES;

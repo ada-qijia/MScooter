@@ -48,8 +48,6 @@
         [self updateTemperature];
     }
     
-    self.tabBarController.tabBar.hidden=YES;
-    
     //observe scooter presentation updates
     self.tabBarVC.scooterPresentationDelegate=self;
 }
@@ -61,8 +59,6 @@
     [videoCaptureVC stopVideoCapture];
     
     [timer invalidate];
-    
-    self.tabBarController.tabBar.hidden=NO;
     
     //remove observe scooter presentation updates
     self.tabBarVC.scooterPresentationDelegate=nil;

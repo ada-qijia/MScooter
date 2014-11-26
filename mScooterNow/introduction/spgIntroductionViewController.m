@@ -19,8 +19,8 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder
 {
-    if(self=[super initWithCoder:aDecoder])
-    {
+    self = [super initWithCoder:aDecoder];
+    if (self) {
         self.isRelay=YES;
     }
     return self;
@@ -71,7 +71,7 @@
     
     spgIntroductionView *introductionView = [[spgIntroductionView alloc] initWithFrame:fullFrame];
     introductionView.delegate=self;
-    introductionView.BackgroundImageView.image=[UIImage imageNamed:@"bg2.jpg"];
+    introductionView.BackgroundImageView.image=[UIImage imageNamed:@"bgGradient.jpg"];
     introductionView.buttonClicked=^(UIButton * sender)
     {
         [self footerButtonClicked:sender];

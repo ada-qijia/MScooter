@@ -36,6 +36,8 @@ static NSString * const kNotFirstUseKey=@"notFirstUse";
 static NSString * const kMyPeripheralIDKey= @"myPeripheralID";
 //default campus mode
 static NSString * const kMyScenarioModeKey=@"myScenarioMode";
+//YES,NO
+static NSString * const kPasswordOnKey=@"passwordOn";
 #define kScenarioModeCampus @"campus"
 #define kScenarioModePersonal @"personal"
 
@@ -57,5 +59,13 @@ typedef enum:NSUInteger
     ARModeMap,
     ARModeNormal
 }DashboardMode;
+
+typedef enum:NSInteger
+{
+    BLEDeviceStateUndefined,
+    BLEDeviceStateActive,
+    BLEDeviceStateVague,
+    BLEDeviceStateInactive
+}BLEDeviceState;
 
 #endif

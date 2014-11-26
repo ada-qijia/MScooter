@@ -106,7 +106,7 @@ static spgBLEService *sharedInstance=nil;
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     NSRange range= [peripheral.name rangeOfString:kScooterDeviceName options:NSCaseInsensitiveSearch];
-    if(range.location!=NSNotFound||[peripheral.name hasPrefix:kScooterStationPrefix])
+    if(range.location!=NSNotFound)
     {
         if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
         {
