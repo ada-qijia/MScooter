@@ -13,7 +13,7 @@
 static NSString *const SCOOTER_SERVICE_UUID=@"4B4681A4-1246-1EEC-AB2B-FE45F896822D";
 static const NSInteger scooterCount = 10;
 static const NSInteger stateChangeInterval=4;
-static const NSInteger scooterTimeArrayCount=6;
+static const NSInteger scooterTimeArrayCount=10;
 
 
 @interface spgScanViewController ()
@@ -35,7 +35,7 @@ static const NSInteger scooterTimeArrayCount=6;
     UIImage *dotImage;
     NSTimer *observerTimer;
     
-    int selectedIndex;
+    spgScooterPeripheral *visibleScooter;
 }
 
 #pragma - LifeCycle methods
@@ -54,7 +54,7 @@ static const NSInteger scooterTimeArrayCount=6;
     
     //set background
     BOOL isCampusMode=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModeCampus];
-    NSString *imageName=isCampusMode?@"bgCampus.jpg":@"bgPersonal.png";
+    NSString *imageName=isCampusMode?@"bgCampus.png":@"bgPersonal.png";
     self.view.backgroundColor =[UIColor colorWithPatternImage:[UIImage imageNamed:imageName]];
     
     //initialize
@@ -64,7 +64,6 @@ static const NSInteger scooterTimeArrayCount=6;
     
     [self createPositions];
     dotImage=[UIImage imageNamed:@"dot.png"];
-    selectedIndex=0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,20 +96,20 @@ static const NSInteger scooterTimeArrayCount=6;
 //cycle
 - (IBAction)preClicked:(id)sender {
     int count=(int)self.foundPeripherals.count;
+    int selectedIndex=(int)[self.foundPeripherals indexOfObject:visibleScooter];
     int preIndex=(selectedIndex-1+count)%count;
     spgScooterPeripheral *scooter=self.foundPeripherals[preIndex];
     
-    selectedIndex=preIndex;
     [self updateScooter:scooter];
 }
 
 //cycle
 - (IBAction)nextClicked:(id)sender {
     int count=(int)self.foundPeripherals.count;
+    int selectedIndex=(int)[self.foundPeripherals indexOfObject:visibleScooter];
     int nextIndex=(selectedIndex+1+count)%count;
     spgScooterPeripheral *scooter=self.foundPeripherals[nextIndex];
     
-    selectedIndex=nextIndex;
     [self updateScooter:scooter];
 }
 
@@ -121,10 +120,9 @@ static const NSInteger scooterTimeArrayCount=6;
     if(buttonIndex==1)
     {
         //navigate
-        spgScooterPeripheral *scooter=self.foundPeripherals[selectedIndex];
-        if(scooter)
+        if(visibleScooter)
         {
-            [self navigateWithPeripheral:scooter.Peripheral];
+            [self navigateWithPeripheral:visibleScooter.Peripheral];
         }
     }
 }
@@ -144,7 +142,7 @@ static const NSInteger scooterTimeArrayCount=6;
     }
     
     //start scan
-    selectedIndex=0;
+    visibleScooter=nil;
     [self.foundPeripherals removeAllObjects];
     
     if(!isScanning && self.bleService.centralManager.state==CBCentralManagerStatePoweredOn)
@@ -221,11 +219,11 @@ static const NSInteger scooterTimeArrayCount=6;
         {
             scooter.CurrentState=BLEDeviceStateInactive;
         }
-        else if(recentCount<=2)
+        else if(recentCount<=3)
         {
             scooter.CurrentState=BLEDeviceStateVague;
         }
-        else if(recentCount>=5)
+        else if(recentCount>=6)
         {
             scooter.CurrentState=BLEDeviceStateActive;
         }
@@ -404,10 +402,6 @@ static const NSInteger scooterTimeArrayCount=6;
 //update pre/next button, scooter UI, scopeView
 -(void)scooterStateChanged:(spgScooterPeripheral *)scooter oldState:(BLEDeviceState) oldState newState:(BLEDeviceState) newState
 {
-    //pre/next button
-    self.preButton.hidden=self.foundPeripherals.count<=1;
-    self.nextButton.hidden=self.preButton.hidden;
-    
     //scope view
     UIImageView *flagView = (UIImageView *)[self.scopeView viewWithTag:scooter.FlagTag];
     if(newState==BLEDeviceStateActive||newState==BLEDeviceStateVague)
@@ -418,6 +412,8 @@ static const NSInteger scooterTimeArrayCount=6;
         else
         {
             scooter.FlagTag=(int)((NSNumber *)availableScooterPos[0]).integerValue;
+            [availableScooterPos removeObjectAtIndex:0];
+            
             flagView=[UIImageView new];
             CGPoint point=scooterPos[scooter.FlagTag];
             float ratio=self.scopeView.frame.size.height/self.view.frame.size.height;
@@ -437,37 +433,42 @@ static const NSInteger scooterTimeArrayCount=6;
     
     //scooter UI,
     //this changed foundPeripherals, should be left bottom
+    if(visibleScooter==nil||scooter==visibleScooter)
+    {
+        if(newState==BLEDeviceStateInactive)
+        {
+            int selectedIndex=(int)[self.foundPeripherals indexOfObject:visibleScooter];
+            int count=(int)self.foundPeripherals.count;
+            if(count>1)//show next
+            {
+                int nextIndex=(selectedIndex+1)%count;
+                [self updateScooter:self.foundPeripherals[nextIndex]];
+            }
+            else
+            {
+                [self updateScooter:nil];
+            }
+        }
+        else if(newState==BLEDeviceStateActive||newState==BLEDeviceStateVague)
+        {
+            [self updateScooter:scooter];
+        }
+    }
+    
+    //scooter array
     if(newState==BLEDeviceStateInactive)
     {
         [self.foundPeripherals removeObject:scooter];
-        
-        int count=(int)self.foundPeripherals.count;
-        if(count>0)
-        {
-            selectedIndex=(selectedIndex+count)%count;
-            if(self.foundPeripherals.count>selectedIndex)
-            {
-                [self updateScooter:self.foundPeripherals[selectedIndex]];
-            }
-        }
-        else
-        {
-            selectedIndex=0;
-            [self updateScooter:nil];
-        }
-        
     }
-    else if(newState==BLEDeviceStateActive||newState==BLEDeviceStateVague)
-    {
-        if(self.foundPeripherals.count>selectedIndex)
-        {
-            [self updateScooter:self.foundPeripherals[selectedIndex]];
-        }
-    }
- }
+    
+    //pre/next button
+    self.preButton.hidden=self.foundPeripherals.count<=1;
+    self.nextButton.hidden=self.preButton.hidden;
+}
 
 -(void)updateScooter:(spgScooterPeripheral *)scooter
 {
+    visibleScooter=scooter;
     if(scooter)
     {
         if(scooter.CurrentState==BLEDeviceStateActive||scooter.CurrentState==BLEDeviceStateVague)
@@ -480,7 +481,7 @@ static const NSInteger scooterTimeArrayCount=6;
             UILabel *nameLabel=(UILabel *)[self.scooterView viewWithTag:13];
             nameLabel.text=scooter.Peripheral.name;
             
-            UIButton *addButton=(UIButton *)[self.scooterView viewWithTag:12];
+            UIButton *addButton=(UIButton *)[self.scooterView viewWithTag:14];
             addButton.hidden=scooter.CurrentState==BLEDeviceStateActive?NO:YES;
             //self.scooterView.alpha=scooter.CurrentState==BLEDeviceStateActive?1:0.7;
             

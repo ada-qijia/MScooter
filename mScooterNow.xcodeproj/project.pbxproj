@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		326A42ED1A25C2D400941984 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EB1A25C2D400941984 /* next.png */; };
+		326A42EE1A25C2D400941984 /* pre.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EC1A25C2D400941984 /* pre.png */; };
+		326A42F01A25C77F00941984 /* bgCampus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EF1A25C77F00941984 /* bgCampus@2x.png */; };
+		326A42F21A26F73700941984 /* scooterInfoBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42F11A26F73700941984 /* scooterInfoBg@2x.png */; };
+		326A42F51A27021D00941984 /* addBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42F31A27021D00941984 /* addBg.png */; };
+		326A42F61A27021D00941984 /* unlockBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42F41A27021D00941984 /* unlockBg.png */; };
 		329FF84219F608180011B1CE /* spgLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 329FF84019F608180011B1CE /* spgLoginViewController.m */; };
 		329FF84319F608180011B1CE /* spgLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 329FF84119F608180011B1CE /* spgLoginViewController.xib */; };
 		329FF86019F661EE0011B1CE /* spgIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 329FF85F19F661EE0011B1CE /* spgIntroductionPanel.m */; };
@@ -107,6 +113,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		326A42EB1A25C2D400941984 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
+		326A42EC1A25C2D400941984 /* pre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pre.png; sourceTree = "<group>"; };
+		326A42EF1A25C77F00941984 /* bgCampus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCampus@2x.png"; sourceTree = "<group>"; };
+		326A42F11A26F73700941984 /* scooterInfoBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scooterInfoBg@2x.png"; sourceTree = "<group>"; };
+		326A42F31A27021D00941984 /* addBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addBg.png; sourceTree = "<group>"; };
+		326A42F41A27021D00941984 /* unlockBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unlockBg.png; sourceTree = "<group>"; };
 		329FF83F19F608180011B1CE /* spgLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgLoginViewController.h; path = Login/spgLoginViewController.h; sourceTree = "<group>"; };
 		329FF84019F608180011B1CE /* spgLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgLoginViewController.m; path = Login/spgLoginViewController.m; sourceTree = "<group>"; };
 		329FF84119F608180011B1CE /* spgLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgLoginViewController.xib; path = Login/spgLoginViewController.xib; sourceTree = "<group>"; };
@@ -467,7 +479,10 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				32AC18811A25AB290020A147 /* bgPersonal@2x.png */,
+				326A42F31A27021D00941984 /* addBg.png */,
+				326A42F41A27021D00941984 /* unlockBg.png */,
+				326A42F11A26F73700941984 /* scooterInfoBg@2x.png */,
+				326A42EF1A25C77F00941984 /* bgCampus@2x.png */,
 				32ADA25219EF66A80081BD51 /* ARMode.png */,
 				32A1A7FE19FF8B0C00B7B8DD /* back.png */,
 				32B6973D1A10A1EF004C1879 /* battery.png */,
@@ -475,6 +490,7 @@
 				32B1002719C981A400D9FFF5 /* batteryCircle.png */,
 				32B5F0E01A00D0A500A70CDC /* batteryLowBg.png */,
 				32AC187D1A24859A0020A147 /* bgGradient@2x.jpg */,
+				32AC18811A25AB290020A147 /* bgPersonal@2x.png */,
 				32ABC2BC19CBC9AE00F3254E /* camera.png */,
 				32B1FFCE19C978C800D9FFF5 /* capture@2x.png */,
 				32ABC2BD19CBC9AE00F3254E /* circles@2x.png */,
@@ -487,10 +503,12 @@
 				32B1FFD419C978C800D9FFF5 /* me@2x.png */,
 				32B1FFD519C978C800D9FFF5 /* moments@2x.png */,
 				32B6973F1A10A1EF004C1879 /* momentsList.png */,
+				326A42EB1A25C2D400941984 /* next.png */,
 				32ABC2C219CBC9AE00F3254E /* powerOff.png */,
 				32A1A80219FF8B2D00B7B8DD /* powerOn.png */,
 				32A1A80319FF8B2D00B7B8DD /* PowerOnIngBg.png */,
 				32A1A80419FF8B2D00B7B8DD /* PowerOnIngCircle.png */,
+				326A42EC1A25C2D400941984 /* pre.png */,
 				32ADA25619EF66CA0081BD51 /* preview.png */,
 				32B1FFD619C978C800D9FFF5 /* profile.png */,
 				32B1FFD719C978C800D9FFF5 /* radar.png */,
@@ -627,6 +645,7 @@
 				32A1A7F919FF877900B7B8DD /* snsWeibo.png in Resources */,
 				32B1FFE019C978C800D9FFF5 /* dashboardBg.png in Resources */,
 				32B1003319C982D300D9FFF5 /* timeIcon.png in Resources */,
+				326A42F61A27021D00941984 /* unlockBg.png in Resources */,
 				32A1A7FF19FF8B0C00B7B8DD /* back.png in Resources */,
 				32B1FFA219C974AD00D9FFF5 /* Images.xcassets in Resources */,
 				32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */,
@@ -638,6 +657,7 @@
 				32A1A80719FF8B2D00B7B8DD /* PowerOnIngCircle.png in Resources */,
 				32ADA25719EF66CA0081BD51 /* preview.png in Resources */,
 				32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */,
+				326A42ED1A25C2D400941984 /* next.png in Resources */,
 				32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */,
 				32B5F0E31A00D0B300A70CDC /* dashboardCircle.png in Resources */,
 				32A1A7FD19FF8B0700B7B8DD /* close.png in Resources */,
@@ -651,14 +671,17 @@
 				32B1FFE519C978C800D9FFF5 /* moments@2x.png in Resources */,
 				32ADA25319EF66A80081BD51 /* ARMode.png in Resources */,
 				32B697431A10A1EF004C1879 /* momentsList.png in Resources */,
+				326A42F01A25C77F00941984 /* bgCampus@2x.png in Resources */,
 				32ABC2CE19CBC9AE00F3254E /* switchCam.png in Resources */,
 				32B1FFE719C978C800D9FFF5 /* radar.png in Resources */,
 				32BBF29F19F77C6A006A00AF /* spgConnectViewController.xib in Resources */,
 				32B1FFE619C978C800D9FFF5 /* profile.png in Resources */,
+				326A42F51A27021D00941984 /* addBg.png in Resources */,
 				32B1002D19C981A400D9FFF5 /* batteryCircle.png in Resources */,
 				32AC18821A25AB290020A147 /* bgPersonal@2x.png in Resources */,
 				32ADA25B19EF66DD0081BD51 /* userInfo.png in Resources */,
 				32B1FF9419C974AC00D9FFF5 /* InfoPlist.strings in Resources */,
+				326A42EE1A25C2D400941984 /* pre.png in Resources */,
 				32ABC2CC19CBC9AE00F3254E /* powerOff.png in Resources */,
 				32ADA26119EF71C00081BD51 /* weather.png in Resources */,
 				32A1A7E619FF5F9400B7B8DD /* userGuide1@2x.png in Resources */,
@@ -674,6 +697,7 @@
 				32ABC2C619CBC9AE00F3254E /* camera.png in Resources */,
 				32BBF29A19F77637006A00AF /* spgScan.xib in Resources */,
 				32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */,
+				326A42F21A26F73700941984 /* scooterInfoBg@2x.png in Resources */,
 				32A13C3319F4DAAF00D1AC9E /* spgChangePasswordViewController.xib in Resources */,
 				32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */,
 				32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */,

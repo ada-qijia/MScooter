@@ -86,10 +86,15 @@ static spgBLEService *sharedInstance=nil;
     }
 }
 
--(void)writePassword:(NSData *) data
+-(BOOL)writePassword:(NSData *) data
 {
     if (self.peripheral && passwordCharacteristic) {
         [self.peripheral writeValue:data forCharacteristic:passwordCharacteristic type:CBCharacteristicWriteWithResponse];
+        return YES;
+    }
+    else
+    {
+        return NO;
     }
 }
 

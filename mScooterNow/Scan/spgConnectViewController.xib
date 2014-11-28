@@ -97,7 +97,7 @@
         <image name="circles.png" width="320" height="568"/>
         <image name="close.png" width="57" height="49"/>
         <image name="dot1.png" width="17" height="17"/>
-        <image name="scooterOutline.png" width="434" height="470"/>
+        <image name="scooterOutline.png" width="640" height="640"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

@@ -10,6 +10,7 @@
 #import "spgScanViewController.h"
 #import "spgTabBarViewController.h"
 #import "spgARViewController.h"
+#import "spgBLEService.h"
 
 @interface spgDashboardViewController ()
 
@@ -183,9 +184,11 @@
 
 -(void)updateConnectionState:(BOOL) connected
 {
+    [self updateConnectedUIState];
+    
     if(self.ARView.hidden)
     {
-        [self updateConnectedUIState];
+        [gaugeVC updateConnectionState:connected];
     }
     else
     {
@@ -197,7 +200,7 @@
 {
     if(self.ARView.hidden)
     {
-        [gaugeVC.speedGaugeView setValue:speed animated:YES duration:0.3];
+        [gaugeVC updateSpeed:speed];
     }
     else
     {
@@ -209,10 +212,7 @@
 {
     if(self.ARView.hidden)
     {
-        gaugeVC.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
-        gaugeVC.DistanceLabel.text=gaugeVC.BatteryLabel.text;
-        
-        [gaugeVC setBatteryLow:battery<15];
+        [gaugeVC updateBattery:battery];
     }
     else
     {
@@ -225,15 +225,26 @@
     [self switchViewMode:YES];
 }
 
-#pragma -utility
+-(void)cameraTriggered:(SBSCameraCommand)commandType
+{
+    if(!self.ARView.hidden)
+    {
+        [ARVC cameraTriggered:commandType];
+    }
+}
 
--(void)updateConnectedUIState
+-(void)passwordCertified:(CBPeripheral *)peripheral result:(BOOL)correct
+{
+    [gaugeVC passwordCertified:peripheral result:correct];
+}
+
+#pragma - update connection UI
+
+-(void) updateConnectedUIState
 {
     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
-    self.powerButton.enabled=!(currentState==CBPeripheralStateConnecting);
-    self.powerButton.selected= currentState==CBPeripheralStateDisconnected;
-    
-    [gaugeVC setGaugesEnabled:currentState==CBPeripheralStateConnected];
+    BOOL connected=currentState==CBPeripheralStateConnected;
+    self.powerButton.selected= connected;
 }
 
 @end

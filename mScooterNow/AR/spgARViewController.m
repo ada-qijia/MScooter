@@ -47,9 +47,6 @@
     {
         [self updateTemperature];
     }
-    
-    //observe scooter presentation updates
-    self.tabBarVC.scooterPresentationDelegate=self;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -59,9 +56,6 @@
     [videoCaptureVC stopVideoCapture];
     
     [timer invalidate];
-    
-    //remove observe scooter presentation updates
-    self.tabBarVC.scooterPresentationDelegate=nil;
 }
 
 //new layout after orientation changed.

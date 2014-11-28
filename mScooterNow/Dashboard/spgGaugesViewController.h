@@ -10,8 +10,9 @@
 #import "WMGaugeView.h"
 #import "spgMScooterDefinitions.h"
 #import "spgCamViewController.h"
+#import "spgTabBarViewController.h"
 
-@interface spgGaugesViewController : UIViewController
+@interface spgGaugesViewController : UIViewController <spgScooterPresentationDelegate>
 
 @property (weak, nonatomic) IBOutlet WMGaugeView *speedGaugeView;
 
@@ -26,8 +27,5 @@
 - (IBAction)ConnectScooter:(UIButton *)sender;
 
 -(void)rotateLayout:(BOOL)portrait;
-
 -(void)setGaugesEnabled:(BOOL)enabled;
--(void)setBatteryLow:(BOOL)low;
-
 @end

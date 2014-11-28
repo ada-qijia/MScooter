@@ -11,8 +11,6 @@
 
 @interface spgARViewController : UIViewController <spgScooterPresentationDelegate>
 
-@property (nonatomic) spgTabBarViewController* tabBarVC;
-
 @property (weak, nonatomic) IBOutlet UIView *ARContainerView;
 
 @property (weak, nonatomic) IBOutlet UIView *topControllerView;

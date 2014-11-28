@@ -25,6 +25,8 @@
 -(void)cameraTriggered:(SBSCameraCommand)commandType;
 -(void)modeChanged;
 
+-(void)passwordCertified:(CBPeripheral *)peripheral result:(BOOL) correct;
+
 @end
 
 

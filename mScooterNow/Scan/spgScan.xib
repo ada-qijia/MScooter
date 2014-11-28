@@ -23,17 +23,17 @@
                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circles.png" translatesAutoresizingMaskIntoConstraints="NO" id="NVW-pf-oNO">
                     <rect key="frame" x="0.0" y="10" width="320" height="528"/>
                 </imageView>
+                <imageView userInteractionEnabled="NO" tag="10001" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scanScope.png" translatesAutoresizingMaskIntoConstraints="NO" id="FEa-Ie-GTf">
+                    <rect key="frame" x="167" y="-1" width="162" height="162"/>
+                </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNm-5M-6VM" userLabel="scope">
-                    <rect key="frame" x="210" y="10" width="100" height="100"/>
+                    <rect key="frame" x="185" y="15" width="125" height="125"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" tag="10001" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scanScope.png" translatesAutoresizingMaskIntoConstraints="NO" id="FEa-Ie-GTf">
-                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
-                        </imageView>
                         <view tag="10000" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whl-4a-mog">
-                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="radar.png" translatesAutoresizingMaskIntoConstraints="NO" id="sA1-bg-dM2">
-                            <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                            <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                         </imageView>
                     </subviews>
                 </view>
@@ -41,70 +41,67 @@
                     <rect key="frame" x="0.0" y="104" width="320" height="360"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="pdN-wg-aes">
-                            <rect key="frame" x="50" y="33" width="220" height="220"/>
+                            <rect key="frame" x="0.0" y="-6" width="320" height="320"/>
                         </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIt-49-Fjt">
-                            <rect key="frame" x="123" y="111" width="100" height="30"/>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterInfoBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gnx-Qa-2O7">
+                            <rect key="frame" x="110" y="107" width="125" height="125"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BATTERY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Au-yRv">
+                            <rect key="frame" x="143" y="136" width="62" height="17"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIt-49-Fjt">
+                            <rect key="frame" x="122" y="159" width="100" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="32"/>
                             <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="40km" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-Jf-JRF">
-                            <rect key="frame" x="123" y="178" width="100" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                        <label opaque="NO" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="40KM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-Jf-JRF">
+                            <rect key="frame" x="132" y="191" width="80" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Battery" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Au-yRv">
-                            <rect key="frame" x="164" y="79" width="59" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="distance.png" translatesAutoresizingMaskIntoConstraints="NO" id="Sox-5G-cQW">
-                            <rect key="frame" x="124" y="147" width="39" height="25"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Range" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJE-8w-q6C">
-                            <rect key="frame" x="169" y="149" width="60" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="battery.png" translatesAutoresizingMaskIntoConstraints="NO" id="jZb-rP-JLb">
-                            <rect key="frame" x="124" y="77" width="39" height="25"/>
-                        </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" tag="13" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="M-SCOOTER26" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9uc-7G-qwC">
-                            <rect key="frame" x="0.0" y="240" width="320" height="30"/>
+                            <rect key="frame" x="0.0" y="248" width="320" height="30"/>
                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" tag="14" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsk-b2-FfY">
-                            <rect key="frame" x="50" y="278" width="220" height="40"/>
+                            <rect key="frame" x="50" y="286" width="220" height="40"/>
                             <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <state key="normal" title="ADD SCOOTER">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                    <integer key="value" value="5"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                             <connections>
                                 <action selector="pickupClicked:" destination="-1" eventType="touchUpInside" id="TFA-bL-xTq"/>
                             </connections>
                         </button>
                     </subviews>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxV-e8-xud">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxV-e8-xud">
                     <rect key="frame" x="12" y="260" width="36" height="49"/>
-                    <state key="normal" backgroundImage="back.png">
+                    <state key="normal" backgroundImage="pre.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="preClicked:" destination="-1" eventType="touchUpInside" id="ywG-N8-VVd"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-Ss-Fe5">
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-Ss-Fe5">
                     <rect key="frame" x="270" y="260" width="36" height="49"/>
-                    <state key="normal" backgroundImage="back.png">
+                    <state key="normal" backgroundImage="next.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
@@ -128,13 +125,13 @@
         </view>
     </objects>
     <resources>
-        <image name="back.png" width="36" height="49"/>
-        <image name="battery.png" width="72" height="48"/>
         <image name="circles.png" width="320" height="568"/>
         <image name="close.png" width="57" height="49"/>
-        <image name="distance.png" width="72" height="48"/>
+        <image name="next.png" width="49" height="67"/>
+        <image name="pre.png" width="49" height="67"/>
         <image name="radar.png" width="253" height="253"/>
-        <image name="scanScope.png" width="204" height="204"/>
+        <image name="scanScope.png" width="324" height="324"/>
+        <image name="scooterInfoBg.png" width="125" height="125"/>
         <image name="scooterOutline.png" width="640" height="640"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

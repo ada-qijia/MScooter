@@ -70,7 +70,6 @@ static const NSInteger warningViewTag=8888;
     {
         [self.scooterPresentationDelegate updateConnectionState:YES];
     }
-    [self setWarningBarHidden:YES];
 }
 
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -79,8 +78,6 @@ static const NSInteger warningViewTag=8888;
     {
         [self.scooterPresentationDelegate updateConnectionState:NO];
     }
-    
-    [self setWarningBarHidden:NO];
 }
 
 -(void)speedValueUpdated:(NSData *)speedData
@@ -174,6 +171,14 @@ static const NSInteger warningViewTag=8888;
     if([self.scooterPresentationDelegate respondsToSelector:@selector(modeChanged)])
     {
         [self.scooterPresentationDelegate modeChanged];
+    }
+}
+
+-(void)passwordCertificationReturned:(CBPeripheral *)peripheral result:(BOOL)correct
+{
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(passwordCertified:result:)])
+    {
+        [self.scooterPresentationDelegate passwordCertified:peripheral result:correct];
     }
 }
 

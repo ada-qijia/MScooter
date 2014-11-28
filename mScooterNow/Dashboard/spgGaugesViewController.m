@@ -15,6 +15,10 @@
 @end
 
 @implementation spgGaugesViewController
+{
+    BOOL scooterCertified;
+    BOOL isCertifying;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,9 +31,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    spgBLEService *bleService=[spgBLEService sharedInstance];
-    BOOL connected=bleService.peripheral.state==CBPeripheralStateConnected;
-    [self setAddConnectUIState:(!connected)];
+    [super viewWillAppear:animated];
+    [self resetConnectionState];
 }
 
 - (void)viewDidLoad
@@ -69,18 +72,19 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma - update UI
 
 - (IBAction)AddScooter:(UIButton *)sender {
+    [spgBLEService sharedInstance].peripheral=nil;
     spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
     [self presentViewController:scanVC animated:YES completion:nil];
 }
 
 - (IBAction)ConnectScooter:(UIButton *)sender {
-    [[spgBLEService sharedInstance] connectPeripheral];
+    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Enter your passcode?" delegate:self  cancelButtonTitle:@"CANCEL" otherButtonTitles:@"OK",nil];
+    [alert show];
 }
 
 -(void)rotateLayout:(BOOL)portrait
@@ -92,25 +96,64 @@
     [self.view viewWithTag:31].hidden=!enabled;
     [self.view viewWithTag:32].hidden=!enabled;
     [self.view viewWithTag:33].hidden=!enabled;
-    
-    [self setAddConnectUIState:enabled];
 }
 
--(void)setBatteryLow:(BOOL)low
+//All the connect, certify, UI logic are here.
+-(void)resetConnectionState
 {
-    NSString *imgName=low?@"batteryLowBg.png":@"batteryBg.png";
-    self.batteryBgImage.image=[UIImage imageNamed:imgName];
-}
-
--(void)setAddConnectUIState:(BOOL)enabled
-{
-    if(enabled)
+    CBPeripheralState currentState= [spgBLEService sharedInstance].peripheral.state;
+    BOOL passwordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
+    if(currentState==CBPeripheralStateConnected)
     {
+        if(!passwordOn)
+        {
+            if(scooterCertified)
+            {
+                [self setGaugesEnabled:YES];
+                self.AddButton.hidden=YES;
+                self.ConnectButton.hidden=YES;
+            }
+            else
+            {
+                if(!isCertifying)
+                {
+                    [self certifyScooter];
+                }
+                [self setGaugesEnabled:NO];
+                self.AddButton.hidden=YES;
+                self.ConnectButton.hidden=YES;
+            }
+        }
+        else
+        {
+            if(scooterCertified)
+            {
+                [self setGaugesEnabled:YES];
+                self.AddButton.hidden=YES;
+                self.ConnectButton.hidden=YES;
+            }
+            else
+            {
+                self.ConnectButton.hidden=isCertifying;
+                [self setGaugesEnabled:NO];
+                self.AddButton.hidden=YES;
+            }
+        }
+    }
+    else if(currentState==CBPeripheralStateConnecting)//connecting
+    {
+        [self setGaugesEnabled:NO];
+        self.AddButton.hidden=YES;
+        self.ConnectButton.hidden=YES;
+    }
+    else//disconnected
+    {
+        scooterCertified=NO;
+        
         BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
         NSString *knownUUIDString=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
-        BOOL passwordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
         
-        //set peripheral
+        //set saved peripheral
         if([spgBLEService sharedInstance].peripheral==nil)
         {
             if(isPersonal && knownUUIDString)//saved
@@ -125,14 +168,10 @@
             }
         }
         
-        if([spgBLEService sharedInstance].peripheral)//connect to old peripheral
+        if([spgBLEService sharedInstance].peripheral)//connect to peripheral
         {
             self.AddButton.hidden=YES;
-            self.ConnectButton.hidden=passwordOn?NO:YES;
-            if(!passwordOn)
-            {
-                [[spgBLEService sharedInstance] connectPeripheral];
-            }
+            [[spgBLEService sharedInstance] connectPeripheral];
         }
         else//need add
         {
@@ -140,10 +179,84 @@
             self.ConnectButton.hidden=YES;
         }
     }
+}
+
+#pragma - password alert delegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(buttonIndex==1)
+    {
+        //self.correctPin
+        [self certifyScooter];
+    }
+}
+
+-(void)certifyScooter
+{
+    isCertifying=YES;
+    
+    NSString *currentPin=@"8888";
+    Byte byte0=[[currentPin substringToIndex:2] intValue];
+    Byte byte1=[[currentPin substringFromIndex:2] intValue];
+    Byte array[]={byte0,byte1};
+    NSData *pinData=[NSData dataWithBytes:array length:2];
+    
+    
+    //write may fail because characteristic not found.
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        BOOL writeSuccess=[[spgBLEService sharedInstance] writePassword:pinData];
+        while (!writeSuccess) {
+            [NSThread sleepForTimeInterval:1];
+            writeSuccess= [[spgBLEService sharedInstance] writePassword:pinData];
+        }
+    });
+}
+
+#pragma - spgScooterPresentationDelegate
+
+-(void)updateConnectionState:(BOOL) connected
+{
+    [self resetConnectionState];
+}
+
+-(void)updateSpeed:(float)speed
+{
+    [self.speedGaugeView setValue:speed animated:YES duration:0.3];
+}
+
+-(void)updateBattery:(float)battery
+{
+    self.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
+    self.DistanceLabel.text=self.BatteryLabel.text;
+    
+    NSString *imgName=battery<15?@"batteryLowBg.png":@"batteryBg.png";
+    self.batteryBgImage.image=[UIImage imageNamed:imgName];
+}
+
+-(void)passwordCertified:(CBPeripheral *)peripheral result:(BOOL)correct
+{
+    isCertifying=NO;
+    
+    if(correct)
+    {
+        if(peripheral==[spgBLEService sharedInstance].peripheral)
+        {
+            scooterCertified=YES;
+        }
+        
+        //save peripheral UUID if success and in personal mode.
+        BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
+        if(isPersonal)
+        {
+            [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:[peripheral.identifier UUIDString]];
+        }
+        
+        [self resetConnectionState];
+    }
     else
     {
-        self.AddButton.hidden=YES;
-        self.ConnectButton.hidden=YES;
+        //re-enter password
     }
 }
 

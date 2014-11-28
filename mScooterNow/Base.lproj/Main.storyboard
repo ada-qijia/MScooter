@@ -484,7 +484,7 @@
                                         <rect key="frame" x="18" y="52" width="285" height="285"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedCircle.png" id="9gf-Zc-Ked">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" tag="31" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="speedCircle.png" id="9gf-Zc-Ked">
                                         <rect key="frame" x="43" y="76" width="236" height="236"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -499,20 +499,20 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="GSg-bK-o8y">
-                                        <rect key="frame" x="114" y="269" width="92" height="30"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="GSg-bK-o8y">
+                                        <rect key="frame" x="18" y="52" width="285" height="285"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Add Scooter">
+                                        <state key="normal" backgroundImage="addBg.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
                                             <action selector="AddScooter:" destination="23R-lI-sAc" eventType="touchUpInside" id="1J5-ba-Ytt"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="kzh-0U-fMq">
-                                        <rect key="frame" x="114" y="269" width="92" height="30"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kzh-0U-fMq">
+                                        <rect key="frame" x="18" y="52" width="285" height="285"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Connect Scooter">
+                                        <state key="normal" backgroundImage="unlockBg.png">
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
@@ -523,11 +523,11 @@
                                         <rect key="frame" x="23" y="322" width="280" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batteryCircle.png" id="oAd-lx-Ipg">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" tag="32" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="batteryCircle.png" id="oAd-lx-Ipg">
                                         <rect key="frame" x="35" y="334" width="104" height="104"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distanceCircle.png" id="gQL-Vf-Gzn">
+                                    <imageView hidden="YES" userInteractionEnabled="NO" tag="33" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="distanceCircle.png" id="gQL-Vf-Gzn">
                                         <rect key="frame" x="187" y="334" width="104" height="104"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
@@ -699,6 +699,7 @@
     </scenes>
     <resources>
         <image name="ARMode.png" width="78" height="78"/>
+        <image name="addBg.png" width="524" height="524"/>
         <image name="back.png" width="36" height="49"/>
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
@@ -724,6 +725,7 @@
         <image name="stopVideo.png" width="82" height="82"/>
         <image name="switchCam.png" width="57" height="49"/>
         <image name="time.png" width="34" height="42"/>
+        <image name="unlockBg.png" width="524" height="524"/>
         <image name="userInfo.png" width="495" height="727"/>
         <image name="video.png" width="57" height="49"/>
         <image name="weather.png" width="70" height="70"/>
