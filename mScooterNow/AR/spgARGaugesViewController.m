@@ -96,5 +96,10 @@
 -(void)setGaugesEnabled:(BOOL)enabled
 {
     self.dashboardCircleImage.hidden=!enabled;
+    if(!enabled)
+    {
+        [self.speedGaugeView setValue:0 animated:YES duration:0.3];
+        [self.batteryGaugeView setValue:0 animated:YES duration:0.3];
+    }
 }
 @end

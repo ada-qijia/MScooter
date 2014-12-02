@@ -10,7 +10,6 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "spgMScooterDefinitions.h"
 #import "spgBLEService.h"
-#import "spgConnectViewController.h"
 
 @interface spgScanViewController : UIViewController <spgBLEServiceDiscoverPeripheralsDelegate, UIAlertViewDelegate>
 

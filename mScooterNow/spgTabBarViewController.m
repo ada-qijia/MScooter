@@ -7,6 +7,7 @@
 //
 
 #import "spgTabBarViewController.h"
+#import "spgDashboardViewController.h"
 
 static const NSInteger warningViewTag=8888;
 
@@ -180,6 +181,15 @@ static const NSInteger warningViewTag=8888;
     {
         [self.scooterPresentationDelegate passwordCertified:peripheral result:correct];
     }
+}
+
+#pragma - interface methods
+
+-(void)showDashboardGauge
+{
+    self.selectedIndex=1;
+    spgDashboardViewController *dashboardVC= self.viewControllers[1];
+    [dashboardVC showGauge];
 }
 
 #pragma - TabBar Delegate

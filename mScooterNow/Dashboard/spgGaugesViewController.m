@@ -96,6 +96,13 @@
     [self.view viewWithTag:31].hidden=!enabled;
     [self.view viewWithTag:32].hidden=!enabled;
     [self.view viewWithTag:33].hidden=!enabled;
+    
+    if(!enabled)
+    {
+        [self.speedGaugeView setValue:0 animated:YES duration:0.3];
+        self.BatteryLabel.text=@"0";
+        self.DistanceLabel.text=self.BatteryLabel.text;
+    }
 }
 
 //All the connect, certify, UI logic are here.
@@ -124,6 +131,11 @@
                 self.ConnectButton.hidden=YES;
             }
         }
+        //auto certify
+        else if([spgMScooterUtilities getPreferenceWithKey:kAutoReconnectUUIDKey]&& (!scooterCertified))
+        {
+            [self certifyScooter];
+        }
         else
         {
             if(scooterCertified)
@@ -148,23 +160,38 @@
     }
     else//disconnected
     {
+        [self setGaugesEnabled:NO];
+        
         scooterCertified=NO;
         
         BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
         NSString *knownUUIDString=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
         
+        //auto reconnect
+        NSString * autoReconnectUUID=[spgMScooterUtilities getPreferenceWithKey:kAutoReconnectUUIDKey];
+        
+        NSString * usefulUUID=nil;
         //set saved peripheral
         if([spgBLEService sharedInstance].peripheral==nil)
         {
-            if(isPersonal && knownUUIDString)//saved
+            if(autoReconnectUUID)
             {
-                NSUUID *knownUUID=[[NSUUID alloc] initWithUUIDString:knownUUIDString];
-                NSArray *savedIdentifier=[NSArray arrayWithObjects:knownUUID, nil];
-                NSArray *knownPeripherals= [[spgBLEService sharedInstance].centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
-                if(knownPeripherals.count>0)
-                {
-                    [spgBLEService sharedInstance].peripheral=knownPeripherals[0];
-                }
+                usefulUUID=autoReconnectUUID;
+            }
+            else if(isPersonal && knownUUIDString)//saved
+            {
+                usefulUUID=knownUUIDString;
+            }
+        }
+        
+        if(usefulUUID)
+        {
+            NSUUID *knownUUID=[[NSUUID alloc] initWithUUIDString:usefulUUID];
+            NSArray *savedIdentifier=[NSArray arrayWithObjects:knownUUID, nil];
+            NSArray *knownPeripherals= [[spgBLEService sharedInstance].centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
+            if(knownPeripherals.count>0)
+            {
+                [spgBLEService sharedInstance].peripheral=knownPeripherals[0];
             }
         }
         

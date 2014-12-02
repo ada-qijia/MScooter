@@ -53,9 +53,8 @@ static spgBLEService *sharedInstance=nil;
 
 -(void)startScan
 {
-    {
-        [self.centralManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
-    }
+    [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
+    [self.centralManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
 }
 
 -(void)stopScan
@@ -71,12 +70,15 @@ static spgBLEService *sharedInstance=nil;
     }
 }
 
+//manually disconnect
 -(void)disConnectPeripheral
 {
     if(self.centralManager!=nil && self.peripheral!=nil)
     {
         [self.centralManager cancelPeripheralConnection:self.peripheral];
     }
+    
+    [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
 }
 
 -(void)writePower:(NSData *) data
@@ -96,6 +98,22 @@ static spgBLEService *sharedInstance=nil;
     {
         return NO;
     }
+}
+
+-(void)clean
+{
+    powerCharacteristic=nil;
+    passwordCharacteristic=nil;
+    
+    if(self.peripheral && self.peripheral.state==CBPeripheralStateConnected)
+    {
+        [self disConnectPeripheral];
+    }
+    self.peripheral=nil;
+
+    self.centralManager=nil;
+    self.discoverPeripheralsDelegate=nil;
+    self.peripheralDelegate=nil;
 }
 
 #pragma mark - central manager delegate
@@ -154,6 +172,10 @@ static spgBLEService *sharedInstance=nil;
 
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    self.peripheral=nil;
+    powerCharacteristic=nil;
+    passwordCharacteristic=nil;
+    
     if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:disconnectPeripheral:error:)])
     {
         [self.discoverPeripheralsDelegate centralManager:central disconnectPeripheral:peripheral error:error];
@@ -220,10 +242,6 @@ static spgBLEService *sharedInstance=nil;
             if([uuid isEqualToString:kPowerCharacteristicUUID])
             {
                 powerCharacteristic=characteristic;
-                if ([self.peripheralDelegate respondsToSelector:@selector(powerCharacteristicFound)])
-                {
-                    [self.peripheralDelegate powerCharacteristicFound];
-                }
             }
             else if([uuid isEqualToString:kPasswordCharacteristicUUID])
             {
@@ -315,6 +333,10 @@ static spgBLEService *sharedInstance=nil;
             if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:result:)]) {
                 [self.peripheralDelegate passwordCertificationReturned:peripheral result:correct];
             }
+            
+            //save whether auto reconnect next time.
+            NSString * boolString = correct ? [peripheral.identifier UUIDString] : nil;
+            [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:boolString];
         }
     }
 }

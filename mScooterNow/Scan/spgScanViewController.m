@@ -7,8 +7,8 @@
 //
 
 #import "spgScanViewController.h"
-#import "spgPeripheralView.h"
 #import "spgScooterPeripheral.h"
+#import "spgTabBarViewController.h"
 
 static NSString *const SCOOTER_SERVICE_UUID=@"4B4681A4-1246-1EEC-AB2B-FE45F896822D";
 static const NSInteger scooterCount = 10;
@@ -332,6 +332,9 @@ static const NSInteger scooterTimeArrayCount=10;
         [currentVC dismissViewControllerAnimated:NO completion:nil];
         currentVC=currentVC.presentingViewController;
     }
+    
+    spgTabBarViewController *tabBarVC=(spgTabBarViewController *)currentVC;
+    [tabBarVC showDashboardGauge];
 }
 
 #pragma - spgBLEServiceDiscoverPeripheralsDelegate

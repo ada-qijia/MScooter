@@ -26,7 +26,15 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    BOOL isPasswordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
+    
+    self.PasswordOnSwitch.on=isPasswordOn;
 }
 
 #pragma - UI interaction
@@ -36,10 +44,12 @@
     [self presentViewController:modeSettingsVC animated:YES completion:nil];
 }
 
+/*
 - (IBAction)changePasswordClicked:(UIButton *)sender {
     spgChangePasswordViewController *changePasswordVC=[[spgChangePasswordViewController alloc] initWithNibName:@"spgChangePasswordViewController" bundle:nil];
     [self presentViewController:changePasswordVC animated:YES completion:nil];
 }
+ */
 
 - (IBAction)AboutClicked:(UIButton *)sender {
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -65,13 +75,14 @@
 {
     if(buttonIndex==1)
     {
+        [[spgBLEService sharedInstance] clean];
+        
         //clean saved MyPeripheralID if change to personal mode.
         [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
-        
+
         //navigate to scan page
         spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
-        
-        [self presentViewController:scanVC animated:NO completion:nil];
+        [self presentViewController:scanVC animated:YES completion:nil];
     }
 }
 

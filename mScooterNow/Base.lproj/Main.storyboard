@@ -96,11 +96,15 @@
                                 </connections>
                             </switch>
                         </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.51000000000000001" colorSpace="calibratedWhite"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Account" image="me.png" id="Yti-bY-Q77">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-3"/>
                     </tabBarItem>
                     <nil key="simulatedStatusBarMetrics"/>
+                    <connections>
+                        <outlet property="PasswordOnSwitch" destination="TUX-mR-pLK" id="Clh-OS-vCV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0tX-Ns-lAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -303,31 +307,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fh7-Fo-za2">
-                                        <rect key="frame" x="10" y="3" width="35" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <inset key="contentEdgeInsets" minX="3" minY="4" maxX="3" maxY="4"/>
-                                        <state key="normal" image="close.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="closeClicked:" destination="XkJ-Rr-u49" eventType="touchUpInside" id="miT-Uc-job"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="obh-II-W4t">
-                                        <rect key="frame" x="143" y="5" width="32" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="modeSwitch" image="video.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" image="camera.png"/>
-                                        <connections>
-                                            <action selector="switchCameraMode:" destination="XkJ-Rr-u49" eventType="touchUpInside" id="8Ds-Jy-PhK"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Vmu-U7-tOO">
-                                        <rect key="frame" x="270" y="5" width="32" height="30"/>
+                                        <rect key="frame" x="8" y="5" width="32" height="30"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <state key="normal" title="camSwitch" image="switchCam.png">
@@ -354,8 +335,6 @@
                         <outlet property="ARListView" destination="YbF-L4-QYH" id="5Xs-fQ-nQH"/>
                         <outlet property="ARMapView" destination="7dV-gY-CeH" id="fwz-ZN-2Hs"/>
                         <outlet property="camButton" destination="Vmu-U7-tOO" id="gvQ-yv-7yF"/>
-                        <outlet property="captureModeButton" destination="obh-II-W4t" id="rho-uM-GK3"/>
-                        <outlet property="closeButton" destination="fh7-Fo-za2" id="tJ0-qs-lFh"/>
                         <outlet property="dateLabel" destination="yxh-aa-WH1" id="Qe2-qu-kN8"/>
                         <outlet property="listDateView" destination="AbP-rH-H80" id="kht-wY-feQ"/>
                         <outlet property="listSpeedView" destination="HIb-VF-Xla" id="XUV-yb-c8h"/>
@@ -425,28 +404,12 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" id="vjU-u3-QoN" userLabel="ControllerView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5My-ds-b5q">
-                                        <rect key="frame" x="10" y="0.0" width="44" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="contentEdgeInsets" minX="4" minY="8" maxX="4" maxY="0.0"/>
-                                        <state key="normal" title="AR Mode" image="ARMode.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" image="powerOn.png"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NV2-Pa-G6X">
-                                        <rect key="frame" x="271" y="0.0" width="44" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="contentEdgeInsets" minX="4" minY="8" maxX="4" maxY="0.0"/>
-                                        <state key="normal" title="power" image="powerOff.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" image="powerOn.png"/>
-                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noSignal.png" highlightedImage="signal.png" id="h6g-vm-IwZ">
+                                        <rect key="frame" x="285" y="10" width="22" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                             </view>
                         </subviews>
@@ -460,7 +423,7 @@
                         <outlet property="ARView" destination="foT-2f-JYi" id="1AO-aX-60e"/>
                         <outlet property="GaugeView" destination="VXl-aE-Dqk" id="5tV-a9-b4N"/>
                         <outlet property="camButton" destination="Vmu-U7-tOO" id="rah-ou-30n"/>
-                        <outlet property="powerButton" destination="NV2-Pa-G6X" id="WEv-0L-cWd"/>
+                        <outlet property="connectedImage" destination="h6g-vm-IwZ" id="3ro-ew-dSm"/>
                         <outlet property="topControllerView" destination="vjU-u3-QoN" id="ZLv-rf-J1u"/>
                     </connections>
                 </viewController>
@@ -584,39 +547,8 @@
                     <view key="view" contentMode="scaleToFill" id="DE7-vE-ljE" customClass="spgCamPreviewView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" id="PUy-O9-cxB">
-                                <rect key="frame" x="0.0" y="507" width="320" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ueu-oM-SZf" userLabel="record">
-                                        <rect key="frame" x="135" y="3" width="55" height="55"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <inset key="contentEdgeInsets" minX="2" minY="2" maxX="2" maxY="2"/>
-                                        <state key="normal" image="startVideo.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <state key="selected" image="stopVideo.png"/>
-                                        <connections>
-                                            <action selector="captureMedia:" destination="U2D-sJ-lHO" eventType="touchUpInside" id="Wk1-Bd-W9b"/>
-                                        </connections>
-                                    </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="preview.png" id="s1e-Da-Noa">
-                                        <rect key="frame" x="16" y="11" width="40" height="40"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <connections>
-                        <outlet property="controllerView" destination="PUy-O9-cxB" id="b7u-Oz-NVn"/>
-                        <outlet property="previewImage" destination="s1e-Da-Noa" id="0m3-oZ-CrV"/>
-                        <outlet property="recordButton" destination="ueu-oM-SZf" id="lqX-2L-XcW"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A0h-wF-Gfj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -698,15 +630,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ARMode.png" width="78" height="78"/>
         <image name="addBg.png" width="524" height="524"/>
         <image name="back.png" width="36" height="49"/>
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
         <image name="bgGradient.jpg" width="320" height="568"/>
-        <image name="camera.png" width="57" height="49"/>
         <image name="capture.png" width="72" height="42"/>
-        <image name="close.png" width="57" height="49"/>
         <image name="dashboard.png" width="27" height="27"/>
         <image name="dashboardBg.png" width="475" height="318"/>
         <image name="dashboardCircle.png" width="475" height="318"/>
@@ -714,20 +643,16 @@
         <image name="me.png" width="27" height="27"/>
         <image name="moments.png" width="27" height="27"/>
         <image name="momentsList.png" width="640" height="1136"/>
-        <image name="powerOff.png" width="78" height="78"/>
-        <image name="powerOn.png" width="78" height="78"/>
-        <image name="preview.png" width="68" height="68"/>
+        <image name="noSignal.png" width="22" height="22"/>
         <image name="profile.png" width="138" height="81"/>
+        <image name="signal.png" width="22" height="22"/>
         <image name="speed.png" width="34" height="42"/>
         <image name="speedBg.png" width="524" height="524"/>
         <image name="speedCircle.png" width="436" height="436"/>
-        <image name="startVideo.png" width="82" height="82"/>
-        <image name="stopVideo.png" width="82" height="82"/>
         <image name="switchCam.png" width="57" height="49"/>
         <image name="time.png" width="34" height="42"/>
         <image name="unlockBg.png" width="524" height="524"/>
         <image name="userInfo.png" width="495" height="727"/>
-        <image name="video.png" width="57" height="49"/>
         <image name="weather.png" width="70" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

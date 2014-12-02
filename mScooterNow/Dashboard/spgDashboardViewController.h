@@ -16,10 +16,11 @@
 @property (weak, nonatomic) IBOutlet UIView *ARView;
 @property (weak, nonatomic) IBOutlet UIView *GaugeView;
 @property (weak, nonatomic) IBOutlet UIView *topControllerView;
-@property (weak, nonatomic) IBOutlet UIButton *powerButton;
+@property (weak, nonatomic) IBOutlet UIImageView *connectedImage;
 
 /*
 - (IBAction)powerOn:(UIButton *)sender;
 */
+-(void)showGauge;
 
 @end

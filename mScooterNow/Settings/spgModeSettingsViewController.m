@@ -7,6 +7,7 @@
 //
 
 #import "spgModeSettingsViewController.h"
+#import "spgTabBarViewController.h"
 
 @interface spgModeSettingsViewController ()
 
@@ -20,8 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgGradient.jpg"]];
-     scenarioModes=[NSArray arrayWithObjects:kScenarioModeCampus,kScenarioModePersonal, nil];
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgGradient.jpg"]];
+    scenarioModes=[NSArray arrayWithObjects:kScenarioModeCampus,kScenarioModePersonal, nil];
 }
 
 //set your prefered/saved scenario mode selected in the tableview.
@@ -75,36 +76,51 @@
 
 #pragma table view delegate
 
+NSIndexPath *willSelectIndexPath;
 -(NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   NSIndexPath *selectedIndex= [tableView indexPathForSelectedRow];
+    NSIndexPath *selectedIndex= [tableView indexPathForSelectedRow];
     if(selectedIndex.row!=indexPath.row)
     {
-        [tableView cellForRowAtIndexPath:selectedIndex].accessoryType=UITableViewCellAccessoryNone;
-        [tableView deselectRowAtIndexPath:selectedIndex animated:YES];
+        willSelectIndexPath=indexPath;
+        UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:nil message:@"Are you sure to change mode? This will disconnect your current scooter." delegate:self  cancelButtonTitle:@"CANCEL" otherButtonTitles:@"YES",nil];
+        [alertView show];
     }
     
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType=UITableViewCellAccessoryCheckmark;
-    
-    return indexPath;
+    return nil;
 }
 
-
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+-(void)ChangeSelectionToIndexPath:(NSIndexPath *)indexPath
 {
     NSString *mode=scenarioModes[indexPath.row];
     //save if changed
     if(![mode isEqualToString:[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey]])
     {
         [spgMScooterUtilities savePreferenceWithKey:kMyScenarioModeKey value:mode];
-        /*
-        //clean saved MyPeripheralID if change to personal mode.
-        if([mode isEqualToString:kScenarioModePersonal])
-        {
-            [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
-        }
-         */
     }
+    
+    //disconnect & go back to dashboard gauge
+    [[spgBLEService sharedInstance] clean];
+    spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.presentingViewController;
+    [tabBarVC showDashboardGauge];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma - alert delegate
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSIndexPath *selectedIndex= [self.scenarioModeTableView indexPathForSelectedRow];
+    if(buttonIndex==1&&willSelectIndexPath)
+    {
+        [self.scenarioModeTableView cellForRowAtIndexPath:selectedIndex].accessoryType=UITableViewCellAccessoryNone;
+        [self.scenarioModeTableView deselectRowAtIndexPath:selectedIndex animated:YES];
+        [self.scenarioModeTableView cellForRowAtIndexPath:willSelectIndexPath].accessoryType=UITableViewCellAccessoryCheckmark;
+        
+        [self ChangeSelectionToIndexPath:willSelectIndexPath];
+    }
+    
+    willSelectIndexPath=nil;
 }
 
 #pragma - UI interaction

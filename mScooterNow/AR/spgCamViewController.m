@@ -167,20 +167,6 @@ static void * RecordingContext = &RecordingContext;
 -(void)rotateLayout:(UIInterfaceOrientation)toInterfaceOrientation
 {
     [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
-    if(UIInterfaceOrientationIsLandscape(toInterfaceOrientation))
-    {
-        //self.view.frame=CGRectMake(0, 0, 568, 320);
-        self.controllerView.frame=CGRectMake(507, 0, 61, 320);
-        self.recordButton.frame=CGRectMake(3, 135, 55, 55);
-        self.previewImage.frame=CGRectMake(11, 260, 40, 40);
-    }
-    else
-    {
-        //self.view.frame=CGRectMake(0, 0, 320, 568);
-        self.controllerView.frame=CGRectMake(0, 507, 320, 61);
-        self.recordButton.frame=CGRectMake(135, 3, 55, 55);
-        self.previewImage.frame=CGRectMake(16, 11, 40, 40);
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -215,7 +201,6 @@ static void * RecordingContext = &RecordingContext;
     if(![[self movieFileOutput] isRecording])
     {
         [self switchMode:NO];
-        self.recordButton.selected=YES;
         
         self.lockInterfaceRotation=YES;
         
@@ -230,7 +215,6 @@ static void * RecordingContext = &RecordingContext;
 
 -(void)stopVideoCapture
 {
-    self.recordButton.selected=NO;
     [[self movieFileOutput] stopRecording];
 }
 
@@ -392,33 +376,14 @@ static void * RecordingContext = &RecordingContext;
     //photo
     if(toPhoto)
     {
-        self.recordButton.selected=NO;
-        [self.recordButton setImage:[UIImage imageNamed:@"shoot.png"] forState:UIControlStateNormal];
-        [self.recordButton setImage:nil forState:UIControlStateSelected];
+        //self.recordButton.selected=NO;
     }
     else//video
     {
-        self.recordButton.selected=NO;
-        [self.recordButton setImage:[UIImage imageNamed:@"startVideo.png"] forState:UIControlStateNormal];
-        [self.recordButton setImage:[UIImage imageNamed:@"stopVideo.png"] forState:UIControlStateSelected];
+        //self.recordButton.selected=NO;
     }
 }
 
-- (IBAction)captureMedia:(UIButton *)sender
-{
-    BOOL isPhotoMode=[[self.recordButton imageForState:UIControlStateNormal] isEqual:[UIImage imageNamed:@"shoot.png"]];
-    
-    //photo
-    if(isPhotoMode)
-    {
-        [self snapStillImage];
-    }
-    else//video
-    {
-        self.recordButton.selected=!self.recordButton.selected;
-        [self toggleMovieRecording];
-    }
-}
 
 -(void)runStillImageCaptureAnimation
 {

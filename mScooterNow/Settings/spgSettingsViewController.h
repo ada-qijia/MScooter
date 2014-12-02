@@ -10,8 +10,10 @@
 
 @interface spgSettingsViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UISwitch *PasswordOnSwitch;
+
 - (IBAction)ModeSettingClicked:(id)sender;
-- (IBAction)changePasswordClicked:(UIButton *)sender;
+//- (IBAction)changePasswordClicked:(UIButton *)sender;
 - (IBAction)AboutClicked:(UIButton *)sender;
 
 - (IBAction)resetScooterClicked:(UIButton *)sender;

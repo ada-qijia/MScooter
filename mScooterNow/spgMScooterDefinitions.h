@@ -32,6 +32,7 @@
 
 #define BackgroundImageColor [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.jpg"]];
 
+static NSString * const kAutoReconnectUUIDKey=@"autoReconnectUUID";
 static NSString * const kNotFirstUseKey=@"notFirstUse";
 static NSString * const kMyPeripheralIDKey= @"myPeripheralID";
 //default campus mode

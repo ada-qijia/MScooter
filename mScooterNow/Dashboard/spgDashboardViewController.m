@@ -91,6 +91,15 @@
     }
 }
 
+-(void)showGauge
+{
+    if(self.GaugeView && self.GaugeView.hidden)
+    {
+        self.GaugeView.hidden=NO;
+        self.ARView.hidden=YES;
+    }
+}
+
 -(void)switchViewMode:(BOOL) next
 {
     int modeCount=5;
@@ -132,65 +141,17 @@
     }
 }
 
-/*
- #pragma mark - UI interaction
- 
- - (IBAction)powerOn:(UIButton *)sender {
- if(sender.selected)//power on
- {
- spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
- 
- [self presentViewController:scanVC animated:NO completion:nil];
- }
- else//power off
- {
- UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Are you sure to power off your scooter?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Power Off", nil];
- [alert show];
- }
- }
-
-#pragma - segue
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    if([segue.identifier isEqualToString:@"showARSegue"])
-    {
-        spgARViewController *arVC= segue.destinationViewController;
-        arVC.tabBarVC=tabBarVC;
-    }
-}
-  
-#pragma - UIAlertViewDelegate
-
--(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if(buttonIndex==1)
-    {
-        spgBLEService *bleService=[spgBLEService sharedInstance];
-        [bleService writePower:[spgMScooterUtilities getDataFromByte:249]];
-        
-        [self performSelector:@selector(disconnect) withObject:nil afterDelay:1];
-    }
-}
-
--(void)disconnect
-{
-    spgBLEService *bleService=[spgBLEService sharedInstance];
-    [bleService disConnectPeripheral];
-}
-*/
-
 #pragma - spgScooterPresentationDelegate
 
 -(void)updateConnectionState:(BOOL) connected
 {
     [self updateConnectedUIState];
     
-    if(self.ARView.hidden)
+    //if(self.ARView.hidden)
     {
         [gaugeVC updateConnectionState:connected];
     }
-    else
+    //else
     {
         [ARVC updateConnectionState:connected];
     }
@@ -198,11 +159,11 @@
 
 -(void)updateSpeed:(float) speed
 {
-    if(self.ARView.hidden)
+    //if(self.ARView.hidden)
     {
         [gaugeVC updateSpeed:speed];
     }
-    else
+    //else
     {
         [ARVC updateSpeed:speed];
     }
@@ -210,11 +171,11 @@
 
 -(void)updateBattery:(float) battery
 {
-    if(self.ARView.hidden)
+    //if(self.ARView.hidden)
     {
         [gaugeVC updateBattery:battery];
     }
-    else
+    //else
     {
         [ARVC updateBattery:battery];
     }
@@ -227,9 +188,13 @@
 
 -(void)cameraTriggered:(SBSCameraCommand)commandType
 {
-    if(!self.ARView.hidden)
+    [ARVC cameraTriggered:commandType];
+    
+    if(commandType==SBSCameraCommandTakePhoto||commandType==SBSCameraCommandStopRecordVideo)
     {
-        [ARVC cameraTriggered:commandType];
+        UITabBarItem *momentsItem= self.tabBarController.tabBar.items[0];
+        int count=[momentsItem.badgeValue intValue];
+        momentsItem.badgeValue=[NSString stringWithFormat:@"%d", count+1];
     }
 }
 
@@ -244,7 +209,7 @@
 {
     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
     BOOL connected=currentState==CBPeripheralStateConnected;
-    self.powerButton.selected= connected;
+    self.connectedImage.highlighted= connected;
 }
 
 @end

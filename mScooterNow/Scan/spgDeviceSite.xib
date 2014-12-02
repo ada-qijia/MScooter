@@ -68,7 +68,7 @@
     <resources>
         <image name="battery.png" width="72" height="48"/>
         <image name="distance.png" width="72" height="48"/>
-        <image name="scooterOutline.png" width="434" height="470"/>
+        <image name="scooterOutline.png" width="640" height="640"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

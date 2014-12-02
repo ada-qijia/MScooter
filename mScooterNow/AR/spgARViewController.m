@@ -70,8 +70,6 @@
     if(size.width>size.height)
     {
         self.topControllerView.frame=CGRectMake(0, 0,40, 320);
-        self.closeButton.frame=CGRectMake(3, 10, 35, 35);
-        self.captureModeButton.frame=CGRectMake(5, 143, 32, 30);
         self.camButton.frame=CGRectMake(5, 270 ,32, 30);
         
         self.ARListView.frame=CGRectMake(40, 0, 460, 320);
@@ -83,8 +81,6 @@
     else
     {
         self.topControllerView.frame=CGRectMake(0, 0,320, 40);
-        self.closeButton.frame=CGRectMake(10, 3, 35, 35);
-        self.captureModeButton.frame=CGRectMake(143, 5, 32, 30);
         self.camButton.frame=CGRectMake(270, 5 ,32, 30);
         
         self.ARListView.frame=CGRectMake(0, 40, 320, 460);
@@ -123,15 +119,12 @@
 {
     switch (commandType) {
      case SBSCameraCommandTakePhoto:
-            self.captureModeButton.selected=YES;
             [videoCaptureVC snapStillImage];
             break;
      case SBSCameraCommandStartRecordVideo:
-            self.captureModeButton.selected=NO;
             [videoCaptureVC startVideoCapture];
             break;
      case SBSCameraCommandStopRecordVideo:
-            self.captureModeButton.selected=NO;
             [videoCaptureVC stopVideoCapture];
             break;
      default:
@@ -141,18 +134,8 @@
 
 #pragma - UI interaction
 
-//between video and photo
-- (IBAction)switchCameraMode:(UIButton *)sender {
-    self.captureModeButton.selected=!self.captureModeButton.selected;
-    [videoCaptureVC switchMode:self.captureModeButton.selected];
-}
-
 - (IBAction)switchCam:(id)sender {
     [videoCaptureVC changeCamera];
-}
-
-- (IBAction)closeClicked:(UIButton *)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma - update UI

@@ -34,4 +34,6 @@
 
 @property (nonatomic, weak) id<spgScooterPresentationDelegate> scooterPresentationDelegate;
 
+-(void)showDashboardGauge;
+
 @end

@@ -35,13 +35,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *longDateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *speedLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *closeButton;
-@property (weak, nonatomic) IBOutlet UIButton *captureModeButton;
 @property (weak, nonatomic) IBOutlet UIButton *camButton;
 
-- (IBAction)switchCameraMode:(UIButton *)sender;
 - (IBAction)switchCam:(id)sender;
-- (IBAction)closeClicked:(UIButton *)sender;
+
 
 -(void)rotateLayout:(BOOL)portrait;
 
