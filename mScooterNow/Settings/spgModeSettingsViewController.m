@@ -8,6 +8,7 @@
 
 #import "spgModeSettingsViewController.h"
 #import "spgTabBarViewController.h"
+#import "spgAlertViewManager.h"
 
 @interface spgModeSettingsViewController ()
 
@@ -82,9 +83,21 @@ NSIndexPath *willSelectIndexPath;
     NSIndexPath *selectedIndex= [tableView indexPathForSelectedRow];
     if(selectedIndex.row!=indexPath.row)
     {
-        willSelectIndexPath=indexPath;
-        UIAlertView *alertView=[[UIAlertView alloc] initWithTitle:nil message:@"Are you sure to change mode? This will disconnect your current scooter." delegate:self  cancelButtonTitle:@"CANCEL" otherButtonTitles:@"YES",nil];
-        [alertView show];
+        NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"YES",nil];
+        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are you sure to change mode? This will disconnect your current scooter." buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
+            NSIndexPath *selectedIndex= [self.scenarioModeTableView indexPathForSelectedRow];
+            if(buttonIndex==1&&willSelectIndexPath)
+            {
+                [self.scenarioModeTableView cellForRowAtIndexPath:selectedIndex].accessoryType=UITableViewCellAccessoryNone;
+                [self.scenarioModeTableView deselectRowAtIndexPath:selectedIndex animated:YES];
+                [self.scenarioModeTableView cellForRowAtIndexPath:willSelectIndexPath].accessoryType=UITableViewCellAccessoryCheckmark;
+                
+                [self ChangeSelectionToIndexPath:willSelectIndexPath];
+            }
+            
+            willSelectIndexPath=nil;
+        }];
+        [[spgAlertViewManager sharedAlertViewManager] show:alert];
     }
     
     return nil;
@@ -104,23 +117,6 @@ NSIndexPath *willSelectIndexPath;
     spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.presentingViewController;
     [tabBarVC showDashboardGauge];
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma - alert delegate
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSIndexPath *selectedIndex= [self.scenarioModeTableView indexPathForSelectedRow];
-    if(buttonIndex==1&&willSelectIndexPath)
-    {
-        [self.scenarioModeTableView cellForRowAtIndexPath:selectedIndex].accessoryType=UITableViewCellAccessoryNone;
-        [self.scenarioModeTableView deselectRowAtIndexPath:selectedIndex animated:YES];
-        [self.scenarioModeTableView cellForRowAtIndexPath:willSelectIndexPath].accessoryType=UITableViewCellAccessoryCheckmark;
-        
-        [self ChangeSelectionToIndexPath:willSelectIndexPath];
-    }
-    
-    willSelectIndexPath=nil;
 }
 
 #pragma - UI interaction

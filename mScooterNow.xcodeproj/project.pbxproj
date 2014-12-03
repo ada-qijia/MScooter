@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		326A42ED1A25C2D400941984 /* next.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EB1A25C2D400941984 /* next.png */; };
-		326A42EE1A25C2D400941984 /* pre.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EC1A25C2D400941984 /* pre.png */; };
+		326A42ED1A25C2D400941984 /* next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EB1A25C2D400941984 /* next@2x.png */; };
+		326A42EE1A25C2D400941984 /* pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EC1A25C2D400941984 /* pre@2x.png */; };
 		326A42F01A25C77F00941984 /* bgCampus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EF1A25C77F00941984 /* bgCampus@2x.png */; };
 		326A42F21A26F73700941984 /* scooterInfoBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42F11A26F73700941984 /* scooterInfoBg@2x.png */; };
 		326A42F51A27021D00941984 /* addBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42F31A27021D00941984 /* addBg.png */; };
@@ -37,6 +37,10 @@
 		32A1A80619FF8B2D00B7B8DD /* PowerOnIngBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A80319FF8B2D00B7B8DD /* PowerOnIngBg.png */; };
 		32A1A80719FF8B2D00B7B8DD /* PowerOnIngCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A1A80419FF8B2D00B7B8DD /* PowerOnIngCircle.png */; };
 		32A29B5E19F9F33F00D2BD3F /* spgARViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */; };
+		32A5318D1A2D9B3D00FF3861 /* alertBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32A5318C1A2D9B3D00FF3861 /* alertBg@2x.png */; };
+		32A531901A2DA46400FF3861 /* spgAlertViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A5318F1A2DA46400FF3861 /* spgAlertViewManager.m */; };
+		32A531931A2DAA4900FF3861 /* spgAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A531921A2DAA4900FF3861 /* spgAlertView.m */; };
+		32A531951A2DAA7F00FF3861 /* spgAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A531941A2DAA7F00FF3861 /* spgAlertView.xib */; };
 		32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */; };
 		32A7AB6919E67E49008B7D32 /* spgCamViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A7AB6819E67E49008B7D32 /* spgCamViewController.m */; };
 		32AA67391A02461300AEC01A /* distanceCircle.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AA67381A02461300AEC01A /* distanceCircle.png */; };
@@ -58,6 +62,11 @@
 		32ADA26119EF71C00081BD51 /* weather.png in Resources */ = {isa = PBXBuildFile; fileRef = 32ADA26019EF71C00081BD51 /* weather.png */; };
 		32ADA26519EF8FF60081BD51 /* spgSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32ADA26419EF8FF60081BD51 /* spgSettingsViewController.m */; };
 		32ADA26819EFB0520081BD51 /* spgTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32ADA26719EFB0520081BD51 /* spgTabBarViewController.m */; };
+		32AE9B181A2EAC2200656AA9 /* passcodeBg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AE9B171A2EAC2200656AA9 /* passcodeBg@2x.png */; };
+		32AE9B1A1A2EB13400656AA9 /* passcodeHighlight@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AE9B191A2EB13400656AA9 /* passcodeHighlight@2x.png */; };
+		32AE9B1D1A2EE28000656AA9 /* disabledButtonBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AE9B1B1A2EE28000656AA9 /* disabledButtonBg.png */; };
+		32AE9B1E1A2EE28000656AA9 /* enabledButtonBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AE9B1C1A2EE28000656AA9 /* enabledButtonBg.png */; };
+		32AE9B201A2EFCB600656AA9 /* passcodeDot@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32AE9B1F1A2EFCB600656AA9 /* passcodeDot@2x.png */; };
 		32B1000919C97B1800D9FFF5 /* THPinViewController.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32B1FFF019C97B1800D9FFF5 /* THPinViewController.strings */; };
 		32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF719C97B1800D9FFF5 /* THPinInputCirclesView.m */; };
 		32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32B1FFF919C97B1800D9FFF5 /* THPinInputCircleView.m */; };
@@ -110,8 +119,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		326A42EB1A25C2D400941984 /* next.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = next.png; sourceTree = "<group>"; };
-		326A42EC1A25C2D400941984 /* pre.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pre.png; sourceTree = "<group>"; };
+		326A42EB1A25C2D400941984 /* next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next@2x.png"; sourceTree = "<group>"; };
+		326A42EC1A25C2D400941984 /* pre@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pre@2x.png"; sourceTree = "<group>"; };
 		326A42EF1A25C77F00941984 /* bgCampus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCampus@2x.png"; sourceTree = "<group>"; };
 		326A42F11A26F73700941984 /* scooterInfoBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "scooterInfoBg@2x.png"; sourceTree = "<group>"; };
 		326A42F31A27021D00941984 /* addBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addBg.png; sourceTree = "<group>"; };
@@ -149,6 +158,12 @@
 		32A29B5C19F9F33F00D2BD3F /* spgARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgARViewController.h; sourceTree = "<group>"; };
 		32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgARViewController.m; sourceTree = "<group>"; };
 		32A29B6419FA5B4100D2BD3F /* spgMScooterCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgMScooterCommon.h; sourceTree = "<group>"; };
+		32A5318C1A2D9B3D00FF3861 /* alertBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alertBg@2x.png"; sourceTree = "<group>"; };
+		32A5318E1A2DA46400FF3861 /* spgAlertViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgAlertViewManager.h; path = AlertView/spgAlertViewManager.h; sourceTree = "<group>"; };
+		32A5318F1A2DA46400FF3861 /* spgAlertViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgAlertViewManager.m; path = AlertView/spgAlertViewManager.m; sourceTree = "<group>"; };
+		32A531911A2DAA4900FF3861 /* spgAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgAlertView.h; path = AlertView/spgAlertView.h; sourceTree = "<group>"; };
+		32A531921A2DAA4900FF3861 /* spgAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgAlertView.m; path = AlertView/spgAlertView.m; sourceTree = "<group>"; };
+		32A531941A2DAA7F00FF3861 /* spgAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgAlertView.xib; path = AlertView/spgAlertView.xib; sourceTree = "<group>"; };
 		32A7AB6419E67D77008B7D32 /* spgCamPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgCamPreviewView.h; sourceTree = "<group>"; };
 		32A7AB6519E67D77008B7D32 /* spgCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgCamPreviewView.m; sourceTree = "<group>"; };
 		32A7AB6719E67E49008B7D32 /* spgCamViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgCamViewController.h; sourceTree = "<group>"; };
@@ -175,6 +190,11 @@
 		32ADA26419EF8FF60081BD51 /* spgSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgSettingsViewController.m; path = Settings/spgSettingsViewController.m; sourceTree = "<group>"; };
 		32ADA26619EFB0520081BD51 /* spgTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgTabBarViewController.h; sourceTree = "<group>"; };
 		32ADA26719EFB0520081BD51 /* spgTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgTabBarViewController.m; sourceTree = "<group>"; };
+		32AE9B171A2EAC2200656AA9 /* passcodeBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passcodeBg@2x.png"; sourceTree = "<group>"; };
+		32AE9B191A2EB13400656AA9 /* passcodeHighlight@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passcodeHighlight@2x.png"; sourceTree = "<group>"; };
+		32AE9B1B1A2EE28000656AA9 /* disabledButtonBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disabledButtonBg.png; sourceTree = "<group>"; };
+		32AE9B1C1A2EE28000656AA9 /* enabledButtonBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enabledButtonBg.png; sourceTree = "<group>"; };
+		32AE9B1F1A2EFCB600656AA9 /* passcodeDot@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "passcodeDot@2x.png"; sourceTree = "<group>"; };
 		32B1000019C97B1800D9FFF5 /* THPinViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewController.h; sourceTree = "<group>"; };
 		32B1000119C97B1800D9FFF5 /* THPinViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = THPinViewController.m; sourceTree = "<group>"; };
 		32B1000219C97B1800D9FFF5 /* THPinViewControllerMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = THPinViewControllerMacros.h; sourceTree = "<group>"; };
@@ -338,6 +358,18 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		32A531861A2D96C600FF3861 /* AlertView */ = {
+			isa = PBXGroup;
+			children = (
+				32A5318E1A2DA46400FF3861 /* spgAlertViewManager.h */,
+				32A5318F1A2DA46400FF3861 /* spgAlertViewManager.m */,
+				32A531911A2DAA4900FF3861 /* spgAlertView.h */,
+				32A531921A2DAA4900FF3861 /* spgAlertView.m */,
+				32A531941A2DAA7F00FF3861 /* spgAlertView.xib */,
+			);
+			name = AlertView;
+			sourceTree = "<group>";
+		};
 		32ADA26219EF8FA20081BD51 /* Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -414,6 +446,7 @@
 		32B1FF8F19C974AC00D9FFF5 /* mScooterNow */ = {
 			isa = PBXGroup;
 			children = (
+				32A531861A2D96C600FF3861 /* AlertView */,
 				32A0102D1A0B5F1A00F4D4A4 /* Moments */,
 				32A29B5F19FA597A00D2BD3F /* Common */,
 				32A29B5B19F9F33F00D2BD3F /* AR */,
@@ -471,6 +504,12 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				32AE9B1F1A2EFCB600656AA9 /* passcodeDot@2x.png */,
+				32AE9B1B1A2EE28000656AA9 /* disabledButtonBg.png */,
+				32AE9B1C1A2EE28000656AA9 /* enabledButtonBg.png */,
+				32AE9B191A2EB13400656AA9 /* passcodeHighlight@2x.png */,
+				32AE9B171A2EAC2200656AA9 /* passcodeBg@2x.png */,
+				32A5318C1A2D9B3D00FF3861 /* alertBg@2x.png */,
 				326A42FA1A2857D000941984 /* noSignal@2x.png */,
 				326A42FB1A2857D000941984 /* signal@2x.png */,
 				326A42F31A27021D00941984 /* addBg.png */,
@@ -497,12 +536,12 @@
 				32B1FFD419C978C800D9FFF5 /* me@2x.png */,
 				32B1FFD519C978C800D9FFF5 /* moments@2x.png */,
 				32B6973F1A10A1EF004C1879 /* momentsList.png */,
-				326A42EB1A25C2D400941984 /* next.png */,
+				326A42EB1A25C2D400941984 /* next@2x.png */,
 				32ABC2C219CBC9AE00F3254E /* powerOff.png */,
 				32A1A80219FF8B2D00B7B8DD /* powerOn.png */,
 				32A1A80319FF8B2D00B7B8DD /* PowerOnIngBg.png */,
 				32A1A80419FF8B2D00B7B8DD /* PowerOnIngCircle.png */,
-				326A42EC1A25C2D400941984 /* pre.png */,
+				326A42EC1A25C2D400941984 /* pre@2x.png */,
 				32ADA25619EF66CA0081BD51 /* preview.png */,
 				32B1FFD619C978C800D9FFF5 /* profile.png */,
 				32B1FFD719C978C800D9FFF5 /* radar.png */,
@@ -626,6 +665,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32AE9B201A2EFCB600656AA9 /* passcodeDot@2x.png in Resources */,
 				32A1A7F819FF877900B7B8DD /* snsWechat.png in Resources */,
 				32B6973B1A109526004C1879 /* scooterFlagActive.png in Resources */,
 				32ABC2C719CBC9AE00F3254E /* circles@2x.png in Resources */,
@@ -641,11 +681,12 @@
 				32A1A7E719FF5F9400B7B8DD /* userGuide2@2x.png in Resources */,
 				32B1FFE419C978C800D9FFF5 /* me@2x.png in Resources */,
 				326A42FD1A2857D000941984 /* signal@2x.png in Resources */,
+				32A5318D1A2D9B3D00FF3861 /* alertBg@2x.png in Resources */,
 				32A1A7F719FF877900B7B8DD /* snsSkype.png in Resources */,
 				32A1A80719FF8B2D00B7B8DD /* PowerOnIngCircle.png in Resources */,
 				32ADA25719EF66CA0081BD51 /* preview.png in Resources */,
 				32B1003019C981A400D9FFF5 /* speedCircle.png in Resources */,
-				326A42ED1A25C2D400941984 /* next.png in Resources */,
+				326A42ED1A25C2D400941984 /* next@2x.png in Resources */,
 				32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */,
 				32B5F0E31A00D0B300A70CDC /* dashboardCircle.png in Resources */,
 				32A1A7FD19FF8B0700B7B8DD /* close.png in Resources */,
@@ -667,7 +708,7 @@
 				32AC18821A25AB290020A147 /* bgPersonal@2x.png in Resources */,
 				32ADA25B19EF66DD0081BD51 /* userInfo.png in Resources */,
 				32B1FF9419C974AC00D9FFF5 /* InfoPlist.strings in Resources */,
-				326A42EE1A25C2D400941984 /* pre.png in Resources */,
+				326A42EE1A25C2D400941984 /* pre@2x.png in Resources */,
 				32ABC2CC19CBC9AE00F3254E /* powerOff.png in Resources */,
 				32ADA26119EF71C00081BD51 /* weather.png in Resources */,
 				32A1A7E619FF5F9400B7B8DD /* userGuide1@2x.png in Resources */,
@@ -677,6 +718,7 @@
 				32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */,
 				32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */,
 				32B1FFE919C978C800D9FFF5 /* scooterIcon.png in Resources */,
+				32AE9B181A2EAC2200656AA9 /* passcodeBg@2x.png in Resources */,
 				32A1A80619FF8B2D00B7B8DD /* PowerOnIngBg.png in Resources */,
 				32B6972C1A106217004C1879 /* spgModeSettingsViewController.xib in Resources */,
 				32ABC2C619CBC9AE00F3254E /* camera.png in Resources */,
@@ -685,11 +727,15 @@
 				326A42F21A26F73700941984 /* scooterInfoBg@2x.png in Resources */,
 				32A13C3319F4DAAF00D1AC9E /* spgChangePasswordViewController.xib in Resources */,
 				32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */,
+				32AE9B1E1A2EE28000656AA9 /* enabledButtonBg.png in Resources */,
+				32AE9B1A1A2EB13400656AA9 /* passcodeHighlight@2x.png in Resources */,
 				326A42FC1A2857D000941984 /* noSignal@2x.png in Resources */,
+				32A531951A2DAA7F00FF3861 /* spgAlertView.xib in Resources */,
 				32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */,
 				32AA67391A02461300AEC01A /* distanceCircle.png in Resources */,
 				32B1FF9D19C974AD00D9FFF5 /* Main.storyboard in Resources */,
 				32B697381A109526004C1879 /* scanScope.png in Resources */,
+				32AE9B1D1A2EE28000656AA9 /* disabledButtonBg.png in Resources */,
 				32ADA25919EF66D60081BD51 /* time.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,6 +749,8 @@
 			files = (
 				32B1000C19C97B1800D9FFF5 /* THPinNumButton.m in Sources */,
 				32B1FFEE19C97AC100D9FFF5 /* spgScanViewController.m in Sources */,
+				32A531931A2DAA4900FF3861 /* spgAlertView.m in Sources */,
+				32A531901A2DA46400FF3861 /* spgAlertViewManager.m in Sources */,
 				32A1A7F319FF769000B7B8DD /* spgMScooterUtilities.m in Sources */,
 				32ADA26519EF8FF60081BD51 /* spgSettingsViewController.m in Sources */,
 				32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */,

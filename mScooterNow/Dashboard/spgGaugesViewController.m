@@ -9,6 +9,7 @@
 #import "spgGaugesViewController.h"
 #import "spgScanViewController.h"
 #import "spgBLEService.h"
+#import "spgAlertViewManager.h"
 
 @interface spgGaugesViewController ()
 
@@ -83,8 +84,14 @@
 }
 
 - (IBAction)ConnectScooter:(UIButton *)sender {
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Enter your passcode?" delegate:self  cancelButtonTitle:@"CANCEL" otherButtonTitles:@"OK",nil];
-    [alert show];
+    NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"OK",nil];
+    spgAlertView *alert=[[spgAlertView alloc] initPasscodeWithTitle:@"Enter Your Passcode" buttons:buttons correctPasscode:@"8888" afterDismiss:^(NSString* passcode, int buttonIndex) {
+        if(buttonIndex==1)
+        {
+            [self certifyScooter];
+        }
+    }];
+    [[spgAlertViewManager sharedAlertViewManager] show:alert];
 }
 
 -(void)rotateLayout:(BOOL)portrait
@@ -208,16 +215,7 @@
     }
 }
 
-#pragma - password alert delegate
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(buttonIndex==1)
-    {
-        //self.correctPin
-        [self certifyScooter];
-    }
-}
+#pragma - password alert
 
 -(void)certifyScooter
 {

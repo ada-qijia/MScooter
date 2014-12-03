@@ -11,6 +11,7 @@
 #import "spgModeSettingsViewController.h"
 #import "spgScanViewController.h"
 #import "spgIntroductionViewController.h"
+#import "spgAlertViewManager.h"
 
 @interface spgSettingsViewController ()
 
@@ -45,10 +46,10 @@
 }
 
 /*
-- (IBAction)changePasswordClicked:(UIButton *)sender {
-    spgChangePasswordViewController *changePasswordVC=[[spgChangePasswordViewController alloc] initWithNibName:@"spgChangePasswordViewController" bundle:nil];
-    [self presentViewController:changePasswordVC animated:YES completion:nil];
-}
+ - (IBAction)changePasswordClicked:(UIButton *)sender {
+ spgChangePasswordViewController *changePasswordVC=[[spgChangePasswordViewController alloc] initWithNibName:@"spgChangePasswordViewController" bundle:nil];
+ [self presentViewController:changePasswordVC animated:YES completion:nil];
+ }
  */
 
 - (IBAction)AboutClicked:(UIButton *)sender {
@@ -60,30 +61,27 @@
 }
 
 - (IBAction)resetScooterClicked:(UIButton *)sender {
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:@"Are you sure to reset a new scooter?" message:nil delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Reset", nil];
-    [alert show];
+    NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"RESET",nil];
+    spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are you sure to reset a new scooter?" buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
+        if(buttonIndex==1)
+        {
+            [[spgBLEService sharedInstance] clean];
+            
+            //clean saved MyPeripheralID if change to personal mode.
+            [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
+            
+            //navigate to scan page
+            spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
+            [self presentViewController:scanVC animated:YES completion:nil];
+            
+        }
+    }];
+    [[spgAlertViewManager sharedAlertViewManager] show:alert];
 }
 
 - (IBAction)PasswordSwitchChanged:(UISwitch *)sender {
     NSString *isOn=sender.isOn?@"YES":@"NO";
     [spgMScooterUtilities savePreferenceWithKey:kPasswordOnKey value:isOn];
-}
-
-#pragma - UIAlertViewDelegate
-
--(void)alertView:(UIAlertView *)alertView willDismissWithButtonIndex:(NSInteger)buttonIndex
-{
-    if(buttonIndex==1)
-    {
-        [[spgBLEService sharedInstance] clean];
-        
-        //clean saved MyPeripheralID if change to personal mode.
-        [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
-
-        //navigate to scan page
-        spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
-        [self presentViewController:scanVC animated:YES completion:nil];
-    }
 }
 
 @end

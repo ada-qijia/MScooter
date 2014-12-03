@@ -24,16 +24,16 @@
                     <rect key="frame" x="0.0" y="10" width="320" height="528"/>
                 </imageView>
                 <imageView userInteractionEnabled="NO" tag="10001" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scanScope.png" translatesAutoresizingMaskIntoConstraints="NO" id="FEa-Ie-GTf">
-                    <rect key="frame" x="167" y="-1" width="162" height="162"/>
+                    <rect key="frame" x="160" y="-1" width="162" height="162"/>
                 </imageView>
                 <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nNm-5M-6VM" userLabel="scope">
-                    <rect key="frame" x="185" y="15" width="125" height="125"/>
+                    <rect key="frame" x="180" y="15" width="125" height="125"/>
                     <subviews>
                         <view tag="10000" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="whl-4a-mog">
                             <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
                         </view>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="radar.png" translatesAutoresizingMaskIntoConstraints="NO" id="sA1-bg-dM2">
-                            <rect key="frame" x="0.0" y="0.0" width="125" height="125"/>
+                            <rect key="frame" x="-1" y="1" width="125" height="125"/>
                         </imageView>
                     </subviews>
                 </view>
@@ -48,13 +48,13 @@
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BATTERY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Au-yRv">
                             <rect key="frame" x="144" y="144" width="62" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIt-49-Fjt">
                             <rect key="frame" x="123" y="167" width="100" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="32"/>
                             <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -74,7 +74,7 @@
                             <rect key="frame" x="50" y="298" width="220" height="40"/>
                             <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <state key="normal" title="ADD SCOOTER">
+                            <state key="normal" title="OK">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </state>
@@ -88,24 +88,24 @@
                                 <action selector="pickupClicked:" destination="-1" eventType="touchUpInside" id="TFA-bL-xTq"/>
                             </connections>
                         </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-Ss-Fe5">
+                            <rect key="frame" x="274" y="163" width="24" height="33"/>
+                            <state key="normal" backgroundImage="next.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="KU9-iT-SXB"/>
+                            </connections>
+                        </button>
                     </subviews>
                 </view>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxV-e8-xud">
-                    <rect key="frame" x="12" y="260" width="36" height="49"/>
+                    <rect key="frame" x="15" y="267" width="24" height="33"/>
                     <state key="normal" backgroundImage="pre.png">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="preClicked:" destination="-1" eventType="touchUpInside" id="ywG-N8-VVd"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-Ss-Fe5">
-                    <rect key="frame" x="270" y="260" width="36" height="49"/>
-                    <state key="normal" backgroundImage="next.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="KU9-iT-SXB"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PiV-zf-wcx">
@@ -127,8 +127,8 @@
     <resources>
         <image name="circles.png" width="320" height="568"/>
         <image name="close.png" width="57" height="49"/>
-        <image name="next.png" width="49" height="67"/>
-        <image name="pre.png" width="49" height="67"/>
+        <image name="next.png" width="24" height="33"/>
+        <image name="pre.png" width="24" height="33"/>
         <image name="radar.png" width="253" height="253"/>
         <image name="scanScope.png" width="324" height="324"/>
         <image name="scooterInfoBg.png" width="125" height="125"/>

@@ -11,7 +11,7 @@
 #import "spgMScooterDefinitions.h"
 #import "spgBLEService.h"
 
-@interface spgScanViewController : UIViewController <spgBLEServiceDiscoverPeripheralsDelegate, UIAlertViewDelegate>
+@interface spgScanViewController : UIViewController <spgBLEServiceDiscoverPeripheralsDelegate>
 
 @property (nonatomic) BOOL shouldRetry;
 

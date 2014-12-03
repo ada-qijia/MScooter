@@ -11,7 +11,7 @@
 #import "spgGaugesViewController.h"
 #import "spgTabBarViewController.h"
 
-@interface spgDashboardViewController : UIViewController<spgScooterPresentationDelegate,UIAlertViewDelegate>
+@interface spgDashboardViewController : UIViewController<spgScooterPresentationDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *ARView;
 @property (weak, nonatomic) IBOutlet UIView *GaugeView;

@@ -9,6 +9,7 @@
 #import "spgScanViewController.h"
 #import "spgScooterPeripheral.h"
 #import "spgTabBarViewController.h"
+#import "spgAlertViewManager.h"
 
 static NSString *const SCOOTER_SERVICE_UUID=@"4B4681A4-1246-1EEC-AB2B-FE45F896822D";
 static const NSInteger scooterCount = 10;
@@ -85,8 +86,18 @@ static const NSInteger scooterTimeArrayCount=10;
 #pragma - UI interaction
 
 - (IBAction)pickupClicked:(id)sender {
-    UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:@"Are you sure to pick up this scooter?" delegate:self  cancelButtonTitle:@"CANCEL" otherButtonTitles:@"PICK UP",nil];
-    [alert show];
+    NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"PICK UP",nil];
+    spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are you sure to pick up this scooter?" buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
+        if(buttonIndex==1)
+        {
+            //navigate
+            if(visibleScooter)
+            {
+                [self navigateWithPeripheral:visibleScooter.Peripheral];
+            }
+        }
+    }];
+    [[spgAlertViewManager sharedAlertViewManager] show:alert];
 }
 
 - (IBAction)closeClicked:(id)sender {
@@ -113,72 +124,60 @@ static const NSInteger scooterTimeArrayCount=10;
     [self updateScooter:scooter];
 }
 
-#pragma pick up alert delegate
-
--(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if(buttonIndex==1)
-    {
-        //navigate
-        if(visibleScooter)
-        {
-            [self navigateWithPeripheral:visibleScooter.Peripheral];
-        }
-    }
-}
-
-
 #pragma - custom methods
 
--(BOOL)startScan
+-(void)startScan
 {
-    //observe peripheral state
-    observerTimer=[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector: @selector(timerElapsed) userInfo:nil repeats:YES];
+    //run animation
+    [self startSpin];
     
-    //ui update
-    self.radarImage.hidden=NO;
-    for (UIView *flagView in self.scopeView.subviews) {
-        [flagView removeFromSuperview];
-    }
-    
-    //start scan
-    visibleScooter=nil;
-    [self.foundPeripherals removeAllObjects];
-    
-    if(!isScanning && self.bleService.centralManager.state==CBCentralManagerStatePoweredOn)
-    {
-        //run animation
-        [self startSpin];
+    //spin two circle before real scan.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3*NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+        //observe peripheral state
+        observerTimer=[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector: @selector(timerElapsed) userInfo:nil repeats:YES];
         
-        BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
-        NSString *knownUUIDString=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
+        //ui update
+        self.radarImage.hidden=NO;
+        for (UIView *flagView in self.scopeView.subviews) {
+            [flagView removeFromSuperview];
+        }
         
-        //find known peripheral
-        if(isPersonal && knownUUIDString)
+        //start scan
+        visibleScooter=nil;
+        [self.foundPeripherals removeAllObjects];
+        
+        if(!isScanning && self.bleService.centralManager.state==CBCentralManagerStatePoweredOn)
         {
-            NSUUID *knownUUID=[[NSUUID alloc] initWithUUIDString:knownUUIDString];
-            NSArray *savedIdentifier=[NSArray arrayWithObjects:knownUUID, nil];
-            NSArray *knownPeripherals= [self.bleService.centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
-            if(knownPeripherals.count>0)
+            
+            
+            BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
+            NSString *knownUUIDString=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
+            
+            //find known peripheral
+            if(isPersonal && knownUUIDString)
             {
-                spgScooterPeripheral *scooter=[[spgScooterPeripheral alloc] initWithPeripheral:knownPeripherals[0] timeArrayCapacity:scooterTimeArrayCount];
-                [self.foundPeripherals addObject:scooter];
-                [self navigateWithPeripheral:knownPeripherals[0]];
+                NSUUID *knownUUID=[[NSUUID alloc] initWithUUIDString:knownUUIDString];
+                NSArray *savedIdentifier=[NSArray arrayWithObjects:knownUUID, nil];
+                NSArray *knownPeripherals= [self.bleService.centralManager retrievePeripheralsWithIdentifiers:savedIdentifier];
+                if(knownPeripherals.count>0)
+                {
+                    spgScooterPeripheral *scooter=[[spgScooterPeripheral alloc] initWithPeripheral:knownPeripherals[0] timeArrayCapacity:scooterTimeArrayCount];
+                    [self.foundPeripherals addObject:scooter];
+                    [self navigateWithPeripheral:knownPeripherals[0]];
+                }
+                else
+                {
+                    [self.bleService startScan];
+                }
             }
             else
             {
                 [self.bleService startScan];
             }
+            
+            isScanning=YES;
         }
-        else
-        {
-            [self.bleService startScan];
-        }
-        
-        isScanning=YES;
-        return true;
-    }
-    return false;
+    });
 }
 
 -(void)stopScan
@@ -243,7 +242,7 @@ static const NSInteger scooterTimeArrayCount=10;
     CABasicAnimation *rotationAnimation=[CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotationAnimation.repeatCount=HUGE_VALF;
     rotationAnimation.byValue=[NSNumber numberWithFloat:M_PI*2.0];
-    rotationAnimation.duration=2;
+    rotationAnimation.duration=1.5;
     rotationAnimation.cumulative=YES;
     
     [self.radarImage.layer addAnimation:rotationAnimation forKey: @"rotatioinAnimation"];
@@ -361,8 +360,9 @@ static const NSInteger scooterTimeArrayCount=10;
     
     if(message!=nil)
     {
-        UIAlertView *alert=[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert show];
+        NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", nil];
+        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:message buttons:buttons afterDismiss:nil];
+        [[spgAlertViewManager sharedAlertViewManager] show:alert];
     }
 }
 
