@@ -111,7 +111,7 @@ static const NSInteger scooterTimeArrayCount=10;
     int preIndex=(selectedIndex-1+count)%count;
     spgScooterPeripheral *scooter=self.foundPeripherals[preIndex];
     
-    [self updateScooter:scooter];
+    [self updateScooter:scooter withAnimation:YES animationNext:NO];
 }
 
 //cycle
@@ -121,7 +121,7 @@ static const NSInteger scooterTimeArrayCount=10;
     int nextIndex=(selectedIndex+1+count)%count;
     spgScooterPeripheral *scooter=self.foundPeripherals[nextIndex];
     
-    [self updateScooter:scooter];
+    [self updateScooter:scooter withAnimation:YES animationNext:YES];
 }
 
 #pragma - custom methods
@@ -445,16 +445,16 @@ static const NSInteger scooterTimeArrayCount=10;
             if(count>1)//show next
             {
                 int nextIndex=(selectedIndex+1)%count;
-                [self updateScooter:self.foundPeripherals[nextIndex]];
+                [self updateScooter:self.foundPeripherals[nextIndex] withAnimation:NO animationNext:NO];
             }
             else
             {
-                [self updateScooter:nil];
+                [self updateScooter:nil withAnimation:NO animationNext:NO];
             }
         }
         else if(newState==BLEDeviceStateActive||newState==BLEDeviceStateVague)
         {
-            [self updateScooter:scooter];
+            [self updateScooter:scooter withAnimation:NO animationNext:NO];
         }
     }
     
@@ -469,8 +469,19 @@ static const NSInteger scooterTimeArrayCount=10;
     self.nextButton.hidden=self.preButton.hidden;
 }
 
--(void)updateScooter:(spgScooterPeripheral *)scooter
+-(void)updateScooter:(spgScooterPeripheral *)scooter withAnimation:(BOOL)useAnimation animationNext:(BOOL)next
 {
+    if(useAnimation)
+    {
+        CATransition *transition = [CATransition animation];
+        transition.duration = 0.5;
+        transition.type = kCATransitionPush;
+        transition.subtype =next? kCATransitionFromRight:kCATransitionFromLeft;
+        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        
+        [self.scooterView.layer addAnimation:transition forKey:nil];
+    }
+    
     visibleScooter=scooter;
     if(scooter)
     {

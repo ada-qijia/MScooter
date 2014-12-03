@@ -25,7 +25,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [self resetConnectionState];
     }
     return self;
 }
@@ -115,6 +115,9 @@
 //All the connect, certify, UI logic are here.
 -(void)resetConnectionState
 {
+    BOOL addButtonOldHidden=self.AddButton.hidden;
+    BOOL connectButtonOldHidden=self.ConnectButton.hidden;
+    
     CBPeripheralState currentState= [spgBLEService sharedInstance].peripheral.state;
     BOOL passwordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
     if(currentState==CBPeripheralStateConnected)
@@ -213,7 +216,38 @@
             self.ConnectButton.hidden=YES;
         }
     }
+    
+    if(self.AddButton.hidden!=addButtonOldHidden)
+    {
+        if(self.AddButton.hidden)
+        {
+            [self.AddButton.layer removeAllAnimations];
+        }
+        else
+        {
+            [self breathAnimation:self.AddButton];
+        }
+    }
+    
+    if(self.ConnectButton.hidden!=connectButtonOldHidden)
+    {
+        if(self.ConnectButton.hidden)
+        {
+            [self.ConnectButton.layer removeAllAnimations];
+        }
+        else
+        {
+            [self breathAnimation:self.ConnectButton];
+        }
+    }
 }
+
+-(void)breathAnimation:(UIView *)view
+{
+    view.alpha=0.2;
+    [UIView animateWithDuration:1 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse|UIViewAnimationOptionAllowUserInteraction) animations:^{view.alpha=1.0;} completion:nil];
+}
+
 
 #pragma - password alert
 
