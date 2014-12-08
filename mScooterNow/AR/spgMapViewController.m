@@ -11,6 +11,8 @@
 
 @interface spgMapViewController ()
 
+@property(retain,nonatomic) CLLocationManager *locationManager;
+
 @end
 
 @implementation spgMapViewController
@@ -38,7 +40,19 @@
     
     self.mapView.pitchEnabled=false;
     self.mapView.rotateEnabled=false;
-    self.mapView.showsUserLocation=YES;
+    
+    //set locationManager
+    self.locationManager=[[CLLocationManager alloc] init];
+    
+    if(IS_OS_8_OR_LATER)
+    {
+        [self.locationManager requestWhenInUseAuthorization];
+    }
+    
+    if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusAuthorized)
+    {
+        self.mapView.showsUserLocation=YES;
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated

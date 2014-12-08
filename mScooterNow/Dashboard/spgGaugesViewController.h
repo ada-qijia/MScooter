@@ -19,6 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *batteryBgImage;
 @property (weak, nonatomic) IBOutlet UILabel *BatteryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *DistanceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *SpeedLabel;
 
 @property (weak, nonatomic) IBOutlet UIButton *AddButton;
 @property (weak, nonatomic) IBOutlet UIButton *ConnectButton;

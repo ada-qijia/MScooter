@@ -9,6 +9,8 @@
 #ifndef mScooterNow_spgMScooterDefinitions_h
 #define mScooterNow_spgMScooterDefinitions_h
 
+#define IS_OS_8_OR_LATER ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+
 #define kScooterStationPrefix @"BIC "
 #define kScooterDeviceName @"SCOOTER"
 

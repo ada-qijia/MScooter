@@ -71,21 +71,21 @@
 
 #pragma mark - gesture methods
 
-//only change mode when connected
+//change mode when connected or user is not in GaugeView
 -(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
 {
     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
-    if(currentState==CBPeripheralStateConnected)
+    if(currentState==CBPeripheralStateConnected||self.GaugeView.hidden)
     {
         [self switchViewMode:YES];
     }
 }
 
-//only change mode when connected
+//change mode when connected or user is not in GaugeView
 -(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
 {
     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
-    if(currentState==CBPeripheralStateConnected)
+    if(currentState==CBPeripheralStateConnected||self.GaugeView.hidden)
     {
         [self switchViewMode:NO];
     }

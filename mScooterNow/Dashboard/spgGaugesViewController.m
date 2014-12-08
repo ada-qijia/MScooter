@@ -217,6 +217,7 @@
         }
     }
     
+    //button animation
     if(self.AddButton.hidden!=addButtonOldHidden)
     {
         if(self.AddButton.hidden)
@@ -240,6 +241,9 @@
             [self breathAnimation:self.ConnectButton];
         }
     }
+    
+    //SPEED Label
+    self.SpeedLabel.hidden=!(self.AddButton.hidden && self.ConnectButton.hidden);
 }
 
 -(void)breathAnimation:(UIView *)view

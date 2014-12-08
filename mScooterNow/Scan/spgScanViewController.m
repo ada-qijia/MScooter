@@ -35,6 +35,7 @@ static const NSInteger scooterTimeArrayCount=10;
     
     UIImage *dotImage;
     NSTimer *observerTimer;
+    NSTimer *loopScanTimer;
     
     spgScooterPeripheral *visibleScooter;
 }
@@ -133,8 +134,10 @@ static const NSInteger scooterTimeArrayCount=10;
     
     //spin two circle before real scan.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3*NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-        //observe peripheral state
-        observerTimer=[NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector: @selector(timerElapsed) userInfo:nil repeats:YES];
+        //Clear
+        visibleScooter=nil;
+        [self.foundPeripherals removeAllObjects];
+        [self resetAvailableScooterPos];
         
         //ui update
         self.radarImage.hidden=NO;
@@ -142,14 +145,13 @@ static const NSInteger scooterTimeArrayCount=10;
             [flagView removeFromSuperview];
         }
         
-        //start scan
-        visibleScooter=nil;
-        [self.foundPeripherals removeAllObjects];
+        //observe peripheral state
+        observerTimer=[NSTimer timerWithTimeInterval:0.2 target:self selector:@selector(timerElapsed:) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:observerTimer forMode:NSRunLoopCommonModes];
         
+        //start scan
         if(!isScanning && self.bleService.centralManager.state==CBCentralManagerStatePoweredOn)
         {
-            
-            
             BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
             NSString *knownUUIDString=[spgMScooterUtilities getPreferenceWithKey:kMyPeripheralIDKey];
             
@@ -168,11 +170,13 @@ static const NSInteger scooterTimeArrayCount=10;
                 else
                 {
                     [self.bleService startScan];
+                    [self loopScan];
                 }
             }
             else
             {
                 [self.bleService startScan];
+                [self loopScan];
             }
             
             isScanning=YES;
@@ -182,6 +186,9 @@ static const NSInteger scooterTimeArrayCount=10;
 
 -(void)stopScan
 {
+    //stop loopScan timer
+    [loopScanTimer invalidate];
+    
     //stop observe
     [observerTimer invalidate];
     
@@ -197,7 +204,20 @@ static const NSInteger scooterTimeArrayCount=10;
     }
 }
 
--(void)timerElapsed
+-(void)loopScan
+{
+    loopScanTimer=[NSTimer timerWithTimeInterval:110 target:self selector:@selector(autoRestartScan:) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop] addTimer:loopScanTimer forMode:NSRunLoopCommonModes];
+}
+
+-(void)autoRestartScan:(NSTimer *)timer
+{
+    [self.bleService stopScan];
+    [self.bleService startScan];
+}
+
+//observe peripheral state
+-(void)timerElapsed:(NSTimer *)timer
 {
     NSDate *dateNow=[[NSDate alloc] initWithTimeIntervalSinceNow:0];
     NSMutableArray *scooters=[NSMutableArray arrayWithArray:self.foundPeripherals];
@@ -306,19 +326,6 @@ static const NSInteger scooterTimeArrayCount=10;
     [UIView animateWithDuration:1.5 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse) animations:^{view.alpha=1.0; view.transform=CGAffineTransformIdentity;} completion:nil];
 }
 
--(void)scaleInAnimation:(UIView *)view
-{
-    view.alpha=0;
-    view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
-    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{view.transform=CGAffineTransformIdentity;view.alpha=1;} completion:nil];
-}
-
--(void)scaleOutAnimation:(UIView *)view
-{
-    view.transform=CGAffineTransformIdentity;
-    [UIView animateWithDuration:0.5 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse) animations:^{view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);view.alpha=0;} completion:nil];
-}
-
 #pragma mark - navigation
 
 -(void)navigateWithPeripheral:(CBPeripheral *) peripheral
@@ -370,7 +377,7 @@ static const NSInteger scooterTimeArrayCount=10;
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
     //NSString *name = advertisementData[kCBAdvDataLocalName]; sometimes nil
-    // scooter
+    //scooter
     NSDate *dateNow=[NSDate date];
     NSDictionary *serviceData=advertisementData[kCBAdvDataServiceData];
     CBUUID* batteryUUID=[CBUUID UUIDWithString:kBatteryServiceUUID];
@@ -398,6 +405,8 @@ static const NSInteger scooterTimeArrayCount=10;
         [scooter.RecentTimeArray removeObjectAtIndex:0];
         [scooter.RecentTimeArray addObject:dateNow];
     }
+    
+    //NSLog(@"%@",advertisementData);
 }
 
 #pragma - utilities
@@ -523,6 +532,23 @@ static const NSInteger scooterTimeArrayCount=10;
     scooterPos[9]= CGPointMake(54, 32);
     
     availableScooterPos=[NSMutableArray array];
+    for(int i=0;i<scooterCount;i++)
+    {
+        [availableScooterPos addObject:[NSNumber numberWithInt:i]];
+    }
+}
+
+-(void)resetAvailableScooterPos
+{
+    if(availableScooterPos)
+    {
+        [availableScooterPos removeAllObjects];
+    }
+    else
+    {
+        availableScooterPos=[NSMutableArray array];
+    }
+    
     for(int i=0;i<scooterCount;i++)
     {
         [availableScooterPos addObject:[NSNumber numberWithInt:i]];

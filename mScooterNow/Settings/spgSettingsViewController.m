@@ -82,6 +82,7 @@
 - (IBAction)PasswordSwitchChanged:(UISwitch *)sender {
     NSString *isOn=sender.isOn?@"YES":@"NO";
     [spgMScooterUtilities savePreferenceWithKey:kPasswordOnKey value:isOn];
+    [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
 }
 
 @end

@@ -39,12 +39,8 @@ static spgBLEService *sharedInstance=nil;
     self.centralManager=[[CBCentralManager alloc] initWithDelegate:self queue:nil options:nil];
     
     //initilize interested service
-    CBUUID *speedServiceUUID=CBUUID(kSpeedCharacteristicUUID);
-    CBUUID *batteryServiceUUID=CBUUID(kBatteryCharacteristicUUID);
     CBUUID *cameraServiceUUID=CBUUID(kCameraServiceUUID);
-    CBUUID *powerServiceUUID=CBUUID(kPowerServiceUUID);
-    CBUUID *modeServiceUUID=CBUUID(kModeServiceUUID);
-    interestedServices=@[speedServiceUUID,batteryServiceUUID,cameraServiceUUID,modeServiceUUID,powerServiceUUID];
+    interestedServices=@[cameraServiceUUID];
     
     return self;
 }
@@ -54,7 +50,7 @@ static spgBLEService *sharedInstance=nil;
 -(void)startScan
 {
     [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
-    [self.centralManager scanForPeripheralsWithServices:nil options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+    [self.centralManager scanForPeripheralsWithServices:interestedServices options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
 }
 
 -(void)stopScan

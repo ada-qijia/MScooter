@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
     <scenes>
         <!--Spg Introduction View Controller-->
@@ -279,7 +279,7 @@
                                 <rect key="frame" x="0.0" y="40" width="320" height="480"/>
                                 <subviews>
                                     <containerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KI8-h8-yIq">
-                                        <rect key="frame" x="0.0" y="278" width="320" height="200"/>
+                                        <rect key="frame" x="0.0" y="280" width="320" height="200"/>
                                         <connections>
                                             <segue destination="rpL-yg-vHJ" kind="embed" id="eYq-jC-tvh"/>
                                         </connections>
@@ -390,10 +390,10 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjU-u3-QoN" userLabel="ControllerView">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                                <rect key="frame" x="280" y="0.0" width="40" height="40"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noSignal.png" highlightedImage="signal.png" translatesAutoresizingMaskIntoConstraints="NO" id="h6g-vm-IwZ">
-                                        <rect key="frame" x="285" y="10" width="22" height="22"/>
+                                        <rect key="frame" x="5" y="10" width="22" height="22"/>
                                     </imageView>
                                 </subviews>
                             </view>
@@ -447,6 +447,12 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                         </userDefinedRuntimeAttributes>
                                     </view>
+                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="SPEED" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xjW-aw-fLI">
+                                        <rect key="frame" x="133" y="273" width="56" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSg-bK-o8y">
                                         <rect key="frame" x="18" y="52" width="285" height="285"/>
                                         <state key="normal" backgroundImage="addBg.png">
@@ -508,6 +514,7 @@
                         <outlet property="BatteryLabel" destination="GLB-Yd-23Z" id="QrB-xr-3f3"/>
                         <outlet property="ConnectButton" destination="kzh-0U-fMq" id="HsA-Jd-CcM"/>
                         <outlet property="DistanceLabel" destination="Vfa-aS-rWy" id="8ky-aE-AEP"/>
+                        <outlet property="SpeedLabel" destination="xjW-aw-fLI" id="KJ8-Ny-tOf"/>
                         <outlet property="batteryBgImage" destination="H56-zT-AI4" id="7vF-C5-ddF"/>
                         <outlet property="speedGaugeView" destination="xPj-ae-r5j" id="5Rl-QC-Bnr"/>
                     </connections>
