@@ -66,6 +66,14 @@ static const NSInteger scooterTimeArrayCount=10;
     
     [self createPositions];
     dotImage=[UIImage imageNamed:@"dot.png"];
+    
+    UISwipeGestureRecognizer *horizontalLeftSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalLeftSwipe:)];
+    horizontalLeftSwipe.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:horizontalLeftSwipe];
+    
+    UISwipeGestureRecognizer *horizontalRightSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalRightSwipe:)];
+    horizontalRightSwipe.direction=UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:horizontalRightSwipe];
 }
 
 - (void)didReceiveMemoryWarning
@@ -82,6 +90,26 @@ static const NSInteger scooterTimeArrayCount=10;
 -(NSUInteger)supportedInterfaceOrientations
 {
     return UIInterfaceOrientationMaskPortrait;
+}
+
+#pragma mark - gesture methods
+
+//change mode when connected or user is not in GaugeView
+-(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
+{
+    if(!self.preButton.hidden)
+    {
+        [self preClicked:nil];
+    }
+}
+
+//change mode when connected or user is not in GaugeView
+-(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
+{
+    if(!self.nextButton.hidden)
+    {
+        [self nextClicked:nil];
+    }
 }
 
 #pragma - UI interaction
@@ -132,8 +160,8 @@ static const NSInteger scooterTimeArrayCount=10;
     //run animation
     [self startSpin];
     
-    //spin two circle before real scan.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3*NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    //spin 3 sec before real scan.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         //Clear
         visibleScooter=nil;
         [self.foundPeripherals removeAllObjects];
@@ -262,7 +290,7 @@ static const NSInteger scooterTimeArrayCount=10;
     CABasicAnimation *rotationAnimation=[CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotationAnimation.repeatCount=HUGE_VALF;
     rotationAnimation.byValue=[NSNumber numberWithFloat:M_PI*2.0];
-    rotationAnimation.duration=1.5;
+    rotationAnimation.duration=2;
     rotationAnimation.cumulative=YES;
     
     [self.radarImage.layer addAnimation:rotationAnimation forKey: @"rotatioinAnimation"];
@@ -324,6 +352,39 @@ static const NSInteger scooterTimeArrayCount=10;
     view.alpha=0;
     view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.3, 0.3);
     [UIView animateWithDuration:1.5 delay:0 options:(UIViewAnimationOptionRepeat|UIViewAnimationOptionAutoreverse) animations:^{view.alpha=1.0; view.transform=CGAffineTransformIdentity;} completion:nil];
+}
+
+-(void)breathInAnimation:(UIView *)view
+{
+    [CATransaction begin];
+    [view.layer removeAllAnimations];
+    [CATransaction commit];
+
+    view.hidden=NO;
+    view.alpha=0.1;
+    view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
+    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState
+                     animations:^{
+                         view.alpha=1.0;
+                         view.transform=CGAffineTransformIdentity;
+                     } completion:nil];
+}
+
+-(void)breathOutAnimation:(UIView *)view
+{
+    [CATransaction begin];
+    [view.layer removeAllAnimations];
+    [CATransaction begin];
+    
+    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+        view.alpha=0.1;
+        view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
+    } completion:^(BOOL finished) {
+        if(finished)
+        {
+            view.hidden=YES;
+        }
+    }];
 }
 
 #pragma mark - navigation
@@ -478,6 +539,8 @@ static const NSInteger scooterTimeArrayCount=10;
     self.nextButton.hidden=self.preButton.hidden;
 }
 
+//change the current visible to scooter in param.
+//useAnimation means left/right switch scooter.
 -(void)updateScooter:(spgScooterPeripheral *)scooter withAnimation:(BOOL)useAnimation animationNext:(BOOL)next
 {
     if(useAnimation)
@@ -491,7 +554,6 @@ static const NSInteger scooterTimeArrayCount=10;
         [self.scooterView.layer addAnimation:transition forKey:nil];
     }
     
-    visibleScooter=scooter;
     if(scooter)
     {
         if(scooter.CurrentState==BLEDeviceStateActive||scooter.CurrentState==BLEDeviceStateVague)
@@ -505,16 +567,31 @@ static const NSInteger scooterTimeArrayCount=10;
             nameLabel.text=scooter.Peripheral.name;
             
             UIButton *addButton=(UIButton *)[self.scooterView viewWithTag:14];
-            addButton.hidden=scooter.CurrentState==BLEDeviceStateActive?NO:YES;
+            BOOL newHidden=scooter.CurrentState==BLEDeviceStateActive?NO:YES;
             //self.scooterView.alpha=scooter.CurrentState==BLEDeviceStateActive?1:0.7;
+            //add button animation
+            if(newHidden)
+            {
+                [self breathOutAnimation:addButton];
+            }
+            else
+            {
+                [self breathInAnimation:addButton];
+            }
             
-            self.scooterView.hidden=NO;
+            //first show with animation
+            if(visibleScooter==nil)
+            {
+                [self breathInAnimation:self.scooterView];
+            }
         }
     }
-    else
+    else//disappear with animation
     {
-        self.scooterView.hidden=YES;
+        [self breathOutAnimation:self.scooterView];
     }
+    
+    visibleScooter=scooter;
 }
 
 -(void)createPositions
