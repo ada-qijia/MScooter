@@ -84,7 +84,7 @@
 }
 
 - (IBAction)ConnectScooter:(UIButton *)sender {
-    NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"OK",nil];
+    NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL",nil];
     spgAlertView *alert=[[spgAlertView alloc] initPasscodeWithTitle:@"Enter Your Passcode" buttons:buttons correctPasscode:@"8888" afterDismiss:^(NSString* passcode, int buttonIndex) {
         if(buttonIndex==1)
         {
@@ -119,7 +119,7 @@
     BOOL connectButtonOldHidden=self.ConnectButton.hidden;
     
     CBPeripheralState currentState= [spgBLEService sharedInstance].peripheral.state;
-    BOOL passwordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
+    BOOL passwordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"]||[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModeCampus];
     if(currentState==CBPeripheralStateConnected)
     {
         if(!passwordOn)
@@ -291,7 +291,7 @@
 -(void)updateBattery:(float)battery
 {
     self.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
-    self.DistanceLabel.text=self.BatteryLabel.text;
+    self.DistanceLabel.text=[NSString stringWithFormat:@"%0.f", battery/4];//25km, 100battery at most.
     
     NSString *imgName=battery<15?@"batteryLowBg.png":@"batteryBg.png";
     self.batteryBgImage.image=[UIImage imageNamed:imgName];

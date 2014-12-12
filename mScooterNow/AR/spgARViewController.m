@@ -69,9 +69,6 @@
     self.ARContainerView.frame=CGRectMake(0, 0, size.width, size.height);
     if(size.width>size.height)
     {
-        self.topControllerView.frame=CGRectMake(0, 0,40, 320);
-        self.camButton.frame=CGRectMake(5, 270 ,32, 30);
-        
         self.ARListView.frame=CGRectMake(40, 0, 460, 320);
         self.listDateView.frame=CGRectMake(25, 270, 160, 40);
         self.listSpeedView.frame=CGRectMake(250, 270, 160, 40);
@@ -80,9 +77,6 @@
     }
     else
     {
-        self.topControllerView.frame=CGRectMake(0, 0,320, 40);
-        self.camButton.frame=CGRectMake(270, 5 ,32, 30);
-        
         self.ARListView.frame=CGRectMake(0, 40, 320, 460);
         self.listDateView.frame=CGRectMake(25, 370, 160, 40);
         self.listSpeedView.frame=CGRectMake(25, 420, 160, 40);
@@ -132,9 +126,9 @@
     }
 }
 
-#pragma - UI interaction
+#pragma - public method
 
-- (IBAction)switchCam:(id)sender {
+- (void)switchCam {
     [videoCaptureVC changeCamera];
 }
 

@@ -123,19 +123,11 @@
     return [NSString stringWithString:mutableString];
 }
 
-+(NSString *)getScooterImageFromName:(NSString *)name
++(NSString *)getBatteryImageFromValue:(float)value
 {
-    return @"scooterEntity.png";
-    /*
-    if([name hasPrefix:@"S_"])
-    {
-        return @"scooterA.png";
-    }
-    else
-    {
-        return @"scooterB.png";
-    }
-     */
+    int level= value/20;
+    level=level>4?4:level;
+    return [NSString stringWithFormat:@"battery%d@2x.png",level+1];
 }
 
 #pragma - local save

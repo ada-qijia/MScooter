@@ -7,8 +7,6 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="spgScanViewController">
             <connections>
-                <outlet property="nextButton" destination="gwT-Ss-Fe5" id="hzu-qp-adK"/>
-                <outlet property="preButton" destination="vxV-e8-xud" id="kwb-uE-d9Q"/>
                 <outlet property="radarImage" destination="sA1-bg-dM2" id="Dwf-Zo-q00"/>
                 <outlet property="scooterView" destination="QOW-tO-16q" id="qIi-4m-Iss"/>
                 <outlet property="scopeView" destination="whl-4a-mog" id="6La-GD-Fkz"/>
@@ -16,7 +14,7 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="ZMO-uE-FbS">
+        <view tag="11" contentMode="scaleToFill" id="ZMO-uE-FbS">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -37,8 +35,8 @@
                         </imageView>
                     </subviews>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QOW-tO-16q" userLabel="scooter">
-                    <rect key="frame" x="0.0" y="104" width="320" height="360"/>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QOW-tO-16q" userLabel="scooter">
+                    <rect key="frame" x="0.0" y="110" width="320" height="360"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterOutline.png" translatesAutoresizingMaskIntoConstraints="NO" id="pdN-wg-aes">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
@@ -49,11 +47,13 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <imageView userInteractionEnabled="NO" tag="11" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gnx-Qa-2O7">
+                            <rect key="frame" x="122" y="98" width="90" height="137"/>
+                        </imageView>
                         <button hidden="YES" opaque="NO" tag="14" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gsk-b2-FfY">
-                            <rect key="frame" x="50" y="298" width="220" height="40"/>
-                            <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                            <rect key="frame" x="50" y="52" width="220" height="220"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <state key="normal" title="OK">
+                            <state key="normal">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </state>
@@ -67,47 +67,8 @@
                                 <action selector="pickupClicked:" destination="-1" eventType="touchUpInside" id="TFA-bL-xTq"/>
                             </connections>
                         </button>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="scooterInfoBg.png" translatesAutoresizingMaskIntoConstraints="NO" id="Gnx-Qa-2O7">
-                            <rect key="frame" x="112" y="108" width="125" height="125"/>
-                        </imageView>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="BATTERY" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zXQ-Au-yRv">
-                            <rect key="frame" x="145" y="137" width="62" height="17"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="11" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="-%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIt-49-Fjt">
-                            <rect key="frame" x="124" y="160" width="100" height="30"/>
-                            <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="32"/>
-                            <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" tag="12" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="40KM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3DQ-Jf-JRF">
-                            <rect key="frame" x="134" y="192" width="80" height="30"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                            <color key="textColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                     </subviews>
                 </view>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vxV-e8-xud">
-                    <rect key="frame" x="15" y="267" width="24" height="33"/>
-                    <state key="normal" backgroundImage="pre.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="preClicked:" destination="-1" eventType="touchUpInside" id="ywG-N8-VVd"/>
-                    </connections>
-                </button>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwT-Ss-Fe5">
-                    <rect key="frame" x="280" y="268" width="24" height="33"/>
-                    <state key="normal" backgroundImage="next.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="KU9-iT-SXB"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PiV-zf-wcx">
                     <rect key="frame" x="10" y="10" width="32" height="32"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -127,11 +88,8 @@
     <resources>
         <image name="circles.png" width="320" height="568"/>
         <image name="close.png" width="57" height="49"/>
-        <image name="next.png" width="24" height="33"/>
-        <image name="pre.png" width="24" height="33"/>
         <image name="radar.png" width="253" height="253"/>
         <image name="scanScope.png" width="324" height="324"/>
-        <image name="scooterInfoBg.png" width="125" height="125"/>
         <image name="scooterOutline.png" width="640" height="640"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

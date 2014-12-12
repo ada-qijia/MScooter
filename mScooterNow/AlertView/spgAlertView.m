@@ -9,7 +9,8 @@
 #import "spgAlertView.h"
 #import "spgMScooterCommon.h"
 
-#define buttonPadding 10.0f
+#define buttonPadding 6.0f
+#define passcodeLength 4
 
 @interface spgAlertView()
 
@@ -40,8 +41,8 @@
         }
         else
         {
-          self.TitleLabel.text=self.title;
-        }        
+            self.TitleLabel.text=self.title;
+        }
         self.MessageLabel.text=self.message;
         
         
@@ -54,10 +55,10 @@
                 NSString *buttonTitle = [self.buttons objectAtIndex:i];
                 
                 UIButton *_button = [UIButton buttonWithType:UIButtonTypeCustom];
-                _button.backgroundColor=ThemeColor;
+                _button.backgroundColor=[UIColor colorWithRed:76/255.0 green:193/255.0 blue:209/255.0 alpha:0.6];//theme color with alpha 0.6
                 
                 [_button setTitle:buttonTitle forState:UIControlStateNormal];
-                _button.titleLabel.font = [UIFont boldSystemFontOfSize:16];
+                 //_button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
                 [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 _button.frame = CGRectMake(buttonsMargin+buttonWidth * i + buttonPadding * i, 115, buttonWidth, 44);
                 _button.tag = i;
@@ -75,19 +76,27 @@
 -(void)onButtonTapped:(id)sender
 {
     [self becomeFirstResponder];
-    int buttonIndex=(int)((UIButton *)sender).tag;
     
-    //wrong passcode
-    if(buttonIndex==1 && self.correctPasscode && (![self.TextField1.text isEqualToString:self.correctPasscode]))
+    //passcode auto check
+    if(sender==nil)
     {
-        self.TitleLabel.text=@"Wrong, Please Try Again";
-        self.TitleLabel.textColor=[UIColor redColor];
-        self.TextField1.text=nil;
-        [self TextFieldEditingChanged:self.TextField1];
+        //wrong passcode
+        if(self.correctPasscode && (![self.TextField1.text isEqualToString:self.correctPasscode]))
+        {
+            self.TitleLabel.text=@"Wrong, Please Try Again";
+            self.TitleLabel.textColor=[UIColor redColor];
+            self.TextField1.text=nil;
+            [self TextFieldEditingChanged:self.TextField1];
+        }
+        else
+        {
+            [self dismissWithAnimation:1];
+        }
     }
     else
     {
-      [self dismissWithAnimation:buttonIndex];
+        int buttonIndex=(int)((UIButton *)sender).tag;
+        [self dismissWithAnimation:buttonIndex];
     }
 }
 
@@ -143,15 +152,15 @@
 
 - (IBAction)PasscodeButtonPressed:(UIButton *)sender {
     /*
-    for(UIButton *subview in self.PasscodeView.subviews)
-    {
-        subview.selected=subview==sender;
-    }
-    
-    [sender setTitle:nil forState:UIControlStateNormal];
-    [sender setTitle:nil forState:UIControlStateSelected];
-    
-    [self.TextField1 becomeFirstResponder];
+     for(UIButton *subview in self.PasscodeView.subviews)
+     {
+     subview.selected=subview==sender;
+     }
+     
+     [sender setTitle:nil forState:UIControlStateNormal];
+     [sender setTitle:nil forState:UIControlStateSelected];
+     
+     [self.TextField1 becomeFirstResponder];
      */
 }
 
@@ -160,13 +169,13 @@
 {
     NSString * newStr = [textField.text stringByReplacingCharactersInRange:range withString:string];
     
-    return newStr.length<=4;
+    return newStr.length<=passcodeLength;
 }
 
 - (IBAction)TextFieldEditingChanged:(id)sender
 {
     int length=(int)self.TextField1.text.length;
-    for(int i=0;i<4;i++)
+    for(int i=0;i<passcodeLength;i++)
     {
         UIButton *btn=(UIButton *)[self.PasscodeView viewWithTag:i+11];
         UIImage *img=i<length?[UIImage imageNamed:@"passcodeDot.png"]:nil;
@@ -175,8 +184,10 @@
         btn.selected=i==length?YES:NO;
     }
     
-    UIButton *okBtn=(UIButton *)[self.ContentView viewWithTag:1];
-    okBtn.enabled=length==4;
-    okBtn.backgroundColor=okBtn.enabled?ThemeColor:[UIColor grayColor];
+    //check the passcode
+    if(length==passcodeLength)
+    {
+        [self onButtonTapped:nil];
+    }
 }
 @end

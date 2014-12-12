@@ -60,7 +60,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
     tabBarVC.scooterPresentationDelegate=nil;
 }
 
@@ -97,25 +96,37 @@
     {
         self.GaugeView.hidden=NO;
         self.ARView.hidden=YES;
+        self.camSwitchButton.hidden=self.ARView.hidden;
     }
 }
 
 -(void)switchViewMode:(BOOL) next
 {
     int modeCount=5;
-    UIView *currentView=currentMode==Gauge?self.GaugeView:self.ARView;
-    
     DashboardMode toMode=next?(currentMode+1)%modeCount:(currentMode-1+modeCount)%modeCount;
-    UIView *nextView=toMode==Gauge?self.GaugeView:self.ARView;
     
-    CATransition *transition = [CATransition animation];
-    transition.duration = 0.5;
-    transition.type = kCATransitionPush;
-    transition.subtype =next? kCATransitionFromRight:kCATransitionFromLeft;
-    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    UIView *currentView;
+    UIView *nextView;
     
+    BOOL isBothARMode= currentMode!=Gauge && toMode!=Gauge;
+    if(isBothARMode)
+    {
+        currentView=[self getViewOfARMode:currentMode];
+        nextView=[self getViewOfARMode:toMode];
+    }
+    else
+    {
+        currentView=currentMode==Gauge?self.GaugeView:self.ARView;
+        nextView =toMode==Gauge?self.GaugeView:self.ARView;
+    }
+    
+    CATransition *transition = [self transitionOfMode:currentMode];
+    transition.subtype = next? kCATransitionFromRight:kCATransitionFromLeft;
     [currentView.layer addAnimation:transition forKey:nil];
-    [nextView.layer addAnimation:transition forKey:nil];
+    
+    CATransition *nextTransition = [self transitionOfMode:toMode];
+    nextTransition.subtype = next? kCATransitionFromRight:kCATransitionFromLeft;
+    [nextView.layer addAnimation:nextTransition forKey:nil];
     
     [[self getViewOfARMode:currentMode] setHidden:YES];
     [[self getViewOfARMode:toMode] setHidden:NO];
@@ -123,6 +134,17 @@
     nextView.hidden=NO;
     
     currentMode=toMode;
+    self.camSwitchButton.hidden=self.ARView.hidden;
+}
+
+-(CATransition *) transitionOfMode:(DashboardMode) mode
+{
+    CATransition *transition=[CATransition animation];
+    transition.duration = 0.5;
+    transition.type =mode==ARModeMap? kCATransitionFade:kCATransitionPush;
+    [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+    
+    return transition;
 }
 
 -(UIView *)getViewOfARMode:(DashboardMode) mode
@@ -147,38 +169,20 @@
 {
     [self updateConnectedUIState];
     
-    //if(self.ARView.hidden)
-    {
-        [gaugeVC updateConnectionState:connected];
-    }
-    //else
-    {
-        [ARVC updateConnectionState:connected];
-    }
+    [gaugeVC updateConnectionState:connected];
+    [ARVC updateConnectionState:connected];
 }
 
 -(void)updateSpeed:(float) speed
 {
-    //if(self.ARView.hidden)
-    {
-        [gaugeVC updateSpeed:speed];
-    }
-    //else
-    {
-        [ARVC updateSpeed:speed];
-    }
+    [gaugeVC updateSpeed:speed];
+    [ARVC updateSpeed:speed];
 }
 
 -(void)updateBattery:(float) battery
 {
-    //if(self.ARView.hidden)
-    {
-        [gaugeVC updateBattery:battery];
-    }
-    //else
-    {
-        [ARVC updateBattery:battery];
-    }
+    [gaugeVC updateBattery:battery];
+    [ARVC updateBattery:battery];
 }
 
 -(void)modeChanged
@@ -210,6 +214,13 @@
     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
     BOOL connected=currentState==CBPeripheralStateConnected;
     self.connectedImage.highlighted= connected;
+    self.scooterNameLabel.text= [[spgBLEService sharedInstance] peripheral].name;
 }
 
+- (IBAction)camSwitchClicked:(id)sender {
+    if(!self.ARView.hidden)
+    {
+        [ARVC switchCam];
+    }
+}
 @end

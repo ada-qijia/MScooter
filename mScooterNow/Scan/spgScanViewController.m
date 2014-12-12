@@ -94,29 +94,39 @@ static const NSInteger scooterTimeArrayCount=10;
 
 #pragma mark - gesture methods
 
-//change mode when connected or user is not in GaugeView
+//cycle
 -(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
 {
-    if(!self.preButton.hidden)
+    if(self.foundPeripherals.count>1)
     {
-        [self preClicked:nil];
+        int count=(int)self.foundPeripherals.count;
+        int selectedIndex=(int)[self.foundPeripherals indexOfObject:visibleScooter];
+        int nextIndex=(selectedIndex+1+count)%count;
+        spgScooterPeripheral *scooter=self.foundPeripherals[nextIndex];
+        
+        [self updateScooter:scooter withAnimation:YES animationNext:YES];
     }
 }
 
-//change mode when connected or user is not in GaugeView
+//cycle
 -(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
 {
-    if(!self.nextButton.hidden)
+    if(self.foundPeripherals.count>1)
     {
-        [self nextClicked:nil];
+        int count=(int)self.foundPeripherals.count;
+        int selectedIndex=(int)[self.foundPeripherals indexOfObject:visibleScooter];
+        int preIndex=(selectedIndex-1+count)%count;
+        spgScooterPeripheral *scooter=self.foundPeripherals[preIndex];
+        
+        [self updateScooter:scooter withAnimation:YES animationNext:NO];
     }
 }
 
 #pragma - UI interaction
 
 - (IBAction)pickupClicked:(id)sender {
-    NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"PICK UP",nil];
-    spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are you sure to pick up this scooter?" buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
+    NSArray *buttons=[NSArray arrayWithObjects:@"NO", @"YES",nil];
+    spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are You Sure to Pick Up This Scooter?" buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
         if(buttonIndex==1)
         {
             //navigate
@@ -131,26 +141,6 @@ static const NSInteger scooterTimeArrayCount=10;
 
 - (IBAction)closeClicked:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-//cycle
-- (IBAction)preClicked:(id)sender {
-    int count=(int)self.foundPeripherals.count;
-    int selectedIndex=(int)[self.foundPeripherals indexOfObject:visibleScooter];
-    int preIndex=(selectedIndex-1+count)%count;
-    spgScooterPeripheral *scooter=self.foundPeripherals[preIndex];
-    
-    [self updateScooter:scooter withAnimation:YES animationNext:NO];
-}
-
-//cycle
-- (IBAction)nextClicked:(id)sender {
-    int count=(int)self.foundPeripherals.count;
-    int selectedIndex=(int)[self.foundPeripherals indexOfObject:visibleScooter];
-    int nextIndex=(selectedIndex+1+count)%count;
-    spgScooterPeripheral *scooter=self.foundPeripherals[nextIndex];
-    
-    [self updateScooter:scooter withAnimation:YES animationNext:YES];
 }
 
 #pragma - custom methods
@@ -359,11 +349,11 @@ static const NSInteger scooterTimeArrayCount=10;
     [CATransaction begin];
     [view.layer removeAllAnimations];
     [CATransaction commit];
-
+    
     view.hidden=NO;
     view.alpha=0.1;
-    view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState
+    view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseOut
                      animations:^{
                          view.alpha=1.0;
                          view.transform=CGAffineTransformIdentity;
@@ -376,9 +366,9 @@ static const NSInteger scooterTimeArrayCount=10;
     [view.layer removeAllAnimations];
     [CATransaction begin];
     
-    [UIView animateWithDuration:1 delay:0 options:UIViewAnimationOptionBeginFromCurrentState animations:^{
+    [UIView animateWithDuration:0.5 delay:0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseIn  animations:^{
         view.alpha=0.1;
-        view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
+        view.transform=CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
     } completion:^(BOOL finished) {
         if(finished)
         {
@@ -409,29 +399,42 @@ static const NSInteger scooterTimeArrayCount=10;
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
     NSString *message=nil;
+    spgAlertViewBlock afterDismissBlock=nil;
     
     switch (central.state) {
-        case CBCentralManagerStatePoweredOff:
         case CBCentralManagerStatePoweredOn:
             [self startScan];
             break;
+        case CBCentralManagerStatePoweredOff:
         case CBCentralManagerStateUnauthorized:
-            message=@"Turn on Bluetooth to allow 'Scooter Now' to connect to Accessories.";
+            message=central.state==CBCentralManagerStatePoweredOff? @"Please turn on Bluetooth to allow ScooterNow to connect to accessories.":@"Please make sure ScooterNow is authorized to use Bluetooth low energy.";
+            /*
+             afterDismissBlock=^(NSString *passcode, int buttonIndex) {
+             //NSURL* url=[NSURL URLWithString:UIApplicationOpenSettingsURLString];
+             //if([[UIApplication sharedApplication] canOpenURL:url])
+             {
+             NSURL* url=[NSURL URLWithString:@"prefs:root=General&path=Bluetooth"];
+             [[UIApplication sharedApplication] openURL:url];
+             }
+             };
+             */
             break;
         case CBCentralManagerStateUnsupported:
             message=@"This platform does not support Bluetooth low energy.";
             break;
         default:
-            message=@"'Scooter Now' can not connect to Accessories.";
+            message=@"ScooterNow can not connect to accessories now.";
             break;
     }
     
+    
     if(message!=nil)
     {
-        NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", nil];
-        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:message buttons:buttons afterDismiss:nil];
+        NSArray *buttons=[NSArray arrayWithObjects:@"OK", nil];
+        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:message buttons:buttons afterDismiss:afterDismissBlock];
         [[spgAlertViewManager sharedAlertViewManager] show:alert];
     }
+    
 }
 
 //scan multiple devices
@@ -533,10 +536,6 @@ static const NSInteger scooterTimeArrayCount=10;
     {
         [self.foundPeripherals removeObject:scooter];
     }
-    
-    //pre/next button
-    self.preButton.hidden=self.foundPeripherals.count<=1;
-    self.nextButton.hidden=self.preButton.hidden;
 }
 
 //change the current visible to scooter in param.
@@ -559,25 +558,16 @@ static const NSInteger scooterTimeArrayCount=10;
         if(scooter.CurrentState==BLEDeviceStateActive||scooter.CurrentState==BLEDeviceStateVague)
         {
             float battery=[spgMScooterUtilities castBatteryToPercent:scooter.BatteryData];
-            UILabel *batteryLabel=(UILabel *)[self.scooterView viewWithTag:11];
-            batteryLabel.text= battery>0?[NSString stringWithFormat:@"%0.f%%",battery]:@"-";
-            UILabel *rangeLabel=(UILabel *)[self.scooterView viewWithTag:12];
-            rangeLabel.text=battery>0?[NSString stringWithFormat:@"%0.fKM",battery/2.5]:@"-";
+            
+            UIImageView *imgView=(UIImageView *)[self.scooterView viewWithTag:11];
+            imgView.image=[UIImage imageNamed:[spgMScooterUtilities getBatteryImageFromValue:battery]];
+            
             UILabel *nameLabel=(UILabel *)[self.scooterView viewWithTag:13];
             nameLabel.text=scooter.Peripheral.name;
             
             UIButton *addButton=(UIButton *)[self.scooterView viewWithTag:14];
-            BOOL newHidden=scooter.CurrentState==BLEDeviceStateActive?NO:YES;
-            //self.scooterView.alpha=scooter.CurrentState==BLEDeviceStateActive?1:0.7;
-            //add button animation
-            if(newHidden)
-            {
-                [self breathOutAnimation:addButton];
-            }
-            else
-            {
-                [self breathInAnimation:addButton];
-            }
+            addButton.hidden=scooter.CurrentState==BLEDeviceStateActive?NO:YES;
+            self.scooterView.alpha=addButton.hidden?0.5:1;
             
             //first show with animation
             if(visibleScooter==nil)

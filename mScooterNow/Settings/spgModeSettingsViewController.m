@@ -85,8 +85,8 @@ NSIndexPath *willSelectIndexPath;
     NSIndexPath *selectedIndex= [tableView indexPathForSelectedRow];
     if(selectedIndex.row!=indexPath.row)
     {
-        NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"YES",nil];
-        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are you sure to change mode? This will disconnect your current scooter." buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
+        NSArray *buttons=[NSArray arrayWithObjects:@"NO", @"YES",nil];
+        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are You Sure to Change Mode? This will Disconnect Your Current Scooter." buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
             if(buttonIndex==1 && willSelectIndexPath)
             {
                 [self.scenarioModeTableView cellForRowAtIndexPath:selectedIndex].accessoryType=UITableViewCellAccessoryNone;

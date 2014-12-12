@@ -141,7 +141,7 @@ static NSUInteger const THNumberOfPinEntries = 6;
     
     UIAlertView *alert =
     [[UIAlertView alloc] initWithTitle:@"Incorrect Password"
-                                message:@"Please try again"
+                                message:@"Please Try Again"
                                /*message:(self.remainingPinEntries == 1 ?
                                         @"You can try again once." :
                                         [NSString stringWithFormat:@"You can try again %lu times.",

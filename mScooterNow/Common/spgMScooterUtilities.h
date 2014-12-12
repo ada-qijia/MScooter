@@ -21,7 +21,7 @@
 
 +(NSString *)castDataToHexString:(NSData *)data;
 
-+(NSString *)getScooterImageFromName:(NSString *)name;
++(NSString *)getBatteryImageFromValue:(float)value;
 
 +(NSString *)getPreferenceWithKey:(NSString *) key;
 +(void)savePreferenceWithKey:(NSString *)key value:(id)value;

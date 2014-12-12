@@ -10,8 +10,8 @@
             <objects>
                 <viewController storyboardIdentifier="spgIntroductionVCID" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TvW-Sd-94B" customClass="spgIntroductionViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ajq-Ea-qzm"/>
-                        <viewControllerLayoutGuide type="bottom" id="xmQ-oz-5O6"/>
+                        <viewControllerLayoutGuide type="top" id="PSc-dl-Has"/>
+                        <viewControllerLayoutGuide type="bottom" id="HYC-Su-hUv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="jqx-ZB-Ppi">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -43,15 +43,31 @@
             <objects>
                 <viewController id="Xoj-0t-sl9" customClass="spgSettingsViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AC1-hx-Lh7"/>
-                        <viewControllerLayoutGuide type="bottom" id="rCE-ga-YeS"/>
+                        <viewControllerLayoutGuide type="top" id="b6h-fX-AAQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="z6G-B4-b5V"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Qso-e0-bWp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="userInfo.png" translatesAutoresizingMaskIntoConstraints="NO" id="WCi-Qu-74f">
-                                <rect key="frame" x="0.0" y="25" width="320" height="465"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LqM-ZO-KTf">
+                                <rect key="frame" x="0.0" y="183" width="320" height="1"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingPortrait.png" translatesAutoresizingMaskIntoConstraints="NO" id="7uq-n5-hDu">
+                                <rect key="frame" x="94" y="23" width="130" height="130"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingMode.png" translatesAutoresizingMaskIntoConstraints="NO" id="RzV-lG-GTC">
+                                <rect key="frame" x="27" y="192" width="40" height="40"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Mode Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3u1-hM-aJS">
+                                <rect key="frame" x="80" y="200" width="180" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="hrA-j4-QdT">
+                                <rect key="frame" x="270" y="193" width="40" height="40"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="78P-5k-G6c">
                                 <rect key="frame" x="0.0" y="185" width="320" height="55"/>
@@ -63,6 +79,47 @@
                                     <action selector="ModeSettingClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="syl-5X-0ID"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kkf-tp-yll">
+                                <rect key="frame" x="0.0" y="240" width="320" height="1"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lez-ZJ-9Sl">
+                                <rect key="frame" x="0.0" y="240" width="320" height="55"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingPasscode.png" translatesAutoresizingMaskIntoConstraints="NO" id="auj-3M-f43">
+                                        <rect key="frame" x="27" y="8" width="40" height="40"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Scooter Passcode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pDC-Hc-7F4">
+                                        <rect key="frame" x="80" y="16" width="165" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TUX-mR-pLK">
+                                        <rect key="frame" x="250" y="12" width="51" height="31"/>
+                                        <color key="onTintColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <connections>
+                                            <action selector="PasswordSwitchChanged:" destination="Xoj-0t-sl9" eventType="valueChanged" id="Uxc-Du-XrO"/>
+                                        </connections>
+                                    </switch>
+                                </subviews>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xQh-cJ-WuR">
+                                <rect key="frame" x="0.0" y="296" width="320" height="1"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingAbout.png" translatesAutoresizingMaskIntoConstraints="NO" id="Dfv-ko-wtY">
+                                <rect key="frame" x="27" y="303" width="40" height="40"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="About M-Scooter Now" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JOG-lH-C2r">
+                                <rect key="frame" x="80" y="310" width="180" height="24"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="settingArrow.png" translatesAutoresizingMaskIntoConstraints="NO" id="sn3-i2-bkM">
+                                <rect key="frame" x="270" y="303" width="40" height="40"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lXF-rc-vBT">
                                 <rect key="frame" x="0.0" y="297" width="320" height="55"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -73,28 +130,28 @@
                                     <action selector="AboutClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="TEp-2d-KdM"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMJ-GM-LcY">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZSl-da-ZPE">
+                                <rect key="frame" x="0.0" y="351" width="320" height="1"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <button contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TMJ-GM-LcY">
                                 <rect key="frame" x="0.0" y="376" width="320" height="50"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="RESET">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="resetScooterClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="VDE-i7-7dl"/>
                                 </connections>
                             </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TUX-mR-pLK">
-                                <rect key="frame" x="263" y="253" width="51" height="31"/>
-                                <color key="onTintColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <connections>
-                                    <action selector="PasswordSwitchChanged:" destination="Xoj-0t-sl9" eventType="valueChanged" id="Uxc-Du-XrO"/>
-                                </connections>
-                            </switch>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BUY-Ut-iyI">
-                                <rect key="frame" x="0.0" y="241" width="320" height="55"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="440" width="320" height="50"/>
+                                <color key="backgroundColor" red="0.054901960784313725" green="0.71372549019607845" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="LOG OUT">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
                                 </state>
                             </button>
                         </subviews>
@@ -138,8 +195,8 @@
             <objects>
                 <viewController id="XkJ-Rr-u49" customClass="spgARViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ixf-Zt-1M2"/>
-                        <viewControllerLayoutGuide type="bottom" id="CZg-yt-2D1"/>
+                        <viewControllerLayoutGuide type="top" id="dsT-je-3Q4"/>
+                        <viewControllerLayoutGuide type="bottom" id="a9T-CS-3Pk"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="eUi-O7-nzJ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -286,22 +343,6 @@
                                     </containerView>
                                 </subviews>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Y8R-xz-PLK">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vmu-U7-tOO">
-                                        <rect key="frame" x="8" y="5" width="32" height="30"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <state key="normal" title="camSwitch" image="switchCam.png">
-                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="switchCam:" destination="XkJ-Rr-u49" eventType="touchUpInside" id="sFt-pR-mEW"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.69999999999999996" colorSpace="calibratedWhite"/>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -315,7 +356,6 @@
                         <outlet property="ARInfoView" destination="bm2-rZ-hgw" id="b5P-Wa-R68"/>
                         <outlet property="ARListView" destination="YbF-L4-QYH" id="5Xs-fQ-nQH"/>
                         <outlet property="ARMapView" destination="7dV-gY-CeH" id="fwz-ZN-2Hs"/>
-                        <outlet property="camButton" destination="Vmu-U7-tOO" id="gvQ-yv-7yF"/>
                         <outlet property="dateLabel" destination="yxh-aa-WH1" id="Qe2-qu-kN8"/>
                         <outlet property="listDateView" destination="AbP-rH-H80" id="kht-wY-feQ"/>
                         <outlet property="listSpeedView" destination="HIb-VF-Xla" id="XUV-yb-c8h"/>
@@ -324,7 +364,6 @@
                         <outlet property="mapView" destination="KI8-h8-yIq" id="oYx-Sb-A4N"/>
                         <outlet property="realDataView" destination="AFm-te-WCy" id="x8m-WE-4Q4"/>
                         <outlet property="speedLabel" destination="K4k-pJ-Ybz" id="PGW-Ja-dFl"/>
-                        <outlet property="topControllerView" destination="Y8R-xz-PLK" id="i21-gF-lqB"/>
                         <outlet property="weekDayLabel" destination="T8K-AF-ust" id="Mua-bX-IHN"/>
                         <outletCollection property="temperatureLabel" destination="0EZ-mg-fWz" id="Ahh-hI-ZIO"/>
                         <outletCollection property="timeLabel" destination="Grj-B6-9MQ" id="Oiq-aH-aaW"/>
@@ -341,8 +380,8 @@
             <objects>
                 <viewController id="yMH-hE-qLC" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="vSR-mC-hKX"/>
-                        <viewControllerLayoutGuide type="bottom" id="Zlv-m6-phP"/>
+                        <viewControllerLayoutGuide type="top" id="OhR-F3-yfr"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mjd-XJ-GqW"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yrs-xA-ZfB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -370,8 +409,8 @@
             <objects>
                 <viewController id="qNt-DY-caT" customClass="spgDashboardViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="cJB-LB-9J1"/>
-                        <viewControllerLayoutGuide type="bottom" id="EtO-qo-Map"/>
+                        <viewControllerLayoutGuide type="top" id="Mro-3O-NNK"/>
+                        <viewControllerLayoutGuide type="bottom" id="GMM-bw-tpf"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="se9-37-Rfa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -390,11 +429,29 @@
                                 </connections>
                             </containerView>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vjU-u3-QoN" userLabel="ControllerView">
-                                <rect key="frame" x="280" y="0.0" width="40" height="40"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
                                 <subviews>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSl-Ky-jOw">
+                                        <rect key="frame" x="10" y="7" width="32" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="camSwitch" image="switchCam.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="camSwitchClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="nJP-Sf-f1n"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noSignal.png" highlightedImage="signal.png" translatesAutoresizingMaskIntoConstraints="NO" id="h6g-vm-IwZ">
-                                        <rect key="frame" x="5" y="10" width="22" height="22"/>
+                                        <rect key="frame" x="288" y="11" width="22" height="22"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="connec" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gD0-JG-15c">
+                                        <rect key="frame" x="53" y="12" width="214" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                        <color key="shadowColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        <size key="shadowOffset" width="1" height="1"/>
+                                    </label>
                                 </subviews>
                             </view>
                         </subviews>
@@ -407,22 +464,23 @@
                     <connections>
                         <outlet property="ARView" destination="foT-2f-JYi" id="1AO-aX-60e"/>
                         <outlet property="GaugeView" destination="VXl-aE-Dqk" id="5tV-a9-b4N"/>
-                        <outlet property="camButton" destination="Vmu-U7-tOO" id="rah-ou-30n"/>
+                        <outlet property="camSwitchButton" destination="jSl-Ky-jOw" id="LQl-iF-MUU"/>
                         <outlet property="connectedImage" destination="h6g-vm-IwZ" id="3ro-ew-dSm"/>
+                        <outlet property="scooterNameLabel" destination="gD0-JG-15c" id="VvN-ha-pNB"/>
                         <outlet property="topControllerView" destination="vjU-u3-QoN" id="ZLv-rf-J1u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jz5-FB-VnL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="472" y="56"/>
+            <point key="canvasLocation" x="477" y="56"/>
         </scene>
         <!--Spg Gauges View Controller-->
         <scene sceneID="DOf-2i-2AF">
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="23R-lI-sAc" customClass="spgGaugesViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="pTp-2d-Vn7"/>
-                        <viewControllerLayoutGuide type="bottom" id="9nN-za-fu2"/>
+                        <viewControllerLayoutGuide type="top" id="IQY-6g-KSb"/>
+                        <viewControllerLayoutGuide type="bottom" id="3es-FK-xLW"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="hQ3-ch-2Bm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -487,7 +545,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vfa-aS-rWy">
-                                        <rect key="frame" x="208" y="397" width="34" height="36"/>
+                                        <rect key="frame" x="193" y="397" width="51" height="36"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -528,8 +586,8 @@
             <objects>
                 <viewController id="U2D-sJ-lHO" customClass="spgCamViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="rqn-Ap-Brk"/>
-                        <viewControllerLayoutGuide type="bottom" id="ssK-xI-rxA"/>
+                        <viewControllerLayoutGuide type="top" id="eNd-04-Hxx"/>
+                        <viewControllerLayoutGuide type="bottom" id="a8R-2f-OpU"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="DE7-vE-ljE" customClass="spgCamPreviewView">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
@@ -546,8 +604,8 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="NxP-si-EGj" customClass="spgARGaugesViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="AJu-sN-swC"/>
-                        <viewControllerLayoutGuide type="bottom" id="Lsn-hu-3eu"/>
+                        <viewControllerLayoutGuide type="top" id="uhu-cb-RCc"/>
+                        <viewControllerLayoutGuide type="bottom" id="kq5-ag-hXE"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Hvo-XI-CVB">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
@@ -597,8 +655,8 @@
             <objects>
                 <viewController automaticallyAdjustsScrollViewInsets="NO" id="rpL-yg-vHJ" customClass="spgMapViewController" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="O4I-Pj-6fk"/>
-                        <viewControllerLayoutGuide type="bottom" id="GPd-0e-i1Z"/>
+                        <viewControllerLayoutGuide type="top" id="bi7-Zh-E89"/>
+                        <viewControllerLayoutGuide type="bottom" id="0QE-Vz-CVV"/>
                     </layoutGuides>
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="cpj-Hu-VAy">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
@@ -634,6 +692,11 @@
         <image name="moments.png" width="27" height="27"/>
         <image name="momentsList.png" width="640" height="1136"/>
         <image name="noSignal.png" width="22" height="22"/>
+        <image name="settingAbout.png" width="62" height="62"/>
+        <image name="settingArrow.png" width="62" height="62"/>
+        <image name="settingMode.png" width="62" height="62"/>
+        <image name="settingPasscode.png" width="62" height="62"/>
+        <image name="settingPortrait.png" width="195" height="195"/>
         <image name="signal.png" width="22" height="22"/>
         <image name="speed.png" width="34" height="42"/>
         <image name="speedBg.png" width="524" height="524"/>
@@ -641,7 +704,6 @@
         <image name="switchCam.png" width="57" height="49"/>
         <image name="time.png" width="34" height="42"/>
         <image name="unlockBg.png" width="524" height="524"/>
-        <image name="userInfo.png" width="495" height="727"/>
         <image name="weather.png" width="70" height="70"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

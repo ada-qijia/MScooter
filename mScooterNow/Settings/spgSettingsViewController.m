@@ -36,6 +36,8 @@
     BOOL isPasswordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
     
     self.PasswordOnSwitch.on=isPasswordOn;
+    
+    self.PasswordOnSwitch.enabled=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
 }
 
 #pragma - UI interaction
@@ -61,8 +63,8 @@
 }
 
 - (IBAction)resetScooterClicked:(UIButton *)sender {
-    NSArray *buttons=[NSArray arrayWithObjects:@"CANCEL", @"RESET",nil];
-    spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are you sure to reset a new scooter?" buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
+    NSArray *buttons=[NSArray arrayWithObjects:@"NO", @"YES",nil];
+    spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are You Sure to Reset A New Scooter?" buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
         if(buttonIndex==1)
         {
             [[spgBLEService sharedInstance] clean];

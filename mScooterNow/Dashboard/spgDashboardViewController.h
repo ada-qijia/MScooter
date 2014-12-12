@@ -17,6 +17,10 @@
 @property (weak, nonatomic) IBOutlet UIView *GaugeView;
 @property (weak, nonatomic) IBOutlet UIView *topControllerView;
 @property (weak, nonatomic) IBOutlet UIImageView *connectedImage;
+@property (weak, nonatomic) IBOutlet UIButton *camSwitchButton;
+@property (weak, nonatomic) IBOutlet UILabel *scooterNameLabel;
+
+- (IBAction)camSwitchClicked:(id)sender;
 
 /*
 - (IBAction)powerOn:(UIButton *)sender;

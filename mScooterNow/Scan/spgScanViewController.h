@@ -19,12 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *scopeView;
 @property (weak, nonatomic) IBOutlet UIView *scooterView;
-@property (weak, nonatomic) IBOutlet UIButton *preButton;
-@property (weak, nonatomic) IBOutlet UIButton *nextButton;
 
 - (IBAction)pickupClicked:(id)sender;
 - (IBAction)closeClicked:(id)sender;
-- (IBAction)preClicked:(id)sender;
-- (IBAction)nextClicked:(id)sender;
 
 @end
