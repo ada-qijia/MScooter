@@ -22,6 +22,9 @@
 
 - (IBAction)camSwitchClicked:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *powerButton;
+- (IBAction)powerButtonClicked:(UIButton *)sender;
+
 /*
 - (IBAction)powerOn:(UIButton *)sender;
 */

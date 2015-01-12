@@ -11,6 +11,7 @@
 #import "spgTabBarViewController.h"
 #import "spgARViewController.h"
 #import "spgBLEService.h"
+#import "spgAlertViewManager.h"
 
 @interface spgDashboardViewController ()
 
@@ -97,6 +98,7 @@
         self.GaugeView.hidden=NO;
         self.ARView.hidden=YES;
         self.camSwitchButton.hidden=self.ARView.hidden;
+        self.powerButton.hidden=!self.camSwitchButton.hidden || self.powerButton.tag==0;
     }
 }
 
@@ -135,6 +137,7 @@
     
     currentMode=toMode;
     self.camSwitchButton.hidden=self.ARView.hidden;
+    self.powerButton.hidden=!self.camSwitchButton.hidden || self.powerButton.tag==0;
 }
 
 -(CATransition *) transitionOfMode:(DashboardMode) mode
@@ -205,6 +208,11 @@
 -(void)passwordCertified:(CBPeripheral *)peripheral result:(BOOL)correct
 {
     [gaugeVC passwordCertified:peripheral result:correct];
+    if(correct)
+    {
+      self.powerButton.tag=2222;
+    }
+    self.powerButton.hidden=!self.camSwitchButton.hidden || self.powerButton.tag==0;
 }
 
 #pragma - update connection UI
@@ -215,6 +223,29 @@
     BOOL connected=currentState==CBPeripheralStateConnected;
     self.connectedImage.highlighted= connected;
     self.scooterNameLabel.text= [[spgBLEService sharedInstance] peripheral].name;
+}
+
+- (IBAction)powerButtonClicked:(UIButton *)sender {
+    // if selected power off/lock, otherwise power on/unlock.
+    if(sender.selected)
+    {
+      NSArray *buttons=[NSArray arrayWithObjects:@"NO", @"YES",nil];
+        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Are You Sure to PowerOff?" buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
+        if(buttonIndex==1)
+        {
+            NSData *data=[spgMScooterUtilities getDataFromByte:100];
+            [[spgBLEService sharedInstance] writePower:data];
+            sender.selected=!sender.selected;
+        }
+        }];
+        [[spgAlertViewManager sharedAlertViewManager] show:alert];
+    }
+    else
+    {
+        NSData *data=[spgMScooterUtilities getDataFromByte:101];
+        [[spgBLEService sharedInstance] writePower:data];
+        sender.selected=!sender.selected;
+    }
 }
 
 - (IBAction)camSwitchClicked:(id)sender {

@@ -441,6 +441,18 @@
                                             <action selector="camSwitchClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="nJP-Sf-f1n"/>
                                         </connections>
                                     </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8z-jd-Qy9">
+                                        <rect key="frame" x="10" y="6" width="35" height="35"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" title="Power" image="powerOn.png">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="selected" image="powerOff.png"/>
+                                        <connections>
+                                            <action selector="camSwitchClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="dmm-TZ-OTF"/>
+                                            <action selector="powerButtonClicked:" destination="qNt-DY-caT" eventType="touchUpInside" id="xcO-dg-1hg"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="noSignal.png" highlightedImage="signal.png" translatesAutoresizingMaskIntoConstraints="NO" id="h6g-vm-IwZ">
                                         <rect key="frame" x="288" y="11" width="22" height="22"/>
                                     </imageView>
@@ -466,6 +478,7 @@
                         <outlet property="GaugeView" destination="VXl-aE-Dqk" id="5tV-a9-b4N"/>
                         <outlet property="camSwitchButton" destination="jSl-Ky-jOw" id="LQl-iF-MUU"/>
                         <outlet property="connectedImage" destination="h6g-vm-IwZ" id="3ro-ew-dSm"/>
+                        <outlet property="powerButton" destination="m8z-jd-Qy9" id="KzD-ef-YvJ"/>
                         <outlet property="scooterNameLabel" destination="gD0-JG-15c" id="VvN-ha-pNB"/>
                         <outlet property="topControllerView" destination="vjU-u3-QoN" id="ZLv-rf-J1u"/>
                     </connections>
@@ -692,6 +705,8 @@
         <image name="moments.png" width="27" height="27"/>
         <image name="momentsList.png" width="640" height="1136"/>
         <image name="noSignal.png" width="22" height="22"/>
+        <image name="powerOff.png" width="72" height="72"/>
+        <image name="powerOn.png" width="72" height="72"/>
         <image name="settingAbout.png" width="62" height="62"/>
         <image name="settingArrow.png" width="62" height="62"/>
         <image name="settingMode.png" width="62" height="62"/>
