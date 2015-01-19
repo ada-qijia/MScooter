@@ -11,6 +11,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 
 #import "spgCamPreviewView.h"
+#import <ImageIO/ImageIO.h>
 
 static void * CapturingStillImageContext = &CapturingStillImageContext;
 static void * RecordingContext = &RecordingContext;
@@ -84,9 +85,9 @@ static void * RecordingContext = &RecordingContext;
         {
             [session addOutput:movieFileOutput];
             /*
-            AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
-            if ([connection isVideoStabilizationSupported])
-                [connection setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
+             AVCaptureConnection *connection = [movieFileOutput connectionWithMediaType:AVMediaTypeVideo];
+             if ([connection isVideoStabilizationSupported])
+             [connection setPreferredVideoStabilizationMode:AVCaptureVideoStabilizationModeAuto];
              */
             [self setMovieFileOutput:movieFileOutput];
         }
@@ -122,7 +123,7 @@ static void * RecordingContext = &RecordingContext;
 {
     dispatch_async([self sessionQueue], ^{
         [[self session] stopRunning];
-
+        
         [self removeObserver:self forKeyPath:@"stillImageOutput.capturingStillImage" context:CapturingStillImageContext];
         [self removeObserver:self forKeyPath:@"movieFileOutput.recording" context:RecordingContext];
     });
@@ -142,21 +143,21 @@ static void * RecordingContext = &RecordingContext;
     else if (context == RecordingContext)
     {
         /*
-        BOOL isRecording = [change[NSKeyValueChangeNewKey] boolValue];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            if (isRecording)
-            {
-                //[[self cameraButton] setEnabled:NO];
-            }
-            else
-            {
-                //[[self recordButton] setEnabled:YES];
-            }
-        });
+         BOOL isRecording = [change[NSKeyValueChangeNewKey] boolValue];
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
+         if (isRecording)
+         {
+         //[[self cameraButton] setEnabled:NO];
+         }
+         else
+         {
+         //[[self recordButton] setEnabled:YES];
+         }
+         });
          */
     }
-
+    
 }
 
 -(BOOL)prefersStatusBarHidden
@@ -208,7 +209,7 @@ static void * RecordingContext = &RecordingContext;
         
         [spgCamViewController setFlashMode:AVCaptureFlashModeOff forDevice:[[self videoDeviceInput] device]];
         
-        NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:[@"movie" stringByAppendingPathExtension:@"mov"]];
+        NSString *outputFilePath = [NSTemporaryDirectory() stringByAppendingPathComponent:@"movie.mov"];
         [[self movieFileOutput] startRecordingToOutputFileURL:[NSURL fileURLWithPath:outputFilePath] recordingDelegate:self];
     }
 }
@@ -231,12 +232,25 @@ static void * RecordingContext = &RecordingContext;
         
         // Capture a still image.
         [[self stillImageOutput] captureStillImageAsynchronouslyFromConnection:[[self stillImageOutput] connectionWithMediaType:AVMediaTypeVideo] completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error) {
-            
             if (imageDataSampleBuffer)
             {
                 NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
-                UIImage *image = [[UIImage alloc] initWithData:imageData];
-                [[[ALAssetsLibrary alloc] init] writeImageToSavedPhotosAlbum:[image CGImage] orientation:(ALAssetOrientation)[image imageOrientation] completionBlock:nil];
+                
+                [[[ALAssetsLibrary alloc] init] writeImageDataToSavedPhotosAlbum:imageData metadata:nil completionBlock:^(NSURL *assetURL, NSError *error) {
+                    if(error)
+                    {
+                        NSLog(@"save image failed:%@",error);
+                    }else{
+                        NSMutableArray *moments=[spgMomentsPersistence getMoments];
+                        [moments addObject:assetURL.absoluteString];
+                        bool suceess=[spgMomentsPersistence saveMoments:moments];
+                        if(!suceess)
+                        {
+                            NSLog(@"save image failed.");
+                        }
+                    }
+                    
+                }];
             }
         }];
     });
@@ -301,9 +315,20 @@ static void * RecordingContext = &RecordingContext;
     
     [[[ALAssetsLibrary alloc] init] writeVideoAtPathToSavedPhotosAlbum:outputFileURL completionBlock:^(NSURL *assetURL, NSError *error) {
         if (error)
-            NSLog(@"%@", error);
-        
-        [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+        {
+            NSLog(@"save video failed:%@", error);
+            [[NSFileManager defaultManager] removeItemAtURL:outputFileURL error:nil];
+        }
+        else
+        {
+            NSMutableArray *moments=[spgMomentsPersistence getMoments];
+            [moments addObject:assetURL.absoluteString];
+            bool success= [spgMomentsPersistence saveMoments:moments];
+            if(!success)
+            {
+                NSLog(@"save video failed.");
+            }
+        }
     }];
 }
 

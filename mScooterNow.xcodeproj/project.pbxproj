@@ -20,6 +20,11 @@
 		329FF84319F608180011B1CE /* spgLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 329FF84119F608180011B1CE /* spgLoginViewController.xib */; };
 		329FF86019F661EE0011B1CE /* spgIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 329FF85F19F661EE0011B1CE /* spgIntroductionPanel.m */; };
 		329FF86419F662260011B1CE /* spgIntroductionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 329FF86319F662260011B1CE /* spgIntroductionPanel.xib */; };
+		32A028501A6375DD00F151E4 /* spgMomentsPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A0284F1A6375DD00F151E4 /* spgMomentsPersistence.m */; };
+		32A028561A63A0B100F151E4 /* spgMomentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A028551A63A0B100F151E4 /* spgMomentsTableViewController.m */; };
+		32A0285A1A6514E400F151E4 /* spgAssetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A028581A6514E400F151E4 /* spgAssetViewController.m */; };
+		32A0285B1A6514E400F151E4 /* spgAssetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A028591A6514E400F151E4 /* spgAssetViewController.xib */; };
+		32A0285D1A651A9A00F151E4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A0285C1A651A9A00F151E4 /* MediaPlayer.framework */; };
 		32A13C2619F4D7B200D1AC9E /* spgIntroductionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A13C2419F4D7B200D1AC9E /* spgIntroductionViewController.m */; };
 		32A13C2E19F4D99700D1AC9E /* spgIntroductionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A13C2D19F4D99700D1AC9E /* spgIntroductionView.m */; };
 		32A13C3219F4DAAF00D1AC9E /* spgChangePasswordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A13C3019F4DAAF00D1AC9E /* spgChangePasswordViewController.m */; };
@@ -145,6 +150,15 @@
 		329FF85E19F661EE0011B1CE /* spgIntroductionPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgIntroductionPanel.h; path = IntroductionBase/spgIntroductionPanel.h; sourceTree = "<group>"; };
 		329FF85F19F661EE0011B1CE /* spgIntroductionPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgIntroductionPanel.m; path = IntroductionBase/spgIntroductionPanel.m; sourceTree = "<group>"; };
 		329FF86319F662260011B1CE /* spgIntroductionPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgIntroductionPanel.xib; path = IntroductionBase/spgIntroductionPanel.xib; sourceTree = "<group>"; };
+		32A0284E1A6375DD00F151E4 /* spgMomentsPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgMomentsPersistence.h; path = Persistence/spgMomentsPersistence.h; sourceTree = "<group>"; };
+		32A0284F1A6375DD00F151E4 /* spgMomentsPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgMomentsPersistence.m; path = Persistence/spgMomentsPersistence.m; sourceTree = "<group>"; };
+		32A028541A63A0B100F151E4 /* spgAssetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgAssetViewController.h; sourceTree = "<group>"; };
+		32A028551A63A0B100F151E4 /* spgMomentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgMomentsTableViewController.m; sourceTree = "<group>"; };
+		32A028571A6514E400F151E4 /* spgAssetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgAssetViewController.h; sourceTree = "<group>"; };
+		32A028581A6514E400F151E4 /* spgAssetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgAssetViewController.m; sourceTree = "<group>"; };
+		32A028591A6514E400F151E4 /* spgAssetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgAssetViewController.xib; sourceTree = "<group>"; };
+		32A0285C1A651A9A00F151E4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		32A0285E1A675AF600F151E4 /* spgMomentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgMomentsTableViewController.h; sourceTree = "<group>"; };
 		32A13C2319F4D7B200D1AC9E /* spgIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgIntroductionViewController.h; sourceTree = "<group>"; };
 		32A13C2419F4D7B200D1AC9E /* spgIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgIntroductionViewController.m; sourceTree = "<group>"; };
 		32A13C2C19F4D99700D1AC9E /* spgIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgIntroductionView.h; path = IntroductionBase/spgIntroductionView.h; sourceTree = "<group>"; };
@@ -301,6 +315,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				32A0285D1A651A9A00F151E4 /* MediaPlayer.framework in Frameworks */,
 				32B1FFC119C975C100D9FFF5 /* CoreBluetooth.framework in Frameworks */,
 				32B1FF8C19C974AC00D9FFF5 /* CoreGraphics.framework in Frameworks */,
 				32B1FF8E19C974AC00D9FFF5 /* UIKit.framework in Frameworks */,
@@ -324,8 +339,23 @@
 		32A0102D1A0B5F1A00F4D4A4 /* Moments */ = {
 			isa = PBXGroup;
 			children = (
+				32A028541A63A0B100F151E4 /* spgAssetViewController.h */,
+				32A0285E1A675AF600F151E4 /* spgMomentsTableViewController.h */,
+				32A028551A63A0B100F151E4 /* spgMomentsTableViewController.m */,
+				32A028571A6514E400F151E4 /* spgAssetViewController.h */,
+				32A028581A6514E400F151E4 /* spgAssetViewController.m */,
+				32A028591A6514E400F151E4 /* spgAssetViewController.xib */,
 			);
 			path = Moments;
+			sourceTree = "<group>";
+		};
+		32A0284B1A63730B00F151E4 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				32A0284E1A6375DD00F151E4 /* spgMomentsPersistence.h */,
+				32A0284F1A6375DD00F151E4 /* spgMomentsPersistence.m */,
+			);
+			name = Persistence;
 			sourceTree = "<group>";
 		};
 		32A13C2219F4D7B200D1AC9E /* Introduction */ = {
@@ -455,6 +485,7 @@
 		32B1FF8819C974AC00D9FFF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				32A0285C1A651A9A00F151E4 /* MediaPlayer.framework */,
 				32B1FFC019C975C100D9FFF5 /* CoreBluetooth.framework */,
 				32B1FF8919C974AC00D9FFF5 /* Foundation.framework */,
 				32B1FF8B19C974AC00D9FFF5 /* CoreGraphics.framework */,
@@ -466,6 +497,7 @@
 		32B1FF8F19C974AC00D9FFF5 /* mScooterNow */ = {
 			isa = PBXGroup;
 			children = (
+				32A0284B1A63730B00F151E4 /* Persistence */,
 				32A531861A2D96C600FF3861 /* AlertView */,
 				32A0102D1A0B5F1A00F4D4A4 /* Moments */,
 				32A29B5F19FA597A00D2BD3F /* Common */,
@@ -729,6 +761,7 @@
 				329FF84319F608180011B1CE /* spgLoginViewController.xib in Resources */,
 				32B6835B1A3AD3B7000F4934 /* battery2@2x.png in Resources */,
 				329FF86419F662260011B1CE /* spgIntroductionPanel.xib in Resources */,
+				32A0285B1A6514E400F151E4 /* spgAssetViewController.xib in Resources */,
 				32ABC2CF19CBC9AE00F3254E /* video.png in Resources */,
 				32A1A80519FF8B2D00B7B8DD /* powerOn.png in Resources */,
 				32B697411A10A1EF004C1879 /* battery.png in Resources */,
@@ -793,6 +826,7 @@
 				32A531901A2DA46400FF3861 /* spgAlertViewManager.m in Sources */,
 				32A1A7F319FF769000B7B8DD /* spgMScooterUtilities.m in Sources */,
 				32ADA26519EF8FF60081BD51 /* spgSettingsViewController.m in Sources */,
+				32A028501A6375DD00F151E4 /* spgMomentsPersistence.m in Sources */,
 				32A7AB6619E67D77008B7D32 /* spgCamPreviewView.m in Sources */,
 				32B1000B19C97B1800D9FFF5 /* THPinInputCircleView.m in Sources */,
 				32B1FF9619C974AC00D9FFF5 /* main.m in Sources */,
@@ -800,6 +834,7 @@
 				32B1001F19C97D7B00D9FFF5 /* spgDashboardViewController.m in Sources */,
 				32B1FFA019C974AD00D9FFF5 /* spgViewController.m in Sources */,
 				32B1FF9A19C974AD00D9FFF5 /* spgAppDelegate.m in Sources */,
+				32A028561A63A0B100F151E4 /* spgMomentsTableViewController.m in Sources */,
 				32A13C2E19F4D99700D1AC9E /* spgIntroductionView.m in Sources */,
 				32B1000F19C97B1800D9FFF5 /* THPinViewController.m in Sources */,
 				329FF84219F608180011B1CE /* spgLoginViewController.m in Sources */,
@@ -809,6 +844,7 @@
 				32A7AB6919E67E49008B7D32 /* spgCamViewController.m in Sources */,
 				32A13C3219F4DAAF00D1AC9E /* spgChangePasswordViewController.m in Sources */,
 				329FF86019F661EE0011B1CE /* spgIntroductionPanel.m in Sources */,
+				32A0285A1A6514E400F151E4 /* spgAssetViewController.m in Sources */,
 				32A29B5E19F9F33F00D2BD3F /* spgARViewController.m in Sources */,
 				32B1001819C97B7900D9FFF5 /* spgPinViewController.m in Sources */,
 				326A42F91A2856F800941984 /* spgScooterPeripheral.m in Sources */,
