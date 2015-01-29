@@ -12,12 +12,17 @@
 
 @interface spgAssetViewController : UIViewController<UIImagePickerControllerDelegate>
 
-@property (strong,nonatomic) NSArray* assets;
+@property (weak,nonatomic) NSMutableDictionary* assets;
 @property NSInteger currentIndex;
 @property(strong, nonatomic) MPMoviePlayerController* movieController;
 
 @property (weak, nonatomic) IBOutlet UIView *ItemView;
 @property (weak, nonatomic) IBOutlet UIImageView *LargeImageView;
 @property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIButton *closeButton;
+@property (weak, nonatomic) IBOutlet UIButton *deleteButton;
+
+- (IBAction)DeleteClicked:(UIButton *)sender;
+- (IBAction)CloseClicked:(UIButton *)sender;
 
 @end

@@ -1,4 +1,4 @@
-//
+///
 //  spgMapViewController.m
 //  SPGScooterRemote
 //
@@ -8,6 +8,7 @@
 
 #import "spgMapViewController.h"
 #import "spgMScooterDefinitions.h"
+#import "spgMScooterCommon.h"
 
 @interface spgMapViewController ()
 
@@ -32,27 +33,27 @@
     
     //set mapView
     self.mapView.delegate=self;
-    
-    self.mapView.mapType=MKMapTypeStandard;
-    CLLocationCoordinate2D centerLocation=CLLocationCoordinate2DMake(39.980777, 116.309108);
-    MKCoordinateRegion mapRegion=MKCoordinateRegionMakeWithDistance(centerLocation, 2000, 2000);
-    [self.mapView setRegion:mapRegion animated:YES];
-    
     self.mapView.pitchEnabled=false;
     self.mapView.rotateEnabled=false;
+    self.mapView.mapType=MKMapTypeStandard;
     
     //set locationManager
     self.locationManager=[[CLLocationManager alloc] init];
     
-    if(IS_OS_8_OR_LATER)
+    if(IS_OS_8_OR_LATER && [CLLocationManager authorizationStatus]==kCLAuthorizationStatusNotDetermined)
     {
         [self.locationManager requestWhenInUseAuthorization];
     }
     
-    if([CLLocationManager authorizationStatus]==kCLAuthorizationStatusAuthorized)
+    if([CLLocationManager authorizationStatus]>=kCLAuthorizationStatusAuthorized)
     {
         self.mapView.showsUserLocation=YES;
     }
+    
+    //set mapview initial center
+    CLLocationCoordinate2D centerLocation=self.locationManager.location? self.locationManager.location.coordinate:CLLocationCoordinate2DMake(39.980777, 116.309108);
+    MKCoordinateRegion mapRegion=MKCoordinateRegionMakeWithDistance(centerLocation, 2000, 2000);
+    [self.mapView setRegion:mapRegion animated:YES];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -77,7 +78,8 @@
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
 {
-    [self.mapView setCenterCoordinate:userLocation.location.coordinate animated:YES];
+    CLLocationCoordinate2D coordinate=userLocation.location.coordinate;
+    [self.mapView setCenterCoordinate:coordinate animated:YES];
 }
 
 -(MKOverlayRenderer *)mapView:(MKMapView *)mapView rendererForOverlay:(id<MKOverlay>)overlay

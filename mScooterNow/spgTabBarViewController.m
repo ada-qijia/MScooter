@@ -24,6 +24,9 @@ static const NSInteger warningViewTag=8888;
     
     self.delegate=self;
     self.bleService=[spgBLEService sharedInstance];
+    
+    NSInteger lastState = [[spgMScooterUtilities getPreferenceWithKey:kLastPowerStateKey] integerValue];
+    self.currentPowerState=lastState;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,7 +36,6 @@ static const NSInteger warningViewTag=8888;
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     self.bleService.peripheralDelegate=self;
 }
 
@@ -63,14 +65,38 @@ static const NSInteger warningViewTag=8888;
     }
 }
 
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+}
+
 #pragma mark - spgBLEService delegate
 
 -(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral
 {
+    //send Identify
+    NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
+    if(uniqueIdentifier)
+    {
+        NSData *data=[spgMScooterUtilities getDataFromString:uniqueIdentifier length:18];
+        
+        //write may fail because characteristic not found.
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            BOOL writeSuccess=[[spgBLEService sharedInstance] IdentifyPhone:data];
+            while (!writeSuccess) {
+                [NSThread sleepForTimeInterval:1];
+                writeSuccess= [[spgBLEService sharedInstance] IdentifyPhone:data];
+            }
+        });
+    }
+    
+    //notify
     if([self.scooterPresentationDelegate respondsToSelector:@selector(updateConnectionState:)])
     {
         [self.scooterPresentationDelegate updateConnectionState:YES];
     }
+    
+    //save scooter name
+    [spgMScooterUtilities savePreferenceWithKey:kScooterNameKey value:peripheral.name];
 }
 
 -(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
@@ -83,7 +109,7 @@ static const NSInteger warningViewTag=8888;
 
 -(void)speedValueUpdated:(NSData *)speedData
 {
-    [spgMScooterUtilities LogData:speedData title:@"Speed"];
+    //[spgMScooterUtilities LogData:speedData title:@"Speed"];
     
     float realSpeed=0;
     int16_t i=0;
@@ -150,11 +176,10 @@ static const NSInteger warningViewTag=8888;
 {
     [spgMScooterUtilities LogData:batteryData title:@"Battery"];
     
-    float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
-    
     //update battery
     if([self.scooterPresentationDelegate respondsToSelector:@selector(updateBattery:)])
     {
+        float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
         [self.scooterPresentationDelegate updateBattery:realBattery];
     }
 }
@@ -175,11 +200,42 @@ static const NSInteger warningViewTag=8888;
     }
 }
 
+-(void)mileageUpdated:(NSData *)mileage
+{
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateMileage:)])
+    {
+        //unit m
+        int value=[spgMScooterUtilities castMileageToInt:mileage];
+        [self.scooterPresentationDelegate updateMileage:value];
+    }
+}
+
 -(void)passwordCertificationReturned:(CBPeripheral *)peripheral result:(BOOL)correct
 {
-    if([self.scooterPresentationDelegate respondsToSelector:@selector(passwordCertified:result:)])
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateCertifyState:)])
     {
-        [self.scooterPresentationDelegate passwordCertified:peripheral result:correct];
+        [self.scooterPresentationDelegate updateCertifyState:correct];
+    }
+}
+
+-(void)identifyReturned:(CBPeripheral *)peripheral result:(BOOL) success
+{
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateCertifyState:)])
+    {
+        [self.scooterPresentationDelegate updateCertifyState:success];
+    }
+}
+
+-(void)powerStateReturned:(CBPeripheral *)peripheral result:(NSData *) data
+{
+    PowerState state=[spgMScooterUtilities castDataToPowerState:data];
+    self.currentPowerState=state;
+    NSNumber *stateNum= [NSNumber numberWithInteger:state];
+    [spgMScooterUtilities savePreferenceWithKey:kLastPowerStateKey value:stateNum];
+    
+    if([self.scooterPresentationDelegate respondsToSelector:@selector(powerStateReturned:result:)])
+    {
+        [self.scooterPresentationDelegate powerStateReturned:peripheral result:state];
     }
 }
 

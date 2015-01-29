@@ -8,6 +8,7 @@
 
 #import "spgLoginViewController.h"
 #import "spgTabBarViewController.h"
+#import "spgMScooterCommon.h"
 
 @interface spgLoginViewController ()
 
@@ -34,24 +35,11 @@
 #pragma - UI interaction
 
 - (IBAction)loginClicked:(UIButton *)sender {
-    [self navigateToScan];
+    [spgMScooterUtilities savePreferenceWithKey:kUserKey value:@"N LeiLei"];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)skipClicked:(UIButton *)sender {
-    [self navigateToScan];
+- (IBAction)backClicked:(UIButton *)sender {
+  [self dismissViewControllerAnimated:YES completion:nil];
 }
-
--(void)navigateToScan
-{
-    //save notFirstUse preference
-    [spgMScooterUtilities savePreferenceWithKey:kNotFirstUseKey value:@"YES"];
-    
-    //navigate
-    UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
-    tabBarVC.selectedIndex=1;
-    
-    [self presentViewController:tabBarVC animated:YES completion:nil];
-}
-
 @end

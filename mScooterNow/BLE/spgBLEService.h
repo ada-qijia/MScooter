@@ -33,7 +33,7 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 
 #pragma mark - manipulate one peripheral delegate
 
-@protocol spgBLEServicePeripheralDelegate <NSObject>
+@protocol spgBLEServicePeripheralDelegate <NSObject,spgBLEServiceDiscoverPeripheralsDelegate>
 
 @required
 
@@ -42,11 +42,12 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 -(void)speedValueUpdated:(NSData *)speedData;
 -(void)batteryValueUpdated:(NSData *)batteryData;
 -(void)cameraTriggered:(SBSCameraCommand)commandType;
+-(void)mileageUpdated:(NSData *)mileage;
 -(void)modeChanged;
 -(void)autoPoweredOff;
 -(void)passwordCertificationReturned:(CBPeripheral *)peripheral result:(BOOL) correct;
--(void)centralManager:(CBCentralManager *)central disconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error;
--(void)centralManager:(CBCentralManager *)central connectPeripheral:(CBPeripheral *)peripheral;
+-(void)identifyReturned:(CBPeripheral *)peripheral result:(BOOL) success;
+-(void)powerStateReturned:(CBPeripheral *)peripheral result:(NSData *) data;
 
 @end
 
@@ -61,6 +62,8 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 @property (nonatomic, weak) id<spgBLEServicePeripheralDelegate> peripheralDelegate;
 @property (strong, nonatomic) CBCentralManager *centralManager;
 @property (strong,nonatomic) CBPeripheral *peripheral;
+//contains bool value
+@property NSNumber *isCertified;
 
 -(id)initWithDelegates:(id<spgBLEServiceDiscoverPeripheralsDelegate>)delegate peripheralDelegate:(id<spgBLEServicePeripheralDelegate>) peripheralDelegate;
 -(void)startScan;
@@ -69,6 +72,7 @@ typedef NS_ENUM(NSUInteger, SBSCameraCommand){
 -(void)disConnectPeripheral;
 -(void)writePower:(NSData *) data;
 -(BOOL)writePassword:(NSData *)data;
+-(BOOL)IdentifyPhone:(NSData *)data;
 
 -(void)clean;
 @end

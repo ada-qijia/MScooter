@@ -7,15 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "spgAlertCommon.h"
 
-typedef void (^spgAlertViewBlock)(NSString *passcode, int buttonIndex);
+@interface spgAlertView : UIView <UITextFieldDelegate, spgAlertViewManagerProtocol>
 
-@interface spgAlertView : UIView <UITextFieldDelegate>
+@property (copy, nonatomic) spgAlertViewBlock blockAfterDismiss;
 
 @property (copy, nonatomic) NSString *title;
 @property (copy, nonatomic) NSString *message;
 @property (retain, nonatomic) NSArray *buttons;
-@property (copy, nonatomic) spgAlertViewBlock blockAfterDismiss;
 
 -(id)initWithTitle:(NSString*)title
            message:(NSString*)message
@@ -26,10 +26,6 @@ typedef void (^spgAlertViewBlock)(NSString *passcode, int buttonIndex);
            buttons:(NSArray *)buttonTitles
            correctPasscode:(NSString *)passcode
            afterDismiss:(spgAlertViewBlock)block;
-
--(void)prepareForAnimation;
--(void)showWithAnimation;
--(void)dismissWithAnimation:(int)buttonIndex;
 
 //used to show the keyboard
 @property (weak, nonatomic) IBOutlet UITextField *TextField1;

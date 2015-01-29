@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import "spgAlertView.h"
+#import "spgPinView.h"
+#import "spgAlertCommon.h"
 
 @interface spgAlertViewManager : NSObject
 {
@@ -21,8 +23,8 @@
 
 +(spgAlertViewManager *)sharedAlertViewManager;
 
--(void)show:(spgAlertView *)alertView;
--(void)dismiss:(spgAlertView *)alertView;
--(void)dismiss:(spgAlertView *)alertView button:(int)buttonIndex;
+-(void)show:(UIView<spgAlertViewManagerProtocol> *)alertView;
+-(void)dismiss:(UIView<spgAlertViewManagerProtocol> *)alertView;
+-(void)dismiss:(UIView<spgAlertViewManagerProtocol> *)alertView button:(int)buttonIndex;
 
 @end

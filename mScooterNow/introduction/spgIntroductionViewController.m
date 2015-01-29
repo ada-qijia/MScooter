@@ -10,6 +10,7 @@
 #import "spgIntroductionPanel.h"
 #import "spgIntroductionView.h"
 #import "spgLoginViewController.h"
+#import "spgTabBarViewController.h"
 
 @interface spgIntroductionViewController ()
 
@@ -84,10 +85,15 @@
 
 -(void)footerButtonClicked:(UIButton *)sender
 {
+    //save notFirstUse preference
+    [spgMScooterUtilities savePreferenceWithKey:kNotFirstUseKey value:@"YES"];
+    
     //navigate
-    spgLoginViewController *loginVC=[[spgLoginViewController alloc] initWithNibName:@"spgLoginViewController" bundle:nil];
-    loginVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
-    [self presentViewController:loginVC animated:YES completion:^{
+    UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
+    tabBarVC.selectedIndex=1;
+    tabBarVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+    [self presentViewController:tabBarVC animated:YES completion:^{
         [self removeFromParentViewController];
     }];
 }
@@ -99,7 +105,7 @@
     
     if(panelIndex==2 && self.isRelay)
     {
-        [introductionView setBottomButtonHidden:NO title:@"Join M-Scooter Now"];
+        [introductionView setBottomButtonHidden:NO title:@"Join Neezza Now"];
     }
     else
     {

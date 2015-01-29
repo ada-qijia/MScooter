@@ -7,6 +7,7 @@
 //
 
 #import "spgAssetViewController.h"
+#import "spgMomentsPersistence.h"
 
 @interface spgAssetViewController ()
 
@@ -67,14 +68,14 @@
 //close the page
 -(void)reportTap:(UIGestureRecognizer *)recognizer
 {
-      [self dismissViewControllerAnimated:NO completion:nil];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 #pragma -video play
 
 - (IBAction)playVideo:(id)sender
 {
-     PHAsset *asset=[self.assets objectAtIndex:self.currentIndex];
+    PHAsset *asset=[self.assets.allValues objectAtIndex:self.currentIndex];
     [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
         if ([playerItem.asset isKindOfClass:AVURLAsset.class])
         {
@@ -85,43 +86,55 @@
                 {
                     self.movieController= [[MPMoviePlayerController alloc] init];
                     [self.movieController.view setFrame: self.view.bounds];
+                    self.movieController.controlStyle=MPMovieControlStyleFullscreen;
                 }
-                
-                [self.view insertSubview:self.movieController.view atIndex:1];
+
+                [self.ItemView insertSubview:self.movieController.view atIndex:3];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:) name: MPMoviePlayerPlaybackDidFinishNotification object: self.movieController];
                 //format should be like this:@"file:///var/mobile/Media/DCIM/100APPLE/IMG_0958.mov"
                 [self.movieController setContentURL: theURL];
                 [self.movieController prepareToPlay];
                 [self.movieController play];
-                self.playButton.hidden=YES;
+                
+                self.deleteButton.hidden=YES;
             });
         }
     }];
 }
 
 - (void)moviePlayBackDidFinish:(NSNotification*)notification {
+    [self stopPlayMovie];
+}
+
+-(void)stopPlayMovie
+{
     [[NSNotificationCenter defaultCenter] removeObserver:self name: MPMoviePlayerPlaybackDidFinishNotification object:nil];
     [self.movieController stop];
     
     [self.movieController.view removeFromSuperview];
-    //self.movieController = nil;
-    self.playButton.hidden=NO;
+    self.deleteButton.hidden=NO;
 }
 
 #pragma - private methods
 
 -(void)setCurrentItemView{
-    PHAsset *asset=[self.assets objectAtIndex:self.currentIndex];
-    self.playButton.hidden=asset.mediaType!=PHAssetMediaTypeVideo;
-    [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:self.view.bounds.size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
-        self.LargeImageView.image=result;
-        
-        NSError *error=[info objectForKey:PHImageErrorKey];
-        if (error) {
-            NSLog(@"get image error: %@", error.description);
-        }
-
-    }];
+    if(self.assets.allValues.count>self.currentIndex)
+    {
+        PHAsset *asset=[self.assets.allValues objectAtIndex:self.currentIndex];
+        self.playButton.hidden=asset.mediaType!=PHAssetMediaTypeVideo;
+        [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:self.view.bounds.size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
+            self.LargeImageView.image=result;
+            
+            NSError *error=[info objectForKey:PHImageErrorKey];
+            if (error) {
+                NSLog(@"get image error: %@", error.description);
+            }
+        }];
+    }
+    else
+    {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 //need to customize subtype
@@ -131,6 +144,39 @@
     transition.type = kCATransitionPush;
     [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     return transition;
+}
+
+#pragma - UI interaction
+
+- (IBAction)DeleteClicked:(UIButton *)sender {
+    NSString *assetUrl=[self.assets.allKeys objectAtIndex:self.currentIndex];
+    PHAsset *asset=[self.assets.allValues objectAtIndex:self.currentIndex];
+    
+    //delete from photos library
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        [PHAssetChangeRequest deleteAssets:[NSArray arrayWithObject:asset]];
+    } completionHandler:^(BOOL success, NSError *error) {
+        
+        NSString *result=success?@"success":@"failed";
+        NSLog(@"delete photo/video %@ %@",assetUrl, result);
+        
+        //remove from persistence.
+        NSMutableArray *momentsArray=[spgMomentsPersistence getMoments];
+        if([momentsArray containsObject:assetUrl])
+        {
+            [momentsArray removeObject:assetUrl];
+            [spgMomentsPersistence saveMoments:momentsArray];
+            
+            //update current page
+            [self.assets removeObjectForKey:assetUrl];
+            self.currentIndex=self.currentIndex%self.assets.count;
+            [self setCurrentItemView];
+        }
+    }];
+}
+
+- (IBAction)CloseClicked:(UIButton *)sender {
+    [self stopPlayMovie];
 }
 
 @end

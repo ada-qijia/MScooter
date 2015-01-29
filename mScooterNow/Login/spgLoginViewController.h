@@ -11,6 +11,6 @@
 @interface spgLoginViewController : UIViewController
 
 - (IBAction)loginClicked:(UIButton *)sender;
-- (IBAction)skipClicked:(UIButton *)sender;
+- (IBAction)backClicked:(UIButton *)sender;
 
 @end

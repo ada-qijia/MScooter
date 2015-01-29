@@ -11,7 +11,7 @@
 #import "spgGaugesViewController.h"
 #import "spgTabBarViewController.h"
 
-@interface spgDashboardViewController : UIViewController<spgScooterPresentationDelegate>
+@interface spgDashboardViewController : UIViewController<spgScooterPresentationDelegate,spgBLEServiceDiscoverPeripheralsDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *ARView;
 @property (weak, nonatomic) IBOutlet UIView *GaugeView;
@@ -22,12 +22,17 @@
 
 - (IBAction)camSwitchClicked:(id)sender;
 
-@property (weak, nonatomic) IBOutlet UIButton *powerButton;
-- (IBAction)powerButtonClicked:(UIButton *)sender;
-
 /*
 - (IBAction)powerOn:(UIButton *)sender;
 */
 -(void)showGauge;
+- (IBAction)AddScooterClicked:(id)sender;
+
+//test
+- (IBAction)TakePhoto:(id)sender;
+- (IBAction)RecordVideo:(id)sender;
+- (IBAction)IdentifyPhone:(id)sender;
+- (IBAction)ChangePowerMode:(UIButton *)sender;
+- (IBAction)SendPwd:(id)sender;
 
 @end

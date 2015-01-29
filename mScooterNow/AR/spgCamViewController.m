@@ -242,7 +242,7 @@ static void * RecordingContext = &RecordingContext;
                         NSLog(@"save image failed:%@",error);
                     }else{
                         NSMutableArray *moments=[spgMomentsPersistence getMoments];
-                        [moments addObject:assetURL.absoluteString];
+                        [moments insertObject:assetURL.absoluteString atIndex:0];
                         bool suceess=[spgMomentsPersistence saveMoments:moments];
                         if(!suceess)
                         {
@@ -322,7 +322,7 @@ static void * RecordingContext = &RecordingContext;
         else
         {
             NSMutableArray *moments=[spgMomentsPersistence getMoments];
-            [moments addObject:assetURL.absoluteString];
+            [moments insertObject:assetURL.absoluteString atIndex:0];
             bool success= [spgMomentsPersistence saveMoments:moments];
             if(!success)
             {

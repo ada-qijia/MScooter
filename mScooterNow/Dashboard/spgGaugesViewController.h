@@ -11,8 +11,13 @@
 #import "spgMScooterDefinitions.h"
 #import "spgCamViewController.h"
 #import "spgTabBarViewController.h"
+#import "spgMScooterCommon.h"
 
 @interface spgGaugesViewController : UIViewController <spgScooterPresentationDelegate>
+
+@property (weak, nonatomic) IBOutlet UIView *SpeedView;
+@property (weak, nonatomic) IBOutlet UIView *BatteryView;
+@property (weak, nonatomic) IBOutlet UIView *RangeView;
 
 @property (weak, nonatomic) IBOutlet WMGaugeView *speedGaugeView;
 
@@ -20,13 +25,14 @@
 @property (weak, nonatomic) IBOutlet UILabel *BatteryLabel;
 @property (weak, nonatomic) IBOutlet UILabel *DistanceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *SpeedLabel;
+@property (weak, nonatomic) IBOutlet UILabel *DistanceUnitLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *AddButton;
-@property (weak, nonatomic) IBOutlet UIButton *ConnectButton;
+@property (weak, nonatomic) IBOutlet UIButton *PowerButton;
 
-- (IBAction)AddScooter:(UIButton *)sender;
-- (IBAction)ConnectScooter:(UIButton *)sender;
+- (IBAction)ChangePowerState:(UIButton *)sender;
 
 -(void)rotateLayout:(BOOL)portrait;
 -(void)setGaugesEnabled:(BOOL)enabled;
+-(void)updatePowerState:(PowerState)state;
+
 @end

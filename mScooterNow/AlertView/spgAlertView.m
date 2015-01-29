@@ -58,7 +58,7 @@
                 _button.backgroundColor=[UIColor colorWithRed:76/255.0 green:193/255.0 blue:209/255.0 alpha:0.6];//theme color with alpha 0.6
                 
                 [_button setTitle:buttonTitle forState:UIControlStateNormal];
-                 //_button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+                //_button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
                 [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
                 _button.frame = CGRectMake(buttonsMargin+buttonWidth * i + buttonPadding * i, 115, buttonWidth, 44);
                 _button.tag = i;
@@ -100,6 +100,8 @@
     }
 }
 
+#pragma - delegate methods
+
 -(void)prepareForAnimation
 {
     self.BgView.alpha=0;
@@ -128,6 +130,16 @@
             self.blockAfterDismiss(self.TextField1.text, buttonIndex);
         }
     }];
+}
+
+-(spgAlertViewBlock)getAfterDismiss
+{
+    return  self.blockAfterDismiss;
+}
+
+-(void)setAfterDismiss:(spgAlertViewBlock) afterDismiss
+{
+    self.blockAfterDismiss=afterDismiss;
 }
 
 # pragma - passcode mode

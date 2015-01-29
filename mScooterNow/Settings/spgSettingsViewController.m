@@ -1,3 +1,4 @@
+
 //
 //  spgSettingsViewController.m
 //  mScooterNow
@@ -9,9 +10,10 @@
 #import "spgSettingsViewController.h"
 #import "spgChangePasswordViewController.h"
 #import "spgModeSettingsViewController.h"
-#import "spgScanViewController.h"
+#import "spgTabBarViewController.h"
 #import "spgIntroductionViewController.h"
 #import "spgAlertViewManager.h"
+#import "spgLoginViewController.h"
 
 @interface spgSettingsViewController ()
 
@@ -33,19 +35,34 @@
 {
     [super viewWillAppear:animated];
     
-    BOOL isPasswordOn=[[spgMScooterUtilities getPreferenceWithKey:kPasswordOnKey] isEqualToString:@"YES"];
+    [self updateLoginUI];
     
-    self.PasswordOnSwitch.on=isPasswordOn;
+    //update switch state
     
-    self.PasswordOnSwitch.enabled=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
+    spgTabBarViewController *tabBarVC = (spgTabBarViewController *)self.tabBarController;
+    
+    NSInteger lastState = [[spgMScooterUtilities getPreferenceWithKey:kLastPowerStateKey] integerValue];
+    self.PowerAlwaysOnSwitch.on=lastState==PowerAlwaysOn;
+    
+    BOOL isPowerModeChangable = tabBarVC.currentPowerState==PowerOff||tabBarVC.currentPowerState==PowerAlwaysOn;//[spgBLEService sharedInstance].isCertified &&
+    self.PowerAlwaysOnSwitch.enabled=isPowerModeChangable;
+}
+
+-(void)updateLoginUI
+{
+    NSString *user= [spgMScooterUtilities getPreferenceWithKey:kUserKey];
+    //if user, login
+    self.userInfoImage.hidden=!user;
+    self.loginButton.hidden=user;
+    self.logoutButton.hidden=!user;
+    
+    /*
+     NSString *imgName=user?@"settingPortrait.png":@"me@2x.png";
+     self.tabBarItem.image=[[UIImage imageNamed:imgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+     self.tabBarItem.selectedImage=user?self.tabBarItem.image:[UIImage imageNamed:imgName];*/
 }
 
 #pragma - UI interaction
-
-- (IBAction)ModeSettingClicked:(id)sender {
-    spgModeSettingsViewController *modeSettingsVC=[[spgModeSettingsViewController alloc] initWithNibName:@"spgModeSettingsViewController" bundle:nil];
-    [self presentViewController:modeSettingsVC animated:YES completion:nil];
-}
 
 /*
  - (IBAction)changePasswordClicked:(UIButton *)sender {
@@ -70,21 +87,30 @@
             [[spgBLEService sharedInstance] clean];
             
             //clean saved MyPeripheralID if change to personal mode.
-            [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
+            //[spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
             
-            //navigate to scan page
-            spgScanViewController *scanVC=[[spgScanViewController alloc] initWithNibName:@"spgScan" bundle:nil];
-            [self presentViewController:scanVC animated:YES completion:nil];
-            
+            //navigate to dashboard page
+            spgTabBarViewController *tabbarVC=(spgTabBarViewController *)self.tabBarController;
+            tabbarVC.selectedIndex=1;
         }
     }];
     [[spgAlertViewManager sharedAlertViewManager] show:alert];
 }
 
-- (IBAction)PasswordSwitchChanged:(UISwitch *)sender {
-    NSString *isOn=sender.isOn?@"YES":@"NO";
-    [spgMScooterUtilities savePreferenceWithKey:kPasswordOnKey value:isOn];
-    [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
+- (IBAction)PowerAlwaysOnSwitchChanged:(UISwitch *)sender {
+    Byte mode=sender.isOn?PowerAlwaysOnCmd:PowerWithPhoneCmd;
+    NSData *data=[spgMScooterUtilities getDataFromByte:mode];
+    [[spgBLEService sharedInstance] writePower:data];
+}
+
+- (IBAction)LoginClicked:(UIButton *)sender {
+    spgLoginViewController *loginVC=[[spgLoginViewController alloc] initWithNibName:@"spgLoginViewController" bundle:nil];
+    [self presentViewController:loginVC animated:YES completion:nil];
+}
+
+- (IBAction)LogoutClicked:(UIButton *)sender {
+    [spgMScooterUtilities savePreferenceWithKey:kUserKey value:nil];
+    [self updateLoginUI];
 }
 
 @end

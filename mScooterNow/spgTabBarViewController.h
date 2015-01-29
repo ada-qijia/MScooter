@@ -10,6 +10,7 @@
 #import <CoreBluetooth/CoreBluetooth.h>
 #import "spgMScooterCommon.h"
 #import "spgBLEService.h"
+#import <MapKit/MapKit.h>
 //#import "spgMScooterUtilities.h"
 
 @protocol spgScooterPresentationDelegate <NSObject>
@@ -20,20 +21,24 @@
 -(void)updateConnectionState:(BOOL) connected;
 -(void)updateSpeed:(float)speed;
 -(void)updateBattery:(float)battery;
+-(void)updateMileage:(int)mileage;
 
 //only for AR mode
 -(void)cameraTriggered:(SBSCameraCommand)commandType;
 -(void)modeChanged;
 
--(void)passwordCertified:(CBPeripheral *)peripheral result:(BOOL) correct;
+-(void)powerStateReturned:(CBPeripheral *)peripheral result:(PowerState) currentState;
+-(void)updateCertifyState:(BOOL) certified;
 
 @end
 
 
-@interface spgTabBarViewController : UITabBarController <UITabBarControllerDelegate,spgBLEServicePeripheralDelegate>
+@interface spgTabBarViewController : UITabBarController <UITabBarControllerDelegate,spgBLEServicePeripheralDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id<spgScooterPresentationDelegate> scooterPresentationDelegate;
 
 -(void)showDashboardGauge;
+
+@property PowerState currentPowerState;
 
 @end

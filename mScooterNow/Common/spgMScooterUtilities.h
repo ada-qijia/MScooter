@@ -9,15 +9,20 @@
 #import <Foundation/Foundation.h>
 #import "spgMScooterDefinitions.h"
 
+
+
 @interface spgMScooterUtilities : NSObject
 
 +(void)LogData:(NSData *)data title:(NSString *)title;
 
 +(NSData *)getDataFromByte:(Byte)value;
 +(NSData *)getDataFromInt16:(int16_t)value;
++(NSData *)getDataFromString:(NSString *)value length:(int)length;
 
 +(float)castSpeedToRealValue:(NSData *)data;
 +(float)castBatteryToPercent:(NSData *)data;
++(int)castMileageToInt:(NSData *)data;
++(PowerState)castDataToPowerState:(NSData *)data;
 
 +(NSString *)castDataToHexString:(NSData *)data;
 

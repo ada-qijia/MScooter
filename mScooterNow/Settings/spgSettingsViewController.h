@@ -10,13 +10,17 @@
 
 @interface spgSettingsViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UISwitch *PasswordOnSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *PowerAlwaysOnSwitch;
 
-- (IBAction)ModeSettingClicked:(id)sender;
-//- (IBAction)changePasswordClicked:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UIImageView *userInfoImage;
+@property (weak, nonatomic) IBOutlet UIButton *loginButton;
+@property (weak, nonatomic) IBOutlet UIButton *logoutButton;
+
 - (IBAction)AboutClicked:(UIButton *)sender;
 
 - (IBAction)resetScooterClicked:(UIButton *)sender;
-- (IBAction)PasswordSwitchChanged:(UISwitch *)sender;
+- (IBAction)PowerAlwaysOnSwitchChanged:(UISwitch *)sender;
+- (IBAction)LoginClicked:(UIButton *)sender;
+- (IBAction)LogoutClicked:(UIButton *)sender;
 
 @end

@@ -14,8 +14,8 @@
 @implementation spgBLEService
 {
     NSArray *interestedServices;
-    CBCharacteristic *powerCharacteristic;
-    CBCharacteristic *passwordCharacteristic;
+    //key:UUID NSString, value: CBCharacteristic*
+    NSMutableDictionary *upstreamCharacteristics;
 }
 
 static spgBLEService *sharedInstance=nil;
@@ -42,6 +42,7 @@ static spgBLEService *sharedInstance=nil;
     CBUUID *cameraServiceUUID=CBUUID(kCameraServiceUUID);
     interestedServices=@[cameraServiceUUID];
     
+    upstreamCharacteristics=[NSMutableDictionary dictionary];
     return self;
 }
 
@@ -50,7 +51,8 @@ static spgBLEService *sharedInstance=nil;
 -(void)startScan
 {
     [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
-    [self.centralManager scanForPeripheralsWithServices:interestedServices options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+    //[self.centralManager scanForPeripheralsWithServices:interestedServices options:@{CBCentralManagerScanOptionAllowDuplicatesKey:@YES}];
+    [self.centralManager scanForPeripheralsWithServices:interestedServices options:nil];
 }
 
 -(void)stopScan
@@ -79,6 +81,8 @@ static spgBLEService *sharedInstance=nil;
 
 -(void)writePower:(NSData *) data
 {
+    CBCharacteristic *powerCharacteristic=[upstreamCharacteristics objectForKey:kPowerCharacteristicUUID];
+    
     if (self.peripheral && powerCharacteristic) {
         [self.peripheral writeValue:data forCharacteristic:powerCharacteristic type:CBCharacteristicWriteWithResponse];
     }
@@ -86,6 +90,7 @@ static spgBLEService *sharedInstance=nil;
 
 -(BOOL)writePassword:(NSData *) data
 {
+    CBCharacteristic *passwordCharacteristic=[upstreamCharacteristics objectForKey:kPasswordCharacteristicUUID];
     if (self.peripheral && passwordCharacteristic) {
         [self.peripheral writeValue:data forCharacteristic:passwordCharacteristic type:CBCharacteristicWriteWithResponse];
         return YES;
@@ -96,20 +101,34 @@ static spgBLEService *sharedInstance=nil;
     }
 }
 
+-(BOOL)IdentifyPhone:(NSData *)data
+{
+    CBCharacteristic *identifyCharacteristic=[upstreamCharacteristics objectForKey:kIdentifyCharacteristicUUID];
+    if (self.peripheral && identifyCharacteristic) {
+        [self.peripheral writeValue:data forCharacteristic:identifyCharacteristic type:CBCharacteristicWriteWithResponse];
+        return YES;
+    }
+    else
+    {
+        return NO;
+    }
+}
+
 -(void)clean
 {
-    powerCharacteristic=nil;
-    passwordCharacteristic=nil;
+    [upstreamCharacteristics removeAllObjects];
     
     if(self.peripheral && self.peripheral.state==CBPeripheralStateConnected)
     {
         [self disConnectPeripheral];
     }
     self.peripheral=nil;
-
+    
     self.centralManager=nil;
     self.discoverPeripheralsDelegate=nil;
     self.peripheralDelegate=nil;
+    
+    self.isCertified=nil;
 }
 
 #pragma mark - central manager delegate
@@ -120,16 +139,29 @@ static spgBLEService *sharedInstance=nil;
     {
         [self.discoverPeripheralsDelegate centralManagerDidUpdateState:self.centralManager];
     }
+    
+    if([self.peripheralDelegate respondsToSelector:@selector(centralManagerDidUpdateState:)])
+    {
+        [self.peripheralDelegate centralManagerDidUpdateState:self.centralManager];
+    }
 }
 
 -(void)centralManager:(CBCentralManager *)central didDiscoverPeripheral:(CBPeripheral *)peripheral advertisementData:(NSDictionary *)advertisementData RSSI:(NSNumber *)RSSI
 {
+    NSLog(@"%@",advertisementData);
+    
     NSRange range= [peripheral.name rangeOfString:kScooterDeviceName options:NSCaseInsensitiveSearch];
     if(range.location!=NSNotFound)
     {
+        self.peripheral=peripheral;
         if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
         {
             [self.discoverPeripheralsDelegate centralManager:self.centralManager didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
+        }
+        
+        if([self.peripheralDelegate respondsToSelector:@selector(centralManager:didDiscoverPeripheral:advertisementData:RSSI:)])
+        {
+            [self.peripheralDelegate centralManager:self.centralManager didDiscoverPeripheral:peripheral advertisementData:advertisementData RSSI:RSSI];
         }
     }
 }
@@ -155,6 +187,9 @@ static spgBLEService *sharedInstance=nil;
 
 -(void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
+    self.peripheral=nil;
+    self.isCertified=[NSNumber numberWithBool:NO];
+    
     if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:disconnectPeripheral:error:)])
     {
         [self.discoverPeripheralsDelegate centralManager:central disconnectPeripheral:peripheral error:error];
@@ -169,8 +204,9 @@ static spgBLEService *sharedInstance=nil;
 -(void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error
 {
     self.peripheral=nil;
-    powerCharacteristic=nil;
-    passwordCharacteristic=nil;
+    self.isCertified=[NSNumber numberWithBool:NO];
+    
+    [upstreamCharacteristics removeAllObjects];
     
     if([self.discoverPeripheralsDelegate respondsToSelector:@selector(centralManager:disconnectPeripheral:error:)])
     {
@@ -206,16 +242,20 @@ static spgBLEService *sharedInstance=nil;
         {
             characteristicUUID=CBUUID(kCameraCharacteristicUUID);
         }
-        else if([uuid isEqualToString:kPowerServiceUUID])
+        else if([uuid isEqualToString:kDashboardServiceUUID])
         {
             //discover password
-            CBUUID *characteristicUUID0=CBUUID(kPasswordCharacteristicUUID);
-            CBUUID *characteristicUUID1=CBUUID(kPowerCharacteristicUUID);
-            [peripheral  discoverCharacteristics:@[characteristicUUID0, characteristicUUID1] forService:service];
+            CBUUID *passwordUUID=CBUUID(kPasswordCharacteristicUUID);
+            CBUUID *powerUUID=CBUUID(kPowerCharacteristicUUID);
+            CBUUID *identifyUUID=CBUUID(kIdentifyCharacteristicUUID);
+            CBUUID *ackResponseUUID=CBUUID(kACKResponseCharacteristicUUID);
+            CBUUID *powerACKUUID=CBUUID(kPowerACKCharacteristicUUID);
+            
+            [peripheral  discoverCharacteristics:@[passwordUUID,powerUUID,identifyUUID,ackResponseUUID,powerACKUUID] forService:service];
         }
-        else if([uuid isEqualToString:kModeServiceUUID])
+        else if([uuid isEqualToString:kMileageServiceUUID])
         {
-            characteristicUUID=CBUUID(kModeCharateristicUUID);
+            characteristicUUID=CBUUID(kMileageCharacteristicUUID);
         }
         
         if(characteristicUUID)
@@ -229,20 +269,13 @@ static spgBLEService *sharedInstance=nil;
 -(void)peripheral:(CBPeripheral *)peripheral didDiscoverCharacteristicsForService:(CBService *)service error:(NSError *)error
 {
     NSString *uuid=[service.UUID UUIDString];
-    if([uuid isEqualToString:kPowerServiceUUID])
+    if([uuid isEqualToString:kDashboardServiceUUID])
     {
         for(CBCharacteristic *characteristic in service.characteristics)
         {
             NSString *uuid=[characteristic.UUID UUIDString];
-            
-            if([uuid isEqualToString:kPowerCharacteristicUUID])
-            {
-                powerCharacteristic=characteristic;
-            }
-            else if([uuid isEqualToString:kPasswordCharacteristicUUID])
-            {
-                passwordCharacteristic=characteristic;
-            }
+            //write
+            [upstreamCharacteristics setObject:characteristic forKey:uuid];
         }
     }
     else
@@ -250,7 +283,7 @@ static spgBLEService *sharedInstance=nil;
         for(CBCharacteristic *characteristic in service.characteristics)
         {
             NSString *uuid=[characteristic.UUID UUIDString];
-            if([uuid isEqualToString:kSpeedCharacteristicUUID] || [uuid isEqualToString:kBatteryCharacteristicUUID] || [uuid isEqualToString:kCameraCharacteristicUUID] ||[uuid isEqualToString:kModeCharateristicUUID])
+            if([uuid isEqualToString:kSpeedCharacteristicUUID] || [uuid isEqualToString:kBatteryCharacteristicUUID] || [uuid isEqualToString:kCameraCharacteristicUUID] ||[uuid isEqualToString:kMileageCharacteristicUUID])
             {
                 [peripheral setNotifyValue:YES forCharacteristic:characteristic];
             }
@@ -283,6 +316,12 @@ static spgBLEService *sharedInstance=nil;
                 [self.peripheralDelegate batteryValueUpdated:characteristic.value];
             }
         }
+        else if([uuid isEqualToString:kMileageCharacteristicUUID])
+        {
+            if ([self.peripheralDelegate respondsToSelector:@selector(mileageUpdated:)]) {
+                [self.peripheralDelegate mileageUpdated:characteristic.value];
+            }
+        }
         else if([uuid isEqualToString:kCameraCharacteristicUUID])
         {
             NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
@@ -309,31 +348,85 @@ static spgBLEService *sharedInstance=nil;
                 }
             }
         }
-        else if([uuid isEqualToString:kModeCharateristicUUID])
+        /*
+         else if([uuid isEqualToString:kModeCharateristicUUID])
+         {
+         NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
+         
+         BOOL modeValue=[hexString isEqualToString:@"CCBB"];//false when "55AA"
+         //true
+         if(modeValue)
+         {
+         if ([self.peripheralDelegate respondsToSelector:@selector(modeChanged)]) {
+         [self.peripheralDelegate modeChanged];
+         }
+         }
+         }*/
+#pragma - ack
+        /*
+         else if([uuid isEqualToString:kPasswordCharacteristicUUID])
+         {
+         NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
+         BOOL correct=[hexString isEqualToString:kPasswordCorrectResponse];
+         if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:result:)]) {
+         [self.peripheralDelegate passwordCertificationReturned:peripheral result:correct];
+         }
+         
+         //save whether auto reconnect next time.
+         NSString * boolString = correct ? [peripheral.identifier UUIDString] : nil;
+         [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:boolString];
+         }*/
+        else if([uuid isEqualToString:kPowerACKCharacteristicUUID])
+        {
+            if ([self.peripheralDelegate respondsToSelector:@selector(powerStateReturned:result:)])
+            {
+                [self.peripheralDelegate powerStateReturned:peripheral result:characteristic.value];
+            }
+        }
+        else if([uuid isEqualToString:kACKResponseCharacteristicUUID])
         {
             NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
             
-            BOOL modeValue=[hexString isEqualToString:@"CCBB"];//false when "55AA"
-            //true
-            if(modeValue)
+            NSString *type=[hexString substringToIndex:2];
+            BOOL success=[[hexString substringFromIndex:2] isEqualToString:kACKCorrectResponse];
+            if([type isEqualToString:kACKTypePassword])
             {
-                if ([self.peripheralDelegate respondsToSelector:@selector(modeChanged)]) {
-                    [self.peripheralDelegate modeChanged];
+                self.isCertified=[NSNumber numberWithBool:success];
+                
+                if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:result:)]) {
+                    [self.peripheralDelegate passwordCertificationReturned:peripheral result:success];
+                }
+                
+                //save whether auto reconnect next time.
+                NSString * boolString = success ? [peripheral.identifier UUIDString] : nil;
+                [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:boolString];
+            }
+            else if([type isEqualToString:kACKTypePhoneID])
+            {
+                self.isCertified=[NSNumber numberWithBool:success];
+                
+                if ([self.peripheralDelegate respondsToSelector:@selector(identifyReturned:result:)])
+                {
+                    [self.peripheralDelegate identifyReturned:peripheral result:success];
                 }
             }
+            /*
+             else if([type isEqualToString:kACKTypePower])
+             {
+             if ([self.peripheralDelegate respondsToSelector:@selector(powerStateReturned:result:)])
+             {
+             [self.peripheralDelegate powerStateReturned:peripheral result:characteristic.value];
+             }
+             }*/
         }
-        else if([uuid isEqualToString:kPasswordCharacteristicUUID])
-        {
-            NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
-            BOOL correct=[hexString isEqualToString:kPasswordCorrectResponse];
-            if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:result:)]) {
-                [self.peripheralDelegate passwordCertificationReturned:peripheral result:correct];
-            }
-            
-            //save whether auto reconnect next time.
-            NSString * boolString = correct ? [peripheral.identifier UUIDString] : nil;
-            [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:boolString];
-        }
+        /*
+         else if([uuid isEqualToString:kPowerCharacteristicUUID])
+         {
+         if ([self.peripheralDelegate respondsToSelector:@selector(powerStateReturned:result:)])
+         {
+         [self.peripheralDelegate powerStateReturned:peripheral result:characteristic.value];
+         }
+         }*/
     }
 }
 
@@ -342,9 +435,24 @@ static spgBLEService *sharedInstance=nil;
     if(!error)
     {
         NSString *uuid=[characteristic.UUID UUIDString];
-        if([uuid isEqualToString:kPasswordCharacteristicUUID])
+        
+        if([uuid isEqualToString:kPowerCharacteristicUUID])
         {
-            [self.peripheral readValueForCharacteristic:characteristic];
+            CBCharacteristic *ackCharacteristic=[upstreamCharacteristics objectForKey:kPowerACKCharacteristicUUID];
+            [self.peripheral readValueForCharacteristic:ackCharacteristic];
+        }
+        else if([uuid isEqualToString:kIdentifyCharacteristicUUID])
+        {
+            CBCharacteristic *ackCharacteristic=[upstreamCharacteristics objectForKey:kACKResponseCharacteristicUUID];
+            [self.peripheral readValueForCharacteristic:ackCharacteristic];
+            
+            CBCharacteristic *powerCharacteristic=[upstreamCharacteristics objectForKey:kPowerACKCharacteristicUUID];
+            [self.peripheral readValueForCharacteristic:powerCharacteristic];
+        }
+        else if([uuid isEqualToString:kPasswordCharacteristicUUID])
+        {
+                CBCharacteristic *ackCharacteristic=[upstreamCharacteristics objectForKey:kACKResponseCharacteristicUUID];
+                [self.peripheral readValueForCharacteristic:ackCharacteristic];
         }
     }
 }

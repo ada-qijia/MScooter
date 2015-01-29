@@ -46,12 +46,12 @@ static spgAlertViewManager* _sharedAlertViewManager=nil;
 {
     if(_alertViewQueue.count > 0)
     {
-        spgAlertView *entity = [_alertViewQueue lastObject];
+        UIView<spgAlertViewManagerProtocol> *entity = [_alertViewQueue lastObject];
         [self showAlertViewWithAnimation:entity];
     }
 }
 
--(void)showAlertViewWithAnimation:(spgAlertView *)entity
+-(void)showAlertViewWithAnimation:(UIView<spgAlertViewManagerProtocol> *)entity
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     
@@ -64,9 +64,9 @@ static spgAlertViewManager* _sharedAlertViewManager=nil;
     [entity showWithAnimation];
 }
 
--(void)dismissAlertViewWithAnimation:(spgAlertView *)entity button:(int)buttonIndex
+-(void)dismissAlertViewWithAnimation:(UIView<spgAlertViewManagerProtocol> *)entity button:(int)buttonIndex
 {
-    entity.blockAfterDismiss=^(NSString* passcode, int index){
+    spgAlertViewBlock afterDismiss=^(NSString* passcode, int index){
         [_alertViewQueue removeLastObject];
         _currentAlertView=nil;
         _isDismissing=NO;
@@ -77,12 +77,13 @@ static spgAlertViewManager* _sharedAlertViewManager=nil;
             self.blockAfterDismiss(passcode, buttonIndex);
         }
     };
+    [entity setAfterDismiss:afterDismiss];
     [entity dismissWithAnimation:buttonIndex];
 }
 
 #pragma - public methods
 
--(void)show:(spgAlertView *)alertView
+-(void)show:(UIView<spgAlertViewManagerProtocol> *)alertView
 {
     if(alertView)
     {
@@ -100,12 +101,12 @@ static spgAlertViewManager* _sharedAlertViewManager=nil;
     }
 }
 
--(void)dismiss:(spgAlertView *)alertView
+-(void)dismiss:(UIView<spgAlertViewManagerProtocol> *)alertView
 {
     [self dismiss:alertView button:0];
 }
 
--(void)dismiss:(spgAlertView *)alertView button:(int)buttonIndex
+-(void)dismiss:(UIView<spgAlertViewManagerProtocol> *)alertView button:(int)buttonIndex
 {
     if(_alertViewQueue.count<=0)
         return;
@@ -120,7 +121,8 @@ static spgAlertViewManager* _sharedAlertViewManager=nil;
         else
         {
             [_alertViewQueue removeObject:alertView];
-            alertView.blockAfterDismiss(nil,buttonIndex);
+            spgAlertViewBlock afterDismiss=[alertView getAfterDismiss];
+            afterDismiss(nil,buttonIndex);
         }
     }
 }

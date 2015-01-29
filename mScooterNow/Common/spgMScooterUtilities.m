@@ -29,6 +29,28 @@
     return data;
 }
 
++(NSData *)getDataFromString:(NSString *)value length:(int)length
+{
+    
+    NSData *data = [value dataUsingEncoding: NSUTF8StringEncoding];
+    
+    if(data.length<length)
+    {
+        NSMutableData *result=[NSMutableData dataWithData:data];
+        for (int i=0; i<length-data.length; i++) {
+            Byte zero[]={0};
+            [result appendBytes:zero length:1];
+        }
+        data=[NSData dataWithData:result];
+    }
+    else if(length<data.length)
+    {
+        data=[NSData dataWithBytes:data.bytes length:length];
+    }
+    
+    return data;
+}
+
 //2 bytes data
 +(float)castSpeedToRealValue:(NSData *)data
 {
@@ -109,6 +131,20 @@
     }
     
     return realBattery;
+}
+
++(int)castMileageToInt:(NSData *)data
+{
+    int32_t i=0;
+    [data getBytes:&i length:sizeof(i)];
+    return i;
+}
+
++(PowerState)castDataToPowerState:(NSData *)data
+{
+    Byte *bytes=(Byte *)[data bytes];
+    PowerState currentState=(PowerState)bytes[1];
+    return currentState;
 }
 
 +(NSString *)castDataToHexString:(NSData *)data

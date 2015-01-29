@@ -47,6 +47,10 @@
     
     [self.window makeKeyAndVisible];
     [self.window setTintColor:ThemeColor];
+    
+    //upload location
+    [self uploadCurrentLocation:YES];
+    
     return YES;
 }
 
@@ -60,6 +64,8 @@
 {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    
+    [self uploadCurrentLocation:NO];
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
@@ -75,6 +81,31 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
+}
+
+-(void)uploadCurrentLocation:(BOOL)open
+{
+    NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
+    Byte isOpen=!open;
+    NSString *scooterName=[spgMScooterUtilities getPreferenceWithKey:kScooterNameKey];
+    
+    CLLocationManager *locationManager=[[CLLocationManager alloc] init];
+    CLLocation *loc= locationManager.location;
+    
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat: @"http://crecord.chinacloudsites.cn/Home/SetData?CarId=%@&PhoneId=%@&Type=%d&Lng=%f&Lat=%f",scooterName,uniqueIdentifier,isOpen,loc.coordinate.longitude,loc.coordinate.latitude]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    [NSURLConnection sendAsynchronousRequest:request
+                                       queue:[NSOperationQueue mainQueue]
+                           completionHandler:^(NSURLResponse *response,
+                                               NSData *data, NSError *connectionError)
+     {
+         if (connectionError)
+         {
+             NSLog(@"upload current location error: %@",connectionError);
+         }
+     }];
+    
+    locationManager=nil;
 }
 
 @end
