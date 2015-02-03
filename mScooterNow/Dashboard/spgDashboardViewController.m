@@ -62,7 +62,7 @@
     //auto connect
     if([spgBLEService sharedInstance].centralManager==nil)
     {
-        [self AddScooterClicked:nil];
+        self.bleService=[[spgBLEService sharedInstance] initWithDelegates:self peripheralDelegate:tabBarVC];
     }
     else if([spgBLEService sharedInstance].peripheral.state==CBPeripheralStateDisconnected)
     {
@@ -108,8 +108,9 @@
 //change mode when connected or user is not in GaugeView
 -(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
 {
-    CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
-    if(currentState==CBPeripheralStateConnected||self.GaugeView.hidden)
+    //CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
+    //if(currentState==CBPeripheralStateConnected||self.GaugeView.hidden)
+    if([[spgBLEService sharedInstance].isCertified boolValue]==YES||self.GaugeView.hidden)
     {
         [self switchViewMode:YES];
     }
@@ -118,8 +119,10 @@
 //change mode when connected or user is not in GaugeView
 -(void)reportHorizontalRightSwipe:(UIGestureRecognizer *)recognizer
 {
-    CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
-    if(currentState==CBPeripheralStateConnected||self.GaugeView.hidden)
+    /*
+     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
+     if(currentState==CBPeripheralStateConnected||self.GaugeView.hidden)*/
+    if([[spgBLEService sharedInstance].isCertified boolValue]==YES||self.GaugeView.hidden)
     {
         [self switchViewMode:NO];
     }
@@ -210,11 +213,12 @@
     //auto reconnect
     if(!connected)
     {
-        if([spgBLEService sharedInstance].peripheral)
-        {
-            [[spgBLEService sharedInstance] connectPeripheral];
-        }
-        else
+        /*
+         if([spgBLEService sharedInstance].peripheral)
+         {
+         [[spgBLEService sharedInstance] connectPeripheral];
+         }
+         else*/
         {
             [self startScan];
         }
@@ -245,7 +249,10 @@
 
 -(void)modeChanged
 {
-    [self switchViewMode:YES];
+    if([[spgBLEService sharedInstance].isCertified boolValue]==YES||self.GaugeView.hidden)
+    {
+        [self switchViewMode:YES];
+    }
 }
 
 -(void)cameraTriggered:(SBSCameraCommand)commandType
@@ -262,11 +269,26 @@
 
 -(void)updateCertifyState:(BOOL)certified
 {
-    if(certified)
-    {
-        //[spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:[[spgBLEService sharedInstance].peripheral.identifier UUIDString]];
-    }
+    /*
+     if(certified)
+     {
+     [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:[[spgBLEService sharedInstance].peripheral.identifier UUIDString]];
+     }*/
     
+    self.IdentifyPhoneButton.hidden=certified;
+    //self.connectedImage.hidden=certified;
+    if(!certified)
+    {
+        self.connectAnimationView.hidden=NO;
+        [self twinkleAnimation];
+    }
+    else
+    {
+        self.connectAnimationView.hidden=YES;
+    }
+
+    self.IdentifiedImage.hidden=!certified;
+
     [gaugeVC updateCertifyState:certified];
     
     //test
@@ -281,6 +303,11 @@
     //test
     UILabel *label=(UILabel *)[self.view viewWithTag:444];
     label.text=[NSString stringWithFormat:@"%lu",currentState];
+}
+
+-(void)batteryStateChanged:(BatteryState)newState
+{
+    [gaugeVC batteryStateChanged:newState];
 }
 
 #pragma - spgBLEServiceDiscoverPeripheralsDelegate
@@ -371,7 +398,50 @@
     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
     BOOL connected=currentState==CBPeripheralStateConnected;
     self.connectedImage.highlighted= connected;
+    
     self.scooterNameLabel.text= [[spgBLEService sharedInstance] peripheral].name;
+    
+    /*
+    NSNumber *isCertified= [spgBLEService sharedInstance].isCertified;
+    self.IdentifyPhoneButton.hidden=isCertified==nil||[isCertified boolValue]==YES || (!connected);
+    
+    if(connected && [isCertified boolValue]!=YES)
+    {
+        self.connectAnimationView.hidden=NO;
+        [self twinkleAnimation];
+    }
+    else
+    {
+        self.connectAnimationView.hidden=YES;
+    }
+    self.IdentifiedImage.hidden=!([isCertified boolValue]==YES);
+    //self.connectedImage.hidden=[isCertified boolValue]==YES;*/
+    self.IdentifyPhoneButton.hidden=YES;
+    self.connectAnimationView.hidden=YES;
+    self.IdentifiedImage.hidden=YES;
+}
+
+- (IBAction)twinkleAnimation
+{
+    NSNumber *one=[NSNumber numberWithFloat:1];
+    NSNumber *zero=[NSNumber numberWithFloat:0];
+    NSArray *value1=[NSArray arrayWithObjects:zero,one,one,one,one, nil];
+    NSArray *value2=[NSArray arrayWithObjects:zero,zero,one,one,one, nil];
+    NSArray *value3=[NSArray arrayWithObjects:zero,zero,zero,one,one, nil];
+    NSArray *value4=[NSArray arrayWithObjects:zero,zero,zero,zero,one, nil];
+    
+    NSArray *values=[NSArray arrayWithObjects:value1,value2,value3,value4, nil];
+    
+    for(int i=1;i<=4;i++)
+    {
+        UIImageView *imgView=(UIImageView *)[self.connectAnimationView viewWithTag:i];
+        CAKeyframeAnimation *twinkleAnimation=[CAKeyframeAnimation animationWithKeyPath:@"opacity"];
+        twinkleAnimation.keyTimes=[NSArray arrayWithObjects:0,0.25,0.5,0.75,1, nil];
+        twinkleAnimation.values=values[i-1];
+        twinkleAnimation.duration=1.5;
+        twinkleAnimation.repeatCount=HUGE_VALF;
+        [imgView.layer addAnimation:twinkleAnimation forKey:[NSString stringWithFormat:@"%d", i]];
+    }
 }
 
 /*
@@ -405,9 +475,29 @@
     }
 }
 
-- (IBAction)AddScooterClicked:(id)sender {
+//enter password
+- (IBAction)IdentifyPhoneClicked:(id)sender {
+    
+    NSNumber *num= [spgBLEService sharedInstance].isCertified;
+    if(num!=nil && [num boolValue]==NO)
+    {
+        spgPinView *alert=[[spgPinView alloc] initWithPin:@"9517" afterDismiss:^(NSString *passcode, int buttonIndex) {
+            if(buttonIndex==1)
+            {
+                //shouldPowerOn=YES;
+                
+                Byte array[]={0x95, 0x17};
+                NSData *pinData=[NSData dataWithBytes:array length:2];
+                [[spgBLEService sharedInstance] writePassword:pinData];
+            }
+        }];
+        
+        [[spgAlertViewManager sharedAlertViewManager] show:alert];
+    }
+    
     //first load, startScan after centralManager PoweredOn
-    self.bleService=[[spgBLEService sharedInstance] initWithDelegates:self peripheralDelegate:tabBarVC];
+    //self.bleService=[[spgBLEService sharedInstance] initWithDelegates:self peripheralDelegate:tabBarVC];
+    
 }
 
 #pragma - test
@@ -442,6 +532,7 @@
     Byte mode=sender.selected?243:245;
     NSData *data=[spgMScooterUtilities getDataFromByte:mode];
     [[spgBLEService sharedInstance] writePower:data];
+    
     sender.selected=!sender.selected;
 }
 
@@ -451,4 +542,8 @@
     [[spgBLEService sharedInstance] writePassword:pinData];
 }
 
+-(void)ShowBattery:(NSString *)hexValue{
+    UILabel *label=(UILabel *)[self.view viewWithTag:222];
+    label.text=hexValue;
+}
 @end

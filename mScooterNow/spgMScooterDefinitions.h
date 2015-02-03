@@ -59,6 +59,7 @@ static NSString * const kUserKey=@"user";
 #define kACKTypePhoneID @"01"
 #define kACKTypePassword @"02"
 #define kACKTypePower @"03"
+#define kACKBatteryState @"04"
 #define kIdentifySuccessResponse @"00000001"
 
 //ble advertisement data
@@ -90,6 +91,13 @@ typedef enum:NSUInteger
     PowerOff=2,
     PowerAlwaysOn=3,
 }PowerState;
+
+typedef enum:NSUInteger
+{
+    BatteryStateOff=0,
+    BatteryStateOn=1,
+    BatteryStateUnDefined=2,
+}BatteryState;
 
 typedef enum:Byte
 {

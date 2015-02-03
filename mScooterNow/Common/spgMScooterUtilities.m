@@ -147,6 +147,13 @@
     return currentState;
 }
 
++(BatteryState)castDataToBatteryState:(NSData *)data
+{
+    Byte *bytes=(Byte *)[data bytes];
+    BatteryState currentState=(BatteryState)bytes[0];
+    return currentState;
+}
+
 +(NSString *)castDataToHexString:(NSData *)data
 {
     NSMutableString *mutableString=[[NSMutableString alloc] init];
@@ -181,6 +188,20 @@
     NSUserDefaults *userDefaults=[NSUserDefaults standardUserDefaults];
     [userDefaults setObject:value forKey:key];
     [userDefaults synchronize];
+}
+
+@end
+
+
+
+@implementation KeyValuePair
+
+-(id)initWithKey:(NSString *) key value:(NSObject *) value
+{
+    self=[super init];
+    self.key=key.copy;
+    self.value=value;
+    return self;
 }
 
 @end

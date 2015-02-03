@@ -145,6 +145,11 @@
 		32C882AC1A70BF66008061C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32C882AA1A70BF66008061C2 /* Main.storyboard */; };
 		32C882AF1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C882AE1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.m */; };
 		32C882B61A711F0C008061C2 /* spgSideDecoration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32C882B51A711F0C008061C2 /* spgSideDecoration.xib */; };
+		32D6806D1A8069530000EA68 /* identified.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D6806C1A8069530000EA68 /* identified.png */; };
+		32D680721A8082C60000EA68 /* 01.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D6806E1A8082C60000EA68 /* 01.png */; };
+		32D680731A8082C60000EA68 /* 02.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D6806F1A8082C60000EA68 /* 02.png */; };
+		32D680741A8082C60000EA68 /* 03.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D680701A8082C60000EA68 /* 03.png */; };
+		32D680751A8082C60000EA68 /* 04.png in Resources */ = {isa = PBXBuildFile; fileRef = 32D680711A8082C60000EA68 /* 04.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -339,6 +344,11 @@
 		32C882AD1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgStickyCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		32C882AE1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgStickyCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		32C882B51A711F0C008061C2 /* spgSideDecoration.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgSideDecoration.xib; sourceTree = "<group>"; };
+		32D6806C1A8069530000EA68 /* identified.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = identified.png; sourceTree = "<group>"; };
+		32D6806E1A8082C60000EA68 /* 01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 01.png; sourceTree = "<group>"; };
+		32D6806F1A8082C60000EA68 /* 02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 02.png; sourceTree = "<group>"; };
+		32D680701A8082C60000EA68 /* 03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 03.png; sourceTree = "<group>"; };
+		32D680711A8082C60000EA68 /* 04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 04.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -596,6 +606,11 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				32D6806E1A8082C60000EA68 /* 01.png */,
+				32D6806F1A8082C60000EA68 /* 02.png */,
+				32D680701A8082C60000EA68 /* 03.png */,
+				32D680711A8082C60000EA68 /* 04.png */,
+				32D6806C1A8069530000EA68 /* identified.png */,
 				32A3BF771A7A229B00E10085 /* play.png */,
 				32A3BF751A7A229300E10085 /* delete.png */,
 				32B75F2D1A7795250014048D /* scooter.png */,
@@ -821,6 +836,7 @@
 				32BF2D6C1A398E5400D972DD /* settingArrow.png in Resources */,
 				32A1A7FD19FF8B0700B7B8DD /* close.png in Resources */,
 				32AC187C1A2485490020A147 /* scooterFlagVague.png in Resources */,
+				32D680731A8082C60000EA68 /* 02.png in Resources */,
 				329FF84319F608180011B1CE /* spgLoginViewController.xib in Resources */,
 				32B6835B1A3AD3B7000F4934 /* battery2@2x.png in Resources */,
 				329FF86419F662260011B1CE /* spgIntroductionPanel.xib in Resources */,
@@ -840,6 +856,7 @@
 				32B1002D19C981A400D9FFF5 /* batteryCircle.png in Resources */,
 				32B6835C1A3AD3B7000F4934 /* battery3@2x.png in Resources */,
 				32AC18821A25AB290020A147 /* bgPersonal@2x.png in Resources */,
+				32D680741A8082C60000EA68 /* 03.png in Resources */,
 				32ADA25B19EF66DD0081BD51 /* userInfo.png in Resources */,
 				32B75F2A1A77593C0014048D /* passcodewrong.png in Resources */,
 				32B1FF9419C974AC00D9FFF5 /* InfoPlist.strings in Resources */,
@@ -851,6 +868,8 @@
 				32B6835A1A3AD3B7000F4934 /* battery1@2x.png in Resources */,
 				32A1A7E619FF5F9400B7B8DD /* userGuide1@2x.png in Resources */,
 				32B5F0E11A00D0A500A70CDC /* batteryLowBg.png in Resources */,
+				32D6806D1A8069530000EA68 /* identified.png in Resources */,
+				32D680751A8082C60000EA68 /* 04.png in Resources */,
 				32B697421A10A1EF004C1879 /* distance.png in Resources */,
 				32ADA25D19EF6A3C0081BD51 /* speed.png in Resources */,
 				32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */,
@@ -874,6 +893,7 @@
 				32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */,
 				32AA67391A02461300AEC01A /* distanceCircle.png in Resources */,
 				32B697381A109526004C1879 /* scanScope.png in Resources */,
+				32D680721A8082C60000EA68 /* 01.png in Resources */,
 				32B6835E1A3AD3B7000F4934 /* battery5@2x.png in Resources */,
 				32AE9B1D1A2EE28000656AA9 /* disabledButtonBg.png in Resources */,
 				32ADA25919EF66D60081BD51 /* time.png in Resources */,

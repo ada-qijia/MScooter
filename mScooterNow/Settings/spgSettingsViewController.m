@@ -36,16 +36,7 @@
     [super viewWillAppear:animated];
     
     [self updateLoginUI];
-    
-    //update switch state
-    
-    spgTabBarViewController *tabBarVC = (spgTabBarViewController *)self.tabBarController;
-    
-    NSInteger lastState = [[spgMScooterUtilities getPreferenceWithKey:kLastPowerStateKey] integerValue];
-    self.PowerAlwaysOnSwitch.on=lastState==PowerAlwaysOn;
-    
-    BOOL isPowerModeChangable = tabBarVC.currentPowerState==PowerOff||tabBarVC.currentPowerState==PowerAlwaysOn;//[spgBLEService sharedInstance].isCertified &&
-    self.PowerAlwaysOnSwitch.enabled=isPowerModeChangable;
+    [self updateSwitch];
 }
 
 -(void)updateLoginUI
@@ -60,6 +51,17 @@
      NSString *imgName=user?@"settingPortrait.png":@"me@2x.png";
      self.tabBarItem.image=[[UIImage imageNamed:imgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
      self.tabBarItem.selectedImage=user?self.tabBarItem.image:[UIImage imageNamed:imgName];*/
+}
+
+-(void)updateSwitch
+{
+    NSInteger lastState = [[spgMScooterUtilities getPreferenceWithKey:kLastPowerStateKey] integerValue];
+    self.PowerAlwaysOnSwitch.on=lastState==PowerAlwaysOn;
+    
+    NSNumber *scooterCertified=[spgBLEService sharedInstance].isCertified;
+    BOOL isPowerModeChangable = [scooterCertified boolValue]==YES;
+    self.PowerAlwaysOnView.hidden=!isPowerModeChangable;
+    self.AboutView.frame=isPowerModeChangable?CGRectMake(0, 240, 320, 55):CGRectMake(0, 185, 320, 55);
 }
 
 #pragma - UI interaction
@@ -101,6 +103,11 @@
     Byte mode=sender.isOn?PowerAlwaysOnCmd:PowerWithPhoneCmd;
     NSData *data=[spgMScooterUtilities getDataFromByte:mode];
     [[spgBLEService sharedInstance] writePower:data];
+    
+    /*
+     //reset battery state
+     spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.tabBarController;
+     tabBarVC.currentBatteryState=BatteryStateWaitUpdate;*/
 }
 
 - (IBAction)LoginClicked:(UIButton *)sender {

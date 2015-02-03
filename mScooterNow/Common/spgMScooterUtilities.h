@@ -23,6 +23,7 @@
 +(float)castBatteryToPercent:(NSData *)data;
 +(int)castMileageToInt:(NSData *)data;
 +(PowerState)castDataToPowerState:(NSData *)data;
++(BatteryState)castDataToBatteryState:(NSData *)data;
 
 +(NSString *)castDataToHexString:(NSData *)data;
 
@@ -30,5 +31,17 @@
 
 +(NSString *)getPreferenceWithKey:(NSString *) key;
 +(void)savePreferenceWithKey:(NSString *)key value:(id)value;
+
+@end
+
+
+
+
+@interface KeyValuePair : NSObject
+
+@property (nonatomic,copy) NSString *key;
+@property (nonatomic) NSObject *value;
+
+-(id)initWithKey:(NSString *) key value:(NSObject *) value;
 
 @end

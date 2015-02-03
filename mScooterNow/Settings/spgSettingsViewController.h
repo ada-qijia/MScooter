@@ -23,4 +23,9 @@
 - (IBAction)LoginClicked:(UIButton *)sender;
 - (IBAction)LogoutClicked:(UIButton *)sender;
 
+@property (weak, nonatomic) IBOutlet UIView *PowerAlwaysOnView;
+@property (weak, nonatomic) IBOutlet UIView *AboutView;
+
+-(void)updateSwitch;
+
 @end

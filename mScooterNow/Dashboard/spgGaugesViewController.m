@@ -17,7 +17,11 @@
 
 @implementation spgGaugesViewController
 {
-    BOOL shouldPowerOn;
+    BOOL isChangingPowerState;//should react to battery update to reflect battery state
+    spgTabBarViewController *tabBarVC;
+    BOOL shouldUpdateData;
+    
+    float lastBattery;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -32,6 +36,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    if(tabBarVC==nil)
+    {
+        tabBarVC=(spgTabBarViewController *)self.parentViewController.tabBarController;
+    }
+    
     [self resetConnectionState];
 }
 
@@ -77,113 +87,200 @@
 #pragma - update UI
 
 - (IBAction)ChangePowerState:(UIButton *)sender {
+    /*spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.tabBarController;
+     if(tabBarVC.currentBatteryState==BatteryStateOff)
+     {
+     NSArray *buttons=[NSArray arrayWithObjects:@"OK", nil];
+     spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Please turn on the scooter battery first and try again." buttons:buttons afterDismiss:nil];
+     [[spgAlertViewManager sharedAlertViewManager] show:alert];
+     }
+     else*/
     NSNumber *num=[spgBLEService sharedInstance].isCertified;
-    if(num)
+    if([num boolValue]==YES)
     {
-        BOOL isCertified=[num boolValue];
-        if(!isCertified)
-        {
-            spgPinView *alert=[[spgPinView alloc] initWithPin:@"9517" afterDismiss:^(NSString *passcode, int buttonIndex) {
-                if(buttonIndex==1)
-                {
-                    shouldPowerOn=YES;
-                    
-                    Byte array[]={0x95, 0x17};
-                    NSData *pinData=[NSData dataWithBytes:array length:2];
-                    [[spgBLEService sharedInstance] writePassword:pinData];
-                }
-            }];
-            
-            [[spgAlertViewManager sharedAlertViewManager] show:alert];
-        }
-        else
-        {
-            Byte mode=sender.selected?PowerOffCmd:PowerOnCmd;
-            NSData *data=[spgMScooterUtilities getDataFromByte:mode];
-            [[spgBLEService sharedInstance] writePower:data];
-        }
+        /* BOOL isCertified=[num boolValue];
+         if(!isCertified)
+         {
+         
+         spgPinView *alert=[[spgPinView alloc] initWithPin:@"9517" afterDismiss:^(NSString *passcode, int buttonIndex) {
+         if(buttonIndex==1)
+         {
+         shouldPowerOn=YES;
+         
+         Byte array[]={0x95, 0x17};
+         NSData *pinData=[NSData dataWithBytes:array length:2];
+         [[spgBLEService sharedInstance] writePassword:pinData];
+         }
+         }];
+         
+         [[spgAlertViewManager sharedAlertViewManager] show:alert];
+         }
+         else
+         
+         {*/
+        
+        /*if(tabBarVC.currentBatteryState==BatteryStateOff)// && (tabBarVC.currentPowerState==PowerOn))
+         {
+         [self showBatteryAlert];
+         }
+         else
+         {*/
+        Byte mode=tabBarVC.currentPowerState==PowerOn?PowerOffCmd:PowerOnCmd;
+        NSData *data=[spgMScooterUtilities getDataFromByte:mode];
+        [[spgBLEService sharedInstance] writePower:data];
+        
+        isChangingPowerState=mode==PowerOnCmd;
+        // }
+        
+        //shouldPowerOn=tabBarVC.currentBatteryState==BatteryStateOn?NO:YES;
+        
+        /*
+         //reset battery state
+         spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.tabBarController;
+         tabBarVC.currentBatteryState=BatteryStateWaitUpdate;*/
+        //}
     }
 }
 
 -(void)rotateLayout:(BOOL)portrait
 {}
 
--(void)setGaugesColorful:(BOOL)enabled
-{
-    [self.view viewWithTag:31].hidden=!enabled;
-    [self.view viewWithTag:32].hidden=!enabled;
-    [self.view viewWithTag:33].hidden=!enabled;
-}
-
 -(void)setGaugesEnabled:(BOOL)enabled
 {
+    [self setGaugesEnabled:enabled colorful:enabled];
+}
+
+-(void)setGaugesEnabled:(BOOL)enabled colorful:(BOOL)colorful
+{
     //colorful circles
-    [self setGaugesColorful:enabled];
+    [self.view viewWithTag:31].hidden=!colorful;
+    [self.view viewWithTag:32].hidden=!colorful;
+    [self.view viewWithTag:33].hidden=!colorful;
+    
     
     if(!enabled)
     {
         [self.speedGaugeView setValue:0 animated:YES duration:0.3];
-        self.BatteryLabel.text=@"-";
+        //self.BatteryLabel.text=@"-";
         //self.DistanceLabel.text=self.BatteryLabel.text;
     }
 }
 
 -(void)updateMileage:(int)mileage
 {
-    int kmDistance=mileage/1000;
-    if(kmDistance>0)
-    {
-        self.DistanceLabel.text=[NSString stringWithFormat:@"%d",kmDistance];
-        self.DistanceUnitLabel.text=@"km";
-    }
-    else
-    {
-        self.DistanceLabel.text=[NSString stringWithFormat:@"%d",mileage];
-        self.DistanceUnitLabel.text=@" m";
-    }
+    float kmDistance=mileage/1000.0;
+    self.DistanceLabel.text=[NSString stringWithFormat:@"%0.2f",kmDistance];
 }
 
 -(void)updatePowerState:(PowerState) state
 {
     [self resetConnectionState];
+    
+    //isChangingPowerState=state==PowerOn||state==PowerAlwaysOn;
+}
+
+-(void)batteryStateChanged:(BatteryState)newState
+{
+    if(tabBarVC.currentPowerState==PowerOn||tabBarVC.currentPowerState==PowerAlwaysOn)
+    {
+        [self resetConnectionState];
+    }
+    
+    [self showBatteryAlert];
+}
+
+-(void)showBatteryAlert
+{
+    if(tabBarVC.currentBatteryState==BatteryStateOff && isChangingPowerState)// && (tabBarVC.currentPowerState==PowerOn))
+    {
+        NSArray *buttons=[NSArray arrayWithObjects:@"OK", nil];
+        spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"Please turn on the scooter battery first and try again." buttons:buttons afterDismiss:nil];
+        [[spgAlertViewManager sharedAlertViewManager] show:alert];
+    }
+    
+    isChangingPowerState=NO;
 }
 
 //All the connect, certify, UI logic are here.
 -(void)resetConnectionState
 {
-    spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.tabBarController;
-    
-    CBPeripheralState currentState= [spgBLEService sharedInstance].peripheral.state;
+    //CBPeripheralState currentState= [spgBLEService sharedInstance].peripheral.state;
     NSNumber *scooterCertified=[spgBLEService sharedInstance].isCertified;
     
-    if(currentState==CBPeripheralStateConnected)
+    /*
+     if(tabBarVC.currentBatteryState !=BatteryStateOn && (tabBarVC.currentPowerState==PowerOn))
+     {
+     [self setGaugesEnabled:NO colorful:NO];
+     }
+     else
+     {
+     if(currentState==CBPeripheralStateConnected)
+     {
+     if([scooterCertified boolValue])
+     {
+     BOOL colorful=tabBarVC.currentPowerState==PowerOn||tabBarVC.currentPowerState==PowerAlwaysOn;
+     [self setGaugesEnabled:YES colorful:colorful];
+     }
+     else
+     {
+     [self setGaugesEnabled:NO colorful:NO];
+     }
+     }
+     else if(currentState==CBPeripheralStateConnecting)//connecting
+     {
+     [self setGaugesEnabled:NO colorful:NO];
+     }
+     else//disconnected
+     {
+     [self setGaugesEnabled:NO colorful:NO];
+     }
+     }
+     
+     //set power state
+     NSLog(@"current state: %lu",tabBarVC.currentPowerState);
+     self.PowerButton.hidden=currentState!=CBPeripheralStateConnected||[scooterCertified boolValue]!=YES||(tabBarVC.currentPowerState==PowerAlwaysOn && [scooterCertified boolValue])||tabBarVC.currentPowerState==PowerStatUnDefined;
+     //[self.PowerButton setEnabled:tabBarVC.currentPowerState!=PowerAlwaysOn];
+     self.PowerButton.selected=tabBarVC.currentPowerState==PowerOn||tabBarVC.currentPowerState==PowerAlwaysOn;*/
+    
+    
+    
+    
+    //show gauge
+    if((tabBarVC.currentPowerState==PowerAlwaysOn||tabBarVC.currentPowerState==PowerOn) && [scooterCertified boolValue]==YES)
     {
-        if([scooterCertified boolValue])
-        {
-            [self setGaugesEnabled:YES];
-            BOOL colorful=tabBarVC.currentPowerState==PowerOn||tabBarVC.currentPowerState==PowerAlwaysOn;
-            [self setGaugesColorful:colorful];
-        }
-        else
-        {
-            [self setGaugesEnabled:NO];
-        }
+        BOOL isColorful=tabBarVC.currentBatteryState!=BatteryStateOff;
+        [self setGaugesEnabled:YES colorful:isColorful];
     }
-    else if(currentState==CBPeripheralStateConnecting)//connecting
+    else
     {
-        [self setGaugesEnabled:NO];
-    }
-    else//disconnected
-    {
-        [self setGaugesEnabled:NO];
+        [self setGaugesEnabled:NO colorful:NO];
     }
     
-    //set power state
-    NSLog(@"current state: %lu",tabBarVC.currentPowerState);
-    self.PowerButton.hidden=currentState!=CBPeripheralStateConnected||scooterCertified==nil||tabBarVC.currentPowerState==PowerAlwaysOn||tabBarVC.currentPowerState==PowerStatUnDefined;
-    //[self.PowerButton setEnabled:tabBarVC.currentPowerState!=PowerAlwaysOn];
-    self.PowerButton.selected=tabBarVC.currentPowerState==PowerOn||tabBarVC.currentPowerState==PowerAlwaysOn;
+    //power button state
+    if((tabBarVC.currentPowerState==PowerOff||tabBarVC.currentPowerState==PowerOn) && [scooterCertified boolValue]==YES)
+    {
+        self.PowerButton.hidden=NO;
+        self.PowerButton.selected=tabBarVC.currentPowerState==PowerOn||tabBarVC.currentPowerState==PowerAlwaysOn;
+    }
+    else
+    {
+        self.PowerButton.hidden=YES;
+    }
     
+    /*
+     //whether auto update data
+     if((tabBarVC.currentPowerState==PowerOff||tabBarVC.currentPowerState==PowerOn) && [scooterCertified boolValue]==YES &&tabBarVC.currentBatteryState==BatteryStateOn)
+     {
+     shouldUpdateData=YES;
+     }
+     else if((tabBarVC.currentPowerState==PowerOff||tabBarVC.currentBatteryState==BatteryStateOff) && [scooterCertified boolValue]==YES)
+     {
+     shouldUpdateData=NO;
+     }
+     else
+     {
+     //reset data
+     }*/
 }
 
 -(void)breathAnimation:(UIView *)view
@@ -218,24 +315,53 @@
 
 -(void)updateBattery:(float)battery
 {
-    self.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
-    //self.DistanceLabel.text=[NSString stringWithFormat:@"%0.f", battery/4];//25km, 100battery at most.
+    NSLog(@"battery: %f",battery);
     
-    NSString *imgName=battery<15?@"batteryLowBg.png":@"batteryBg.png";
-    self.batteryBgImage.image=[UIImage imageNamed:imgName];
+    int intBattery=(int)((battery+2.5)/5);
+    self.BatteryLabel.text=[NSString stringWithFormat:@"%d", intBattery*5];
+    
+    //self.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
+    
+    /*
+     NSString *imgName=battery<15?@"batteryLowBg.png":@"batteryBg.png";
+     self.batteryBgImage.image=[UIImage imageNamed:imgName];*/
 }
 
 -(void)updateCertifyState:(BOOL)certified
 {
-    //send powerOn cmd
-    if(certified && shouldPowerOn)
-    {
-        shouldPowerOn=NO;
-        
-        Byte mode=self.PowerButton.selected?PowerOffCmd:PowerOnCmd;
-        NSData *data=[spgMScooterUtilities getDataFromByte:mode];
-        [[spgBLEService sharedInstance] writePower:data];
-    }
+    /*
+     //send powerOn cmd
+     if(certified && shouldPowerOn)
+     {
+     shouldPowerOn=NO;
+     
+     Byte mode=self.PowerButton.selected?PowerOffCmd:PowerOnCmd;
+     NSData *data=[spgMScooterUtilities getDataFromByte:mode];
+     [[spgBLEService sharedInstance] writePower:data];
+     
+     
+     //reset battery state
+     spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.tabBarController;
+     tabBarVC.currentBatteryState=BatteryStateWaitUpdate;
+     }*/
+    
+    /*
+     if(!certified)
+     {
+     spgPinView *alert=[[spgPinView alloc] initWithPin:@"9517" afterDismiss:^(NSString *passcode, int buttonIndex) {
+     if(buttonIndex==1)
+     {
+     //shouldPowerOn=YES;
+     
+     Byte array[]={0x95, 0x17};
+     NSData *pinData=[NSData dataWithBytes:array length:2];
+     [[spgBLEService sharedInstance] writePassword:pinData];
+     }
+     }];
+     
+     [[spgAlertViewManager sharedAlertViewManager] show:alert];
+     }
+     */
     
     [self resetConnectionState];
 }

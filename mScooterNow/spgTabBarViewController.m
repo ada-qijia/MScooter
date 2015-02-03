@@ -8,6 +8,7 @@
 
 #import "spgTabBarViewController.h"
 #import "spgDashboardViewController.h"
+#import "spgSettingsViewController.h"
 
 static const NSInteger warningViewTag=8888;
 
@@ -27,6 +28,7 @@ static const NSInteger warningViewTag=8888;
     
     NSInteger lastState = [[spgMScooterUtilities getPreferenceWithKey:kLastPowerStateKey] integerValue];
     self.currentPowerState=lastState;
+    self.currentBatteryState=BatteryStateUnDefined;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -105,6 +107,8 @@ static const NSInteger warningViewTag=8888;
     {
         [self.scooterPresentationDelegate updateConnectionState:NO];
     }
+    
+    [self updateSettings];
 }
 
 -(void)speedValueUpdated:(NSData *)speedData
@@ -174,15 +178,45 @@ static const NSInteger warningViewTag=8888;
 
 -(void)batteryValueUpdated:(NSData *)batteryData
 {
-    [spgMScooterUtilities LogData:batteryData title:@"Battery"];
+    //update battery state    
+    NSString *hexString=[spgMScooterUtilities castDataToHexString:batteryData];
+    NSString *type=[hexString substringFromIndex:2];
     
-    //update battery
-    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateBattery:)])
+    //65280=#ff00
+    if([type isEqualToString: @"FF"])
     {
-        float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
-        [self.scooterPresentationDelegate updateBattery:realBattery];
+        BatteryState newBatteryState=[[hexString substringToIndex:2] isEqualToString:@"01"]?BatteryStateOn:BatteryStateOff;
+        self.currentBatteryState=newBatteryState;
+        if([self.scooterPresentationDelegate respondsToSelector:@selector(batteryStateChanged:)])
+        {
+            [self.scooterPresentationDelegate batteryStateChanged:newBatteryState];
+        }
     }
+    else
+    {
+        [spgMScooterUtilities LogData:batteryData title:@"Battery"];
+        
+        float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
+        //update battery
+        if([self.scooterPresentationDelegate respondsToSelector:@selector(updateBattery:)])
+        {
+            //float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
+            [self.scooterPresentationDelegate updateBattery:realBattery];
+        }
+    }
+    
+    NSLog(@"Batt: %@",hexString);
 }
+
+/*
+ -(void)batteryStateReturned:(BOOL)success
+ {
+ self.currentBatteryState=success?BatteryStateOn:BatteryStateOff;
+ if([self.scooterPresentationDelegate respondsToSelector:@selector(batteryStateChanged:)])
+ {
+ [self.scooterPresentationDelegate batteryStateChanged:self.currentBatteryState];
+ }
+ }*/
 
 -(void)cameraTriggered:(SBSCameraCommand) commandType
 {
@@ -224,11 +258,14 @@ static const NSInteger warningViewTag=8888;
     {
         [self.scooterPresentationDelegate updateCertifyState:success];
     }
+    
+    [self updateSettings];
 }
 
 -(void)powerStateReturned:(CBPeripheral *)peripheral result:(NSData *) data
 {
     PowerState state=[spgMScooterUtilities castDataToPowerState:data];
+    
     self.currentPowerState=state;
     NSNumber *stateNum= [NSNumber numberWithInteger:state];
     [spgMScooterUtilities savePreferenceWithKey:kLastPowerStateKey value:stateNum];
@@ -294,6 +331,15 @@ static const NSInteger warningViewTag=8888;
         UIView *warningView= [transitionView viewWithTag:warningViewTag];
         [warningView.layer removeAllAnimations];
         [warningView removeFromSuperview];
+    }
+}
+
+-(void)updateSettings
+{
+    if(self.selectedIndex==2)
+    {
+        spgSettingsViewController *settingsVC= self.viewControllers[2];
+        [settingsVC updateSwitch];
     }
 }
 

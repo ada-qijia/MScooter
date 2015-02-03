@@ -94,7 +94,7 @@
             int hour= (int)(interval/3600);
             int minute=(int)(interval/60)-hour*60;
             int second=(int)interval%60;
-            durationLabel.text=[NSString stringWithFormat:@"%02d:%02d:%02d",hour,minute,second];
+            durationLabel.text=[NSString stringWithFormat:@"%02d.%02d.%02d",hour,minute,second];
         }
         
         //date
@@ -127,7 +127,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     spgAssetViewController *assetVC=[[spgAssetViewController alloc] initWithNibName:@"spgAssetViewController" bundle:nil];
-    assetVC.assets=self.assets;
+    //assetVC.assets=self.assets;
     assetVC.currentIndex= indexPath.row;
     assetVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
     [self presentViewController:assetVC animated:YES completion:nil];

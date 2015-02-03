@@ -20,12 +20,15 @@
 //for both dashboard and AR
 -(void)updateConnectionState:(BOOL) connected;
 -(void)updateSpeed:(float)speed;
+//includes batteryState
 -(void)updateBattery:(float)battery;
 -(void)updateMileage:(int)mileage;
 
 //only for AR mode
 -(void)cameraTriggered:(SBSCameraCommand)commandType;
 -(void)modeChanged;
+//Returned
+-(void)batteryStateChanged:(BatteryState)newState;
 
 -(void)powerStateReturned:(CBPeripheral *)peripheral result:(PowerState) currentState;
 -(void)updateCertifyState:(BOOL) certified;
@@ -40,5 +43,6 @@
 -(void)showDashboardGauge;
 
 @property PowerState currentPowerState;
+@property BatteryState currentBatteryState;
 
 @end

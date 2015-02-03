@@ -10,8 +10,8 @@
 #import "spgMomentsPersistence.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "spgAssetViewController.h"
+#import "spgMScooterCommon.h"
 
 @interface spgMomentsCollectionViewController : UICollectionViewController
 
 @end
-

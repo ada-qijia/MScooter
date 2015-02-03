@@ -83,7 +83,7 @@ static NSString * const headerIdentifier=@"Header";
             NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
             [dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
             //[dateFormatter setDateFormat:@"ss"];
-            [dateFormatter setDateFormat:@"yyyy:MM:dd EEEE"];
+            [dateFormatter setDateFormat:@"yyyy.MM.dd EEEE"];
             NSString *key=[dateFormatter stringFromDate:creationDate];
             
             if (! dictionary[key]) {
