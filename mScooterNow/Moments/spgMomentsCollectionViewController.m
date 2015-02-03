@@ -11,8 +11,8 @@
 
 @interface spgMomentsCollectionViewController ()
 
-@property (nonatomic,strong) NSMutableDictionary *momentGroups;
-@property (nonatomic,strong) NSMutableDictionary *assets;
+@property (nonatomic,strong) NSMutableArray *momentGroups;
+@property (nonatomic,strong) NSMutableArray *assets;
 
 @end
 
@@ -49,7 +49,7 @@ static NSString * const headerIdentifier=@"Header";
     if(presentCount==momentsArray.count)
         return;
     
-    self.assets=[NSMutableDictionary dictionary];
+    self.assets=[NSMutableArray array];
     
     NSLog(@"Start loading assets...");
     for(NSString *urlStr in momentsArray)
@@ -58,10 +58,11 @@ static NSString * const headerIdentifier=@"Header";
         PHAsset *asset= [fetchResult objectAtIndex:0];
         if(asset)
         {
-            [self.assets setObject:asset forKey:urlStr];
+            KeyValuePair *pair=[[KeyValuePair alloc] initWithKey:urlStr value:asset];
+            [self.assets addObject:pair];
         }
-    }    
-    self.momentGroups=[self groupAssetsWithTime:self.assets.allValues];
+    }
+    self.momentGroups=[self groupAssetsWithTime:self.assets];
     
     NSLog(@"Finished loading assets...");
     
@@ -73,10 +74,11 @@ static NSString * const headerIdentifier=@"Header";
     presentCount=(int)self.assets.count;
 }
 
--(NSMutableDictionary *)groupAssetsWithTime:(NSArray *)source{
-    NSMutableDictionary *dictionary = [NSMutableDictionary dictionary];
-    for (id obj in source) {
-        NSDate *creationDate= ((PHAsset *)obj).creationDate;
+-(NSMutableArray *)groupAssetsWithTime:(NSArray *)source{
+    NSMutableArray *groupedAssets = [NSMutableArray array];
+    for (KeyValuePair *obj in source) {
+        PHAsset *asset=(PHAsset *)(obj.value);
+        NSDate *creationDate = asset.creationDate;
         
         if(creationDate)
         {
@@ -86,14 +88,21 @@ static NSString * const headerIdentifier=@"Header";
             [dateFormatter setDateFormat:@"yyyy.MM.dd EEEE"];
             NSString *key=[dateFormatter stringFromDate:creationDate];
             
-            if (! dictionary[key]) {
-                NSMutableArray *arr = [NSMutableArray array];
-                dictionary[key] = arr;
+            KeyValuePair *lastPair=groupedAssets.lastObject;
+            if([lastPair.key isEqualToString:key])
+            {
+                NSMutableArray *arr = (NSMutableArray *)lastPair.value;
+                [arr addObject:asset];
             }
-            [dictionary[key] addObject:obj];
+            else
+            {
+                NSMutableArray *arr = [NSMutableArray arrayWithObject:asset];
+                KeyValuePair *newPair=[[KeyValuePair alloc] initWithKey:key value:arr];
+                [groupedAssets addObject:newPair];
+            }
         }
     }
-    return dictionary;
+    return groupedAssets;
 }
 
 #pragma mark <UICollectionViewDataSource>
@@ -104,16 +113,16 @@ static NSString * const headerIdentifier=@"Header";
 
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    NSString *key=self.momentGroups.allKeys[section];
-    return ((NSArray *)self.momentGroups[key]).count;
+    KeyValuePair *pair=self.momentGroups[section];
+    return ((NSArray *)pair.value).count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
     // Configure the cell
-    NSString *key=self.momentGroups.allKeys[indexPath.section];
-    NSArray *assets= (NSArray *)self.momentGroups[key];
+    KeyValuePair *pair=self.momentGroups[indexPath.section];
+    NSArray *assets= (NSArray *)pair.value;
     PHAsset *asset= assets[indexPath.row];
     
     if(asset)
@@ -154,9 +163,9 @@ static NSString * const headerIdentifier=@"Header";
 {
     UICollectionReusableView *header = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:headerIdentifier forIndexPath:indexPath];
     
-    NSString *key=self.momentGroups.allKeys[indexPath.section];
+    KeyValuePair *pair=self.momentGroups[indexPath.section];
     UILabel *dateLable=(UILabel *)[header viewWithTag:1];
-    dateLable.text=key;
+    dateLable.text=pair.key;
     
     return header;
 }
@@ -165,13 +174,23 @@ static NSString * const headerIdentifier=@"Header";
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *key=self.momentGroups.allKeys[indexPath.section];
-    NSArray *assets= (NSArray *)self.momentGroups[key];
+    KeyValuePair *pair=self.momentGroups[indexPath.section];
+    NSArray *assets= (NSArray *)pair.value;
     PHAsset *asset= assets[indexPath.row];
     
+    //get index of the selected asset
+    int index=0;
+    for (KeyValuePair *p in self.assets) {
+        if(p.value==asset)
+        {
+            break;
+        }
+        index++;
+    }
+    
     spgAssetViewController *assetVC=[[spgAssetViewController alloc] initWithNibName:@"spgAssetViewController" bundle:nil];
-    assetVC.assets=self.assets;
-    assetVC.currentIndex= [[self.assets allValues] indexOfObject:asset];
+    assetVC.assets = self.assets;
+    assetVC.currentIndex = index;
     assetVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
     [self presentViewController:assetVC animated:YES completion:nil];
 }

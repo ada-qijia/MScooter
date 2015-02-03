@@ -75,7 +75,8 @@
 
 - (IBAction)playVideo:(id)sender
 {
-    PHAsset *asset=[self.assets.allValues objectAtIndex:self.currentIndex];
+    KeyValuePair *pair=(KeyValuePair *)[self.assets objectAtIndex:self.currentIndex];
+    PHAsset *asset= (PHAsset *)(pair.value);
     [[PHImageManager defaultManager] requestPlayerItemForVideo:asset options:nil resultHandler:^(AVPlayerItem *playerItem, NSDictionary *info) {
         if ([playerItem.asset isKindOfClass:AVURLAsset.class])
         {
@@ -118,9 +119,10 @@
 #pragma - private methods
 
 -(void)setCurrentItemView{
-    if(self.assets.allValues.count>self.currentIndex)
+    if(self.assets.count>self.currentIndex)
     {
-        PHAsset *asset=[self.assets.allValues objectAtIndex:self.currentIndex];
+        KeyValuePair *pair=(KeyValuePair *)[self.assets objectAtIndex:self.currentIndex];
+        PHAsset *asset= (PHAsset *)(pair.value);
         self.playButton.hidden=asset.mediaType!=PHAssetMediaTypeVideo;
         [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:self.view.bounds.size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
             self.LargeImageView.image=result;
@@ -149,8 +151,9 @@
 #pragma - UI interaction
 
 - (IBAction)DeleteClicked:(UIButton *)sender {
-    NSString *assetUrl=[self.assets.allKeys objectAtIndex:self.currentIndex];
-    PHAsset *asset=[self.assets.allValues objectAtIndex:self.currentIndex];
+    KeyValuePair *pair=(KeyValuePair *)[self.assets objectAtIndex:self.currentIndex];
+    NSString *assetUrl=pair.key;
+    PHAsset *asset=(PHAsset *)(pair.value);
     
     //delete from photos library
     [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
@@ -168,7 +171,7 @@
             [spgMomentsPersistence saveMoments:momentsArray];
             
             //update current page
-            [self.assets removeObjectForKey:assetUrl];
+            [self.assets removeObjectAtIndex:self.currentIndex];
             self.currentIndex=self.currentIndex%self.assets.count;
             [self setCurrentItemView];
         }

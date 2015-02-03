@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <Photos/Photos.h>
+#import "spgMScooterCommon.h"
 
 @interface spgAssetViewController : UIViewController<UIImagePickerControllerDelegate>
 
-@property (weak,nonatomic) NSMutableDictionary* assets;
+@property (weak,nonatomic) NSMutableArray* assets;
 @property NSInteger currentIndex;
 @property(strong, nonatomic) MPMoviePlayerController* movieController;
 
