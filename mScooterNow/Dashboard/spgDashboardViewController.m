@@ -269,22 +269,12 @@
 
 -(void)updateCertifyState:(BOOL)certified
 {
-    /*
-     if(certified)
-     {
-     [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:[[spgBLEService sharedInstance].peripheral.identifier UUIDString]];
-     }*/
-    
+    self.connectAnimationView.hidden=certified;
     self.IdentifyPhoneButton.hidden=certified;
     //self.connectedImage.hidden=certified;
     if(!certified)
     {
-        self.connectAnimationView.hidden=NO;
         [self twinkleAnimation];
-    }
-    else
-    {
-        self.connectAnimationView.hidden=YES;
     }
 
     self.IdentifiedImage.hidden=!certified;
@@ -401,8 +391,10 @@
     
     self.scooterNameLabel.text= [[spgBLEService sharedInstance] peripheral].name;
     
-    /*
+   
     NSNumber *isCertified= [spgBLEService sharedInstance].isCertified;
+   
+    /*
     self.IdentifyPhoneButton.hidden=isCertified==nil||[isCertified boolValue]==YES || (!connected);
     
     if(connected && [isCertified boolValue]!=YES)
@@ -416,9 +408,11 @@
     }
     self.IdentifiedImage.hidden=!([isCertified boolValue]==YES);
     //self.connectedImage.hidden=[isCertified boolValue]==YES;*/
-    self.IdentifyPhoneButton.hidden=YES;
-    self.connectAnimationView.hidden=YES;
-    self.IdentifiedImage.hidden=YES;
+    
+    BOOL showAnimation= connected && isCertified!=nil && [isCertified boolValue]==NO;
+    self.connectAnimationView.hidden=!showAnimation;
+    self.IdentifyPhoneButton.hidden=self.connectAnimationView.hidden;
+    self.IdentifiedImage.hidden=[isCertified boolValue]!=YES;
 }
 
 - (IBAction)twinkleAnimation
