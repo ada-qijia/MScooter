@@ -86,6 +86,7 @@
 -(void)uploadCurrentLocation:(BOOL)open
 {
     NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
+    
     Byte isOpen=!open;
     NSString *scooterName=[spgMScooterUtilities getPreferenceWithKey:kScooterNameKey];
     

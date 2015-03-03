@@ -79,7 +79,7 @@ static const NSInteger warningViewTag=8888;
     NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
     if(uniqueIdentifier)
     {
-        NSData *data=[spgMScooterUtilities getDataFromString:uniqueIdentifier length:18];
+        NSData *data=[spgMScooterUtilities getDataFromString:uniqueIdentifier startIndex:0 length:18];
         
         //write may fail because characteristic not found.
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -178,7 +178,7 @@ static const NSInteger warningViewTag=8888;
 
 -(void)batteryValueUpdated:(NSData *)batteryData
 {
-    //update battery state    
+    //update battery state
     NSString *hexString=[spgMScooterUtilities castDataToHexString:batteryData];
     NSString *type=[hexString substringFromIndex:2];
     
@@ -252,14 +252,23 @@ static const NSInteger warningViewTag=8888;
     }
 }
 
--(void)identifyReturned:(CBPeripheral *)peripheral result:(BOOL) success
+-(void)identifyReturned:(CBPeripheral *)peripheral result:(NSString *) result
 {
-    if([self.scooterPresentationDelegate respondsToSelector:@selector(updateCertifyState:)])
+    if([result isEqualToString:kACKIdentifyContinueResponse])
     {
-        [self.scooterPresentationDelegate updateCertifyState:success];
+        NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
+        NSData *data=[spgMScooterUtilities getDataFromString:uniqueIdentifier startIndex:18 length:18];
+        BOOL writeSuccess = [[spgBLEService sharedInstance] IdentifyPhone:data];
     }
-    
-    [self updateSettings];
+    else
+    {
+        if([self.scooterPresentationDelegate respondsToSelector:@selector(updateCertifyState:)])
+        {
+            [self.scooterPresentationDelegate updateCertifyState:[result isEqualToString:kACKCorrectResponse]];
+        }
+        
+        [self updateSettings];
+    }
 }
 
 -(void)powerStateReturned:(CBPeripheral *)peripheral result:(NSData *) data

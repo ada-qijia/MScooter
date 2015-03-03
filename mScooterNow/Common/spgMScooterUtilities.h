@@ -17,7 +17,7 @@
 
 +(NSData *)getDataFromByte:(Byte)value;
 +(NSData *)getDataFromInt16:(int16_t)value;
-+(NSData *)getDataFromString:(NSString *)value length:(int)length;
++(NSData *)getDataFromString:(NSString *)value startIndex:(int)index length:(int)length;
 
 +(float)castSpeedToRealValue:(NSData *)data;
 +(float)castBatteryToPercent:(NSData *)data;

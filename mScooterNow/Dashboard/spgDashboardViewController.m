@@ -517,7 +517,7 @@
     NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
     if(uniqueIdentifier)
     {
-        NSData *data=[spgMScooterUtilities getDataFromString:uniqueIdentifier length:18];
+        NSData *data=[spgMScooterUtilities getDataFromString:uniqueIdentifier startIndex:0 length:18];
         [[spgBLEService sharedInstance] IdentifyPhone:data];
     }
 }

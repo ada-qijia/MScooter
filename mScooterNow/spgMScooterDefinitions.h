@@ -56,10 +56,12 @@ static NSString * const kUserKey=@"user";
 
 #define kCorrectPin @"0033"
 #define kACKCorrectResponse @"01"
+#define kACKWrongResponse @"02"
 #define kACKTypePhoneID @"01"
 #define kACKTypePassword @"02"
 #define kACKTypePower @"03"
 #define kACKBatteryState @"04"
+#define kACKIdentifyContinueResponse @"03"
 #define kIdentifySuccessResponse @"00000001"
 
 //ble advertisement data

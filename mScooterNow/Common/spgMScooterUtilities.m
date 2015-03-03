@@ -29,24 +29,17 @@
     return data;
 }
 
-+(NSData *)getDataFromString:(NSString *)value length:(int)length
++(NSData *)getDataFromString:(NSString *)value startIndex:(int)index length:(int)length
 {
-    
-    NSData *data = [value dataUsingEncoding: NSUTF8StringEncoding];
-    
-    if(data.length<length)
+    if(value.length<=index)
     {
-        NSMutableData *result=[NSMutableData dataWithData:data];
-        for (int i=0; i<length-data.length; i++) {
-            Byte zero[]={0};
-            [result appendBytes:zero length:1];
-        }
-        data=[NSData dataWithData:result];
+        return nil;
     }
-    else if(length<data.length)
-    {
-        data=[NSData dataWithBytes:data.bytes length:length];
-    }
+    
+    NSUInteger maxlength=MIN(value.length-index, length);
+    NSRange range=NSMakeRange(index, maxlength);
+    NSString *str=[value substringWithRange:range];
+    NSData *data = [str dataUsingEncoding: NSUTF8StringEncoding];
     
     return data;
 }

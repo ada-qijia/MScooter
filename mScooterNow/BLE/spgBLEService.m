@@ -388,9 +388,10 @@ static spgBLEService *sharedInstance=nil;
             NSString *hexString=[spgMScooterUtilities castDataToHexString:characteristic.value];
             
             NSString *type=[hexString substringToIndex:2];
-            BOOL success=[[hexString substringFromIndex:2] isEqualToString:kACKCorrectResponse];
+            
             if([type isEqualToString:kACKTypePassword])
             {
+                BOOL success=[[hexString substringFromIndex:2] isEqualToString:kACKCorrectResponse];
                 self.isCertified=[NSNumber numberWithBool:success];
                 
                 if ([self.peripheralDelegate respondsToSelector:@selector(passwordCertificationReturned:result:)]) {
@@ -403,11 +404,16 @@ static spgBLEService *sharedInstance=nil;
             }
             else if([type isEqualToString:kACKTypePhoneID])
             {
-                self.isCertified=[NSNumber numberWithBool:success];
+                NSString *result= [hexString substringFromIndex:2];
+                if([result isEqualToString:kACKCorrectResponse]||[result isEqualToString:kACKWrongResponse])
+                {
+                    BOOL success=[result isEqualToString:kACKCorrectResponse];
+                    self.isCertified=[NSNumber numberWithBool:success];
+                }
                 
                 if ([self.peripheralDelegate respondsToSelector:@selector(identifyReturned:result:)])
                 {
-                    [self.peripheralDelegate identifyReturned:peripheral result:success];
+                    [self.peripheralDelegate identifyReturned:peripheral result:result];
                 }
             }
             /*else if([type isEqualToString:kACKBatteryState])
