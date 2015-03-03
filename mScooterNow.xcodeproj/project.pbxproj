@@ -199,7 +199,7 @@
 		32A1A80419FF8B2D00B7B8DD /* PowerOnIngCircle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PowerOnIngCircle.png; sourceTree = "<group>"; };
 		32A29B5C19F9F33F00D2BD3F /* spgARViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgARViewController.h; sourceTree = "<group>"; };
 		32A29B5D19F9F33F00D2BD3F /* spgARViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgARViewController.m; sourceTree = "<group>"; };
-		32A29B6419FA5B4100D2BD3F /* spgMScooterCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgMScooterCommon.h; sourceTree = "<group>"; };
+		32A29B6419FA5B4100D2BD3F /* spgMScooterCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = spgMScooterCommon.h; path = Common/spgMScooterCommon.h; sourceTree = "<group>"; };
 		32A3BF751A7A229300E10085 /* delete.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = delete.png; sourceTree = "<group>"; };
 		32A3BF771A7A229B00E10085 /* play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = play.png; sourceTree = "<group>"; };
 		32A5318C1A2D9B3D00FF3861 /* alertBg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "alertBg@2x.png"; sourceTree = "<group>"; };
@@ -219,7 +219,7 @@
 		32ABC2C319CBC9AE00F3254E /* scan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scan.png; sourceTree = "<group>"; };
 		32ABC2C419CBC9AE00F3254E /* switchCam.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = switchCam.png; sourceTree = "<group>"; };
 		32ABC2C519CBC9AE00F3254E /* video.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = video.png; sourceTree = "<group>"; };
-		32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgMScooterDefinitions.h; sourceTree = "<group>"; };
+		32ABC2D119CBFC9900F3254E /* spgMScooterDefinitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = spgMScooterDefinitions.h; path = Common/spgMScooterDefinitions.h; sourceTree = "<group>"; };
 		32AC187B1A2485490020A147 /* scooterFlagVague.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = scooterFlagVague.png; sourceTree = "<group>"; };
 		32AC187D1A24859A0020A147 /* bgGradient@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bgGradient@2x.jpg"; sourceTree = "<group>"; };
 		32AC18811A25AB290020A147 /* bgPersonal@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgPersonal@2x.png"; sourceTree = "<group>"; };
@@ -336,8 +336,8 @@
 		32C487861A6F559200A42D33 /* spgGaugesLandscapeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgGaugesLandscapeView.xib; sourceTree = "<group>"; };
 		32C4878B1A6F82EE00A42D33 /* spgPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgPinView.h; path = AlertView/spgPinView.h; sourceTree = "<group>"; };
 		32C4878C1A6F82EE00A42D33 /* spgPinView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgPinView.m; path = AlertView/spgPinView.m; sourceTree = "<group>"; };
-		32C4878E1A6F82FD00A42D33 /* spgPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgPinView.xib; sourceTree = "<group>"; };
-		32C487901A6F93E500A42D33 /* spgAlertCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = spgAlertCommon.h; sourceTree = "<group>"; };
+		32C4878E1A6F82FD00A42D33 /* spgPinView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgPinView.xib; path = AlertView/spgPinView.xib; sourceTree = "<group>"; };
+		32C487901A6F93E500A42D33 /* spgAlertCommon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = spgAlertCommon.h; path = AlertView/spgAlertCommon.h; sourceTree = "<group>"; };
 		32C882A71A70996A008061C2 /* spgMomentsCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgMomentsCollectionViewController.h; sourceTree = "<group>"; };
 		32C882A81A70996A008061C2 /* spgMomentsCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgMomentsCollectionViewController.m; sourceTree = "<group>"; };
 		32C882AB1A70BF66008061C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = mScooterNow/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
