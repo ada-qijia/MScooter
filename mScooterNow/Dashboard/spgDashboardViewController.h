@@ -17,12 +17,12 @@
 @property (weak, nonatomic) IBOutlet UIView *ARView;
 @property (weak, nonatomic) IBOutlet UIView *GaugeView;
 @property (weak, nonatomic) IBOutlet UIView *topControllerView;
-@property (weak, nonatomic) IBOutlet UIImageView *connectedImage;
 @property (weak, nonatomic) IBOutlet UIButton *camSwitchButton;
 @property (weak, nonatomic) IBOutlet UILabel *scooterNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *IdentifyPhoneButton;
 @property (weak, nonatomic) IBOutlet UIImageView *IdentifiedImage;
 @property (weak, nonatomic) IBOutlet UIView *connectAnimationView;
+@property (weak, nonatomic) IBOutlet UIImageView *noSignalImage;
 
 - (IBAction)camSwitchClicked:(id)sender;
 

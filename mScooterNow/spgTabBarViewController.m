@@ -7,10 +7,9 @@
 //
 
 #import "spgTabBarViewController.h"
+#import "spgMomentsCollectionViewController.h"
 #import "spgDashboardViewController.h"
 #import "spgSettingsViewController.h"
-
-static const NSInteger warningViewTag=8888;
 
 @interface spgTabBarViewController ()
 
@@ -19,16 +18,26 @@ static const NSInteger warningViewTag=8888;
 @end
 
 @implementation spgTabBarViewController
+{
+    UIViewController* selectedViewController;
+    NSArray* tabViewControllers;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.delegate=self;
     self.bleService=[spgBLEService sharedInstance];
     
     NSInteger lastState = [[spgMScooterUtilities getPreferenceWithKey:kLastPowerStateKey] integerValue];
     self.currentPowerState=lastState;
     self.currentBatteryState=BatteryStateUnDefined;
+    
+    spgMomentsCollectionViewController* firstChildVC=[self.storyboard instantiateViewControllerWithIdentifier:@"spgMomentsVCID"];
+    spgDashboardViewController* secondChildVC = [self.storyboard instantiateViewControllerWithIdentifier:@"spgDashboardVCID"];
+    spgSettingsViewController* thirdChildVC=[self.storyboard instantiateViewControllerWithIdentifier:@"spgSettingsVCID"];
+    tabViewControllers=[NSArray arrayWithObjects:firstChildVC,secondChildVC,thirdChildVC,nil];
+    
+    [self setSelectedTabIndex:1];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -57,7 +66,8 @@ static const NSInteger warningViewTag=8888;
 //set only the AR view support landscape orientation.
 -(NSUInteger)supportedInterfaceOrientations
 {
-    if(self.selectedIndex==1)
+    UIButton *dashboardBtn=(UIButton *)[self.BottomBar viewWithTag:2];
+    if(dashboardBtn.selected)
     {
         return UIInterfaceOrientationMaskAllButUpsideDown;
     }
@@ -69,6 +79,29 @@ static const NSInteger warningViewTag=8888;
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+    CGSize tabItemSize=CGSizeMake(27, 27);
+    
+    UIView *centerView=(UIView *)self.view.subviews[0];
+    centerView.autoresizingMask=UIViewAutoresizingNone;
+    centerView.frame=CGRectMake(0, 0, size.width, size.height);
+    
+    if(size.width<size.height)
+    {
+        self.BottomBar.frame=CGRectMake(0, size.height-49, size.width, 49);
+        self.momentsBtn.frame=CGRectMake(40, 10,tabItemSize.width,tabItemSize.height);
+        self.dashboardBtn.frame=CGRectMake(147, 10, tabItemSize.width, tabItemSize.height);
+        self.meBtn.frame=CGRectMake(245, 10, tabItemSize.width, tabItemSize.height);
+        self.momentsBadge.frame=CGRectMake(58, 5, 18, 18);
+    }else
+    {
+        self.BottomBar.frame=CGRectMake(size.width-49, 0, 49, size.height);
+        self.momentsBtn.frame=CGRectMake(10, 245,tabItemSize.width,tabItemSize.height);
+        self.dashboardBtn.frame=CGRectMake(10, 147, tabItemSize.width, tabItemSize.height);
+        self.meBtn.frame=CGRectMake(10, 40, tabItemSize.width, tabItemSize.height);
+        self.momentsBadge.frame=CGRectMake(5, 58, 18, 18);
+    }
+    
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - spgBLEService delegate
@@ -205,18 +238,8 @@ static const NSInteger warningViewTag=8888;
         }
     }
     
-    NSLog(@"Batt: %@",hexString);
+    //NSLog(@"Batt: %@",hexString);
 }
-
-/*
- -(void)batteryStateReturned:(BOOL)success
- {
- self.currentBatteryState=success?BatteryStateOn:BatteryStateOff;
- if([self.scooterPresentationDelegate respondsToSelector:@selector(batteryStateChanged:)])
- {
- [self.scooterPresentationDelegate batteryStateChanged:self.currentBatteryState];
- }
- }*/
 
 -(void)cameraTriggered:(SBSCameraCommand) commandType
 {
@@ -258,7 +281,7 @@ static const NSInteger warningViewTag=8888;
     {
         NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
         NSData *data=[spgMScooterUtilities getDataFromString:uniqueIdentifier startIndex:18 length:18];
-        BOOL writeSuccess = [[spgBLEService sharedInstance] IdentifyPhone:data];
+        [[spgBLEService sharedInstance] IdentifyPhone:data];
     }
     else
     {
@@ -289,66 +312,86 @@ static const NSInteger warningViewTag=8888;
 
 -(void)showDashboardGauge
 {
-    self.selectedIndex=1;
-    spgDashboardViewController *dashboardVC= self.viewControllers[1];
+    UIButton *dashboardBtn=(UIButton *)[self.BottomBar viewWithTag:2];
+    [self TabItemClicked:dashboardBtn];
+    
+    spgDashboardViewController *dashboardVC = (spgDashboardViewController *)selectedViewController;
     [dashboardVC showGauge];
-}
-
-#pragma - TabBar Delegate
-
--(void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item
-{
-    if([tabBar.items indexOfObject:item]==0)
-    {
-        item.badgeValue=nil;
-    }
 }
 
 #pragma - UI update
 
-//add top notification bar
--(void) setWarningBarHidden:(BOOL)hidden
+-(void)updateSettings
 {
-    CGRect topFrame=CGRectMake(0, 0, 320, 44);
-    UIView *warningView=[[UIView alloc] initWithFrame:topFrame];
-    warningView.backgroundColor=[UIColor blackColor];
-    warningView.transform=CGAffineTransformMakeTranslation(0, -44);
-    warningView.tag=warningViewTag;
-    
-    UILabel *contentLabel=[[UILabel alloc] initWithFrame:topFrame];
-    [contentLabel setTextColor:[UIColor redColor]];
-    contentLabel.font=[UIFont fontWithName:@"System" size:14];
-    contentLabel.textAlignment=NSTextAlignmentCenter;
-    contentLabel.text=@"Disconnected!";
-    [warningView addSubview:contentLabel];
-    
-    UIView *transitionView= self.view.subviews[0];
-    [transitionView addSubview:warningView];
-    
-    CAKeyframeAnimation *fadeAnimation=[CAKeyframeAnimation animationWithKeyPath:@"transform.translation.y"];
-    fadeAnimation.keyTimes=[NSArray arrayWithObjects:0,0.15,0.85,1.0, nil];
-    fadeAnimation.values=[NSArray arrayWithObjects:[NSNumber numberWithFloat:-44],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:-44], nil];
-    fadeAnimation.duration=3;
-    fadeAnimation.delegate=self;
-    
-    [warningView.layer addAnimation:fadeAnimation forKey:@"notifyAnimation"];
-}
-
-- (void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag {
-    if (flag) {
-        UIView *transitionView= self.view.subviews[0];
-        UIView *warningView= [transitionView viewWithTag:warningViewTag];
-        [warningView.layer removeAllAnimations];
-        [warningView removeFromSuperview];
+    UIButton *settingBtn=(UIButton *)[self.BottomBar viewWithTag:3];
+    if(settingBtn.selected)
+    {
+        spgSettingsViewController *settingsVC = (spgSettingsViewController *)selectedViewController;
+        [settingsVC updateSwitch];
     }
 }
 
--(void)updateSettings
-{
-    if(self.selectedIndex==2)
+//make radio button effect
+- (IBAction)TabItemClicked:(UIButton *)sender {
+    [self setSelectedTabIndex:sender.tag-1];
+    if(sender.tag==1)
     {
-        spgSettingsViewController *settingsVC= self.viewControllers[2];
-        [settingsVC updateSwitch];
+        [self setBadge:nil];
+    }
+}
+
+-(void)setSelectedTabIndex:(NSInteger) index
+{
+    for (UIButton *btn in self.BottomBar.subviews) {
+        if(btn!=nil && btn.tag>0)
+        {
+            btn.selected=btn.tag==index+1;
+        }
+    }
+    
+    [self ShowCenterView:index];
+}
+
+-(void)ShowCenterView:(NSInteger) selectedIndex
+{
+    UIViewController *newSelectedVC=tabViewControllers[selectedIndex];
+    if(selectedViewController!=newSelectedVC)
+    {
+        /*
+        if(selectedIndex!=1)
+        {
+            newSelectedVC.view.frame=CGRectMake(0, 0, 320, 568);
+            if(self.view.frame.size.height<self.view.frame.size.width)
+            {
+                newSelectedVC.view.transform=CGAffineTransformMakeRotation(M_PI_2);
+            }
+        }
+        else
+        {
+            newSelectedVC.view.transform=CGAffineTransformIdentity;
+        }*/
+        
+        [selectedViewController removeFromParentViewController];
+        [selectedViewController.view removeFromSuperview];
+        [self addChildViewController:newSelectedVC];
+        [self.view insertSubview:newSelectedVC.view atIndex:0];
+        
+        selectedViewController=tabViewControllers[selectedIndex];
+    }
+}
+
+-(void)setBadge:(NSString *)value
+{
+    int num=[value intValue];
+    if(num!=0)
+    {
+        self.momentsBadge.text=value;
+        self.momentsBadge.hidden=NO;
+    }
+    else
+    {
+        self.momentsBadge.text=nil;
+        self.momentsBadge.hidden=YES;
     }
 }
 

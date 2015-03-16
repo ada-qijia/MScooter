@@ -36,7 +36,6 @@
     else
     {
         spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
-        tabBarVC.selectedIndex=1;
         self.window.rootViewController=tabBarVC;
     }
     

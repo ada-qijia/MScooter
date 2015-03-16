@@ -19,7 +19,7 @@
 -(void)changeCamera;
 -(void)switchMode:(BOOL)toPhoto;
 
--(void)rotateLayout:(UIInterfaceOrientation)toInterfaceOrientation;
+-(void)rotateLayout;
 -(void)showInFullScreen:(BOOL)fullScreen;
 
 @end

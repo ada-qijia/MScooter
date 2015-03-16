@@ -165,9 +165,11 @@ static void * RecordingContext = &RecordingContext;
     return YES;
 }
 
--(void)rotateLayout:(UIInterfaceOrientation)toInterfaceOrientation
+-(void)rotateLayout
 {
-    [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:(AVCaptureVideoOrientation)toInterfaceOrientation];
+    UIDeviceOrientation orientation=[UIDevice currentDevice].orientation;
+    AVCaptureVideoOrientation toOrientation=(AVCaptureVideoOrientation)orientation;
+    [[(AVCaptureVideoPreviewLayer *)[[self previewView] layer] connection] setVideoOrientation:toOrientation];
 }
 
 - (void)didReceiveMemoryWarning {

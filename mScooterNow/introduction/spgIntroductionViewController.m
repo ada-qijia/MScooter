@@ -91,7 +91,6 @@
     //navigate
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
     spgTabBarViewController *tabBarVC=[storyboard instantiateViewControllerWithIdentifier:@"spgTabBarControllerID"];
-    tabBarVC.selectedIndex=1;
     tabBarVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
     [self presentViewController:tabBarVC animated:YES completion:^{
         [self removeFromParentViewController];

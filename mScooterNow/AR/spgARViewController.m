@@ -62,29 +62,37 @@
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
     spgCamViewController *camVC= self.childViewControllers[0];
-    UIInterfaceOrientation orientation=size.width>size.height?UIInterfaceOrientationLandscapeLeft:UIInterfaceOrientationPortrait;
-    [camVC rotateLayout:orientation];
+    [camVC rotateLayout];
     
-    self.view.frame=CGRectMake(0, 0, size.width, size.height);
     self.ARContainerView.frame=CGRectMake(0, 0, size.width, size.height);
     if(size.width>size.height)
     {
         self.ARListView.frame=CGRectMake(40, 0, 460, 320);
-        self.listDateView.frame=CGRectMake(25, 270, 160, 40);
-        self.listSpeedView.frame=CGRectMake(250, 270, 160, 40);
-        self.ARMapView.frame=CGRectMake(40, 0, 470, 320);;
-        self.mapView.frame=CGRectMake(270, 0, 200, 320);
+        self.listWeatherView.frame=CGRectMake(300, 180, 80, 40);
+        self.listDateView.frame=CGRectMake(300, 225, 160, 40);
+        self.listSpeedView.frame=CGRectMake(300, 270, 160, 40);
+        self.ARInfoView.frame=self.ARListView.frame;
+        self.realDataView.frame=CGRectMake(330, 15, 120, 40);
+        self.ARGaugeView.frame=CGRectMake(70, 120, 320, 192);
+        
+        self.ARMapView.frame=CGRectMake(40, 0, 480, 320);
+        self.mapView.frame=CGRectMake(280, 0, 200, 320);
     }
     else
     {
         self.ARListView.frame=CGRectMake(0, 40, 320, 460);
+        self.listWeatherView.frame=CGRectMake(215, 15, 80, 40);
         self.listDateView.frame=CGRectMake(25, 370, 160, 40);
         self.listSpeedView.frame=CGRectMake(25, 420, 160, 40);
-         self.ARMapView.frame=CGRectMake(0, 40, 320, 470);
-        self.mapView.frame=CGRectMake(0, 260, 320, 200);
+        self.ARInfoView.frame=self.ARListView.frame;
+        self.realDataView.frame=CGRectMake(10, 15, 120, 40);
+        self.ARGaugeView.frame=CGRectMake(0, 270, 320, 192);
+        
+        self.ARMapView.frame=CGRectMake(0, 40, 320, 480);
+        self.mapView.frame=CGRectMake(0, 280, 320, 200);
     }
     
-        self.ARInfoView.frame=self.ARListView.frame;
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
 }
 
@@ -136,38 +144,6 @@
 
 -(void)rotateLayout:(BOOL)portrait
 {
-    spgCamViewController *camViewController = self.childViewControllers[0];
-    if(portrait)
-    {
-        self.view.frame=CGRectMake(0, 0, 320, 568);
-        
-        self.ARInfoView.frame=CGRectMake(0, 0,320, 510);
-        self.realDataView.frame=CGRectMake(10, 60, 150, 40);
-        self.mapView.frame=CGRectMake(200, 70, 110, 110);
-        self.ARGaugeView.frame=CGRectMake(0, 320, 320, 192);
-        
-        self.listWeatherView.frame=CGRectMake(215, 55, 80, 40);
-        self.listDateView.frame=CGRectMake(25, 415, 160, 40);
-        self.listSpeedView.frame=CGRectMake(25, 470, 160, 40);
-    }
-    else
-    {
-        self.view.frame=CGRectMake(0, 0, 568, 320);
-        
-        self.ARInfoView.frame=CGRectMake(0, 0,510, 320);
-        self.realDataView.frame=CGRectMake(60, 10, 150, 40);
-        self.mapView.frame=CGRectMake(390, 10, 110, 110);
-        self.ARGaugeView.frame=CGRectMake(90, 126, 320, 192);
-        
-        self.listWeatherView.frame=CGRectMake(420, 10, 110, 110);
-        self.listDateView.frame=CGRectMake(75, 270, 160, 40);
-        self.listSpeedView.frame=CGRectMake(310, 270, 160, 40);
-    }
-    self.ARContainerView.frame=self.view.frame;
-    self.ARListView.frame=self.ARInfoView.frame;
-    
-    UIInterfaceOrientation toOrientation=portrait?UIInterfaceOrientationPortrait:UIInterfaceOrientationLandscapeLeft;
-    [camViewController rotateLayout:toOrientation];
 }
 
 -(void)updateConnectedUIState

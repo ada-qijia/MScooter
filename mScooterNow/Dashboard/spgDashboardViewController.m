@@ -39,7 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    tabBarVC=(spgTabBarViewController *)self.tabBarController;//.parentViewController;
+    
     ARVC=[self.childViewControllers objectAtIndex:0];
     gaugeVC=[self.childViewControllers objectAtIndex:1];
     
@@ -57,6 +57,7 @@
     [super viewWillAppear:animated];
     [self updateConnectedUIState];
     
+    tabBarVC=(spgTabBarViewController *)self.parentViewController;
     tabBarVC.scooterPresentationDelegate=self;
     
     //auto connect
@@ -85,22 +86,30 @@
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    /*
-     if(size.width>size.height)
-     {
-     self.topControllerView.frame=CGRectMake(0, 0, 40, size.height);
-     }
-     else
-     {
-     self.topControllerView.frame=CGRectMake(0, 0, size.width, 40);
-     }
-     
-     for(UIView *subview in self.topControllerView.subviews)
-     {
-     subview.frame=CGRectMake(subview.frame.origin.y, subview.frame.origin.x, subview.frame.size.width, subview.frame.size.height);
-     }
-     
-     [gaugeVC viewWillTransitionToSize:size withTransitionCoordinator:coordinator];*/
+    if(size.width>size.height)
+    {
+        self.topControllerView.frame=CGRectMake(0, 0, 40, size.height);
+        self.camSwitchButton.frame=CGRectMake(7, 280, 32, 30);
+        self.connectAnimationView.frame=CGRectMake(5, 15, 25, 25);
+        self.IdentifyPhoneButton.frame=CGRectMake(0, 5, 40, 40);
+        self.scooterNameLabel.frame=CGRectMake(12, 53, 21, 214);
+    }
+    else
+    {
+        self.topControllerView.frame=CGRectMake(0, 0, size.width, 40);
+        self.camSwitchButton.frame=CGRectMake(10, 7, 32, 30);
+        self.connectAnimationView.frame=CGRectMake(282, 5, 25, 25);
+        self.IdentifyPhoneButton.frame=CGRectMake(275, 0, 40, 40);
+        self.scooterNameLabel.frame=CGRectMake(53, 12, 214, 21);
+    }
+    self.noSignalImage.frame=self.connectAnimationView.frame;
+    self.IdentifiedImage.frame=self.connectAnimationView.frame;
+    
+    
+    self.ARView.frame=self.view.frame;
+    self.GaugeView.frame=self.view.frame;
+    
+   [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
 }
 
 #pragma mark - gesture methods
@@ -261,9 +270,8 @@
     
     if(commandType==SBSCameraCommandTakePhoto||commandType==SBSCameraCommandStopRecordVideo)
     {
-        UITabBarItem *momentsItem= self.tabBarController.tabBar.items[0];
-        int count=[momentsItem.badgeValue intValue];
-        momentsItem.badgeValue=[NSString stringWithFormat:@"%d", count+1];
+        int count=[tabBarVC.momentsBadge.text intValue];
+        [tabBarVC setBadge:[NSString stringWithFormat:@"%d", count+1]];
     }
 }
 
@@ -271,14 +279,14 @@
 {
     self.connectAnimationView.hidden=certified;
     self.IdentifyPhoneButton.hidden=certified;
-    //self.connectedImage.hidden=certified;
+
     if(!certified)
     {
         [self twinkleAnimation];
     }
-
+    
     self.IdentifiedImage.hidden=!certified;
-
+    
     [gaugeVC updateCertifyState:certified];
     
     //test
@@ -387,27 +395,11 @@
 {
     CBPeripheralState currentState=[[spgBLEService sharedInstance] peripheral].state;
     BOOL connected=currentState==CBPeripheralStateConnected;
-    self.connectedImage.highlighted= connected;
     
     self.scooterNameLabel.text= [[spgBLEService sharedInstance] peripheral].name;
     
-   
-    NSNumber *isCertified= [spgBLEService sharedInstance].isCertified;
-   
-    /*
-    self.IdentifyPhoneButton.hidden=isCertified==nil||[isCertified boolValue]==YES || (!connected);
     
-    if(connected && [isCertified boolValue]!=YES)
-    {
-        self.connectAnimationView.hidden=NO;
-        [self twinkleAnimation];
-    }
-    else
-    {
-        self.connectAnimationView.hidden=YES;
-    }
-    self.IdentifiedImage.hidden=!([isCertified boolValue]==YES);
-    //self.connectedImage.hidden=[isCertified boolValue]==YES;*/
+    NSNumber *isCertified= [spgBLEService sharedInstance].isCertified;
     
     BOOL showAnimation= connected && isCertified!=nil && [isCertified boolValue]==NO;
     self.connectAnimationView.hidden=!showAnimation;

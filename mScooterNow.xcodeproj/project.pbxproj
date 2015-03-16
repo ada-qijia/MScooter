@@ -21,7 +21,6 @@
 		329FF86019F661EE0011B1CE /* spgIntroductionPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 329FF85F19F661EE0011B1CE /* spgIntroductionPanel.m */; };
 		329FF86419F662260011B1CE /* spgIntroductionPanel.xib in Resources */ = {isa = PBXBuildFile; fileRef = 329FF86319F662260011B1CE /* spgIntroductionPanel.xib */; };
 		32A028501A6375DD00F151E4 /* spgMomentsPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A0284F1A6375DD00F151E4 /* spgMomentsPersistence.m */; };
-		32A028561A63A0B100F151E4 /* spgMomentsTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A028551A63A0B100F151E4 /* spgMomentsTableViewController.m */; };
 		32A0285A1A6514E400F151E4 /* spgAssetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32A028581A6514E400F151E4 /* spgAssetViewController.m */; };
 		32A0285B1A6514E400F151E4 /* spgAssetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32A028591A6514E400F151E4 /* spgAssetViewController.xib */; };
 		32A0285D1A651A9A00F151E4 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 32A0285C1A651A9A00F151E4 /* MediaPlayer.framework */; };
@@ -137,6 +136,10 @@
 		32BF2D6D1A398E5400D972DD /* settingMode.png in Resources */ = {isa = PBXBuildFile; fileRef = 32BF2D681A398E5400D972DD /* settingMode.png */; };
 		32BF2D6E1A398E5400D972DD /* settingPasscode.png in Resources */ = {isa = PBXBuildFile; fileRef = 32BF2D691A398E5400D972DD /* settingPasscode.png */; };
 		32BF2D6F1A398E5400D972DD /* settingPortrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 32BF2D6A1A398E5400D972DD /* settingPortrait.png */; };
+		32C338111AB18AFA0020E2F7 /* dashboardSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32C3380E1AB18AFA0020E2F7 /* dashboardSelected@2x.png */; };
+		32C338121AB18AFA0020E2F7 /* meSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32C3380F1AB18AFA0020E2F7 /* meSelected@2x.png */; };
+		32C338131AB18AFA0020E2F7 /* momentsSelected@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32C338101AB18AFA0020E2F7 /* momentsSelected@2x.png */; };
+		32C338151AB2E8040020E2F7 /* batteryBgL.png in Resources */ = {isa = PBXBuildFile; fileRef = 32C338141AB2E8040020E2F7 /* batteryBgL.png */; };
 		32C487851A6F45EA00A42D33 /* bgGradientL@2x.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 32C487841A6F45EA00A42D33 /* bgGradientL@2x.jpg */; };
 		32C487871A6F559200A42D33 /* spgGaugesLandscapeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32C487861A6F559200A42D33 /* spgGaugesLandscapeView.xib */; };
 		32C4878D1A6F82EE00A42D33 /* spgPinView.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C4878C1A6F82EE00A42D33 /* spgPinView.m */; };
@@ -171,12 +174,10 @@
 		329FF86319F662260011B1CE /* spgIntroductionPanel.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgIntroductionPanel.xib; path = IntroductionBase/spgIntroductionPanel.xib; sourceTree = "<group>"; };
 		32A0284E1A6375DD00F151E4 /* spgMomentsPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgMomentsPersistence.h; path = Persistence/spgMomentsPersistence.h; sourceTree = "<group>"; };
 		32A0284F1A6375DD00F151E4 /* spgMomentsPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgMomentsPersistence.m; path = Persistence/spgMomentsPersistence.m; sourceTree = "<group>"; };
-		32A028551A63A0B100F151E4 /* spgMomentsTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgMomentsTableViewController.m; sourceTree = "<group>"; };
 		32A028571A6514E400F151E4 /* spgAssetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgAssetViewController.h; sourceTree = "<group>"; };
 		32A028581A6514E400F151E4 /* spgAssetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgAssetViewController.m; sourceTree = "<group>"; };
 		32A028591A6514E400F151E4 /* spgAssetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgAssetViewController.xib; sourceTree = "<group>"; };
 		32A0285C1A651A9A00F151E4 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
-		32A0285E1A675AF600F151E4 /* spgMomentsTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgMomentsTableViewController.h; sourceTree = "<group>"; };
 		32A13C2319F4D7B200D1AC9E /* spgIntroductionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgIntroductionViewController.h; sourceTree = "<group>"; };
 		32A13C2419F4D7B200D1AC9E /* spgIntroductionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgIntroductionViewController.m; sourceTree = "<group>"; };
 		32A13C2C19F4D99700D1AC9E /* spgIntroductionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgIntroductionView.h; path = IntroductionBase/spgIntroductionView.h; sourceTree = "<group>"; };
@@ -332,6 +333,10 @@
 		32BF2D681A398E5400D972DD /* settingMode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingMode.png; sourceTree = "<group>"; };
 		32BF2D691A398E5400D972DD /* settingPasscode.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingPasscode.png; sourceTree = "<group>"; };
 		32BF2D6A1A398E5400D972DD /* settingPortrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingPortrait.png; sourceTree = "<group>"; };
+		32C3380E1AB18AFA0020E2F7 /* dashboardSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dashboardSelected@2x.png"; sourceTree = "<group>"; };
+		32C3380F1AB18AFA0020E2F7 /* meSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "meSelected@2x.png"; sourceTree = "<group>"; };
+		32C338101AB18AFA0020E2F7 /* momentsSelected@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "momentsSelected@2x.png"; sourceTree = "<group>"; };
+		32C338141AB2E8040020E2F7 /* batteryBgL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = batteryBgL.png; sourceTree = "<group>"; };
 		32C487841A6F45EA00A42D33 /* bgGradientL@2x.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "bgGradientL@2x.jpg"; sourceTree = "<group>"; };
 		32C487861A6F559200A42D33 /* spgGaugesLandscapeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgGaugesLandscapeView.xib; sourceTree = "<group>"; };
 		32C4878B1A6F82EE00A42D33 /* spgPinView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgPinView.h; path = AlertView/spgPinView.h; sourceTree = "<group>"; };
@@ -380,8 +385,6 @@
 		32A0102D1A0B5F1A00F4D4A4 /* Moments */ = {
 			isa = PBXGroup;
 			children = (
-				32A0285E1A675AF600F151E4 /* spgMomentsTableViewController.h */,
-				32A028551A63A0B100F151E4 /* spgMomentsTableViewController.m */,
 				32A028571A6514E400F151E4 /* spgAssetViewController.h */,
 				32A028581A6514E400F151E4 /* spgAssetViewController.m */,
 				32A028591A6514E400F151E4 /* spgAssetViewController.xib */,
@@ -606,6 +609,10 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				32C338141AB2E8040020E2F7 /* batteryBgL.png */,
+				32C3380E1AB18AFA0020E2F7 /* dashboardSelected@2x.png */,
+				32C3380F1AB18AFA0020E2F7 /* meSelected@2x.png */,
+				32C338101AB18AFA0020E2F7 /* momentsSelected@2x.png */,
 				32D6806E1A8082C60000EA68 /* 01.png */,
 				32D6806F1A8082C60000EA68 /* 02.png */,
 				32D680701A8082C60000EA68 /* 03.png */,
@@ -862,6 +869,7 @@
 				32B1FF9419C974AC00D9FFF5 /* InfoPlist.strings in Resources */,
 				326A42EE1A25C2D400941984 /* pre@2x.png in Resources */,
 				32BF2D6E1A398E5400D972DD /* settingPasscode.png in Resources */,
+				32C338111AB18AFA0020E2F7 /* dashboardSelected@2x.png in Resources */,
 				32ABC2CC19CBC9AE00F3254E /* powerOff.png in Resources */,
 				32B75F281A77593C0014048D /* momentsbg@2x.png in Resources */,
 				32ADA26119EF71C00081BD51 /* weather.png in Resources */,
@@ -872,6 +880,7 @@
 				32D680751A8082C60000EA68 /* 04.png in Resources */,
 				32B697421A10A1EF004C1879 /* distance.png in Resources */,
 				32ADA25D19EF6A3C0081BD51 /* speed.png in Resources */,
+				32C338151AB2E8040020E2F7 /* batteryBgL.png in Resources */,
 				32B1002C19C981A400D9FFF5 /* batteryBg.png in Resources */,
 				32B1002F19C981A400D9FFF5 /* speedBg.png in Resources */,
 				32B1FFE919C978C800D9FFF5 /* scooterIcon.png in Resources */,
@@ -887,8 +896,10 @@
 				32ABC2CD19CBC9AE00F3254E /* scan.png in Resources */,
 				32AE9B1E1A2EE28000656AA9 /* enabledButtonBg.png in Resources */,
 				32C882B61A711F0C008061C2 /* spgSideDecoration.xib in Resources */,
+				32C338121AB18AFA0020E2F7 /* meSelected@2x.png in Resources */,
 				32AE9B1A1A2EB13400656AA9 /* passcodeHighlight@2x.png in Resources */,
 				326A42FC1A2857D000941984 /* noSignal@2x.png in Resources */,
+				32C338131AB18AFA0020E2F7 /* momentsSelected@2x.png in Resources */,
 				32A531951A2DAA7F00FF3861 /* spgAlertView.xib in Resources */,
 				32A1A7E519FF5F9400B7B8DD /* userGuide0@2x.png in Resources */,
 				32AA67391A02461300AEC01A /* distanceCircle.png in Resources */,
@@ -924,7 +935,6 @@
 				32B1001F19C97D7B00D9FFF5 /* spgDashboardViewController.m in Sources */,
 				32B1FFA019C974AD00D9FFF5 /* spgViewController.m in Sources */,
 				32B1FF9A19C974AD00D9FFF5 /* spgAppDelegate.m in Sources */,
-				32A028561A63A0B100F151E4 /* spgMomentsTableViewController.m in Sources */,
 				32A13C2E19F4D99700D1AC9E /* spgIntroductionView.m in Sources */,
 				32B1000F19C97B1800D9FFF5 /* THPinViewController.m in Sources */,
 				329FF84219F608180011B1CE /* spgLoginViewController.m in Sources */,
@@ -1079,7 +1089,7 @@
 				INFOPLIST_FILE = "mScooterNow/mScooterNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_NAME = Neezza;
-				PROVISIONING_PROFILE = "6d936385-c355-4b30-b371-1187ed29149d";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -1096,7 +1106,7 @@
 				INFOPLIST_FILE = "mScooterNow/mScooterNow-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				PRODUCT_NAME = Neezza;
-				PROVISIONING_PROFILE = "6d936385-c355-4b30-b371-1187ed29149d";
+				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

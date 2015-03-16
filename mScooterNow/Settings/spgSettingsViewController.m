@@ -92,8 +92,8 @@
             //[spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
             
             //navigate to dashboard page
-            spgTabBarViewController *tabbarVC=(spgTabBarViewController *)self.tabBarController;
-            tabbarVC.selectedIndex=1;
+            spgTabBarViewController *tabbarVC=(spgTabBarViewController *)self.parentViewController;
+            [tabbarVC setSelectedTabIndex:1];
         }
     }];
     [[spgAlertViewManager sharedAlertViewManager] show:alert];

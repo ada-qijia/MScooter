@@ -74,6 +74,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+-(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    self.mapView.frame=CGRectMake(0, 0, size.width, size.height);
+}
+
 #pragma mark - map delegate methods
 
 -(void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation

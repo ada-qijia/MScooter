@@ -36,13 +36,22 @@
 @end
 
 
-@interface spgTabBarViewController : UITabBarController <UITabBarControllerDelegate,spgBLEServicePeripheralDelegate,CLLocationManagerDelegate>
+@interface spgTabBarViewController : UIViewController <spgBLEServicePeripheralDelegate,CLLocationManagerDelegate>
 
 @property (nonatomic, weak) id<spgScooterPresentationDelegate> scooterPresentationDelegate;
 
 -(void)showDashboardGauge;
+-(void)setSelectedTabIndex:(NSInteger) index;
+-(void)setBadge:(NSString*) value;
 
 @property PowerState currentPowerState;
 @property BatteryState currentBatteryState;
 
+@property (weak, nonatomic) IBOutlet UIView *BottomBar;
+- (IBAction)TabItemClicked:(UIButton *)sender;
+@property (weak, nonatomic) IBOutlet UILabel *momentsBadge;
+
+@property (weak, nonatomic) IBOutlet UIButton *momentsBtn;
+@property (weak, nonatomic) IBOutlet UIButton *dashboardBtn;
+@property (weak, nonatomic) IBOutlet UIButton *meBtn;
 @end

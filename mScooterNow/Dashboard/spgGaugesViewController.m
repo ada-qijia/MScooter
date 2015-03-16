@@ -39,7 +39,7 @@
     
     if(tabBarVC==nil)
     {
-        tabBarVC=(spgTabBarViewController *)self.parentViewController.tabBarController;
+        tabBarVC=(spgTabBarViewController *)self.parentViewController.parentViewController;
     }
     
     [self resetConnectionState];
@@ -141,9 +141,6 @@
         //}
     }
 }
-
--(void)rotateLayout:(BOOL)portrait
-{}
 
 -(void)setGaugesEnabled:(BOOL)enabled
 {
@@ -293,12 +290,26 @@
 
 -(void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    /*
-     self.view.frame=CGRectMake(0, 0, size.width, size.height);
-     NSArray *nibContents = [[NSBundle mainBundle] loadNibNamed:@"spgGaugesLandscapeView" owner:self options:nil];
-     UIView *myView = [nibContents objectAtIndex:0];
-     myView.frame = self.view.frame;
-     self.view=myView;*/
+    NSString *bgImgName=size.width<size.height?@"bgGradient.jpg":@"bgGradientL.jpg";
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:bgImgName]];
+    
+    NSString *batteryBgImgName=size.width<size.height?@"batteryBg.png":@"batteryBgL.png";
+    self.batteryBgImage.image=[UIImage imageNamed:batteryBgImgName];
+    
+    if(size.width<size.height)
+    {
+        self.SpeedView.frame=CGRectMake(20, 60, 285, 285);
+        self.BatteryView.frame=CGRectMake(32, 365, 104, 104);
+        self.RangeView.frame=CGRectMake(184, 365, 104, 104);
+        self.batteryBgImage.frame=CGRectMake(20, 353, 280, 128);
+    }
+    else
+    {
+        self.SpeedView.frame=CGRectMake(60, 20, 285, 285);
+        self.BatteryView.frame=CGRectMake(365, 184, 104, 104);
+        self.RangeView.frame=CGRectMake(365, 32, 104, 104);
+        self.batteryBgImage.frame=CGRectMake(353, 20, 128, 280);
+    }
 }
 
 #pragma - spgScooterPresentationDelegate
@@ -315,83 +326,13 @@
 
 -(void)updateBattery:(float)battery
 {
-    NSLog(@"battery: %f",battery);
-    
     int intBattery=(int)((battery+2.5)/5);
     self.BatteryLabel.text=[NSString stringWithFormat:@"%d", intBattery*5];
-    
-    //self.BatteryLabel.text=[NSString stringWithFormat:@"%0.f", battery];
-    
-    /*
-     NSString *imgName=battery<15?@"batteryLowBg.png":@"batteryBg.png";
-     self.batteryBgImage.image=[UIImage imageNamed:imgName];*/
 }
 
 -(void)updateCertifyState:(BOOL)certified
 {
-    /*
-     //send powerOn cmd
-     if(certified && shouldPowerOn)
-     {
-     shouldPowerOn=NO;
-     
-     Byte mode=self.PowerButton.selected?PowerOffCmd:PowerOnCmd;
-     NSData *data=[spgMScooterUtilities getDataFromByte:mode];
-     [[spgBLEService sharedInstance] writePower:data];
-     
-     
-     //reset battery state
-     spgTabBarViewController *tabBarVC=(spgTabBarViewController *)self.tabBarController;
-     tabBarVC.currentBatteryState=BatteryStateWaitUpdate;
-     }*/
-    
-    /*
-     if(!certified)
-     {
-     spgPinView *alert=[[spgPinView alloc] initWithPin:@"9517" afterDismiss:^(NSString *passcode, int buttonIndex) {
-     if(buttonIndex==1)
-     {
-     //shouldPowerOn=YES;
-     
-     Byte array[]={0x95, 0x17};
-     NSData *pinData=[NSData dataWithBytes:array length:2];
-     [[spgBLEService sharedInstance] writePassword:pinData];
-     }
-     }];
-     
-     [[spgAlertViewManager sharedAlertViewManager] show:alert];
-     }
-     */
-    
     [self resetConnectionState];
 }
-
-/*
- -(void)passwordCertified:(CBPeripheral *)peripheral result:(BOOL)correct
- {
- isCertifying=NO;
- 
- if(correct)
- {
- if(peripheral==[spgBLEService sharedInstance].peripheral)
- {
- scooterCertified=YES;
- }
- 
- 
- //save peripheral UUID if success and in personal mode.
- BOOL isPersonal=[[spgMScooterUtilities getPreferenceWithKey:kMyScenarioModeKey] isEqualToString:kScenarioModePersonal];
- if(isPersonal)
- {
- [spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:[peripheral.identifier UUIDString]];
- }
- 
- [self resetConnectionState];
- }
- else
- {
- //re-enter password
- }
- }*/
 
 @end

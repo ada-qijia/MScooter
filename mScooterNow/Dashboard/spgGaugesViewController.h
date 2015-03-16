@@ -31,7 +31,6 @@
 
 - (IBAction)ChangePowerState:(UIButton *)sender;
 
--(void)rotateLayout:(BOOL)portrait;
 -(void)setGaugesEnabled:(BOOL)enabled;
 -(void)updatePowerState:(PowerState)state;
 

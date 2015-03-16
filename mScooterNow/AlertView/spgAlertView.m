@@ -33,6 +33,8 @@
         self.message = message;
         self.buttons = buttonTitles;
         self.blockAfterDismiss=block;
+        CGSize windowSize= [self currentWindowsSize];
+        self.BgView.frame=CGRectMake(0, 0, windowSize.width, windowSize.height);
         
         if(title==nil)
         {
@@ -100,12 +102,20 @@
     }
 }
 
+-(CGSize)currentWindowsSize
+{
+    CGSize windowSize = [UIApplication sharedApplication].keyWindow.frame.size;
+    return windowSize;
+}
+
 #pragma - delegate methods
 
 -(void)prepareForAnimation
 {
     self.BgView.alpha=0;
     CGRect frame=self.ContentView.frame;
+    CGSize windowSize =[self currentWindowsSize];
+    frame.origin.x=windowSize.width/2-frame.size.width/2;
     frame.origin.y=-self.ContentView.frame.size.height;
     self.ContentView.frame=frame;
 }
@@ -114,7 +124,9 @@
 {
     [UIView animateWithDuration:0.2f animations:^{
         self.BgView.alpha=0.5f;
-        self.ContentView.center=CGPointMake(160, 238);
+        
+        CGSize windowSize = [self currentWindowsSize];
+        self.ContentView.center= windowSize.width<windowSize.height? CGPointMake(windowSize.width/2, windowSize.height/2-40):CGPointMake(windowSize.width/2, windowSize.height/2);
     }];
 }
 
@@ -122,7 +134,8 @@
 {
     [UIView animateWithDuration:0.2f animations:^{
         self.BgView.alpha=0.0f;
-        self.ContentView.center=CGPointMake(160, -self.ContentView.frame.size.height/2);
+        CGSize windowSize = [self currentWindowsSize];
+        self.ContentView.center=CGPointMake(windowSize.width/2, -self.ContentView.frame.size.height/2);
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
         if(self.blockAfterDismiss)
