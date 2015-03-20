@@ -237,6 +237,7 @@
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="BottomBar" destination="26J-1s-jaZ" id="Tah-N6-yKh"/>
                         <outlet property="dashboardBtn" destination="YJQ-0k-Uhy" id="cc8-X9-frn"/>

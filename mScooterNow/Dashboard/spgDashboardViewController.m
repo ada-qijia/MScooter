@@ -54,11 +54,21 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
-    [self updateConnectedUIState];
-    
     tabBarVC=(spgTabBarViewController *)self.parentViewController;
     tabBarVC.scooterPresentationDelegate=self;
+
+    /*
+    //update orientation
+    CGSize parentSize=tabBarVC.view.frame.size;
+    if(parentSize.width>0 && self.view.frame.size.width!=parentSize.width)
+    {
+        self.view.frame=CGRectMake(0, 0, parentSize.width, parentSize.height);
+        [self viewWillTransitionToSize:parentSize withTransitionCoordinator:nil];
+    }
+    
+    [super viewWillAppear:animated];
+    [self updateConnectedUIState];
+     */
     
     //auto connect
     if([spgBLEService sharedInstance].centralManager==nil)

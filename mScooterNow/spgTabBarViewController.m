@@ -66,12 +66,13 @@
 //set only the AR view support landscape orientation.
 -(NSUInteger)supportedInterfaceOrientations
 {
+    /*
     UIButton *dashboardBtn=(UIButton *)[self.BottomBar viewWithTag:2];
     if(dashboardBtn.selected)
     {
         return UIInterfaceOrientationMaskAllButUpsideDown;
     }
-    else
+    else*/
     {
         return UIInterfaceOrientationMaskPortrait;
     }
@@ -102,6 +103,11 @@
     }
     
     [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+}
+
+-(void)viewWillLayoutSubviews
+{
+    NSLog(@"tabbar: %@",self.view);
 }
 
 #pragma mark - spgBLEService delegate
@@ -227,7 +233,7 @@
     }
     else
     {
-        [spgMScooterUtilities LogData:batteryData title:@"Battery"];
+        //[spgMScooterUtilities LogData:batteryData title:@"Battery"];
         
         float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
         //update battery
@@ -352,27 +358,22 @@
     [self ShowCenterView:index];
 }
 
+
 -(void)ShowCenterView:(NSInteger) selectedIndex
 {
     UIViewController *newSelectedVC=tabViewControllers[selectedIndex];
     if(selectedViewController!=newSelectedVC)
     {
         /*
+        //force moments and me orientation to portrait
         if(selectedIndex!=1)
         {
-            newSelectedVC.view.frame=CGRectMake(0, 0, 320, 568);
-            if(self.view.frame.size.height<self.view.frame.size.width)
-            {
-                newSelectedVC.view.transform=CGAffineTransformMakeRotation(M_PI_2);
-            }
-        }
-        else
-        {
-            newSelectedVC.view.transform=CGAffineTransformIdentity;
+            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
         }*/
         
-        [selectedViewController removeFromParentViewController];
         [selectedViewController.view removeFromSuperview];
+        [selectedViewController removeFromParentViewController];
         [self addChildViewController:newSelectedVC];
         [self.view insertSubview:newSelectedVC.view atIndex:0];
         
