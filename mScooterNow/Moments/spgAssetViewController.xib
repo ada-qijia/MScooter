@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="spgAssetViewController">
@@ -12,6 +11,7 @@
                 <outlet property="closeButton" destination="Clp-I5-W41" id="IY7-3j-gJf"/>
                 <outlet property="deleteButton" destination="xKC-E1-RZ7" id="lAf-x1-2gV"/>
                 <outlet property="playButton" destination="joJ-Jo-xQD" id="hzG-u9-G0U"/>
+                <outlet property="shareButton" destination="010-cm-MZ8" id="f32-8E-8uh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -59,6 +59,18 @@
                             </state>
                             <connections>
                                 <action selector="DeleteClicked:" destination="-1" eventType="touchUpInside" id="FN1-RA-qKu"/>
+                            </connections>
+                        </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="010-cm-MZ8">
+                            <rect key="frame" x="8" y="520" width="40" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <inset key="contentEdgeInsets" minX="-10" minY="-10" maxX="-10" maxY="-10"/>
+                            <state key="normal" image="delete.png">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="ShareClicked:" destination="-1" eventType="touchUpInside" id="4a3-7m-cjs"/>
                             </connections>
                         </button>
                     </subviews>

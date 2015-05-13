@@ -11,6 +11,8 @@
 #import "spgIntroductionViewController.h"
 #import "spgTabBarViewController.h"
 #import "spgScanViewController.h"
+#import "spgThirdpartyLoginManager.h"
+#import <SMS_SDK/SMS_SDK.h>
 
 @implementation spgAppDelegate
 
@@ -50,6 +52,16 @@
     //upload location
     [self uploadCurrentLocation:YES];
     
+    //register weibo
+    [WeiboSDK enableDebugMode:YES];
+    [WeiboSDK registerApp:kAppKey];
+    
+    //register weixin
+    [WXApi registerApp:kWechatAppId withDescription:@"demo 2.0"];
+    
+    //register SMS
+    [SMS_SDK registerApp:kSMSAppKey withSecret:kSMSAppSecret];
+    
     return YES;
 }
 
@@ -82,6 +94,8 @@
     [spgMScooterUtilities savePreferenceWithKey:kAutoReconnectUUIDKey value:nil];
 }
 
+#pragma mark - location
+
 -(void)uploadCurrentLocation:(BOOL)open
 {
     NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
@@ -106,6 +120,20 @@
      }];
     
     locationManager=nil;
+}
+
+#pragma mark - weibo and wechat
+
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    if([sourceApplication containsString:@"sina"])
+    {
+        return [WeiboSDK handleOpenURL:url delegate:[spgThirdpartyLoginManager sharedInstance]];
+    }
+    else //if([sourceApplication containsString:@"tencent"])
+    {
+        return  [WXApi handleOpenURL:url delegate:[spgThirdpartyLoginManager sharedInstance]];
+    }
 }
 
 @end

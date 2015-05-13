@@ -12,7 +12,6 @@
 
 @property (weak, nonatomic) IBOutlet UISwitch *PowerAlwaysOnSwitch;
 
-@property (weak, nonatomic) IBOutlet UIImageView *userInfoImage;
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet UIButton *logoutButton;
 

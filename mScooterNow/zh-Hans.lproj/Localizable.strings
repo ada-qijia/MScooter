@@ -1,0 +1,18 @@
+/* 
+  Localizable.strings
+  mScooterNow
+
+  Created by v-qijia on 4/10/15.
+  Copyright (c) 2015 v-qijia. All rights reserved.
+*/
+"back"="返回";
+"countrychoose"="选择国家或地区";
+
+"notice"="提示";
+"errorphonenumber"="手机号码非法，请重新填写";
+"sure"="好";
+
+"doesnotsupportarea"="暂时不支持该地区";
+
+"codesenderrormsg"="验证码发送失败 请稍后重试";
+"codesenderrtitle"="发送失败";

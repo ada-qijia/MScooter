@@ -32,6 +32,18 @@
 +(NSString *)getPreferenceWithKey:(NSString *) key;
 +(void)savePreferenceWithKey:(NSString *)key value:(id)value;
 
++(BOOL)saveToFile:(NSString *)fileName data:(NSData *)data;
++(NSData *)readFromFile:(NSString *)fileName;
+
++(void)setUserID:(int)userID;
++(int)UserID;
++(NSMutableDictionary *)getScooterUsage:(Byte)usagetype;
+
+#pragma mark - validation
+
++(BOOL) isValidEmail: (NSString *)email;
++(BOOL) isValidMobile: (NSString *)mobile;
+
 @end
 
 

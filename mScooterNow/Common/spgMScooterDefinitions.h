@@ -109,4 +109,26 @@ typedef enum:Byte
     PowerWithPhoneCmd=243,
 }PowerCommand;
 
+
+//sina weibo info
+#import "WeiboSDK.h"
+
+#define kAppKey         @"2504173591"
+#define kRedirectURI    @"https://api.weibo.com/oauth2/default.html"
+
+//wechat
+#import "WXApi.h"
+
+#define kWechatAppId @"wxca48ba96516fba09"
+//#define kWechatAppId @"wxd930ea5d5a258f4f"
+#define kWechatAppSecret @"a0f9d3a92ca229ce334339dad659060a"
+//https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&lang=zh_CN
+
+//http://mob.com/sms
+#define kSMSAppKey @"675c03d40ef8"
+#define kSMSAppSecret @"631c7699b4cd7b930c517577f1fe0ee2"
+
+#define kServerUrlBase @"http://neezza.azurewebsites.net"
+
+#define kUserInfoFilename @"UserInfo.txt"
 #endif

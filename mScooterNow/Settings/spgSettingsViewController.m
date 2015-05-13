@@ -35,22 +35,43 @@
 {
     [super viewWillAppear:animated];
     
-    [self updateLoginUI];
+    [self updateUserInfo];
     [self updateSwitch];
 }
 
--(void)updateLoginUI
+//设置用户名，头像
+-(void)updateUserInfo
 {
-    NSString *user= [spgMScooterUtilities getPreferenceWithKey:kUserKey];
-    //if user, login
-    self.userInfoImage.hidden=!user;
-    self.loginButton.hidden=user;
-    self.logoutButton.hidden=!user;
+    UIImageView *imgView=(UIImageView *) [self.view viewWithTag:100];
+    UILabel *nameLabel=(UILabel *) [self.view viewWithTag:200];
     
-    /*
-     NSString *imgName=user?@"settingPortrait.png":@"me@2x.png";
-     self.tabBarItem.image=[[UIImage imageNamed:imgName] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-     self.tabBarItem.selectedImage=user?self.tabBarItem.image:[UIImage imageNamed:imgName];*/
+    NSData *jsonData=[spgMScooterUtilities readFromFile:kUserInfoFilename];
+    NSDictionary *userInfo =jsonData?[NSJSONSerialization JSONObjectWithData:jsonData options:kNilOptions error:nil]:nil;
+    if(userInfo)
+    {
+        NSString *avatar=[userInfo objectForKey:@"Avatar"];
+        if(![avatar isKindOfClass:[NSNull class]])
+        {
+            NSData *avatarData = [[NSData alloc]
+                                  initWithBase64EncodedString:avatar options:0];
+            UIImage *img=[UIImage imageWithData:avatarData];
+            imgView.image=img;
+        }
+        
+        NSString *nickname=[userInfo objectForKey:@"Nickname"];
+        if(![nickname isKindOfClass:[NSNull class]])
+        {
+            nameLabel.text=nickname;
+        }
+    }
+    else
+    {
+        imgView.image=[UIImage imageNamed:@"me.png"];
+        nameLabel.text=@"Join Us";
+    }
+    
+    self.loginButton.hidden=userInfo;
+    self.logoutButton.hidden=!userInfo;
 }
 
 -(void)updateSwitch
@@ -112,12 +133,18 @@
 
 - (IBAction)LoginClicked:(UIButton *)sender {
     spgLoginViewController *loginVC=[[spgLoginViewController alloc] initWithNibName:@"spgLoginViewController" bundle:nil];
-    [self presentViewController:loginVC animated:YES completion:nil];
+    //[self presentViewController:loginVC animated:YES completion:nil];
+    //not use modal view to make sure third-party login work
+    [self addChildViewController:loginVC];
+    [self.view addSubview:loginVC.view];
+    
 }
 
 - (IBAction)LogoutClicked:(UIButton *)sender {
-    [spgMScooterUtilities savePreferenceWithKey:kUserKey value:nil];
-    [self updateLoginUI];
+    [spgMScooterUtilities setUserID:0];
+    bool success = [spgMScooterUtilities saveToFile:kUserInfoFilename data:[NSData data]];
+    NSLog(@"clear login info %@",success?@"successfully":@"failed");
+    [self updateUserInfo];
 }
 
 @end

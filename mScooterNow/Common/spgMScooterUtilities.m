@@ -183,6 +183,76 @@
     [userDefaults synchronize];
 }
 
++(BOOL)saveToFile:(NSString *)fileName data:(NSData *)data
+{
+    NSFileManager *fm=[NSFileManager new];
+    NSURL *docurl=[fm URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil];
+    NSURL *myFileUrl=[docurl URLByAppendingPathComponent:fileName];
+    
+    /*if(![fm fileExistsAtPath:myFileUrl.path])
+    {
+       [fm createFileAtPath:myFileUrl.path contents:nil attributes:nil];
+    }*/
+    
+    return [data writeToURL:myFileUrl atomically:YES];
+}
+
++(NSData *)readFromFile:(NSString *)fileName
+{
+    NSFileManager *fm=[NSFileManager new];
+    NSURL *docurl=[fm URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+    NSURL *myFileUrl=[docurl URLByAppendingPathComponent:fileName];
+
+    NSData *jsonData = [NSData dataWithContentsOfFile:myFileUrl.path];
+    return jsonData;
+}
+
+static int _userID=3;
++(void)setUserID:(int)userID
+{
+    _userID=userID;
+}
+
++(int)UserID
+{
+    return _userID;
+}
+
++(NSMutableDictionary *)getScooterUsage:(Byte)usagetype
+{
+    NSString *scooterName=[spgMScooterUtilities getPreferenceWithKey:kScooterNameKey];
+    if(!scooterName)
+    {
+        scooterName=@"";
+    }
+    NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
+    
+    NSMutableDictionary *scooterUsage=[NSMutableDictionary dictionaryWithObjectsAndKeys:
+                                [NSNumber numberWithInteger:_userID],@"UserID",
+                                scooterName,@"ScooterID",
+                                uniqueIdentifier,@"PhoneID",
+                                [NSNumber numberWithInt:usagetype],@"UsageType",
+                                @"",@"UsageParam1",
+                                @"",@"UsageParam2",
+                                nil];
+    return scooterUsage;
+}
+
+//验证邮箱
++(BOOL) isValidEmail: (NSString *)email {
+    NSString *emailRegex = @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}";
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    
+    return [emailTest evaluateWithObject:email];
+}
+
+//验证中国手机号
++(BOOL) isValidMobile: (NSString *)mobile {
+    NSString *mobileRegex = @"^1(3|5|8)\\d{9}$";
+    NSPredicate *mobileTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", mobileRegex];
+    return [mobileTest evaluateWithObject:mobile];
+}
+
 @end
 
 

@@ -1,0 +1,17 @@
+/* 
+  Localizable.strings
+  mScooterNow
+
+  Created by v-qijia on 4/10/15.
+  Copyright (c) 2015 v-qijia. All rights reserved.
+*/
+"back"="Back";
+"countrychoose"="Choose the country";
+
+"notice"="Notice";
+"errorphonenumber"="Phone number is invalid";
+"sure"="OK";
+
+"doesnotsupportarea"="Temporarily does not support the area";
+"codesenderrormsg"="The code send fail try again later";
+"codesenderrtitle"="Send Fail";

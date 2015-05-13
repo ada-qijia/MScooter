@@ -7,9 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WeiboSDK.h"
+#import "WXApi.h"
+#import <CoreLocation/CoreLocation.h>
 
 @interface spgAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) NSString *wbToken;
+@property (strong, nonatomic) NSString *wbCurrentUserID;
+
+//@property (nonatomic) CLLocationManager *locationManager;
 @end

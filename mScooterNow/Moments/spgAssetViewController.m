@@ -8,6 +8,7 @@
 
 #import "spgAssetViewController.h"
 #import "spgMomentsPersistence.h"
+#import "WechatActivity.h"
 
 @interface spgAssetViewController ()
 
@@ -124,6 +125,7 @@
         KeyValuePair *pair=(KeyValuePair *)[self.assets objectAtIndex:self.currentIndex];
         PHAsset *asset= (PHAsset *)(pair.value);
         self.playButton.hidden=asset.mediaType!=PHAssetMediaTypeVideo;
+        self.shareButton.hidden=asset.mediaType!=PHAssetMediaTypeImage;
         [[PHImageManager defaultManager] requestImageForAsset:asset targetSize:self.view.bounds.size contentMode:PHImageContentModeAspectFill options:nil resultHandler:^(UIImage *result, NSDictionary *info) {
             self.LargeImageView.image=result;
             
@@ -149,6 +151,32 @@
 }
 
 #pragma - UI interaction
+
+- (IBAction)ShareClicked:(UIButton *)sender {
+    //NSString *title= @"wonderful neezza moments";
+    UIImage *img=self.LargeImageView.image;
+    NSArray *activityItems=@[img];
+    
+    WechatSessionActivity *wechatSession=[[WechatSessionActivity alloc] init];
+    WechatTimelineActivity *wechatTimeline=[[WechatTimelineActivity alloc] init];
+    NSArray *activities=@[wechatSession,wechatTimeline];
+    UIActivityViewController *vc=[[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:activities];
+    //only remain sina weibo
+    vc.excludedActivityTypes=@[UIActivityTypePostToFacebook,
+                               UIActivityTypePostToFlickr,
+                               UIActivityTypePostToTencentWeibo,
+                               UIActivityTypePostToTwitter,
+                               UIActivityTypePostToVimeo,
+                               UIActivityTypeMessage,
+                               UIActivityTypeMail,
+                               UIActivityTypePrint,
+                               UIActivityTypeCopyToPasteboard,
+                               UIActivityTypeAssignToContact,
+                               UIActivityTypeSaveToCameraRoll,
+                               UIActivityTypeAddToReadingList,
+                               UIActivityTypeAirDrop];
+    [self presentViewController:vc animated:YES completion:nil];
+}
 
 - (IBAction)DeleteClicked:(UIButton *)sender {
     KeyValuePair *pair=(KeyValuePair *)[self.assets objectAtIndex:self.currentIndex];

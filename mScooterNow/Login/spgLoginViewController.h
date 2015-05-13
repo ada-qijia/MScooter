@@ -7,10 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "spgThirdpartyLoginManager.h"
 
-@interface spgLoginViewController : UIViewController
+@interface spgLoginViewController : UIViewController <UITextFieldDelegate, WeiboLoginDelegate,WechatLoginDelegate>
 
+- (IBAction)registerClick:(UIButton *)sender;
 - (IBAction)loginClicked:(UIButton *)sender;
 - (IBAction)backClicked:(UIButton *)sender;
+- (IBAction)forgetPasscodeClick:(id)sender;
+
+- (IBAction)weiboLogin:(UIButton *)sender;
+- (IBAction)weixinLogin:(UIButton *)sender;
+
+@property (weak, nonatomic) IBOutlet UILabel *errorLabel;
+@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
+@property (weak, nonatomic) IBOutlet UITextField *passcodeTextField;
 
 @end

@@ -21,6 +21,12 @@
 {
     UIViewController* selectedViewController;
     NSArray* tabViewControllers;
+    
+    CLLocationManager *locationManager;
+    NSTimer *usageTimer;
+    float battery;
+    float speed;
+    int milage;
 }
 
 - (void)viewDidLoad {
@@ -38,6 +44,9 @@
     tabViewControllers=[NSArray arrayWithObjects:firstChildVC,secondChildVC,thirdChildVC,nil];
     
     [self setSelectedTabIndex:1];
+    
+    locationManager=[[CLLocationManager alloc] init];
+    [self startUploadUsage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,12 +76,12 @@
 -(NSUInteger)supportedInterfaceOrientations
 {
     /*
-    UIButton *dashboardBtn=(UIButton *)[self.BottomBar viewWithTag:2];
-    if(dashboardBtn.selected)
-    {
-        return UIInterfaceOrientationMaskAllButUpsideDown;
-    }
-    else*/
+     UIButton *dashboardBtn=(UIButton *)[self.BottomBar viewWithTag:2];
+     if(dashboardBtn.selected)
+     {
+     return UIInterfaceOrientationMaskAllButUpsideDown;
+     }
+     else*/
     {
         return UIInterfaceOrientationMaskPortrait;
     }
@@ -207,6 +216,7 @@
         realSpeed=1;
     }
     
+    speed=realSpeed;
     //update speed
     
     if([self.scooterPresentationDelegate respondsToSelector:@selector(updateSpeed:)])
@@ -234,8 +244,9 @@
     else
     {
         //[spgMScooterUtilities LogData:batteryData title:@"Battery"];
-        
         float realBattery=[spgMScooterUtilities castBatteryToPercent:batteryData];
+        battery=realBattery;
+        
         //update battery
         if([self.scooterPresentationDelegate respondsToSelector:@selector(updateBattery:)])
         {
@@ -265,10 +276,12 @@
 
 -(void)mileageUpdated:(NSData *)mileage
 {
+    //unit m
+    int value=[spgMScooterUtilities castMileageToInt:mileage];
+    milage=value;
+    
     if([self.scooterPresentationDelegate respondsToSelector:@selector(updateMileage:)])
     {
-        //unit m
-        int value=[spgMScooterUtilities castMileageToInt:mileage];
         [self.scooterPresentationDelegate updateMileage:value];
     }
 }
@@ -365,12 +378,12 @@
     if(selectedViewController!=newSelectedVC)
     {
         /*
-        //force moments and me orientation to portrait
-        if(selectedIndex!=1)
-        {
-            NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
-            [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
-        }*/
+         //force moments and me orientation to portrait
+         if(selectedIndex!=1)
+         {
+         NSNumber *value = [NSNumber numberWithInt:UIInterfaceOrientationPortrait];
+         [[UIDevice currentDevice] setValue:value forKey:@"orientation"];
+         }*/
         
         [selectedViewController.view removeFromSuperview];
         [selectedViewController removeFromParentViewController];
@@ -393,6 +406,77 @@
     {
         self.momentsBadge.text=nil;
         self.momentsBadge.hidden=YES;
+    }
+}
+
+#pragma mark - Post usage data
+
+-(void)startUploadUsage
+{
+    if(usageTimer==nil)
+    {
+        usageTimer=[NSTimer scheduledTimerWithTimeInterval:60 target:self selector:@selector(timerTicked:) userInfo:nil repeats:YES];
+        [[NSRunLoop mainRunLoop] addTimer:usageTimer forMode:NSRunLoopCommonModes];
+    }
+    [usageTimer fire];
+}
+
+-(void)timerTicked:(NSTimer *)timer
+{
+    //connected,upload all
+    bool connected= [spgBLEService sharedInstance].peripheral.state==CBPeripheralStateConnected;
+    if(connected && [spgMScooterUtilities UserID]!=0)
+    {
+        CLLocation *loc= locationManager.location;
+        NSDictionary *usageParam=[NSDictionary dictionaryWithObjectsAndKeys:
+                                  [NSNumber numberWithFloat:battery],@"Battery",
+                                  [NSNumber numberWithFloat:speed],@"Speed",
+                                  [NSNumber numberWithInt:milage],@"Mileage",
+                                  [NSString stringWithFormat:@"%f,%f",loc.coordinate.longitude,loc.coordinate.latitude],@"Location",
+                                  nil];
+        NSData *jsonData=[NSJSONSerialization dataWithJSONObject:usageParam options:kNilOptions error:nil];
+        NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0),^{
+            [self uploadUsage:jsonString];
+        });
+    }
+}
+
+-(void)uploadUsage:(NSString *)param
+{
+    NSMutableDictionary *scooterUsage=[spgMScooterUtilities getScooterUsage:3];
+    if(param)
+    {
+        [scooterUsage setValue:param forKey:@"UsageParam1"];
+    }
+    
+    NSError *error;
+    NSData *jsonData=[NSJSONSerialization dataWithJSONObject:scooterUsage options:kNilOptions error:&error];
+    //NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    if(error==nil)
+    {
+        //url request
+        NSString *path=[NSString stringWithFormat:@"%@/api/scooterUsages",kServerUrlBase];
+        NSURL *url=[NSURL URLWithString:path];
+        NSMutableURLRequest *urlRequest=[NSMutableURLRequest requestWithURL:url];
+        [urlRequest setHTTPMethod:@"POST"];
+        [urlRequest addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
+        [urlRequest setHTTPBody:jsonData];
+        
+        NSURLSession *sharedSession=[NSURLSession sharedSession];
+        NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if(error==nil)
+            {
+                NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                NSLog(@"upload usage success: %@", text);
+            }
+            else
+            {
+                NSLog(@"upload usage failed!");
+            }
+        }];
+        
+        [dataTask resume];
     }
 }
 
