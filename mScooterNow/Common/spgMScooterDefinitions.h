@@ -35,7 +35,7 @@
 #define ThemeColor [UIColor colorWithRed:76/255.0 green:193/255.0 blue:209/255.0 alpha:1.0]
 #define RGB(r,g,b) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:1.0]
 
-#define BackgroundImageColor [UIColor colorWithPatternImage:[UIImage imageNamed:@"bg.jpg"]];
+#define BackgroundImageColor [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgGradient@2x.jpg"]];
 
 static NSString * const kAutoReconnectUUIDKey=@"autoReconnectUUID";
 static NSString * const kNotFirstUseKey=@"notFirstUse";
@@ -54,7 +54,7 @@ static NSString * const kUserIDKey=@"user";
 
 #define kBeijingCityID @"101010100"
 
-#define kCorrectPin @"0033"
+#define kCorrectPin @"9517"
 #define kACKCorrectResponse @"01"
 #define kACKWrongResponse @"02"
 #define kACKTypePhoneID @"01"

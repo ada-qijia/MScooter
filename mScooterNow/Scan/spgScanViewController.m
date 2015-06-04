@@ -143,7 +143,7 @@ static const NSInteger scooterTimeArrayCount=10;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma - custom methods
+#pragma mark - custom methods
 
 -(void)startScan
 {
@@ -394,7 +394,7 @@ static const NSInteger scooterTimeArrayCount=10;
     [tabBarVC showDashboardGauge];
 }
 
-#pragma - spgBLEServiceDiscoverPeripheralsDelegate
+#pragma mark - spgBLEServiceDiscoverPeripheralsDelegate
 
 -(void)centralManagerDidUpdateState:(CBCentralManager *)central
 {
@@ -473,7 +473,7 @@ static const NSInteger scooterTimeArrayCount=10;
     //NSLog(@"%@",advertisementData);
 }
 
-#pragma - utilities
+#pragma mark - utilities
 
 //update pre/next button, scooter UI, scopeView
 -(void)scooterStateChanged:(spgScooterPeripheral *)scooter oldState:(BLEDeviceState) oldState newState:(BLEDeviceState) newState

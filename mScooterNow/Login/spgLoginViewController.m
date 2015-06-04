@@ -105,7 +105,9 @@
             [self setActivityIndicatorVisibility:YES];
             NSURLSession *sharedSession=[NSURLSession sharedSession];
             NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                [self setActivityIndicatorVisibility:NO];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self setActivityIndicatorVisibility:NO];
+                });
                 NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
                 if(httpResponse.statusCode==200)
                 {
@@ -263,7 +265,9 @@
         [self setActivityIndicatorVisibility:YES];
         NSURLSession *sharedSession=[NSURLSession sharedSession];
         NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            [self setActivityIndicatorVisibility:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setActivityIndicatorVisibility:NO];
+            });
             NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
             if(httpResponse.statusCode==200)
             {

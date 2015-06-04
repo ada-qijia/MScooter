@@ -171,10 +171,10 @@
     
     //上传头像
     NSString *avatar=[self getDataArrayFromImage:image];
-    NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[spgMScooterUtilities UserID]],@"UserID",
+    NSDictionary *user=[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:[spgMScooterUtilities UserID]],@"ID",
                             avatar,@"Avatar",
                             nil];
-    [self updateUser:userInfo];
+    [self updateUser:user];
 }
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
@@ -303,7 +303,10 @@
         [self setActivityIndicatorVisibility:YES];
         NSURLSession *sharedSession=[NSURLSession sharedSession];
         NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            [self setActivityIndicatorVisibility:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setActivityIndicatorVisibility:NO];
+            });
+            
             NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
             if(httpResponse.statusCode==200)
             {
@@ -335,7 +338,8 @@
                         //self.ErrorLabel.hidden=NO;
                     });
                 }
-            }}];
+            }
+        }];
         [dataTask resume];
     }
     else

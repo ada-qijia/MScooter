@@ -119,7 +119,7 @@
                                 <rect key="frame" x="80" y="38" width="160" height="160"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BE27FE15-EA0A-4E35-AFD0-2BC056801DFA" id="TCX-kl-VTp">
+                                    <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="7EF18CA0-185A-4C2B-B6DF-AED621163DEF" id="TCX-kl-VTp">
                                         <rect key="frame" x="33" y="10" width="92" height="92"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -165,7 +165,7 @@
                                 </connections>
                             </button>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TMJ-GM-LcY">
-                                <rect key="frame" x="0.0" y="316" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="340" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -991,8 +991,7 @@
         <image name="02.png" width="50" height="50"/>
         <image name="03.png" width="50" height="50"/>
         <image name="04.png" width="50" height="50"/>
-        <image name="ARMode.png" width="78" height="78"/>
-        <image name="BE27FE15-EA0A-4E35-AFD0-2BC056801DFA" width="27" height="27">
+        <image name="7EF18CA0-185A-4C2B-B6DF-AED621163DEF" width="27" height="27">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGPj9YJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK4HCBMU
 GR4fIyQsLzI4O1UkbnVsbNUJCgsMDQ4PEBESVk5TU2l6ZVYkY2xhc3NcTlNJbWFnZUZsYWdzVk5TUmVw
@@ -1091,6 +1090,7 @@ twC5ALsAvQDCANkA2wDdFLMUuBTDFMwU3xTjFPYVARUKFQ8VFxUaFR8VLhUyFTkVQRVOFVMVVRVXFVwV
 ZBVnFWwVdBV3FYkVjBWRAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAFZM
 </mutableData>
         </image>
+        <image name="ARMode.png" width="78" height="78"/>
         <image name="JoinUs.png" width="270" height="230"/>
         <image name="back.png" width="36" height="49"/>
         <image name="batteryBg.png" width="557" height="256"/>

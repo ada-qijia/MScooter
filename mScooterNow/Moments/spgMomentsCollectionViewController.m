@@ -36,7 +36,6 @@ static NSString * const headerIdentifier=@"Header";
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -110,7 +109,6 @@ static NSString * const headerIdentifier=@"Header";
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
     return self.momentGroups.count;
 }
-
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     KeyValuePair *pair=self.momentGroups[section];

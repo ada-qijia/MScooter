@@ -24,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *deleteButton;
 @property (weak, nonatomic) IBOutlet UIButton *shareButton;
 
+- (IBAction)PlayClicked:(id)sender;
 - (IBAction)ShareClicked:(UIButton *)sender;
 - (IBAction)DeleteClicked:(UIButton *)sender;
 - (IBAction)CloseClicked:(UIButton *)sender;

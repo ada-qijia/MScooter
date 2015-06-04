@@ -19,23 +19,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.playButton addTarget:self action:@selector(playVideo:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UISwipeGestureRecognizer *horizontalLeftSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalLeftSwipe:)];
-    horizontalLeftSwipe.direction=UISwipeGestureRecognizerDirectionLeft;
-    [self.view addGestureRecognizer:horizontalLeftSwipe];
-    
-    UISwipeGestureRecognizer *horizontalRightSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalRightSwipe:)];
-    horizontalRightSwipe.direction=UISwipeGestureRecognizerDirectionRight;
-    [self.view addGestureRecognizer:horizontalRightSwipe];
-    
-    UITapGestureRecognizer *singleFingerTap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reportTap:)];
-    [self.view addGestureRecognizer:singleFingerTap];
+    [self RegisterGesture];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -43,7 +31,7 @@
     [self setCurrentItemView];
 }
 
-#pragma -gesture
+#pragma - mark gesture
 //next
 -(void)reportHorizontalLeftSwipe:(UIGestureRecognizer *)recognizer
 {
@@ -72,9 +60,9 @@
     [self dismissViewControllerAnimated:NO completion:nil];
 }
 
-#pragma -video play
+#pragma - mark play video
 
-- (IBAction)playVideo:(id)sender
+- (void)playVideo
 {
     KeyValuePair *pair=(KeyValuePair *)[self.assets objectAtIndex:self.currentIndex];
     PHAsset *asset= (PHAsset *)(pair.value);
@@ -117,7 +105,21 @@
     self.deleteButton.hidden=NO;
 }
 
-#pragma - private methods
+#pragma - mark private methods
+
+-(void)RegisterGesture
+{
+    UISwipeGestureRecognizer *horizontalLeftSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalLeftSwipe:)];
+    horizontalLeftSwipe.direction=UISwipeGestureRecognizerDirectionLeft;
+    [self.view addGestureRecognizer:horizontalLeftSwipe];
+    
+    UISwipeGestureRecognizer *horizontalRightSwipe=[[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(reportHorizontalRightSwipe:)];
+    horizontalRightSwipe.direction=UISwipeGestureRecognizerDirectionRight;
+    [self.view addGestureRecognizer:horizontalRightSwipe];
+    
+    UITapGestureRecognizer *singleFingerTap =[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(reportTap:)];
+    [self.view addGestureRecognizer:singleFingerTap];
+}
 
 -(void)setCurrentItemView{
     if(self.assets.count>self.currentIndex)
@@ -150,7 +152,11 @@
     return transition;
 }
 
-#pragma - UI interaction
+#pragma - mark UI interaction
+
+- (IBAction)PlayClicked:(id)sender {
+    [self playVideo];
+}
 
 - (IBAction)ShareClicked:(UIButton *)sender {
     //NSString *title= @"wonderful neezza moments";

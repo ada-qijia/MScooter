@@ -19,6 +19,8 @@
 @implementation spgSMSVerifyViewController
 {
     NSString *subtitle;
+    NSTimer *timer;
+    int count;
 }
 
 - (void)viewDidLoad {
@@ -47,6 +49,11 @@
 - (IBAction)getCheckcodeClick:(id)sender {
     [self.view endEditing:YES];
     
+    if(timer!=nil)
+    {
+        [timer invalidate];
+    }
+    
     __block NSString *errorMsg;
     if (![spgMScooterUtilities isValidMobile:self.PhoneField.text])
     {
@@ -65,7 +72,8 @@
                  [self setGrayButtonState:self.VerifyButton enabled:NO];
                  
                  //1分钟后可重发
-                 NSTimer *timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerTicked:) userInfo:nil repeats:YES];
+                 count=60;
+                 timer=[NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerTicked:) userInfo:nil repeats:YES];
                  [timer fire];
              }
              else
@@ -80,8 +88,7 @@
     [self notifyUser:errorMsg];
 }
 
--(void)timerTicked:(NSTimer *)timer{
-    static int count=60;
+-(void)timerTicked:(NSTimer *)sender{
     if(count==0)
     {
         [timer invalidate];

@@ -33,7 +33,6 @@ static NSUInteger const THNumberOfPinEntries = 6;
     [super viewDidLoad];
     
     self.correctPin= kCorrectPin;
-    //self.locked=YES;
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
@@ -50,20 +49,9 @@ static NSUInteger const THNumberOfPinEntries = 6;
     [[NSNotificationCenter defaultCenter] removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 }
 
-/*
--(void)viewWillAppear:(BOOL)animated
-{
-    if(self.locked)
-    {
-        [self login:nil];
-    }
-}
- */
-
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 #pragma mark - Properties
@@ -135,17 +123,9 @@ static NSUInteger const THNumberOfPinEntries = 6;
 
 - (void)incorrectPinEnteredInPinViewController:(THPinViewController *)pinViewController
 {
-    /*if (self.remainingPinEntries > THNumberOfPinEntries / 2) {
-        return;
-    }*/
-    
     UIAlertView *alert =
     [[UIAlertView alloc] initWithTitle:@"Incorrect Password"
                                 message:@"Please Try Again"
-                               /*message:(self.remainingPinEntries == 1 ?
-                                        @"You can try again once." :
-                                        [NSString stringWithFormat:@"You can try again %lu times.",
-                                         (unsigned long)self.remainingPinEntries])*/
                               delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
     [alert show];
     

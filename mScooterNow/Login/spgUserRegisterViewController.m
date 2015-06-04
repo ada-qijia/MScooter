@@ -296,7 +296,9 @@
         
         [self setActivityIndicatorVisibility:YES];
         NSURLSessionDataTask *dataTask=[ephemeralSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            [self setActivityIndicatorVisibility:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setActivityIndicatorVisibility:NO];
+            });
             NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
             NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"Data= %@", text);

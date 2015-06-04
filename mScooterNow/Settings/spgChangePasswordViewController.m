@@ -50,7 +50,7 @@
     
     int userID=[spgMScooterUtilities UserID];
     if(userID==0) return;
-    NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:userID],@"ID",
+    NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithInt:userID],@"UserID",
                             self.OldPasscodeTextField.text,@"OldPassword",
                             self.NewPasscodeTextField.text,@"NewPassword",
                             nil];
@@ -69,7 +69,9 @@
         [self setActivityIndicatorVisibility:YES];
         NSURLSession *sharedSession=[NSURLSession sharedSession];
         NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            [self setActivityIndicatorVisibility:NO];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setActivityIndicatorVisibility:NO];
+            });
             NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
             if(httpResponse.statusCode==200)
             {

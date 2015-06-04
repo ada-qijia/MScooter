@@ -9,7 +9,6 @@
 
 #import "spgSettingsViewController.h"
 #import "spgChangePasswordViewController.h"
-#import "spgModeSettingsViewController.h"
 #import "spgTabBarViewController.h"
 #import "spgIntroductionViewController.h"
 #import "spgAlertViewManager.h"
@@ -87,18 +86,13 @@
     NSNumber *scooterCertified=[spgBLEService sharedInstance].isCertified;
     BOOL isPowerModeChangable = [scooterCertified boolValue]==YES;
     self.PowerAlwaysOnView.hidden=!isPowerModeChangable;
-    self.AboutView.frame=isPowerModeChangable?CGRectMake(0, 240, 320, 55):CGRectMake(0, 185, 320, 55);
+    CGRect secondItemFrame=self.PowerAlwaysOnView.frame;
+    secondItemFrame.origin.y=secondItemFrame.origin.y+secondItemFrame.size.height;
+    self.AboutView.frame=isPowerModeChangable?secondItemFrame:self.PowerAlwaysOnView.frame;
     self.ResetButton.hidden=!isPowerModeChangable; //[spgBLEService sharedInstance].peripheral.state==CBPeripheralStateConnected;
 }
 
 #pragma - UI interaction
-
-/*
- - (IBAction)changePasswordClicked:(UIButton *)sender {
- spgChangePasswordViewController *changePasswordVC=[[spgChangePasswordViewController alloc] initWithNibName:@"spgChangePasswordViewController" bundle:nil];
- [self presentViewController:changePasswordVC animated:YES completion:nil];
- }
- */
 
 - (IBAction)AboutClicked:(UIButton *)sender {
     UIStoryboard *storyboard=[UIStoryboard storyboardWithName:@"Main" bundle:nil];
@@ -127,7 +121,7 @@
             //[spgMScooterUtilities savePreferenceWithKey:kMyPeripheralIDKey value:nil];
             
             //navigate to dashboard page
-            spgTabBarViewController *tabbarVC=(spgTabBarViewController *)self.parentViewController;
+            spgTabBarViewController *tabbarVC=(spgTabBarViewController *)self.parentViewController.parentViewController;
             [tabbarVC setSelectedTabIndex:1];
         }
     }];
@@ -150,13 +144,13 @@
     //[self presentViewController:loginVC animated:YES completion:nil];
     //not use modal view to make sure third-party login work
     /*[self addChildViewController:loginVC];
-    [self.view addSubview:loginVC.view];*/
+     [self.view addSubview:loginVC.view];*/
     
     [self.navigationController pushViewController:loginVC animated:YES];
     
 }
 
- //goto detail page
+//goto detail page
 - (IBAction)ProfileClicked:(id)sender {
     spgMyProfileViewController *profileVC=[[spgMyProfileViewController alloc] init];
     [self.navigationController pushViewController:profileVC animated:YES];
