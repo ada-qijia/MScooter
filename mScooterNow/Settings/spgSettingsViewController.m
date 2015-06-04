@@ -33,6 +33,8 @@
                                                   forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.shadowImage = [UIImage new];
     self.title=@"";
+    
+    self.navigationController.delegate=self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,6 +92,16 @@
     secondItemFrame.origin.y=secondItemFrame.origin.y+secondItemFrame.size.height;
     self.AboutView.frame=isPowerModeChangable?secondItemFrame:self.PowerAlwaysOnView.frame;
     self.ResetButton.hidden=!isPowerModeChangable; //[spgBLEService sharedInstance].peripheral.state==CBPeripheralStateConnected;
+}
+
+#pragma mark - navigation delegate
+
+-(void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
+{
+    if(viewController==self)
+    {
+        [self viewWillAppear:animated];
+    }
 }
 
 #pragma - UI interaction

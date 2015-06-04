@@ -251,17 +251,13 @@
     {
         errorMessage= @"Password must be longer than 4!";
     }
-    
-    if(errorMessage)
-    {
-        self.errorLabel.text=errorMessage;
-        self.errorLabel.hidden=NO;
-        return;
-    }
     else
     {
-        self.errorLabel.hidden=YES;
+        errorMessage=@"uploading...";
     }
+    
+    self.errorLabel.text=errorMessage;
+    self.errorLabel.hidden=NO;
     
     [self register];
 }
@@ -310,8 +306,7 @@
                     [spgMScooterUtilities saveToFile:kUserInfoFilename data:jsonData];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self.navigationController popViewControllerAnimated:NO];
-                        [self.navigationController popViewControllerAnimated:YES];
+                        [self.navigationController popToRootViewControllerAnimated:YES];
                     });
                     return;
                 }

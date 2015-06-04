@@ -346,7 +346,8 @@
     UIButton *settingBtn=(UIButton *)[self.BottomBar viewWithTag:3];
     if(settingBtn.selected)
     {
-        spgSettingsViewController *settingsVC = (spgSettingsViewController *)selectedViewController;
+        UINavigationController *navController=(UINavigationController *)selectedViewController;
+        spgSettingsViewController *settingsVC = navController.childViewControllers[0];
         [settingsVC updateSwitch];
     }
 }

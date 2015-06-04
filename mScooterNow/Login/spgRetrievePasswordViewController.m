@@ -95,7 +95,7 @@
     else
     {
         //发送到服务器
-        NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:phone,@"Phone",self.passwordTextField.text,@"Password",nil];
+        NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:phone,@"Phone",self.passwordTextField.text,@"NewPassword",nil];
         NSError *error;
         NSData *jsonData=[NSJSONSerialization dataWithJSONObject:userInfo options:kNilOptions error:&error];
         if(error==nil)
@@ -117,30 +117,28 @@
                 NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
                 if(httpResponse.statusCode==200 && error==nil)
                 {
-                    NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                    NSLog(@"Data= %@", text);
-                    
-                    if([text integerValue]>0)
+                    NSDictionary *json=[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
+                    NSLog(@"Data= %@", json);
+                    NSInteger errorCode=[[json objectForKey:@"ErrorCode"] integerValue];
+                    if(errorCode==0)
                     {
-                        //使用alert提示
+                        //退回上一页
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [self back];
-                            
                             NSArray *buttons=[NSArray arrayWithObjects:@"OK", nil];
                             spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"reset passcode success. please login with your new passcode." buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
-                                /*if(buttonIndex==0)
-                                 {
-                                 [self dismissViewControllerAnimated:NO completion:nil];
-                                 }*/
+                                [self back];
                             }];
                             [[spgAlertViewManager sharedAlertViewManager] show:alert];
+
                         });
-                        return;
                     }
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-                        self.errorLabel.text=@"reset passcode failed!";
-                        self.errorLabel.hidden=NO;});
+                    else
+                    {
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            self.errorLabel.text=[json objectForKey:@"ErrorMessage"];
+                            self.errorLabel.hidden=NO;
+                        });
+                    }
                 }
                 else
                 {

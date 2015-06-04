@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface spgSettingsViewController : UIViewController
+@interface spgSettingsViewController : UIViewController<UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UISwitch *PowerAlwaysOnSwitch;
 

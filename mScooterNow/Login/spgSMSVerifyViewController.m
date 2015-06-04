@@ -63,6 +63,7 @@
     else
     {
         NSString *zone=kDefaultCountryCode;
+
         //发送验证码
         [SMS_SDK getVerificationCodeBySMSWithPhone:self.PhoneField.text zone:zone result:^(SMS_SDKError *error)
          {
@@ -83,6 +84,8 @@
              }
              [self notifyUser:errorMsg];
          }];
+        
+        errorMsg=@"sending...";
     }
     
     [self notifyUser:errorMsg];

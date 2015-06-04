@@ -59,7 +59,7 @@
     if(error==nil)
     {
         //url request
-        NSString *path=[NSString stringWithFormat:@"%@/ResetPassword",kServerUrlBase];
+        NSString *path=[NSString stringWithFormat:@"%@/ChangePassword",kServerUrlBase];
         NSURL *url=[NSURL URLWithString:path];
         NSMutableURLRequest *urlRequest=[NSMutableURLRequest requestWithURL:url];
         [urlRequest setHTTPMethod:@"POST"];
