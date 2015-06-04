@@ -14,6 +14,7 @@
 #import "spgIntroductionViewController.h"
 #import "spgAlertViewManager.h"
 #import "spgLoginViewController.h"
+#import "spgMyProfileViewController.h"
 
 @interface spgSettingsViewController ()
 
@@ -25,6 +26,14 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"bgGradient.jpg"]];
+    UIImageView *imgView=(UIImageView *) [self.view viewWithTag:100];
+    imgView.layer.borderColor=ThemeColor.CGColor;
+    
+    //set navigation bar transparent
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage new]
+                                                  forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [UIImage new];
+    self.title=@"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,14 +73,10 @@
             nameLabel.text=nickname;
         }
     }
-    else
-    {
-        imgView.image=[UIImage imageNamed:@"me.png"];
-        nameLabel.text=@"Join Us";
-    }
     
+    self.profileView.hidden=!userInfo;
     self.loginButton.hidden=userInfo;
-    self.logoutButton.hidden=!userInfo;
+    //self.logoutButton.hidden=!userInfo;
 }
 
 -(void)updateSwitch
@@ -83,6 +88,7 @@
     BOOL isPowerModeChangable = [scooterCertified boolValue]==YES;
     self.PowerAlwaysOnView.hidden=!isPowerModeChangable;
     self.AboutView.frame=isPowerModeChangable?CGRectMake(0, 240, 320, 55):CGRectMake(0, 185, 320, 55);
+    self.ResetButton.hidden=!isPowerModeChangable; //[spgBLEService sharedInstance].peripheral.state==CBPeripheralStateConnected;
 }
 
 #pragma - UI interaction
@@ -99,7 +105,15 @@
     spgIntroductionViewController *introductionVC=[storyboard instantiateViewControllerWithIdentifier:@"spgIntroductionVCID"];
     introductionVC.isRelay=NO;
     
-    [self presentViewController:introductionVC animated:YES completion:nil];
+    //push from right
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.3;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromRight;
+    [self.view.window.layer addAnimation:transition forKey:nil];
+    
+    [self presentViewController:introductionVC animated:NO completion:nil];
 }
 
 - (IBAction)resetScooterClicked:(UIButton *)sender {
@@ -135,16 +149,17 @@
     spgLoginViewController *loginVC=[[spgLoginViewController alloc] initWithNibName:@"spgLoginViewController" bundle:nil];
     //[self presentViewController:loginVC animated:YES completion:nil];
     //not use modal view to make sure third-party login work
-    [self addChildViewController:loginVC];
-    [self.view addSubview:loginVC.view];
+    /*[self addChildViewController:loginVC];
+    [self.view addSubview:loginVC.view];*/
+    
+    [self.navigationController pushViewController:loginVC animated:YES];
     
 }
 
-- (IBAction)LogoutClicked:(UIButton *)sender {
-    [spgMScooterUtilities setUserID:0];
-    bool success = [spgMScooterUtilities saveToFile:kUserInfoFilename data:[NSData data]];
-    NSLog(@"clear login info %@",success?@"successfully":@"failed");
-    [self updateUserInfo];
+ //goto detail page
+- (IBAction)ProfileClicked:(id)sender {
+    spgMyProfileViewController *profileVC=[[spgMyProfileViewController alloc] init];
+    [self.navigationController pushViewController:profileVC animated:YES];
 }
 
 @end

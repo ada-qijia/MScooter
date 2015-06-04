@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="spgUserRegisterViewController">
             <connections>
                 <outlet property="ChooseCountryButton" destination="BXY-XY-iAL" id="HDz-rr-H5A"/>
-                <outlet property="PhoneField" destination="6SO-Uh-p76" id="GVW-NR-SZA"/>
-                <outlet property="VerifyButton" destination="MqE-h9-LFg" id="0Lv-cf-awN"/>
-                <outlet property="VerifycodeField" destination="b5I-F6-sga" id="fHu-xc-ssO"/>
                 <outlet property="avatarButton" destination="jBn-nq-eX2" id="khd-1c-iaL"/>
+                <outlet property="emailField" destination="eAh-TZ-5d9" id="FYp-MA-uhq"/>
                 <outlet property="errorLabel" destination="pWl-j7-Ygp" id="tMz-Gm-8hx"/>
                 <outlet property="nicknameField" destination="yoW-YY-L08" id="GMs-eF-p70"/>
                 <outlet property="optionalInfoView" destination="H1P-cG-4Fl" id="Z20-gV-nJt"/>
                 <outlet property="passcodeField" destination="cTc-C2-RCl" id="h5v-Z6-2d9"/>
-                <outlet property="requiredInfoView" destination="EFn-c6-kcJ" id="V3W-Xc-3u1"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="viewPasscodeButton" destination="smS-ya-02q" id="i2X-lj-Gxz"/>
             </connections>
@@ -25,6 +22,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <activityIndicatorView hidden="YES" opaque="NO" tag="1000" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" id="0KB-vG-8Gc">
+                    <rect key="frame" x="150" y="40" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
                 <view hidden="YES" contentMode="scaleToFill" id="zYw-nh-pkT">
                     <rect key="frame" x="0.0" y="40" width="320" height="75"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -56,82 +57,29 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome To Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YBK-xu-jyE">
-                    <rect key="frame" x="71" y="40" width="178" height="23"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Register" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="XMg-NS-GTK">
+                    <rect key="frame" x="88" y="15" width="143" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="error" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pWl-j7-Ygp">
-                    <rect key="frame" x="16" y="66" width="288" height="21"/>
+                    <rect key="frame" x="16" y="60" width="288" height="21"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <view contentMode="scaleToFill" id="EFn-c6-kcJ">
-                    <rect key="frame" x="0.0" y="65" width="320" height="270"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Use Your Phone To Register" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AP4-nY-UeU">
-                            <rect key="frame" x="20" y="30" width="180" height="17"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Phone Number" minimumFontSize="17" clearButtonMode="whileEditing" id="6SO-Uh-p76" userLabel="phone" customClass="spgUITextField">
-                            <rect key="frame" x="20" y="60" width="285" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MqE-h9-LFg">
-                            <rect key="frame" x="237" y="62" width="66" height="36"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
-                            <state key="normal" title="Verify">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="getCheckcodeClick:" destination="-1" eventType="touchUpInside" id="SGd-qI-N2y"/>
-                            </connections>
-                        </button>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Verification Code" minimumFontSize="17" id="b5I-F6-sga" userLabel="code" customClass="spgUITextField">
-                            <rect key="frame" x="20" y="110" width="283" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
-                        </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="WOX-Zp-gs8">
-                            <rect key="frame" x="20" y="195" width="283" height="40"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                            <state key="normal" title="Next">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <connections>
-                                <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="Dzk-rS-aMs"/>
-                            </connections>
-                        </button>
-                    </subviews>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </view>
                 <view hidden="YES" contentMode="scaleToFill" id="H1P-cG-4Fl">
-                    <rect key="frame" x="0.0" y="90" width="320" height="325"/>
+                    <rect key="frame" x="0.0" y="80" width="320" height="360"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="jBn-nq-eX2">
                             <rect key="frame" x="117" y="5" width="90" height="90"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <state key="normal" backgroundImage="settingPortrait.png">
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <state key="normal" backgroundImage="profileDefault.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <userDefinedRuntimeAttributes>
@@ -151,7 +99,7 @@
                             <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Name" minimumFontSize="17" id="yoW-YY-L08" userLabel="nickname" customClass="spgUITextField">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="nickname" minimumFontSize="17" id="yoW-YY-L08" userLabel="nickname" customClass="spgUITextField">
                             <rect key="frame" x="20" y="140" width="285" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -159,17 +107,18 @@
                             <textInputTraits key="textInputTraits"/>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="passcode" minimumFontSize="17" id="cTc-C2-RCl" userLabel="password" customClass="spgUITextField">
-                            <rect key="frame" x="20" y="195" width="285" height="40"/>
+                            <rect key="frame" x="20" y="235" width="285" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="smS-ya-02q">
-                            <rect key="frame" x="272" y="200" width="30" height="30"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="smS-ya-02q">
+                            <rect key="frame" x="255" y="238" width="40" height="36"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            <state key="normal" title="V">
+                            <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="8"/>
+                            <state key="normal" image="Eye.png">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -177,8 +126,15 @@
                                 <action selector="showPasscode:" destination="-1" eventType="touchDown" id="g0O-Qv-mCC"/>
                             </connections>
                         </button>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="email" minimumFontSize="17" id="eAh-TZ-5d9" userLabel="Email" customClass="spgUITextField">
+                            <rect key="frame" x="20" y="188" width="285" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                        </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="STW-qh-fPJ">
-                            <rect key="frame" x="20" y="270" width="285" height="40"/>
+                            <rect key="frame" x="20" y="298" width="285" height="40"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="20"/>
@@ -193,38 +149,16 @@
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vgG-Tc-eNl" userLabel="backButton">
-                    <rect key="frame" x="8" y="8" width="32" height="32"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
-                    <state key="normal" image="back.png">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="backClick:" destination="-1" eventType="touchUpInside" id="v3L-c5-LW8"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
             <point key="canvasLocation" x="73" y="152"/>
         </view>
-        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="K1m-NM-AMp">
-            <rect key="frame" x="0.0" y="0.0" width="32" height="32"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-            <inset key="contentEdgeInsets" minX="6" minY="6" maxX="6" maxY="6"/>
-            <state key="normal" image="back.png">
-                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-            </state>
-            <point key="canvasLocation" x="391" y="-46"/>
-        </button>
     </objects>
     <resources>
-        <image name="back.png" width="36" height="49"/>
+        <image name="Eye.png" width="33" height="19"/>
         <image name="bgGradient.jpg" width="320" height="568"/>
-        <image name="settingPortrait.png" width="195" height="195"/>
+        <image name="profileDefault.png" width="95" height="95"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

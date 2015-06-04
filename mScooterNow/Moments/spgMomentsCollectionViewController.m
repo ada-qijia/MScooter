@@ -32,9 +32,6 @@ static NSString * const headerIdentifier=@"Header";
     
     // Register cell classes
     //[self.collectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:reuseIdentifier];
-    
-    //other preparation
-    self.collectionView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"momentsbg@2x.png"]];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,9 +42,12 @@ static NSString * const headerIdentifier=@"Header";
 -(void)viewWillAppear:(BOOL)animated
 {
     NSArray *momentsArray=[spgMomentsPersistence getMoments];
+    NSString *backImg=momentsArray.count==0?@"noMomentBg.png":@"momentsbg.png";
+    self.BackgroundImage.image=[UIImage imageNamed:backImg];
+
     //don't reload when no changes.
     if(presentCount==momentsArray.count)
-        return;
+    {return;}
     
     self.assets=[NSMutableArray array];
     

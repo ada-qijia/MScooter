@@ -16,8 +16,13 @@
 #import "spgUITextField.h"
 #import "spgAlertViewManager.h"
 
-@interface spgRetrievePasswordViewController ()
+#import "spgSMSVerifyViewController.h"
 
+@interface spgRetrievePasswordViewController ()
+{
+    spgSMSVerifyViewController *verifyVC;
+    NSString* phone;
+}
 @end
 
 @implementation spgRetrievePasswordViewController
@@ -25,6 +30,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title=@"";
+    
+    [self AddVerifyView];
     [self setTextFieldsUI];
 }
 
@@ -32,76 +40,31 @@
     [super didReceiveMemoryWarning];
 }
 
-#pragma mark - retrieve password
-
-- (IBAction)fetchCheckcode:(id)sender {
+//close the keyborad
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
     [self.view endEditing:YES];
-    self.errorLabel.hidden=YES;
-    
-    if (![spgMScooterUtilities isValidMobile:self.phoneTextField.text])
-    {
-        //手机号码不正确
-        self.errorLabel.text=@"Please enter valid phone number!";
-        self.errorLabel.hidden=NO;
-        return;
-    }
-    
-    //发送验证码
-    [SMS_SDK getVerificationCodeBySMSWithPhone:self.phoneTextField.text zone:@"86" result:^(SMS_SDKError *error)
-     {
-         if (!error)
-         {
-             self.errorLabel.text=@"Send verify code success!";
-             self.errorLabel.hidden=NO;
-         }
-         else
-         {
-             self.errorLabel.text=@"Verify code send failed, Please retry!";
-             self.errorLabel.hidden=NO;
-         }
-     }];
 }
 
-//验证验证码,如果成功，重置密码
-- (IBAction)nextClicked:(id)sender {
-    //验证，提示格式错误
-    NSString *errorMessage;
-    if(![spgMScooterUtilities isValidMobile:self.phoneTextField.text])
-    {
-        errorMessage= @"Please enter valid phone number!";
-    }
-    else if(self.checkcodeTextField.text.length ==0)
-    {
-        errorMessage= @"Please enter verify code!";
-    }
-    
-    if(errorMessage)
-    {
-        self.errorLabel.text=errorMessage;
-        self.errorLabel.hidden=NO;
-        return;
-    }
-    else
-    {
-        self.errorLabel.hidden=YES;
-    }
+#pragma mark - retrieve password
 
-    //验证验证码
-    [SMS_SDK commitVerifyCode:self.checkcodeTextField.text result:^(enum SMS_ResponseState state) {
-        if (1==state)
-        {
-            //显示重置密码
-            [self showResetView];
-            self.errorLabel.hidden=YES;
-        }
-        else if(0==state)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.errorLabel.text=@"verify code wrong!";
-                self.errorLabel.hidden=NO;
-            });
-        }
-    }];
+-(void)AddVerifyView
+{
+    __weak typeof(self) weakSelf = self;
+    verifyVC=[[spgSMSVerifyViewController alloc] initWithSubtitle:nil];
+    verifyVC.dismissBlock=^(NSString *phoneNumber){
+        phone = phoneNumber;
+        [weakSelf showResetView];
+    };
+    verifyVC.notifyBlock=^(NSString *message){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.errorLabel.text=message;
+            weakSelf.errorLabel.hidden=!(message.length>0);
+        });
+    };
+    
+    verifyVC.view.frame=CGRectMake(0, 30, 320, 270);
+    [self.retrieveView addSubview:verifyVC.view];
 }
 
 #pragma mark - reset password
@@ -132,7 +95,7 @@
     else
     {
         //发送到服务器
-        NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:self.phoneTextField.text,@"Phone",self.passwordTextField.text,@"Password",nil];
+        NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:phone,@"Phone",self.passwordTextField.text,@"Password",nil];
         NSError *error;
         NSData *jsonData=[NSJSONSerialization dataWithJSONObject:userInfo options:kNilOptions error:&error];
         if(error==nil)
@@ -145,9 +108,12 @@
             [urlRequest setHTTPBody:jsonData];
             [urlRequest addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
             
+            [self setActivityIndicatorVisibility:YES];
             NSURLSession *sharedSession=[NSURLSession sharedSession];
             NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                if(error==nil)
+                [self setActivityIndicatorVisibility:NO];
+                NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
+                if(httpResponse.statusCode==200 && error==nil)
                 {
                     NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     NSLog(@"Data= %@", text);
@@ -156,7 +122,7 @@
                     {
                         //使用alert提示
                         dispatch_async(dispatch_get_main_queue(), ^{
-                            [self dismissViewControllerAnimated:YES completion:nil];
+                            [self back];
                             
                             NSArray *buttons=[NSArray arrayWithObjects:@"OK", nil];
                             spgAlertView *alert=[[spgAlertView alloc] initWithTitle:nil message:@"reset passcode success. please login with your new passcode." buttons:buttons afterDismiss:^(NSString* passcode, int buttonIndex) {
@@ -169,11 +135,17 @@
                         });
                         return;
                     }
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.errorLabel.text=@"reset passcode failed!";
+                        self.errorLabel.hidden=NO;});
                 }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.errorLabel.text=@"reset passcode failed!";
-                    self.errorLabel.hidden=NO;});
+                else
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.errorLabel.text=@"reset passcode failed!";
+                        self.errorLabel.hidden=NO;});
+                }
             }];
             
             [dataTask resume];
@@ -181,35 +153,36 @@
         else
         {
             NSLog(@"Parse param to json error: %@",error.description);
-            [self dismissViewControllerAnimated:YES completion:nil];
+            [self back];
         }
     }
 }
 
-#pragma mark - alert delegate
+- (IBAction)confirmPasscodeChanged:(id)sender
+{
+    [self updateFinishState];
+}
 
+- (IBAction)passcodeChanged:(id)sender
+{
+    [self updateFinishState];
+}
 
 
 #pragma mark - common interaction
 
-- (IBAction)backClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 //设置控件样式
 -(void)setTextFieldsUI
 {
-    spgUITextField *phoneTF=(spgUITextField *)self.phoneTextField;
-    [phoneTF setLeftImageView:@"mobileIcon.png"];
-    [phoneTF setRightButtonView:self.verifyButton];
-    
-    [(spgUITextField *)self.checkcodeTextField setLeftImageView:@"verificationcodeIcon.png"];
-    
     [(spgUITextField *)self.passwordTextField setLeftImageView:@"passcodeIcon.png"];
     [(spgUITextField *)self.confirmPasswordTextField setLeftImageView:@"passcodeIcon.png"];
     
-    self.finishButton.layer.cornerRadius=5;
-    self.finishButton.layer.masksToBounds=YES;
+    [self updateFinishState];
 }
 
 -(void)showResetView
@@ -225,5 +198,32 @@
     
     self.retrieveView.hidden=YES;
     self.resetView.hidden=NO;
+}
+
+//设置按钮样式
+-(void)setGrayButtonState:(UIButton *)button enabled:(BOOL)enabled
+{
+    button.enabled = enabled;
+    button.backgroundColor = enabled? ThemeColor:[UIColor grayColor];
+}
+
+//设置完成按钮状态
+-(void)updateFinishState
+{
+    BOOL btnEnabled=self.passwordTextField.text.length>0 && self.confirmPasswordTextField.text.length>0;
+    [self setGrayButtonState:self.finishButton enabled:btnEnabled];
+}
+
+-(void)setActivityIndicatorVisibility:(BOOL) visible
+{
+    UIActivityIndicatorView *activityIndicator=(UIActivityIndicatorView *)[self.view viewWithTag:1000];
+    if(visible)
+    {
+        [activityIndicator startAnimating];
+    }
+    else
+    {
+        [activityIndicator stopAnimating];
+    }
 }
 @end

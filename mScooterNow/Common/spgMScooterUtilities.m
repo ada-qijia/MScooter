@@ -207,15 +207,15 @@
     return jsonData;
 }
 
-static int _userID=3;
 +(void)setUserID:(int)userID
 {
-    _userID=userID;
+    [spgMScooterUtilities savePreferenceWithKey:kUserIDKey value:[NSNumber numberWithInt:userID]];
 }
 
 +(int)UserID
 {
-    return _userID;
+    NSString *userID=[spgMScooterUtilities getPreferenceWithKey:kUserIDKey];
+    return [userID intValue];
 }
 
 +(NSMutableDictionary *)getScooterUsage:(Byte)usagetype
@@ -227,8 +227,9 @@ static int _userID=3;
     }
     NSString *uniqueIdentifier= [UIDevice currentDevice].identifierForVendor.UUIDString;
     
+    int userID=[spgMScooterUtilities UserID];
     NSMutableDictionary *scooterUsage=[NSMutableDictionary dictionaryWithObjectsAndKeys:
-                                [NSNumber numberWithInteger:_userID],@"UserID",
+                                [NSNumber numberWithInteger:userID],@"UserID",
                                 scooterName,@"ScooterID",
                                 uniqueIdentifier,@"PhoneID",
                                 [NSNumber numberWithInt:usagetype],@"UsageType",

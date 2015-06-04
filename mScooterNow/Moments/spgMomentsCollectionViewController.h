@@ -14,4 +14,6 @@
 
 @interface spgMomentsCollectionViewController : UICollectionViewController
 
+@property (weak, nonatomic) IBOutlet UIImageView *BackgroundImage;
+
 @end

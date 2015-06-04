@@ -47,7 +47,7 @@ static NSString * const kMyScenarioModeKey=@"myScenarioMode";
 static NSString * const kLastPowerStateKey=@"lastPowerState";
 static NSString * const kLastLocationKey=@"lastLocation";
 
-static NSString * const kUserKey=@"user";
+static NSString * const kUserIDKey=@"user";
 
 #define kScenarioModeCampus @"campus"
 #define kScenarioModePersonal @"personal"
@@ -131,4 +131,8 @@ typedef enum:Byte
 #define kServerUrlBase @"http://neezza.azurewebsites.net"
 
 #define kUserInfoFilename @"UserInfo.txt"
+
+#define kDefaultCountryCode @"86";
+#define kDefaultCountryName @"China";
+
 #endif

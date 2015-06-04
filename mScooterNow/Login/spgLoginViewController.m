@@ -16,6 +16,8 @@
 
 #import "spgRetrievePasswordViewController.h"
 
+#import "spgUITextField.h"
+
 @interface spgLoginViewController ()
 
 @end
@@ -26,6 +28,9 @@
     [super viewDidLoad];
     
     [self.view setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"bgGradient.jpg"]]];
+    self.title=@"";
+    
+    [self initializeUI];
     
     [spgThirdpartyLoginManager sharedInstance].weiboDelegate=self;
     [spgThirdpartyLoginManager sharedInstance].wechatDelegate=self;
@@ -40,6 +45,12 @@
     return UIInterfaceOrientationMaskPortrait;
 }
 
+//close the keyborad
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
+
 #pragma mark - textFeild delegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -50,6 +61,15 @@
 }
 
 #pragma mark - UI interaction
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+    /* [self.parentViewController viewWillAppear:NO];
+     [self.view removeFromSuperview];
+     [self removeFromParentViewController];
+     */
+}
 
 - (IBAction)loginClicked:(UIButton *)sender {
     NSString *mobile=self.phoneTextField.text;
@@ -82,9 +102,12 @@
             [urlRequest setHTTPBody:jsonData];
             [urlRequest addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
             
+            [self setActivityIndicatorVisibility:YES];
             NSURLSession *sharedSession=[NSURLSession sharedSession];
             NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-                if(error==nil)
+                [self setActivityIndicatorVisibility:NO];
+                NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
+                if(httpResponse.statusCode==200)
                 {
                     NSDictionary *json=[NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:&error];
                     NSInteger userID=[[json objectForKey:@"ID"] integerValue];
@@ -95,16 +118,28 @@
                         //save to file
                         BOOL success = [spgMScooterUtilities saveToFile:kUserInfoFilename data:data];
                         NSLog(success?@"yes":@"no");
+                        
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [self back];
+                        });
                     }
                     NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
                     NSLog(@"Data= %@", text);
                 }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.parentViewController viewWillAppear:NO];
-                    [self.view removeFromSuperview];
-                    [self removeFromParentViewController];
-                });
+                else if(httpResponse.statusCode==404)
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.errorLabel.text=@"phone number or passcode error.";
+                        self.errorLabel.hidden=NO;
+                    });
+                }
+                else
+                {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.errorLabel.text=@"login failde, please try again.";
+                        self.errorLabel.hidden=NO;
+                    });
+                }
             }];
             
             [dataTask resume];
@@ -112,21 +147,15 @@
         else
         {
             NSLog(@"Parse param to json error: %@",error.description);
-            [self.view removeFromSuperview];
-            [self removeFromParentViewController];
+            [self back];
         }
     }
-}
-
-- (IBAction)backClicked:(UIButton *)sender {
-    [self.view removeFromSuperview];
-    [self removeFromParentViewController];
 }
 
 //忘记密码, 导向找回密码页
 - (IBAction)forgetPasscodeClick:(id)sender {
     spgRetrievePasswordViewController *retrieveVC=[[spgRetrievePasswordViewController alloc] initWithNibName:@"spgRetrievePasswordViewController" bundle:nil];
-    [self presentViewController:retrieveVC animated:YES completion:nil];
+    [self.navigationController pushViewController:retrieveVC animated:YES];
 }
 
 - (IBAction)weiboLogin:(UIButton *)sender {
@@ -148,7 +177,31 @@
 - (IBAction)registerClick:(UIButton *)sender {
     spgUserRegisterViewController *registerVC=[[spgUserRegisterViewController alloc] init];
     registerVC.LoginVC=self;
-    [self presentViewController:registerVC animated:YES completion:nil];
+    [self.navigationController pushViewController:registerVC animated:YES];
+}
+
+#pragma - mark login button state
+
+- (IBAction)phoneChanged:(id)sender {
+    [self updateLoginState];
+}
+
+- (IBAction)passcodeChanged:(id)sender {
+    [self updateLoginState];
+}
+
+//设置按钮样式
+-(void)setGrayButtonState:(UIButton *)button enabled:(BOOL)enabled
+{
+    button.enabled = enabled;
+    button.backgroundColor = enabled? ThemeColor:[UIColor grayColor];
+}
+
+//设置下一步按钮状态
+-(void)updateLoginState
+{
+    BOOL loginEnabled=self.phoneTextField.text.length>0 && self.passcodeTextField.text.length>0;
+    [self setGrayButtonState:self.loginButton enabled:loginEnabled];
 }
 
 #pragma - mark WeiboLoginDelegate
@@ -172,9 +225,7 @@
         NSLog(@"weiboGetUserProfile error: %@.", error.description);
         //退回设置页
         dispatch_async(dispatch_get_main_queue(), ^{
-            [self.parentViewController viewWillAppear:NO];
-            [self.view removeFromSuperview];
-            [self removeFromParentViewController];
+            [self back];
         });
     }
     else
@@ -209,26 +260,31 @@
         [urlRequest setHTTPBody:jsonData];
         [urlRequest addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
         
+        [self setActivityIndicatorVisibility:YES];
         NSURLSession *sharedSession=[NSURLSession sharedSession];
         NSURLSessionDataTask *dataTask=[sharedSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if(error==nil)
+            [self setActivityIndicatorVisibility:NO];
+            NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
+            if(httpResponse.statusCode==200)
             {
-                NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"Data= %@", text);
-                
-                if([text integerValue]>0)
+                if(error==nil)
                 {
-                    [spgMScooterUtilities setUserID:(int)[text integerValue]];
+                    NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                    NSLog(@"Data= %@", text);
                     
-                    //save to file
-                    [spgMScooterUtilities saveToFile:kUserInfoFilename data:jsonData];
+                    if([text integerValue]>0)
+                    {
+                        [spgMScooterUtilities setUserID:(int)[text integerValue]];
+                        
+                        //save to file
+                        [spgMScooterUtilities saveToFile:kUserInfoFilename data:jsonData];
+                    }
                 }
             }
+            
             //退回设置页
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.parentViewController viewWillAppear:NO];
-                [self.view removeFromSuperview];
-                [self removeFromParentViewController];
+                [self back];
             });
         }];
         [dataTask resume];
@@ -250,4 +306,30 @@
         [self registerThirdPartyUser:3 openID:openID nickname:nil avatar:nil];
     }
 }
+
+#pragma - mark custom methods
+
+//设置控件样式
+-(void)initializeUI
+{
+    spgUITextField *phoneTF=(spgUITextField *)self.phoneTextField;
+    [phoneTF setLeftImageView:@"mobileIcon.png"];
+    
+    [(spgUITextField *)self.passcodeTextField setLeftImageView:@"passcodeIcon.png"];
+    [self updateLoginState];
+}
+
+-(void)setActivityIndicatorVisibility:(BOOL) visible
+{
+    UIActivityIndicatorView *activityIndicator=(UIActivityIndicatorView *)[self.view viewWithTag:1000];
+    if(visible)
+    {
+        [activityIndicator startAnimating];
+    }
+    else
+    {
+        [activityIndicator stopAnimating];
+    }
+}
+
 @end

@@ -40,7 +40,8 @@
     
     spgMomentsCollectionViewController* firstChildVC=[self.storyboard instantiateViewControllerWithIdentifier:@"spgMomentsVCID"];
     spgDashboardViewController* secondChildVC = [self.storyboard instantiateViewControllerWithIdentifier:@"spgDashboardVCID"];
-    spgSettingsViewController* thirdChildVC=[self.storyboard instantiateViewControllerWithIdentifier:@"spgSettingsVCID"];
+    //spgSettingsViewController* thirdChildVC=[self.storyboard instantiateViewControllerWithIdentifier:@"spgSettingsVCID"];
+    UINavigationController *thirdChildVC=[self.storyboard instantiateViewControllerWithIdentifier:@"spgSettingsNavID"];
     tabViewControllers=[NSArray arrayWithObjects:firstChildVC,secondChildVC,thirdChildVC,nil];
     
     [self setSelectedTabIndex:1];

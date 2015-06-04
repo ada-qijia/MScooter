@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
         <!--Spg Introduction View Controller-->
@@ -34,16 +34,16 @@
             </objects>
             <point key="canvasLocation" x="-694" y="56"/>
         </scene>
-        <!--Spg Settings View Controller-->
+        <!-- -->
         <scene sceneID="yY2-qk-6rZ">
             <objects>
-                <viewController storyboardIdentifier="spgSettingsVCID" id="Xoj-0t-sl9" customClass="spgSettingsViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="spgSettingsVCID" title=" " id="Xoj-0t-sl9" customClass="spgSettingsViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Qso-e0-bWp">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="519"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="lez-ZJ-9Sl">
-                                <rect key="frame" x="0.0" y="185" width="320" height="55"/>
+                                <rect key="frame" x="0.0" y="206" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="kkf-tp-yll">
@@ -73,7 +73,7 @@
                                 </subviews>
                             </view>
                             <view contentMode="scaleToFill" id="l5C-G9-XqB">
-                                <rect key="frame" x="0.0" y="240" width="320" height="55"/>
+                                <rect key="frame" x="0.0" y="261" width="320" height="55"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="xQh-cJ-WuR">
@@ -115,12 +115,61 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" id="aDv-Ho-bgq">
+                                <rect key="frame" x="80" y="38" width="160" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BE27FE15-EA0A-4E35-AFD0-2BC056801DFA" id="TCX-kl-VTp">
+                                        <rect key="frame" x="33" y="10" width="92" height="92"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="46"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.borderWidth">
+                                                <integer key="value" value="2"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Sa3-Ke-KIr" userLabel="nickname">
+                                        <rect key="frame" x="18" y="100" width="124" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3F9-Yv-leN">
+                                        <rect key="frame" x="10" y="10" width="144" height="127"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ProfileClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="XzN-IH-zI7"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KUc-Uf-UaK">
+                                <rect key="frame" x="93" y="51" width="135" height="114"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <state key="normal" backgroundImage="JoinUs.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="LoginClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="dz3-8b-cdU"/>
+                                </connections>
+                            </button>
                             <button contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="TMJ-GM-LcY">
-                                <rect key="frame" x="0.0" y="319" width="320" height="50"/>
+                                <rect key="frame" x="0.0" y="316" width="320" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="RESET">
+                                <state key="normal" title="RESET SCOOTER">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="1" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </state>
@@ -128,76 +177,47 @@
                                     <action selector="resetScooterClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="VDE-i7-7dl"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BUY-Ut-iyI">
-                                <rect key="frame" x="0.0" y="383" width="320" height="50"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.054901960784313725" green="0.71372549019607845" blue="0.65490196078431373" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="LOG OUT">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" red="1" green="0.0" blue="0.0" alpha="0.0" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="LogoutClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="U7S-bK-wgl"/>
-                                </connections>
-                            </button>
-                            <view contentMode="scaleToFill" id="kJS-39-gxN">
-                                <rect key="frame" x="110" y="23" width="100" height="100"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="50"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <imageView userInteractionEnabled="NO" tag="100" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="me.png" id="TCX-kl-VTp">
-                                <rect key="frame" x="114" y="27" width="92" height="92"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="46"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" tag="200" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Join Us" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Sa3-Ke-KIr">
-                                <rect key="frame" x="97" y="124" width="124" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KUc-Uf-UaK">
-                                <rect key="frame" x="94" y="23" width="130" height="130"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <state key="normal">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="LoginClicked:" destination="Xoj-0t-sl9" eventType="touchUpInside" id="dz3-8b-cdU"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.51000000000000001" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="" image="me.png" id="Yti-bY-Q77">
-                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
-                    </tabBarItem>
+                    <navigationItem key="navigationItem" id="hez-yA-egn"/>
                     <nil key="simulatedStatusBarMetrics"/>
                     <connections>
                         <outlet property="AboutView" destination="l5C-G9-XqB" id="Opy-8X-XFV"/>
                         <outlet property="PowerAlwaysOnSwitch" destination="TUX-mR-pLK" id="Asg-0q-X4I"/>
                         <outlet property="PowerAlwaysOnView" destination="lez-ZJ-9Sl" id="Xhx-gV-rLE"/>
+                        <outlet property="ResetButton" destination="TMJ-GM-LcY" id="K2x-OB-aBE"/>
                         <outlet property="loginButton" destination="KUc-Uf-UaK" id="UCl-j3-N3R"/>
-                        <outlet property="logoutButton" destination="BUY-Ut-iyI" id="6sC-7V-qC9"/>
+                        <outlet property="profileView" destination="aDv-Ho-bgq" id="hHs-rG-SZP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0tX-Ns-lAR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="206" y="588"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="ehd-cg-I3n">
+            <objects>
+                <navigationController storyboardIdentifier="spgSettingsNavID" id="7tt-pT-Yz5" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="me.png" id="Yti-bY-Q77">
+                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yKj-3W-Jzx">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Xoj-0t-sl9" kind="relationship" relationship="rootViewController" id="ahU-nB-hMK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PiB-M3-YN3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-224" y="588"/>
         </scene>
         <!--Spg Tab Bar View Controller-->
         <scene sceneID="1Ph-Mz-JgS">
@@ -453,6 +473,7 @@
                     <tabBarItem key="tabBarItem" title="AR" image="capture.png" id="J0U-A3-rgj">
                         <inset key="imageInsets" minX="5" minY="3" maxX="5" maxY="3"/>
                     </tabBarItem>
+                    <navigationItem key="navigationItem" id="ipx-Dk-SEw"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="ARContainerView" destination="ze2-Yo-kSN" id="IoL-as-MKv"/>
@@ -493,6 +514,10 @@
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
                             <inset key="sectionInset" minX="5" minY="5" maxX="5" maxY="5"/>
                         </collectionViewFlowLayout>
+                        <imageView key="backgroundView" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="momentsbg.png" id="wno-Ge-jhe">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <cells>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="Cell" reuseIdentifier="Cell" id="zgH-fH-apM">
                                 <rect key="frame" x="5" y="45" width="70" height="70"/>
@@ -549,6 +574,9 @@
                     <tabBarItem key="tabBarItem" title="" image="moments.png" id="cBd-Vn-obu">
                         <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="-6"/>
                     </tabBarItem>
+                    <connections>
+                        <outlet property="BackgroundImage" destination="wno-Ge-jhe" id="WoN-4q-WyV"/>
+                    </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W0E-EA-k1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -957,32 +985,6 @@
             </objects>
             <point key="canvasLocation" x="1665" y="519"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="JfX-GP-hQP">
-            <objects>
-                <viewController id="MHU-cJ-w8T" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="o0U-Xh-zIg">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KgI-mQ-JkV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="eCb-hV-XJF">
-            <objects>
-                <viewController id="De1-Gd-zfM" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="FHM-8Q-RcS">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="h9h-Ld-h5q" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="01.png" width="50" height="50"/>
@@ -990,6 +992,106 @@
         <image name="03.png" width="50" height="50"/>
         <image name="04.png" width="50" height="50"/>
         <image name="ARMode.png" width="78" height="78"/>
+        <image name="BE27FE15-EA0A-4E35-AFD0-2BC056801DFA" width="27" height="27">
+            <mutableData key="keyedArchiveRepresentation">
+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
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHh4eHl5eXl6ZmZmZt7e3
+t7y8vLyzs7Ozrq6urrS0tLS9vb29tbW1tZSUlJRXV1dXFxcXFwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJCQkJLi4uLkhISEhTU1NTVVVV
+VVJSUlJGRkZGKioqKgUFBQUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgEAAAMAAAABABsAAAEBAAMAAAABABsAAAECAAMA
+AAAEAAAMGgEDAAMAAAABAAEAAAEGAAMAAAABAAIAAAERAAQAAAABAAAACAESAAMAAAABAAEAAAEVAAMA
+AAABAAQAAAEWAAMAAAABABsAAAEXAAQAAAABAAALZAEcAAMAAAABAAEAAAFSAAMAAAABAAEAAAFTAAMA
+AAAEAAAMIodzAAcAAAeoAAAMKgAAAAAACAAIAAgACAABAAEAAQABAAAHqGFwcGwCIAAAbW50clJHQiBY
+WVogB9kAAgAZAAsAGgALYWNzcEFQUEwAAAAAYXBwbAAAAAAAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1h
+cHBsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALZGVzYwAAAQgA
+AABvZHNjbQAAAXgAAAVsY3BydAAABuQAAAA4d3RwdAAABxwAAAAUclhZWgAABzAAAAAUZ1hZWgAAB0QA
+AAAUYlhZWgAAB1gAAAAUclRSQwAAB2wAAAAOY2hhZAAAB3wAAAAsYlRSQwAAB2wAAAAOZ1RSQwAAB2wA
+AAAOZGVzYwAAAAAAAAAUR2VuZXJpYyBSR0IgUHJvZmlsZQAAAAAAAAAAAAAAFEdlbmVyaWMgUkdCIFBy
+b2ZpbGUAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAG1sdWMA
+AAAAAAAAHgAAAAxza1NLAAAAKAAAAXhockhSAAAAKAAAAaBjYUVTAAAAJAAAAchwdEJSAAAAJgAAAex1
+a1VBAAAAKgAAAhJmckZVAAAAKAAAAjx6aFRXAAAAFgAAAmRpdElUAAAAKAAAAnpuYk5PAAAAJgAAAqJr
+b0tSAAAAFgAAAshjc0NaAAAAIgAAAt5oZUlMAAAAHgAAAwBkZURFAAAALAAAAx5odUhVAAAAKAAAA0pz
+dlNFAAAAJgAAAqJ6aENOAAAAFgAAA3JqYUpQAAAAGgAAA4hyb1JPAAAAJAAAA6JlbEdSAAAAIgAAA8Zw
+dFBPAAAAJgAAA+hubE5MAAAAKAAABA5lc0VTAAAAJgAAA+h0aFRIAAAAJAAABDZ0clRSAAAAIgAABFpm
+aUZJAAAAKAAABHxwbFBMAAAALAAABKRydVJVAAAAIgAABNBhckVHAAAAJgAABPJlblVTAAAAJgAABRhk
+YURLAAAALgAABT4AVgFhAGUAbwBiAGUAYwBuAP0AIABSAEcAQgAgAHAAcgBvAGYAaQBsAEcAZQBuAGUA
+cgBpAQ0AawBpACAAUgBHAEIAIABwAHIAbwBmAGkAbABQAGUAcgBmAGkAbAAgAFIARwBCACAAZwBlAG4A
+6AByAGkAYwBQAGUAcgBmAGkAbAAgAFIARwBCACAARwBlAG4A6QByAGkAYwBvBBcEMAQzBDAEOwRMBD0E
+OAQ5ACAEPwRABD4ERAQwBDkEOwAgAFIARwBCAFAAcgBvAGYAaQBsACAAZwDpAG4A6QByAGkAcQB1AGUA
+IABSAFYAQpAadSgAIABSAEcAQgAggnJfaWPPj/AAUAByAG8AZgBpAGwAbwAgAFIARwBCACAAZwBlAG4A
+ZQByAGkAYwBvAEcAZQBuAGUAcgBpAHMAawAgAFIARwBCAC0AcAByAG8AZgBpAGzHfLwYACAAUgBHAEIA
+INUEuFzTDMd8AE8AYgBlAGMAbgD9ACAAUgBHAEIAIABwAHIAbwBmAGkAbAXkBegF1QXkBdkF3AAgAFIA
+RwBCACAF2wXcBdwF2QBBAGwAbABnAGUAbQBlAGkAbgBlAHMAIABSAEcAQgAtAFAAcgBvAGYAaQBsAMEA
+bAB0AGEAbADhAG4AbwBzACAAUgBHAEIAIABwAHIAbwBmAGkAbGZukBoAIABSAEcAQgAgY8+P8GWHTvZO
+AIIsACAAUgBHAEIAIDDXMO0w1TChMKQw6wBQAHIAbwBmAGkAbAAgAFIARwBCACAAZwBlAG4AZQByAGkA
+YwOTA7UDvQO5A7oDzAAgA8ADwQO/A8YDrwO7ACAAUgBHAEIAUABlAHIAZgBpAGwAIABSAEcAQgAgAGcA
+ZQBuAOkAcgBpAGMAbwBBAGwAZwBlAG0AZQBlAG4AIABSAEcAQgAtAHAAcgBvAGYAaQBlAGwOQg4bDiMO
+RA4fDiUOTAAgAFIARwBCACAOFw4xDkgOJw5EDhsARwBlAG4AZQBsACAAUgBHAEIAIABQAHIAbwBmAGkA
+bABpAFkAbABlAGkAbgBlAG4AIABSAEcAQgAtAHAAcgBvAGYAaQBpAGwAaQBVAG4AaQB3AGUAcgBzAGEA
+bABuAHkAIABwAHIAbwBmAGkAbAAgAFIARwBCBB4EMQRJBDgEOQAgBD8EQAQ+BEQEOAQ7BEwAIABSAEcA
+QgZFBkQGQQAgBioGOQYxBkoGQQAgAFIARwBCACAGJwZEBjkGJwZFAEcAZQBuAGUAcgBpAGMAIABSAEcA
+QgAgAFAAcgBvAGYAaQBsAGUARwBlAG4AZQByAGUAbAAgAFIARwBCAC0AYgBlAHMAawByAGkAdgBlAGwA
+cwBldGV4dAAAAABDb3B5cmlnaHQgMjAwNyBBcHBsZSBJbmMuLCBhbGwgcmlnaHRzIHJlc2VydmVkLgBY
+WVogAAAAAAAA81IAAQAAAAEWz1hZWiAAAAAAAAB0TQAAPe4AAAPQWFlaIAAAAAAAAFp1AACscwAAFzRY
+WVogAAAAAAAAKBoAABWfAAC4NmN1cnYAAAAAAAAAAQHNAABzZjMyAAAAAAABDEIAAAXe///zJgAAB5IA
+AP2R///7ov///aMAAAPcAADAbNIlJicoWiRjbGFzc25hbWVYJGNsYXNzZXNfEBBOU0JpdG1hcEltYWdl
+UmVwoykqK18QEE5TQml0bWFwSW1hZ2VSZXBaTlNJbWFnZVJlcFhOU09iamVjdNIlJi0uV05TQXJyYXmi
+LSvSJSYwMV5OU011dGFibGVBcnJheaMwLSvTMzQKNTY3V05TV2hpdGVcTlNDb2xvclNwYWNlRDAgMAAQ
+A4AM0iUmOTpXTlNDb2xvcqI5K9IlJjw9V05TSW1hZ2WiPCtfEA9OU0tleWVkQXJjaGl2ZXLRQEFUcm9v
+dIABAAgAEQAaACMALQAyADcARgBMAFcAXgBlAHIAeQCBAIMAhQCKAIwAjgCXAJwApwCpAKsArQCyALUA
+twC5ALsAvQDCANkA2wDdFLMUuBTDFMwU3xTjFPYVARUKFQ8VFxUaFR8VLhUyFTkVQRVOFVMVVRVXFVwV
+ZBVnFWwVdBV3FYkVjBWRAAAAAAAAAgEAAAAAAAAAQgAAAAAAAAAAAAAAAAAAFZM
+</mutableData>
+        </image>
+        <image name="JoinUs.png" width="270" height="230"/>
         <image name="back.png" width="36" height="49"/>
         <image name="batteryBg.png" width="557" height="256"/>
         <image name="batteryCircle.png" width="203" height="203"/>
@@ -1003,6 +1105,7 @@
         <image name="meSelected.png" width="27" height="27"/>
         <image name="moments.png" width="27" height="27"/>
         <image name="momentsSelected.png" width="27" height="27"/>
+        <image name="momentsbg.png" width="320" height="568"/>
         <image name="noSignal.png" width="25" height="25"/>
         <image name="play.png" width="256" height="256"/>
         <image name="powerOff.png" width="107" height="107"/>

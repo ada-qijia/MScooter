@@ -13,6 +13,9 @@
 #import <SMS_SDK/CountryAndAreaCode.h>
 
 #import "spgUITextField.h"
+#import "spgSMSVerifyViewController.h"
+
+#import "spgTabBarViewController.h"
 
 @interface spgUserRegisterViewController ()
 {
@@ -22,6 +25,9 @@
     NSString* _defaultCode;
     NSString* _defaultCountryName;
     NSURLSession *ephemeralSession;
+    
+    NSString* phone;
+    spgSMSVerifyViewController *verifyVC;
 }
 
 @end
@@ -30,7 +36,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.title=@"";
     self.ChooseCountryButton.contentHorizontalAlignment=UIControlContentHorizontalAlignmentLeft;
+    
+    [self AddVerifyView];
     //设置UI
     [self setTextFieldsUI];
     
@@ -167,113 +177,29 @@
     [self presentViewController:countryVC animated:YES completion:nil];
 }
 
-- (IBAction)backClick:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)back{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - register step 1
 
-- (IBAction)getCheckcodeClick:(id)sender {
-    [self.view endEditing:YES];
-    self.errorLabel.hidden=YES;
-    NSString *currentCode=_currentAreaCode;
+-(void)AddVerifyView
+{
+    __weak typeof(self) weakSelf = self;
+    verifyVC=[[spgSMSVerifyViewController alloc] initWithSubtitle:@"Use Your Phone To Register"];
+    verifyVC.dismissBlock=^(NSString *phoneNumber){
+        phone = phoneNumber;
+        [weakSelf showOptionalView];
+    };
+    verifyVC.notifyBlock=^(NSString *message){
+        dispatch_async(dispatch_get_main_queue(), ^{
+            weakSelf.errorLabel.text=message;
+            weakSelf.errorLabel.hidden=!(message.length>0);
+        });
+    };
     
-    /*
-     int mobileFormatError = 0;
-     
-     for (int i=0; i<_areaArray.count; i++)
-     {
-     NSDictionary* dict1=[_areaArray objectAtIndex:i];
-     NSString* code1=[dict1 valueForKey:@"zone"];
-     if ([code1 isEqualToString:currentCode])
-     {
-     mobileFormatError=1;
-     NSString* rule1=[dict1 valueForKey:@"rule"];
-     NSPredicate* pred=[NSPredicate predicateWithFormat:@"SELF MATCHES %@",rule1];
-     BOOL isMatch=[pred evaluateWithObject:self.PhoneField.text];
-     if (!isMatch)
-     {
-     //手机号码不正确
-     self.errorLabel.text=@"Phone number error!";
-     self.errorLabel.hidden=NO;
-     return;
-     }
-     break;
-     }
-     }
-     
-     if (!mobileFormatError)
-     */
-    {
-        if (![spgMScooterUtilities isValidMobile:self.PhoneField.text])
-        {
-            //手机号码不正确
-            self.errorLabel.text=@"Please enter valid phone number!";
-            self.errorLabel.hidden=NO;
-            return;
-        }
-    }
-    
-    //发送验证码
-    [SMS_SDK getVerificationCodeBySMSWithPhone:self.PhoneField.text zone:currentCode result:^(SMS_SDKError *error)
-     {
-         if (!error)
-         {
-             self.errorLabel.text=@"Send verify code success!";
-             self.errorLabel.hidden=NO;
-         }
-         else
-         {
-             self.errorLabel.text=@"Verify code send failed, Please retry!";
-             self.errorLabel.hidden=NO;
-         }
-     }];
-}
-
-//显示下一步
-- (IBAction)nextClicked:(id)sender {
-    //test
-    [self showOptionalView];
-    return;
-    
-    NSString *errorMessage;
-    
-    //验证，提示格式错误
-    if(![spgMScooterUtilities isValidMobile:self.PhoneField.text])
-    {
-        errorMessage= @"Please enter valid phone number!";
-    }
-    else if(self.VerifycodeField.text.length ==0)
-    {
-        errorMessage= @"Please enter verify code!";
-    }
-    
-    if(errorMessage)
-    {
-        self.errorLabel.text=errorMessage;
-        self.errorLabel.hidden=NO;
-        return;
-    }
-    else
-    {
-        self.errorLabel.hidden=YES;
-    }
-    
-    //验证验证码
-    [SMS_SDK commitVerifyCode:self.VerifycodeField.text result:^(enum SMS_ResponseState state) {
-        if (1==state)
-        {
-            [self showOptionalView];
-             self.errorLabel.hidden=YES;
-        }
-        else if(0==state)
-        {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.errorLabel.text=@"verify code wrong!";
-                self.errorLabel.hidden=NO;
-            });
-        }
-    }];
+    verifyVC.view.frame=CGRectMake(0, 65, 320, 270);
+    [self.view addSubview:verifyVC.view];
 }
 
 #pragma mark - register step 2
@@ -347,11 +273,11 @@
     
     NSString *avatar=[self getDataArrayFromImage:self.avatarButton.currentImage];
     NSDictionary *userInfo=[NSDictionary dictionaryWithObjectsAndKeys:[NSArray array],@"ScooterUsage",
-                            //self.emailField.text,@"Email",
+                            self.emailField.text,@"Email",
                             self.nicknameField.text,@"Nickname",
                             self.passcodeField.text,@"Password",
                             //self.ChooseCountryButton.titleLabel.text,@"Country",
-                            self.PhoneField.text,@"PhoneNumber",
+                            phone,@"PhoneNumber",
                             avatar,@"Avatar",
                             [NSNumber numberWithInt:1],@"RegisterType",
                             nil];
@@ -368,24 +294,32 @@
         [urlRequest setHTTPBody:jsonData];
         [urlRequest addValue:@"application/json"forHTTPHeaderField:@"Content-Type"];
         
+        [self setActivityIndicatorVisibility:YES];
         NSURLSessionDataTask *dataTask=[ephemeralSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
-            if(error==nil)
+            [self setActivityIndicatorVisibility:NO];
+            NSHTTPURLResponse *httpResponse=(NSHTTPURLResponse *)response;
+            NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"Data= %@", text);
+            if(httpResponse.statusCode==200 && error==nil)
             {
-                NSString *text=[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-                NSLog(@"Data= %@", text);
-                
                 if([text integerValue]>0)
                 {
                     //save to file
                     [spgMScooterUtilities saveToFile:kUserInfoFilename data:jsonData];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        [self dismissViewControllerAnimated:NO completion:nil];
-                        [self.LoginVC.view removeFromSuperview];
-                        [self.LoginVC removeFromParentViewController];
+                        [self.navigationController popViewControllerAnimated:NO];
+                        [self.navigationController popViewControllerAnimated:YES];
                     });
                     return;
                 }
+            }
+            else if(httpResponse.statusCode==400)
+            {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.errorLabel.text=@"param error!";
+                    self.errorLabel.hidden=NO;});
+                return;
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -448,7 +382,9 @@
         imagePickerController.sourceType=sourceType;
         imagePickerController.allowsEditing=YES;
         imagePickerController.delegate=self;
-        [self presentViewController:imagePickerController animated:YES completion:nil];
+        spgTabBarViewController *tabVC=(spgTabBarViewController *) self.navigationController.parentViewController;
+        [tabVC presentViewController:imagePickerController animated:YES completion:nil];
+        
     }
     else
     {
@@ -484,27 +420,36 @@
     [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     transition.subtype = kCATransitionFromRight;
     
-    [self.requiredInfoView.layer addAnimation:transition forKey:nil];
+    [verifyVC.view.layer addAnimation:transition forKey:nil];
     [self.optionalInfoView.layer addAnimation:transition forKey:nil];
     
-    self.requiredInfoView.hidden=YES;
+    verifyVC.view.hidden=YES;
     self.optionalInfoView.hidden=NO;
 }
 
 //设置控件样式
 -(void)setTextFieldsUI
 {
-    spgUITextField *phoneTF=(spgUITextField *)self.PhoneField;
-    [phoneTF setLeftImageView:@"mobileIcon.png"];
-    [phoneTF setRightButtonView:self.VerifyButton];
-    
-    [(spgUITextField *)self.VerifycodeField setLeftImageView:@"verificationcodeIcon.png"];
-    
     [(spgUITextField *)self.nicknameField setLeftImageView:@"nameIcon.png"];
     
     spgUITextField *passcodeTF=(spgUITextField *)self.passcodeField;
     [passcodeTF setLeftImageView:@"passcodeIcon.png"];
     [passcodeTF setRightButtonView:self.viewPasscodeButton];
+    
+    [(spgUITextField *)self.emailField setLeftImageView:@"emailIcon.png"];
+}
+
+-(void)setActivityIndicatorVisibility:(BOOL) visible
+{
+    UIActivityIndicatorView *activityIndicator=(UIActivityIndicatorView *)[self.view viewWithTag:1000];
+    if(visible)
+    {
+        [activityIndicator startAnimating];
+    }
+    else
+    {
+        [activityIndicator stopAnimating];
+    }
 }
 
 @end

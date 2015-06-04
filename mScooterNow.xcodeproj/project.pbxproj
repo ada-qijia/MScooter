@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		321D43DF1B046E53000B915A /* profileDefault@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 321D43DE1B046E53000B915A /* profileDefault@2x.png */; };
+		321D43E31B047ABD000B915A /* spgSMSVerifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 321D43E11B047ABD000B915A /* spgSMSVerifyViewController.m */; };
+		321D43E41B047ABD000B915A /* spgSMSVerifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 321D43E21B047ABD000B915A /* spgSMSVerifyViewController.xib */; };
 		326A42ED1A25C2D400941984 /* next@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EB1A25C2D400941984 /* next@2x.png */; };
 		326A42EE1A25C2D400941984 /* pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EC1A25C2D400941984 /* pre@2x.png */; };
 		326A42F01A25C77F00941984 /* bgCampus@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 326A42EF1A25C77F00941984 /* bgCampus@2x.png */; };
@@ -159,6 +162,14 @@
 		32C882AC1A70BF66008061C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 32C882AA1A70BF66008061C2 /* Main.storyboard */; };
 		32C882AF1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 32C882AE1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.m */; };
 		32C882B61A711F0C008061C2 /* spgSideDecoration.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32C882B51A711F0C008061C2 /* spgSideDecoration.xib */; };
+		32CAB1A21B0D84AB00857D3D /* JoinUs.png in Resources */ = {isa = PBXBuildFile; fileRef = 32CAB1A11B0D84AB00857D3D /* JoinUs.png */; };
+		32CAB1AE1B11E19600857D3D /* Eye@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32CAB1AD1B11E19600857D3D /* Eye@2x.png */; };
+		32CAB1B21B11E49500857D3D /* noMomentBg.png in Resources */ = {isa = PBXBuildFile; fileRef = 32CAB1B11B11E49500857D3D /* noMomentBg.png */; };
+		32CAB1B41B11E59300857D3D /* emailIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 32CAB1B31B11E59300857D3D /* emailIcon@2x.png */; };
+		32CAB1B81B11E80700857D3D /* spgMyProfileViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CAB1B61B11E80700857D3D /* spgMyProfileViewController.m */; };
+		32CAB1C01B12C27C00857D3D /* spgMyProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32CAB1BF1B12C27C00857D3D /* spgMyProfileViewController.xib */; };
+		32CAB1C41B12EAF100857D3D /* spgProfileItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32CAB1C21B12EAF100857D3D /* spgProfileItemViewController.m */; };
+		32CAB1C51B12EAF100857D3D /* spgProfileItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 32CAB1C31B12EAF100857D3D /* spgProfileItemViewController.xib */; };
 		32D556261AD79E100081BD5D /* country.plist in Resources */ = {isa = PBXBuildFile; fileRef = 32D556241AD79E100081BD5D /* country.plist */; };
 		32D5562A1AD79EF20081BD5D /* CountryCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 32D556291AD79EF20081BD5D /* CountryCodeViewController.m */; };
 		32D556301AD79FB60081BD5D /* SMS_SDKLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 32D5562C1AD79FB60081BD5D /* SMS_SDKLocalizable.strings */; };
@@ -187,6 +198,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		321D43DE1B046E53000B915A /* profileDefault@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profileDefault@2x.png"; sourceTree = "<group>"; };
+		321D43E01B047ABD000B915A /* spgSMSVerifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgSMSVerifyViewController.h; path = Login/spgSMSVerifyViewController.h; sourceTree = "<group>"; };
+		321D43E11B047ABD000B915A /* spgSMSVerifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgSMSVerifyViewController.m; path = Login/spgSMSVerifyViewController.m; sourceTree = "<group>"; };
+		321D43E21B047ABD000B915A /* spgSMSVerifyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgSMSVerifyViewController.xib; path = Login/spgSMSVerifyViewController.xib; sourceTree = "<group>"; };
 		326A42EB1A25C2D400941984 /* next@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "next@2x.png"; sourceTree = "<group>"; };
 		326A42EC1A25C2D400941984 /* pre@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "pre@2x.png"; sourceTree = "<group>"; };
 		326A42EF1A25C77F00941984 /* bgCampus@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bgCampus@2x.png"; sourceTree = "<group>"; };
@@ -400,6 +415,16 @@
 		32C882AD1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = spgStickyCollectionViewFlowLayout.h; sourceTree = "<group>"; };
 		32C882AE1A70D262008061C2 /* spgStickyCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = spgStickyCollectionViewFlowLayout.m; sourceTree = "<group>"; };
 		32C882B51A711F0C008061C2 /* spgSideDecoration.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = spgSideDecoration.xib; sourceTree = "<group>"; };
+		32CAB1A11B0D84AB00857D3D /* JoinUs.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = JoinUs.png; sourceTree = "<group>"; };
+		32CAB1AD1B11E19600857D3D /* Eye@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Eye@2x.png"; sourceTree = "<group>"; };
+		32CAB1B11B11E49500857D3D /* noMomentBg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = noMomentBg.png; sourceTree = "<group>"; };
+		32CAB1B31B11E59300857D3D /* emailIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "emailIcon@2x.png"; sourceTree = "<group>"; };
+		32CAB1B51B11E80700857D3D /* spgMyProfileViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgMyProfileViewController.h; path = Login/spgMyProfileViewController.h; sourceTree = "<group>"; };
+		32CAB1B61B11E80700857D3D /* spgMyProfileViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgMyProfileViewController.m; path = Login/spgMyProfileViewController.m; sourceTree = "<group>"; };
+		32CAB1BF1B12C27C00857D3D /* spgMyProfileViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgMyProfileViewController.xib; path = Login/spgMyProfileViewController.xib; sourceTree = "<group>"; };
+		32CAB1C11B12EAF100857D3D /* spgProfileItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = spgProfileItemViewController.h; path = Login/spgProfileItemViewController.h; sourceTree = "<group>"; };
+		32CAB1C21B12EAF100857D3D /* spgProfileItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = spgProfileItemViewController.m; path = Login/spgProfileItemViewController.m; sourceTree = "<group>"; };
+		32CAB1C31B12EAF100857D3D /* spgProfileItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = spgProfileItemViewController.xib; path = Login/spgProfileItemViewController.xib; sourceTree = "<group>"; };
 		32D556251AD79E100081BD5D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/country.plist; sourceTree = "<group>"; };
 		32D556281AD79EF20081BD5D /* CountryCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CountryCodeViewController.h; path = Login/CountryCodeViewController.h; sourceTree = "<group>"; };
 		32D556291AD79EF20081BD5D /* CountryCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CountryCodeViewController.m; path = Login/CountryCodeViewController.m; sourceTree = "<group>"; };
@@ -467,21 +492,30 @@
 		329FF84419F608260011B1CE /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				32FC448B1B02121800CA3505 /* spgUITextField.h */,
-				32FC448C1B02121800CA3505 /* spgUITextField.m */,
+				32D556281AD79EF20081BD5D /* CountryCodeViewController.h */,
+				32D556291AD79EF20081BD5D /* CountryCodeViewController.m */,
 				329FF83F19F608180011B1CE /* spgLoginViewController.h */,
 				329FF84019F608180011B1CE /* spgLoginViewController.m */,
 				329FF84119F608180011B1CE /* spgLoginViewController.xib */,
-				32C397291AD4FD0200C06B94 /* spgThirdpartyLoginManager.h */,
-				32C3972A1AD4FD0200C06B94 /* spgThirdpartyLoginManager.m */,
-				32C3972C1AD67EE600C06B94 /* spgUserRegisterViewController.h */,
-				32EF25BA1AF0A56C002CF77D /* spgUserRegisterViewController.m */,
-				32C3972E1AD67EE600C06B94 /* spgUserRegisterViewController.xib */,
-				32D556281AD79EF20081BD5D /* CountryCodeViewController.h */,
-				32D556291AD79EF20081BD5D /* CountryCodeViewController.m */,
+				32CAB1B51B11E80700857D3D /* spgMyProfileViewController.h */,
+				32CAB1B61B11E80700857D3D /* spgMyProfileViewController.m */,
+				32CAB1BF1B12C27C00857D3D /* spgMyProfileViewController.xib */,
 				32FC44861B0098A200CA3505 /* spgRetrievePasswordViewController.h */,
 				32FC44871B0098A200CA3505 /* spgRetrievePasswordViewController.m */,
 				32FC44881B0098A200CA3505 /* spgRetrievePasswordViewController.xib */,
+				321D43E01B047ABD000B915A /* spgSMSVerifyViewController.h */,
+				321D43E11B047ABD000B915A /* spgSMSVerifyViewController.m */,
+				321D43E21B047ABD000B915A /* spgSMSVerifyViewController.xib */,
+				32C397291AD4FD0200C06B94 /* spgThirdpartyLoginManager.h */,
+				32C3972A1AD4FD0200C06B94 /* spgThirdpartyLoginManager.m */,
+				32FC448B1B02121800CA3505 /* spgUITextField.h */,
+				32FC448C1B02121800CA3505 /* spgUITextField.m */,
+				32C3972C1AD67EE600C06B94 /* spgUserRegisterViewController.h */,
+				32EF25BA1AF0A56C002CF77D /* spgUserRegisterViewController.m */,
+				32C3972E1AD67EE600C06B94 /* spgUserRegisterViewController.xib */,
+				32CAB1C11B12EAF100857D3D /* spgProfileItemViewController.h */,
+				32CAB1C21B12EAF100857D3D /* spgProfileItemViewController.m */,
+				32CAB1C31B12EAF100857D3D /* spgProfileItemViewController.xib */,
 			);
 			name = Login;
 			sourceTree = "<group>";
@@ -755,6 +789,11 @@
 		32B1FFCA19C978C800D9FFF5 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				32CAB1B31B11E59300857D3D /* emailIcon@2x.png */,
+				32CAB1B11B11E49500857D3D /* noMomentBg.png */,
+				32CAB1AD1B11E19600857D3D /* Eye@2x.png */,
+				32CAB1A11B0D84AB00857D3D /* JoinUs.png */,
+				321D43DE1B046E53000B915A /* profileDefault@2x.png */,
 				32FC448E1B02EEBA00CA3505 /* nameIcon@2x.png */,
 				32FC448F1B02EEBA00CA3505 /* verificationcodeIcon@2x.png */,
 				32FC44901B02EEBA00CA3505 /* mobileIcon@2x.png */,
@@ -983,6 +1022,7 @@
 				32AE9B201A2EFCB600656AA9 /* passcodeDot@2x.png in Resources */,
 				32B75F2C1A7775B00014048D /* poweronDisabled.png in Resources */,
 				32BF2D6B1A398E5400D972DD /* settingAbout.png in Resources */,
+				321D43E41B047ABD000B915A /* spgSMSVerifyViewController.xib in Resources */,
 				32A1A7F819FF877900B7B8DD /* snsWechat.png in Resources */,
 				32B6973B1A109526004C1879 /* scooterFlagActive.png in Resources */,
 				32ABC2C719CBC9AE00F3254E /* circles@2x.png in Resources */,
@@ -993,6 +1033,7 @@
 				32A1A7FF19FF8B0C00B7B8DD /* back.png in Resources */,
 				32B1FFA219C974AD00D9FFF5 /* Images.xcassets in Resources */,
 				32B1FFDE19C978C800D9FFF5 /* capture@2x.png in Resources */,
+				32CAB1C01B12C27C00857D3D /* spgMyProfileViewController.xib in Resources */,
 				32ADA25F19EF70FF0081BD51 /* dashboard@2x.png in Resources */,
 				32C882AC1A70BF66008061C2 /* Main.storyboard in Resources */,
 				32AC187F1A24859A0020A147 /* bgGradient@2x.jpg in Resources */,
@@ -1013,6 +1054,7 @@
 				326A42ED1A25C2D400941984 /* next@2x.png in Resources */,
 				32BF2D6D1A398E5400D972DD /* settingMode.png in Resources */,
 				32B1FFEA19C978C800D9FFF5 /* scooterOutline.png in Resources */,
+				32CAB1B21B11E49500857D3D /* noMomentBg.png in Resources */,
 				32FC448A1B0098A200CA3505 /* spgRetrievePasswordViewController.xib in Resources */,
 				32B5F0E31A00D0B300A70CDC /* dashboardCircle.png in Resources */,
 				32BF2D6C1A398E5400D972DD /* settingArrow.png in Resources */,
@@ -1023,6 +1065,7 @@
 				32B6835B1A3AD3B7000F4934 /* battery2@2x.png in Resources */,
 				32FC44921B02EEBA00CA3505 /* nameIcon@2x.png in Resources */,
 				329FF86419F662260011B1CE /* spgIntroductionPanel.xib in Resources */,
+				321D43DF1B046E53000B915A /* profileDefault@2x.png in Resources */,
 				32A0285B1A6514E400F151E4 /* spgAssetViewController.xib in Resources */,
 				32ABC2CF19CBC9AE00F3254E /* video.png in Resources */,
 				32A1A80519FF8B2D00B7B8DD /* powerOn.png in Resources */,
@@ -1088,12 +1131,16 @@
 				32D680721A8082C60000EA68 /* 01.png in Resources */,
 				32B6835E1A3AD3B7000F4934 /* battery5@2x.png in Resources */,
 				32AE9B1D1A2EE28000656AA9 /* disabledButtonBg.png in Resources */,
+				32CAB1A21B0D84AB00857D3D /* JoinUs.png in Resources */,
 				32C397301AD67EE600C06B94 /* spgUserRegisterViewController.xib in Resources */,
 				32ADA25919EF66D60081BD51 /* time.png in Resources */,
+				32CAB1C51B12EAF100857D3D /* spgProfileItemViewController.xib in Resources */,
 				32C487871A6F559200A42D33 /* spgGaugesLandscapeView.xib in Resources */,
 				32A3BF781A7A229B00E10085 /* play.png in Resources */,
 				32FC44941B02EEBA00CA3505 /* mobileIcon@2x.png in Resources */,
+				32CAB1AE1B11E19600857D3D /* Eye@2x.png in Resources */,
 				32D556261AD79E100081BD5D /* country.plist in Resources */,
+				32CAB1B41B11E59300857D3D /* emailIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1141,6 +1188,7 @@
 				32B1001819C97B7900D9FFF5 /* spgPinViewController.m in Sources */,
 				326A42F91A2856F800941984 /* spgScooterPeripheral.m in Sources */,
 				32B1000A19C97B1800D9FFF5 /* THPinInputCirclesView.m in Sources */,
+				321D43E31B047ABD000B915A /* spgSMSVerifyViewController.m in Sources */,
 				32EF25BB1AF0A56C002CF77D /* spgUserRegisterViewController.m in Sources */,
 				32B1001519C97B2D00D9FFF5 /* spgBLEService.m in Sources */,
 				32B6972B1A106217004C1879 /* spgModeSettingsViewController.m in Sources */,
@@ -1149,7 +1197,9 @@
 				32B1000D19C97B1800D9FFF5 /* THPinNumPadView.m in Sources */,
 				32A13C2619F4D7B200D1AC9E /* spgIntroductionViewController.m in Sources */,
 				32B1004319CADBB000D9FFF5 /* spgARGaugesViewController.m in Sources */,
+				32CAB1B81B11E80700857D3D /* spgMyProfileViewController.m in Sources */,
 				32B1000E19C97B1800D9FFF5 /* THPinView.m in Sources */,
+				32CAB1C41B12EAF100857D3D /* spgProfileItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

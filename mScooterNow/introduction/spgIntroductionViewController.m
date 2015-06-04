@@ -116,7 +116,15 @@
 
 //close this view
 - (IBAction)backClicked:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    //push from left
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.3;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush;
+    transition.subtype = kCATransitionFromLeft;
+    [self.view.window.layer addAnimation:transition forKey:nil];
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 @end

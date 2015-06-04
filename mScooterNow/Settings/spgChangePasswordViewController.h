@@ -10,7 +10,14 @@
 
 @interface spgChangePasswordViewController : UIViewController <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UITextField *OldPasscodeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *NewPasscodeTextField;
+@property (weak, nonatomic) IBOutlet UITextField *RenewPasscodeTextField;
+@property (weak, nonatomic) IBOutlet UILabel *ErrorLabel;
+@property (weak, nonatomic) IBOutlet UIButton *OKButton;
+
 - (IBAction)okClicked:(UIButton *)sender;
-- (IBAction)cancelClicked:(UIButton *)sender;
+
+- (IBAction)passcodeChanged:(id)sender;
 
 @end

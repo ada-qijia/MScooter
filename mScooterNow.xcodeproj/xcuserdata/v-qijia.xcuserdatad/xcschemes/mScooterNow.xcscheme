@@ -58,7 +58,8 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B1FF8519C974AC00D9FFF5"
@@ -83,7 +84,8 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "32B1FF8519C974AC00D9FFF5"

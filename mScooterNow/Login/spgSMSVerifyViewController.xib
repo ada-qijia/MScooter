@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="spgSMSVerifyViewController">
+            <connections>
+                <outlet property="NextButton" destination="QS7-iS-mr9" id="Wj9-9s-TLe"/>
+                <outlet property="PhoneField" destination="UZF-O8-T0U" id="OPa-9r-gyl"/>
+                <outlet property="VerifyButton" destination="pdC-8m-qMr" id="hkB-nN-UKG"/>
+                <outlet property="VerifycodeField" destination="aNv-lF-2f6" id="6NA-MQ-ON6"/>
+                <outlet property="subTitleLabel" destination="Aim-pl-BxS" id="iPC-Hp-eKE"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="270"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aim-pl-BxS">
+                    <rect key="frame" x="20" y="30" width="281" height="17"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Phone Number" minimumFontSize="17" clearButtonMode="whileEditing" id="UZF-O8-T0U" userLabel="phone" customClass="spgUITextField">
+                    <rect key="frame" x="18" y="57" width="285" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <connections>
+                        <action selector="phoneChanged:" destination="-1" eventType="editingChanged" id="Cs7-p0-1rd"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="pdC-8m-qMr">
+                    <rect key="frame" x="235" y="59" width="66" height="36"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Verify">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="getCheckcodeClick:" destination="-1" eventType="touchUpInside" id="pKz-LO-UQk"/>
+                    </connections>
+                </button>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Verification Code" minimumFontSize="17" id="aNv-lF-2f6" userLabel="code" customClass="spgUITextField">
+                    <rect key="frame" x="18" y="105" width="285" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                    <connections>
+                        <action selector="verifycodeChanged:" destination="-1" eventType="editingChanged" id="Fm5-UL-Twt"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="QS7-iS-mr9">
+                    <rect key="frame" x="18" y="193" width="285" height="40"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.29803921570000003" green="0.75686274509999996" blue="0.82352941180000006" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="Next">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="nextClicked:" destination="-1" eventType="touchUpInside" id="8Ne-bz-tLN"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="401" y="392"/>
+        </view>
+    </objects>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

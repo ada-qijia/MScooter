@@ -13,27 +13,20 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *errorLabel;
 @property (weak, nonatomic) IBOutlet UIButton *ChooseCountryButton;
-@property (weak, nonatomic) IBOutlet UITextField *PhoneField;
-@property (weak, nonatomic) IBOutlet UITextField *VerifycodeField;
 @property (weak, nonatomic) IBOutlet UIButton *avatarButton;
-@property (weak, nonatomic) IBOutlet UITextField *emailField;
 @property (weak, nonatomic) IBOutlet UITextField *nicknameField;
 @property (weak, nonatomic) IBOutlet UITextField *passcodeField;
-@property (weak, nonatomic) IBOutlet UIButton *VerifyButton;
 @property (weak, nonatomic) IBOutlet UIButton *viewPasscodeButton;
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
 - (IBAction)HidePasscode:(id)sender;
 - (IBAction)showPasscode:(id)sender;
 - (IBAction)ChooseCountryClick:(id)sender;
-- (IBAction)backClick:(id)sender;
-- (IBAction)getCheckcodeClick:(id)sender;
 - (IBAction)submitClick:(id)sender;
 - (IBAction)avatarClick:(id)sender;
 
 @property (weak,nonatomic) UIViewController * LoginVC;
-
-@property (weak, nonatomic) IBOutlet UIView *requiredInfoView;
 @property (weak, nonatomic) IBOutlet UIView *optionalInfoView;
-- (IBAction)nextClicked:(id)sender;
+
 
 @end
