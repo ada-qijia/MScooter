@@ -40,10 +40,10 @@ static NSString * const headerIdentifier=@"Header";
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    NSArray *momentsArray=[spgMomentsPersistence getMoments];
+    NSMutableArray *momentsArray=[spgMomentsPersistence getMoments];
     NSString *backImg=momentsArray.count==0?@"noMomentBg.png":@"momentsbg.png";
     self.BackgroundImage.image=[UIImage imageNamed:backImg];
-
+    
     //don't reload when no changes.
     if(presentCount==momentsArray.count)
     {return;}
@@ -51,16 +51,35 @@ static NSString * const headerIdentifier=@"Header";
     self.assets=[NSMutableArray array];
     
     NSLog(@"Start loading assets...");
+    NSMutableArray *notExistMomentsArray=[NSMutableArray array];
     for(NSString *urlStr in momentsArray)
     {
         PHFetchResult *fetchResult=[PHAsset fetchAssetsWithALAssetURLs:[NSArray arrayWithObject:[NSURL URLWithString:urlStr]] options:nil];
-        PHAsset *asset= [fetchResult objectAtIndex:0];
-        if(asset)
+        if(fetchResult.count>0)
         {
-            KeyValuePair *pair=[[KeyValuePair alloc] initWithKey:urlStr value:asset];
-            [self.assets addObject:pair];
+            PHAsset *asset= [fetchResult objectAtIndex:0];
+            if(asset)
+            {
+                KeyValuePair *pair=[[KeyValuePair alloc] initWithKey:urlStr value:asset];
+                [self.assets addObject:pair];
+            }
+        }
+        else
+        {
+            [notExistMomentsArray addObject:urlStr];
         }
     }
+    
+    //delete not exist items
+    if(notExistMomentsArray.count>0)
+    {
+        for(NSString *urlStr in notExistMomentsArray)
+        {
+          [momentsArray removeObject:urlStr];
+        }
+        [spgMomentsPersistence saveMoments:momentsArray];
+    }
+    
     self.momentGroups=[self groupAssetsWithTime:self.assets];
     
     NSLog(@"Finished loading assets...");

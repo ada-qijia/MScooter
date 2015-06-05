@@ -78,7 +78,7 @@
                     [self.movieController.view setFrame: self.view.bounds];
                     self.movieController.controlStyle=MPMovieControlStyleFullscreen;
                 }
-
+                
                 [self.ItemView insertSubview:self.movieController.view atIndex:3];
                 [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(moviePlayBackDidFinish:) name: MPMoviePlayerPlaybackDidFinishNotification object: self.movieController];
                 //format should be like this:@"file:///var/mobile/Media/DCIM/100APPLE/IMG_0958.mov"
@@ -152,7 +152,7 @@
     return transition;
 }
 
-#pragma - mark UI interaction
+#pragma mark - UI interaction
 
 - (IBAction)PlayClicked:(id)sender {
     [self playVideo];
@@ -197,17 +197,20 @@
         NSString *result=success?@"success":@"failed";
         NSLog(@"delete photo/video %@ %@",assetUrl, result);
         
-        //remove from persistence.
-        NSMutableArray *momentsArray=[spgMomentsPersistence getMoments];
-        if([momentsArray containsObject:assetUrl])
+        if(success)
         {
-            [momentsArray removeObject:assetUrl];
-            [spgMomentsPersistence saveMoments:momentsArray];
-            
-            //update current page
-            [self.assets removeObjectAtIndex:self.currentIndex];
-            self.currentIndex=self.currentIndex%self.assets.count;
-            [self setCurrentItemView];
+            //remove from persistence.
+            NSMutableArray *momentsArray=[spgMomentsPersistence getMoments];
+            if([momentsArray containsObject:assetUrl])
+            {
+                [momentsArray removeObject:assetUrl];
+                [spgMomentsPersistence saveMoments:momentsArray];
+                
+                //update current page
+                [self.assets removeObjectAtIndex:self.currentIndex];
+                self.currentIndex=self.currentIndex%self.assets.count;
+                [self setCurrentItemView];
+            }
         }
     }];
 }
